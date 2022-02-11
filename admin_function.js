@@ -206,7 +206,7 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
                   result += `<td><button id='view_more_`+i+`' class='btn btn-danger' > <i class="fa-solid fa-eye"></i> </button></td>`;  
                   All_data_obj.view_index[i] = 'view_more_'+i;  
                   All_data_obj.obj_data[i] = Object.values(dataArray[i]);
-                  console.log(Object.values(dataArray[i]));
+
 
               
                 }
@@ -601,3 +601,271 @@ function Delete_User(All_data_obj ,id )
 }
 
 
+
+
+
+function createTable_invoice(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num) {
+  
+  var end_of_arr = 0;
+
+
+    clear(All_data_obj.location_next);
+    next_Section(All_data_obj.location_next);
+
+    if(All_data_obj.Start_Index > dataArray.length)
+    {
+        var div = document.getElementById(All_data_obj.table_div);
+        div.innerHTML = '';
+        clear(All_data_obj.location_next);
+        return;
+    }
+    var End_Index = 0;
+    if( (dataArray.length - All_data_obj.Start_Index ) >= 10)
+    {
+        End_Index = All_data_obj.Start_Index + 9;
+    }
+    else{
+        End_Index = dataArray.length;
+    }
+
+  if(dataArray && dataArray !== undefined && dataArray.length != 0){
+
+    document.getElementById(All_data_obj.location_index).innerHTML = `<label>`+Math.ceil(All_data_obj.Start_Index/10)+" - "+Math.ceil(dataArray.length/10)+` </label>`;
+
+    var result = "<table class='table' id='dtable'>"+
+                 "<thead   style='white-space:nowrap' >"+
+                   "<tr>";                               //Change table headings to match witht he Google Sheet
+                    
+                   if(table_cols == null)
+                   {
+                    for(var index = 0 ; index < All_data_obj.all_names.length ; index ++)
+                    {
+                    result +="<th scope='col'>"+All_data_obj.all_names[index]+"</th>";
+                    }
+                  }
+                  else{
+                    for(var index = 0 ; index < table_cols ; index ++)
+                    {
+                    result +="<th scope='col'>Block "+(index+1)+"</th>";
+                    }
+                  }
+
+
+              result += "</tr>"+
+                        "</thead>";
+                var counter = 0;
+                
+              if(table_rows == null)
+              {
+
+                for(var i=(All_data_obj.Start_Index-1); i<End_Index; i++) {
+                  result += "<tr>";
+                  counter = i;
+                  if(deduct_num == null)
+                  {
+                    end_of_arr = Object.values(dataArray[i]).length ;
+                  }
+                  else
+                  {
+                    end_of_arr = deduct_num;
+                  }
+                  
+                  for(var index = 0 ; index < end_of_arr  ; index++)
+                  {
+                    result += "<td style='white-space:nowrap' >";
+                    result += Object.values(dataArray[i])[index]; 
+                    result +="</td>"
+                  }
+
+                  if(Clear_btn == null)
+                  {
+                  result += `<td><button id='btn_get_`+i+`' class='btn btn-light'  > <i class="fas fa-edit"></i> </button></td>`;
+                  result += `<td><button id='btn_del_`+i+`' class='btn btn-danger' > <i class="fas fa-trash-alt"></i> </button></td>`;                  
+                  }
+                  if(Create_btn == "open")
+                  {
+                    result += `<td><button id='view_more_`+i+`' class='btn btn-danger' > <i class="fa-solid fa-circle-arrow-right"></i> </button></td>`;   
+                    All_data_obj.view_index[i] = 'view_more_'+i;
+                    All_data_obj.obj_data[i] = Object.values(dataArray[i]);                                  
+                  }
+                  result += "</tr>";
+  
+                  All_data_obj.index_num_value[i] = dataArray[i].id;
+                  All_data_obj.edit_index[i] = 'btn_get_'+i;
+                  All_data_obj.delete_index[i] = 'btn_del_'+i;
+                  
+              }
+  
+             }
+             else{
+              for(var i=(All_data_obj.Start_Index-1); i<End_Index; i++) {
+                result += "<tr>";
+                counter = i;
+                result += "<td style='white-space:nowrap' >"+ Object.values(dataArray[i])[0]+" </td>";
+
+                if(deduct_num == null)
+                {
+                  end_of_arr = Object.values(dataArray[i]).length ;
+                }
+                else
+                {
+                  end_of_arr = deduct_num;
+                }
+
+
+                    result += "<td style='white-space:nowrap' >";
+                    result += Object.values(dataArray[i])[1]+"<br>"; 
+                    result += Object.values(dataArray[i])[2]+"<br>"; 
+                    result += Object.values(dataArray[i])[3]+"<br>"; 
+                    result += Object.values(dataArray[i])[4]+"<br>"; 
+                    result += Object.values(dataArray[i])[5]+"<br>"; 
+                    result +="</td>"
+                    result += "<td style='white-space:nowrap' >";
+                    result += Object.values(dataArray[i])[6]+"<br>"; 
+                    result += Object.values(dataArray[i])[7]+"<br>"; 
+                    result += Object.values(dataArray[i])[8]+"<br>"; 
+                    result += Object.values(dataArray[i])[9]+"<br>"; 
+                    result += Object.values(dataArray[i])[10]+"<br>"; 
+                    result += Object.values(dataArray[i])[11]+"<br>"; 
+                    result +="</td>"  
+
+                    result += "<td style='white-space:nowrap' >";
+                    result += Object.values(dataArray[i])[12]+"<br>"; 
+                    result += Object.values(dataArray[i])[13]+"<br>"; 
+                    result += Object.values(dataArray[i])[14]+"<br>"; 
+                    result += Object.values(dataArray[i])[15]+"<br>"; 
+                    result += Object.values(dataArray[i])[16]+"<br>"; 
+                    result += Object.values(dataArray[i])[17]+"<br>"; 
+                    result += Object.values(dataArray[i])[18]+"<br>"; 
+                    result += Object.values(dataArray[i])[19]+"<br>"; 
+                    result += Object.values(dataArray[i])[20]; 
+                    result +="</td>"  
+
+                if(Clear_btn == null)
+                {
+                result += `<td><button id='btn_get_`+i+`' class='btn btn-light'  > <i class="fas fa-edit"></i> </button></td>`;
+                result += `<td><button id='btn_del_`+i+`' class='btn btn-danger' > <i class="fas fa-trash-alt"></i> </button></td>`;                  
+                }
+
+                  result += `<td><button id='view_more_`+i+`' class='btn btn-primary' > <i class="fa-solid fa-circle-arrow-right"></i> </button></td>`;  
+                  All_data_obj.view_index[i] = 'view_more_'+i;  
+                  All_data_obj.obj_data[i] = Object.values(dataArray[i]);
+
+                result += "</tr>";
+
+                All_data_obj.index_num_value[i] = dataArray[i].id;
+                All_data_obj.edit_index[i] = 'btn_get_'+i;
+                All_data_obj.delete_index[i] = 'btn_del_'+i;
+                
+              }
+             }
+
+             
+
+    
+    result += "</table>";
+    var div = document.getElementById(All_data_obj.table_div);
+    div.innerHTML = result;
+
+    if(func_callback)
+    {
+      func_callback(All_data_obj , End_Index);
+    }
+
+    $(document).ready(function () {
+      var counter_index = 0;
+        for(var index = 0 ; index < All_data_obj.index_num_value.length ; index++)
+        {
+            $('#btn_get_'+index).click(function (index) {  
+
+                Get_one_user( All_data_obj , this.id);
+            });
+
+            $('#btn_del_'+index).click(function () {
+              if (confirm("You want to delete!") == true) {
+              Delete_User( All_data_obj , this.id );
+              }
+              else
+              {
+
+              }
+          });
+        }
+
+
+    });
+
+
+
+  }else{
+    var div = document.getElementById(All_data_obj.table_div);
+    div.innerHTML = "Data not found!";
+  }
+
+
+  $(document).ready(function () {
+    $(All_data_obj.next_btn).click(function () {
+
+    if( (dataArray.length - All_data_obj.Start_Index ) > 10)
+    {
+
+        All_data_obj.Start_Index = End_Index+1;
+        createTable_invoice(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num)
+    }
+    else if( (dataArray.length - All_data_obj.Start_Index ) < 10 &&  (dataArray.length - All_data_obj.Start_Index ) > 0)
+    {
+      if(End_Index+1 > dataArray.length)
+      {
+
+      }
+      else{
+        All_data_obj.Start_Index = End_Index+1;
+        createTable_invoice(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num)
+      }
+
+
+    }
+    else{
+
+    }
+    });
+
+    $(All_data_obj.prev_btn).click(function () {
+
+        var perv = All_data_obj.Start_Index - 10;
+        
+        if(perv > 0)
+        {
+          All_data_obj.Start_Index = perv;
+          createTable_invoice(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num)
+        }
+});
+$(All_data_obj.ind_btn).change(function () {
+
+            var value_pages = document.getElementById('page_index').value;
+            var value_pages_multi = (value_pages*10);
+
+            
+            if(value_pages_multi >0)
+            {
+
+            if( dataArray.length > value_pages_multi  )
+                {
+                    All_data_obj.Start_Index = value_pages_multi-9;
+                    createTable_invoice(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num)
+                }
+                else{
+                    if((value_pages_multi - dataArray.length ) < 10)
+                    {
+                        All_data_obj.Start_Index = value_pages_multi-9;
+                        createTable_invoice(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num)
+                    }
+                }
+            }
+    });
+
+});
+
+
+  return End_Index;
+}

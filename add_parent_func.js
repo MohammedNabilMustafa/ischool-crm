@@ -909,7 +909,7 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
      
      value_elments = []
      value_elments[0] = st_id;
-     value_elments[1] = All_data_obj_obj.fees;
+     value_elments[1] = 0;
      value_elments[2] = All_data_obj_obj.paid_as;
      value_elments[3] = 'waiting';
      value_elments[4] = Date_[0];
