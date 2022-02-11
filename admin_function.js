@@ -1,5 +1,9 @@
 
 
+// var database_fixed_link = "http://localhost/iSchool/fetch.php";
+var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
+
+
 //------------------------------------------------------------
 //------------------------------------------------------------
 //---------------------Admin -------------------------

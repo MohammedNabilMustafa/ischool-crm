@@ -10,7 +10,7 @@ function INVOICE_STUDENT()
     //document.getElementById("Location_4").innerHTML = "";
     document.getElementById("search-results").innerHTML = "";
 
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = [
         [

@@ -1,4 +1,6 @@
 
+
+
 function ADD_NEW_EMPLOYEE()
 {
     document.getElementById("Location_1").innerHTML = "";
@@ -7,7 +9,7 @@ function ADD_NEW_EMPLOYEE()
     //document.getElementById("Location_4").innerHTML = "";
     document.getElementById("search-results").innerHTML = "";
 
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = [
                       ["name"],
@@ -137,7 +139,7 @@ function html_create_lists_employee(paper_inputs , paper_inputs_label  , locatio
 function add_new_empolyee(All_req_obj,paper_inputs)
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["name" 

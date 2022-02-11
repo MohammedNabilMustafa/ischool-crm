@@ -12,7 +12,7 @@ var saved_status_arr = []
 function ADD_NEW_PARENT_GROUPS()
 {
 
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
     var inputs_col = [["name" , "slot" ],
     ["name"],
     ["name"],
@@ -114,7 +114,7 @@ function ADD_NEW_PARENT()
     //document.getElementById("Location_4").innerHTML = "";
     document.getElementById("search-results").innerHTML = "";
 
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
     var inputs_col = [
         ["name"],
         ["name"],
@@ -413,7 +413,7 @@ function html_create_lists_parent(paper_inputs , paper_inputs_label  , location_
 function add_new_parent_(All_req_obj,paper_inputs )
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["name" 
@@ -526,7 +526,7 @@ function add_new_parent_(All_req_obj,paper_inputs )
 function add_new_student(All_req_obj,paper_inputs , parent_id )
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["std_id" 
@@ -650,7 +650,7 @@ function add_new_student(All_req_obj,paper_inputs , parent_id )
 function add_student_to_group_(All_req_obj,paper_inputs , student_id , group_id_value , student_age  )
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["groups_id" 
@@ -745,7 +745,7 @@ function add_student_to_group_(All_req_obj,paper_inputs , student_id , group_id_
 function add_new_student_package_parent(All_req_obj,paper_inputs , student_id , package_id_value , student_package_date)
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [
@@ -789,7 +789,7 @@ function add_new_student_package_parent(All_req_obj,paper_inputs , student_id , 
 function add_new_student_getpackage_parent(All_req_obj,paper_inputs , package_id , st_id , student_package_date)
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [
@@ -832,7 +832,7 @@ function add_new_student_getpackage_parent(All_req_obj,paper_inputs , package_id
 function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_obj , st_id , student_package_date)
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [

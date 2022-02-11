@@ -23,7 +23,7 @@ function ADD_SESSION_TO_GROUP()
     //document.getElementById("Location_4").innerHTML = "";
     document.getElementById("search-results").innerHTML = "";
 
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = [["name" , "slot" ],
     ["name"],
@@ -887,7 +887,7 @@ value += `<label id='L`+paper_+`' for="`+paper_+`" style='visibility:hidden'>`+t
 function add_new_group_schedule(object_group , All_req_obj)
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
     var inputs_col = 
     ["slot_id" 
     , "lan_id" 
@@ -974,7 +974,7 @@ function add_new_group_schedule(object_group , All_req_obj)
 function add_new_session_schedule(object_group , group_id_in , All_req_obj)
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
     var inputs_col = 
     ["groups_id" 
     , "employee_id" 

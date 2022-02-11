@@ -2,7 +2,7 @@
 function groups()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [
@@ -101,7 +101,7 @@ function groups()
 function sessions()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["groups_id" 
@@ -182,7 +182,7 @@ function sessions()
 function att_feed()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["student_id" 
@@ -255,7 +255,7 @@ function att_feed()
 function slots()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["name" 
@@ -321,7 +321,7 @@ function slots()
 function lan()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["name" 
@@ -384,7 +384,7 @@ function lan()
 function attend()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["name" 
@@ -448,7 +448,7 @@ function attend()
 function track()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["name" 
@@ -512,7 +512,7 @@ function track()
 function age()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["name"
@@ -582,7 +582,7 @@ function age()
 function level()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["name" 
@@ -645,7 +645,7 @@ function level()
 function session_type()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["name" 
@@ -708,7 +708,7 @@ function session_type()
 function days()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["name" 
@@ -771,7 +771,7 @@ function days()
 function students()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["std_id"
@@ -852,7 +852,7 @@ function students()
 function student_groups()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["groups_id"
@@ -922,7 +922,7 @@ function student_groups()
 function parent()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["name"
@@ -1020,7 +1020,7 @@ function parent()
 function employee()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [
@@ -1111,7 +1111,7 @@ function employee()
 function permission()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [
@@ -1176,7 +1176,7 @@ function permission()
 function role()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [
@@ -1241,7 +1241,7 @@ function role()
 function department()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [
@@ -1306,7 +1306,7 @@ function department()
 function student_status()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [
@@ -1371,7 +1371,7 @@ function student_status()
 function packages()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [
@@ -1453,7 +1453,7 @@ function packages()
 function invoice()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [
@@ -1548,7 +1548,7 @@ function invoice()
 function student_package()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [
@@ -1618,7 +1618,7 @@ function student_package()
 function invoice_status()
 {
     var Saved_data = [];
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [

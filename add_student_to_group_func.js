@@ -6,7 +6,7 @@ function ADD_STUDENT_TO_GROUP()
     //document.getElementById("Location_4").innerHTML = "";
     document.getElementById("search-results").innerHTML = "";
 
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = [["name" , "slot" ],
     ["name"],
@@ -474,7 +474,7 @@ function return_func(All_table_obj , func , arr_data , All_req_obj , paper_input
 function add_new_student_group(All_req_obj,paper_inputs)
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [

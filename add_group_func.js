@@ -10,7 +10,7 @@ function ADD_NEW_GROUP_FUNC()
     //document.getElementById("Location_4").innerHTML = "";
     document.getElementById("search-results").innerHTML = "";
 
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = [["name" , "slot" ],
                       ["name"],
@@ -179,7 +179,7 @@ function html_create_lists_groups_func(paper_inputs , paper_inputs_label  , loca
 function add_new_Groups_func(All_req_obj,paper_inputs)
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["slot_id" 

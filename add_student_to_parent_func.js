@@ -8,7 +8,7 @@ function ADD_STUDENT_TO_PARENT()
     //document.getElementById("Location_4").innerHTML = "";
     document.getElementById("search-results").innerHTML = "";
 
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = [
         ["name" 
@@ -195,7 +195,7 @@ function quary_tables_all_status_add_student_to_parent(All_table_obj , func)
 function add_new_student_parent(All_req_obj,paper_inputs)
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["std_id" 

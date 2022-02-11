@@ -10,7 +10,7 @@ function ADD_STUDENT_TO_PACKAGE(response)
     //document.getElementById("Location_4").innerHTML = "";
     document.getElementById("search-results").innerHTML = "";
 
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = [
     [
@@ -368,7 +368,7 @@ function html_create_lists_add_student_package(paper_inputs , paper_inputs_label
 function add_new_student_package(All_req_obj,paper_inputs)
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [
@@ -432,7 +432,7 @@ function add_new_student_package(All_req_obj,paper_inputs)
 function add_new_student_getpackage(All_req_obj,paper_inputs , package_id , st_id)
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [
@@ -475,7 +475,7 @@ function add_new_student_getpackage(All_req_obj,paper_inputs , package_id , st_i
 function add_new_student_invoice(All_req_obj,paper_inputs , All_data_obj_obj , st_id)
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     [

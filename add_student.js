@@ -23,7 +23,7 @@ function ADD_NEW_STUDENT()
     //document.getElementById("Location_4").innerHTML = "";
     document.getElementById("search-results").innerHTML = "";
 
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
     var inputs_col = [
          ["name" 
          , "phone" 
@@ -236,7 +236,7 @@ function add_new_parent_student_(All_req_obj,paper_inputs )
 function add_new_student_(All_req_obj,paper_inputs)
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["std_id" 
@@ -348,7 +348,7 @@ function add_new_student_(All_req_obj,paper_inputs)
 function add_new_student_to_groups(All_req_obj,paper_inputs , value_group_id , value_student_id , value_parent_id , student_age)
 {
     
-    var Database_link = "http://localhost/iSchool/fetch.php"
+    var Database_link = database_fixed_link
 
     var inputs_col = 
     ["groups_id" 
