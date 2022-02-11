@@ -120,13 +120,15 @@ function quary_tables_all_paper_invoice(All_table_obj , func)
     var row_count_1 = 0;
     var student_count;
 
+    // console.log(All_table_obj.tables);
+
    if(All_table_obj.tables[0] && All_table_obj.tables[0] !== undefined && All_table_obj.tables[0].length != 0){
 
         for(var index = 0 ; index < All_table_obj.tables[0].length ; index++)
         {
             var saved_arr = []
             var counter = 0;
-            saved_arr[counter] = All_table_obj.tables[0][index].id;counter++;
+            saved_arr[counter] = `<div class='row'><input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='id_invoice_${index}' value='${All_table_obj.tables[0][index].id}' readonly></div>`;counter++;
 
             var saved_st_id = All_table_obj.tables[0][index].student_id;
             if(All_table_obj.tables[1] && All_table_obj.tables[1] !== undefined && All_table_obj.tables[1].length != 0){
@@ -135,11 +137,12 @@ function quary_tables_all_paper_invoice(All_table_obj , func)
                 {
                     if(All_table_obj.tables[1][index_1].id == saved_st_id)
                     {
-                        saved_arr[counter] = `ST ID : `+All_table_obj.tables[1][index_1].id;counter++;
-                        saved_arr[counter] = `ST iSchool  ID : `+All_table_obj.tables[1][index_1].std_id;counter++;
-                        saved_arr[counter] = `ST Name : `+All_table_obj.tables[1][index_1].name;counter++;
-                        saved_arr[counter] = `ST Parent ID : `+All_table_obj.tables[1][index_1].parent_id;counter++;
-                        saved_arr[counter] = `ST Status : `+All_table_obj.tables[1][index_1].std_status;counter++;
+                        saved_arr[counter] = `<div class='row'>Student ID : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='id_student_${index}' value='${All_table_obj.tables[1][index_1].id}' readonly></div>`;counter++;
+                        saved_arr[counter] = `<div class='row'>Student iSchool  ID : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='text' id='std_id_student_${index}' value='${All_table_obj.tables[1][index_1].std_id}' readonly></div>`;counter++;
+                        saved_arr[counter] = `<div class='row'>Student Name : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:200px!important;text-align:center;' type='text' id='name_student_${index}' value='${All_table_obj.tables[1][index_1].name}' readonly></div>`;counter++;
+                        saved_arr[counter] = `<div class='row'>Student Parent ID : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='parent_id_student_${index}' value='${All_table_obj.tables[1][index_1].parent_id}' readonly></div>`;counter++;
+                        saved_arr[counter] = `<div class='row'>Student Status : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='status_student_${index}' value='${All_table_obj.tables[1][index_1].std_status}' readonly></div>`;counter++;
+
                         break;
                     }
                 }
@@ -153,37 +156,42 @@ function quary_tables_all_paper_invoice(All_table_obj , func)
             {
                 if(All_table_obj.tables[2][index_1].id == saved_pk_id)
                 {
-                    saved_arr[counter] = `Package ID : `+All_table_obj.tables[2][index_1].id;counter++;
-                    saved_arr[counter] = `Package Name : `+All_table_obj.tables[2][index_1].name;counter++;
-                    saved_arr[counter] = `Package Fees : `+All_table_obj.tables[2][index_1].fees;counter++;
-                    saved_arr[counter] = `Package Quota : `+All_table_obj.tables[2][index_1].quota;counter++;
-                    saved_arr[counter] = `Package Installments : `+All_table_obj.tables[2][index_1].installments;counter++;
-                    saved_arr[counter] = `Package Paid as : `+All_table_obj.tables[2][index_1].paid_as;counter++;
+                    saved_arr[counter] = `<div class='row'>Package ID : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='id_pack_${index}' value='${All_table_obj.tables[2][index_1].id}' readonly></div>`;counter++;
+                    saved_arr[counter] = `<div class='row'>Package Name : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='text' id='name_pack_${index}' value='${All_table_obj.tables[2][index_1].name}' readonly></div>`;counter++;
+                    saved_arr[counter] = `<div class='row'>Package Fees : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='fees_pack_${index}' value='${All_table_obj.tables[2][index_1].fees}' readonly></div>`;counter++;
+                    saved_arr[counter] = `<div class='row'>Package Quota : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:70px!important;text-align:center;' type='number' id='quota_pack_${index}' value='${All_table_obj.tables[2][index_1].quota}' readonly></div>`;counter++;
+                    saved_arr[counter] = `<div class='row'>Package Installments : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:70px!important;text-align:center;' type='number' id='inst_pack_${index}' value='${All_table_obj.tables[2][index_1].installments}' readonly></div>`;counter++;
+                    saved_arr[counter] = `<div class='row'>Package Paid AS : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='paid_as_pack_${index}' value='${All_table_obj.tables[2][index_1].paid_as}' readonly></div>`;counter++;
+
                     break;
                 }
             }
     }
-
-        saved_arr[counter] = `INV Total Fees : <input type='number' id='due_date_invoice_${index}' value='${All_table_obj.tables[0][index].fees}' readonly>`;counter++;
-        saved_arr[counter] = `INV Amount : <input type='number' id='due_date_invoice_${index}' value='${All_table_obj.tables[0][index].amount}' readonly>`;counter++;
-        saved_arr[counter] = `INV Payment Status : `+paper_inner_invoice('status_invoice_'+index , '' , All_table_obj.tables[0][index].status) ;counter++;
+    
+    // padding-top: 20px !important;
+        saved_arr[counter] = `<div class='row'>INV Total Fees : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='fees_invoice_${index}' value='${All_table_obj.tables[0][index].fees}' readonly></div>`;counter++;
+        saved_arr[counter] = `<div class='row'>INV Amount : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='amount_invoice_${index}' value='${All_table_obj.tables[0][index].amount}' readonly></div>`;counter++;
+        saved_arr[counter] = `<div class='row'>INV Payment Status : `+paper_inner_invoice('status_invoice_'+index , '' , All_table_obj.tables[0][index].status) +`</div>`;counter++;
         if(All_table_obj.tables[0][index].due_date != '0000-00-00')
         {
-            saved_arr[counter] = `INV Due Date : <input type='date' id='due_date_invoice_${index}' value='${All_table_obj.tables[0][index].due_date}'>`;counter++;
+            saved_arr[counter] = `<div class='row'>INV Due Date : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:170px!important;text-align:center;' type='date' id='due_date_invoice_${index}' value='${All_table_obj.tables[0][index].due_date}' ></div>`;counter++;
 
         }
         if(All_table_obj.tables[0][index].paid_date != '0000-00-00')
         {
-        saved_arr[counter] = `INV Paid Date : <input type='date' id='paid_date_invoice_${index}' value='${All_table_obj.tables[0][index].paid_date}'>` ;counter++;
+            saved_arr[counter] = `<div class='row'>INV Paid Date : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:170px!important;text-align:center;' type='date' id='paid_date_invoice_${index}' value='${All_table_obj.tables[0][index].paid_date}' ></div>`;counter++;
         }
-        saved_arr[counter] = `INV Invoice Discount : <input type='number' id='due_date_invoice_${index}' value='${All_table_obj.tables[0][index].discount}' readonly>`;counter++;
-        saved_arr[counter] = `INV Attachment : <input type='text' id='due_date_invoice_${index}' value='${All_table_obj.tables[0][index].attach}' readonly>`;counter++;
+        saved_arr[counter] = `<div class='row'>INV Discount : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='discount_invoice_${index}' value='${All_table_obj.tables[0][index].discount}' readonly></div>`;counter++;
+        saved_arr[counter] = `<div class='row'>INV Attach : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='text' id='Attach_invoice_${index}' value='${All_table_obj.tables[0][index].attach}' readonly></div>`;counter++;
 
 
 
+        // <input type="text" class="form-control"  placeholder="`+All_data_obj.inputs_col_[index]+`" id=`+ All_data_obj.search_data[index]+`>
+        // <label for=`+ All_data_obj.search_data[index]+` >`+ All_data_obj.search_data[index]+`</label>
 
-    saved_arr[counter] = `INV Quota : <input type='number' id='due_date_invoice_${index}' value='${All_table_obj.tables[0][index].qouta}' readonly>`;counter++;
-    saved_arr[counter] = `INV Remain : <input type='number' id='due_date_invoice_${index}' value='${All_table_obj.tables[0][index].remain}' readonly>`;
+
+        saved_arr[counter] = `<div class='row'>INV Quota : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='qouta_invoice_${index}' value='${All_table_obj.tables[0][index].qouta}' readonly></div>`;counter++;
+        saved_arr[counter] = `<div class='row'>INV Remain : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='remain_invoice_${index}' value='${All_table_obj.tables[0][index].remain}' readonly></div>`;counter++;
 
 
             create_new_tabl_rows[index] = saved_arr;
@@ -228,7 +236,7 @@ function create_table_invoice(all_tables)
    All_data_obj.obj;
    All_data_obj.obj_data = [];
    All_data_obj.saved_index ;
-   createTable_invoice(all_tables ,All_data_obj , 'clear' , 5, 5 , null , create_view_invoice); 
+   createTable_invoice(all_tables ,All_data_obj , 'clear' , 5, 6 , null , create_view_invoice); 
 }
 
 function create_view_invoice(All_data_obj , End_Index)
@@ -248,6 +256,26 @@ function create_view_invoice(All_data_obj , End_Index)
         
             if (confirm("You want to edite!") == true) {
                 console.log(id);
+
+                id_invoice_
+                fees_invoice_
+                amount_invoice_
+                status_invoice_
+                due_date_invoice_
+                paid_date_invoice_
+                discount_invoice_
+                Attach_invoice_
+
+        
+        
+        
+                // <input type="text" class="form-control"  placeholder="`+All_data_obj.inputs_col_[index]+`" id=`+ All_data_obj.search_data[index]+`>
+                // <label for=`+ All_data_obj.search_data[index]+` >`+ All_data_obj.search_data[index]+`</label>
+        
+        
+                saved_arr[counter] = `<div class='row'>INV Quota : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='qouta_invoice_${index}' value='${All_table_obj.tables[0][index].qouta}' readonly></div>`;counter++;
+                saved_arr[counter] = `<div class='row'>INV Remain : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='remain_invoice_${index}' value='${All_table_obj.tables[0][index].remain}' readonly></div>`;counter++;
+        
                 }
                 else
                 {
@@ -303,14 +331,14 @@ function create_table_inovice_customized(all_tables)
    if(values_ == "")
    {
       All_data_obj.Start_Index = 1;
-      createTable_invoice(all_tables ,All_data_obj , 'clear' , 5, 5 , null , create_view_invoice); 
+      createTable_invoice(all_tables ,All_data_obj , 'clear' , 5, 6 , null , create_view_invoice); 
       return;
    }
 
     var result = Search_for_value(all_tables , values_)
 
 
-    createTable_invoice(result ,All_data_obj , 'clear' , 5, 5 , null , create_view_invoice); 
+    createTable_invoice(result ,All_data_obj , 'clear' , 5, 6 , null , create_view_invoice); 
 }
 
 function quary_tables_all_status_invoice(All_table_obj , func)
@@ -344,9 +372,9 @@ function quary_tables_all_status_invoice(All_table_obj , func)
 function paper_inner_invoice (paper_ , title , value)
 {
 
- result = `<label for="`+paper_+`">`+title+`</label>
-  <select class='col-4' name="`+paper_+`" id="`+paper_+`">
-  <option value="${value}">${value}</option>`
+ result = `
+  <select class="form-control" style='height:30px!important;padding-top:1px!important;width:120px!important;text-align:center;' name="`+paper_+`" id="`+paper_+`">
+  <option   value="${value}">${value}</option>`
 
   for(var index = 0 ; index < invoice_status_arr.length ; index++)
   {

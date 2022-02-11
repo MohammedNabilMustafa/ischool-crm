@@ -735,6 +735,10 @@ function createTable_invoice(dataArray ,All_data_obj , Clear_btn , table_rows , 
                     result += Object.values(dataArray[i])[14]+"<br>"; 
                     result += Object.values(dataArray[i])[15]+"<br>"; 
                     result += Object.values(dataArray[i])[16]+"<br>"; 
+                    result +="</td>"  
+
+                    result += "<td style='white-space:nowrap' >";
+
                     result += Object.values(dataArray[i])[17]+"<br>"; 
                     result += Object.values(dataArray[i])[18]+"<br>"; 
                     result += Object.values(dataArray[i])[19]+"<br>"; 
