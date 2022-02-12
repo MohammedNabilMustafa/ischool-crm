@@ -70,7 +70,19 @@ function ADD_NEW_PARENT_GROUPS()
       ,"package_id"
       ,"qouta"
       ,"remain"
-  ]
+  ],
+  ["student_id" 
+  ,"session_id" 
+  ,"attendance" 
+  ,"feedback" 
+],
+["groups_id" 
+,"employee_id" 
+,"zoomlink" 
+,"session_date" 
+,"session_num" 
+,"open_by"
+]
     
 
   ];
@@ -89,7 +101,9 @@ var called_table = ['slots',
       'operation_status',
       'student_package',
       'package',
-      'invoice'
+      'invoice',
+      'att_feed',
+      'sessions'
   ];
 
         const All_req_obj_ = {};

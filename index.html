@@ -258,16 +258,16 @@
                     </button>
                     <div class="collapse  show" id="Users-collapse">
                       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="#" id="add_parent" class="link-dark rounded">Add Parent</a></li>
-                        <li><a href="#" id="add_student" class="link-dark rounded">Add Student</a></li>
+                        <li><a href="#" id="add_parent" class="link-dark rounded">Parents</a></li>
+                        <li><a href="#" id="add_student" class="link-dark rounded">Students</a></li>
                         <li><a href="#" id="add_group" class="link-dark rounded">Groups</a></li>
-                        <li><a href="#" id="add_student_parent" class="link-dark rounded">Add Student To Parent</a></li>
-                        <li><a href="#" id="add_student_group" class="link-dark rounded">Add Student To Group</a></li>
-                        <li><a href="#" id="add_student_package" class="link-dark rounded">Packages</a></li>
                         <li><a href="#" id="add_student_invoice" class="link-dark rounded">Invoices</a></li>
                         <!-- <li><a href="#" id="add_student_session" class="link-dark rounded">Add Student To Session</a></li> -->
                         <li><a href="#" id="add_session_group" class="link-dark rounded">Schedule</a></li>
                         <li><a href="#" id="add_employee" class="link-dark rounded">Employee</a></li>
+                        <li><a href="#" id="add_student_parent" class="link-dark rounded">Add Student To Parent</a></li>
+                        <li><a href="#" id="add_student_group" class="link-dark rounded">Add Student To Group</a></li>
+                        <li><a href="#" id="add_student_package" class="link-dark rounded">Add Student To Packages</a></li>
 
                       </ul>
                     </div>
@@ -575,7 +575,7 @@
       }); 
 
       $('#add_student_package').click(function () {
-        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Packages</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student To Packages</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
         ADD_STUDENT_TO_PACKAGE();
       }); 
 
