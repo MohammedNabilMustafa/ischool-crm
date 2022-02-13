@@ -57,6 +57,17 @@ function ADD_STUDENT_TO_SESSION()
   ,"session_id" 
   ,"attendance" 
   ,"feedback" 
+],
+[
+   "name"
+  ,"phone"
+  ,"email"
+  ,"zoomlink"
+  ,"username"
+  ,"password"
+  ,"permission_id"
+  ,"department_id"
+  ,"role_id"
 ]
 
   ];
@@ -74,7 +85,8 @@ var called_table = [
       'students',
       'student_groups',
       'sessions',
-      'att_feed'
+      'att_feed',
+      'employee',
   ];
 
 var paper_inputs = [
@@ -98,9 +110,10 @@ var paper_inputs_label = [
     add_new_student_session(All_req_obj,paper_inputs);
     get_student_groups_tables(All_req_obj ,quary_tables_all_paper_student_groups,create_table_student_sessions , 5 , 2);
 
-    // $('#search_btn').click(function (index) {  
-    //     get_student_groups_tables(All_req_obj ,quary_tables_all_paper_student_groups,create_table_student_group_customized , 5 , 3);
-    //     });
+    $('#search_btn').click(function (index) 
+    {  
+        get_student_groups_tables(All_req_obj ,quary_tables_all_paper_student_groups,create_table_student_sessions_customized , 5 , 3);
+    });
 }
 
 function html_create_lists_add_student_session(paper_inputs , paper_inputs_label  , location_)
@@ -365,75 +378,81 @@ function quary_tables_all_paper_student_groups(All_table_obj , func)
     // console.log(All_table_obj.tables);
    if(All_table_obj.tables[12] && All_table_obj.tables[12] != undefined && All_table_obj.tables[12].length != 0)
    {
-        for(var index = 0 ; index < All_table_obj.tables[12].length ; index++)
+        for(var index_12 = 0 ; index_12 < All_table_obj.tables[12].length ; index_12++)
         {
             var col_table_rows = [];
             var counter = 0 ;
 
-            col_table_rows[counter] = All_table_obj.tables[12][index].id;counter++;
+            col_table_rows[counter] = All_table_obj.tables[12][index_12].id;counter++;
 
             var counter_students = 0 ;
             if(All_table_obj.tables[9] && All_table_obj.tables[9] != undefined && All_table_obj.tables[9].length != 0)
             {
-                for(var index_ = 0 ; index_ < All_table_obj.tables[9].length ; index_++)
+                for(var index_9 = 0 ; index_9 < All_table_obj.tables[9].length ; index_9++)
                 {
-                    if(All_table_obj.tables[9][index_].id == All_table_obj.tables[12][index].student_id)
+                    if(All_table_obj.tables[9][index_9].id == All_table_obj.tables[12][index_12].student_id)
                     {
-                        counter_students++;
+                        // counter_students++;
+                        col_table_rows[counter] = All_table_obj.tables[9][index_9].id;counter++;
+                        col_table_rows[counter] = All_table_obj.tables[9][index_9].std_id;counter++;
+                        col_table_rows[counter] = All_table_obj.tables[9][index_9].name;counter++;
+
                     }
                 }
             }
 
-            col_table_rows[counter] = counter_students;counter++;
+            // col_table_rows[counter] = counter_students;counter++;
 
 
             if(All_table_obj.tables[11] && All_table_obj.tables[11] != undefined && All_table_obj.tables[11].length != 0)
             {
-                for(var index_ = 0 ; index_ < All_table_obj.tables[11].length ; index_++)
+                for(var index_11 = 0 ; index_11 < All_table_obj.tables[11].length ; index_11++)
                 {
-                    if(All_table_obj.tables[11][index_].id == All_table_obj.tables[12][index].session_id)
+                    if(All_table_obj.tables[11][index_11].id == All_table_obj.tables[12][index_12].session_id)
                     {
 
                         if(All_table_obj.tables[8] && All_table_obj.tables[8] != undefined && All_table_obj.tables[8].length != 0)
                         {
-                            for(var index_ = 0 ; index_ < All_table_obj.tables[8].length ; index_++)
+                            for(var index_8 = 0 ; index_8 < All_table_obj.tables[8].length ; index_8++)
                             {
-                                if(All_table_obj.tables[8][index].id == All_table_obj.tables[11][index_].groups_id )
+                                if(All_table_obj.tables[8][index_8].id == All_table_obj.tables[11][index_11].groups_id )
                                 {
+
+                                    var Group_id__ = '';
 
                                     if(All_table_obj.tables[7] && All_table_obj.tables[7] != undefined && All_table_obj.tables[7].length != 0)
                                     {
-                                        for(var index_ = 0 ; index_ < All_table_obj.tables[7].length ; index_++)
+                                        for(var index_7 = 0 ; index_7 < All_table_obj.tables[7].length ; index_7++)
                                         {
-                                            if(All_table_obj.tables[7][index].id == All_table_obj.tables[8][index_].age_id )
+                                            if(All_table_obj.tables[7][index_7].id == All_table_obj.tables[8][index_8].age_id )
                                             {
-                                                col_table_rows[counter] = All_table_obj.tables[7][index_].name;counter++;
+                                                Group_id__ += All_table_obj.tables[7][index_7].name;
                                                 break;
                                             }
                                         }
                                     }
-
-                                    col_table_rows[counter] = All_table_obj.tables[8][index_].id;counter++;
 
                                     if(All_table_obj.tables[3] && All_table_obj.tables[3] != undefined && All_table_obj.tables[3].length != 0)
                                     {
-                                        for(var index_ = 0 ; index_ < All_table_obj.tables[3].length ; index_++)
+                                        for(var index_3 = 0 ; index_3 < All_table_obj.tables[3].length ; index_3++)
                                         {
-                                            if(All_table_obj.tables[3][index].id == All_table_obj.tables[8][index_].level_id )
+                                            if(All_table_obj.tables[3][index_3].id == All_table_obj.tables[8][index_8].level_id )
                                             {
-                                                col_table_rows[counter] = All_table_obj.tables[3][index_].name;counter++;
+                                                Group_id__ += '-'+All_table_obj.tables[3][index_3].name;
                                                 break;
                                             }
                                         }
                                     }
+
+                                    col_table_rows[counter] = Group_id__+'-'+All_table_obj.tables[8][index_8].id;counter++;
                                     
                                     if(All_table_obj.tables[0] && All_table_obj.tables[0] != undefined && All_table_obj.tables[0].length != 0)
                                     {
-                                        for(var index_ = 0 ; index_ < All_table_obj.tables[0].length ; index_++)
+                                        for(var index_0 = 0 ; index_0 < All_table_obj.tables[0].length ; index_0++)
                                         {
-                                            if(All_table_obj.tables[0][index].id == All_table_obj.tables[8][index_].slot_id )
+                                            if(All_table_obj.tables[0][index_0].id == All_table_obj.tables[8][index_8].slot_id )
                                             {
-                                                col_table_rows[counter] = All_table_obj.tables[0][index_].slot;counter++;
+                                                col_table_rows[counter] = All_table_obj.tables[0][index_0].slot;counter++;
                                                 break;
                                             }
                                         }
@@ -441,27 +460,48 @@ function quary_tables_all_paper_student_groups(All_table_obj , func)
 
                                     if(All_table_obj.tables[6] && All_table_obj.tables[6] != undefined && All_table_obj.tables[6].length != 0)
                                     {
-                                        for(var index_ = 0 ; index_ < All_table_obj.tables[6].length ; index_++)
+                                        for(var index_6 = 0 ; index_6 < All_table_obj.tables[6].length ; index_6++)
                                         {
-                                            if(All_table_obj.tables[6][index].id == All_table_obj.tables[8][index_].days_id )
+                                            if(All_table_obj.tables[6][index_6].id == All_table_obj.tables[8][index_8].days_id )
                                             {
-                                                col_table_rows[counter] = All_table_obj.tables[6][index_].name;counter++;
+                                                col_table_rows[counter] = All_table_obj.tables[6][index_6].name;counter++;
                                                 break;
                                             }
                                         }
                                     }
+                                    break;
+                                }
+                            }
+                        }
 
+
+                        if(All_table_obj.tables[13] && All_table_obj.tables[13] != undefined && All_table_obj.tables[13].length != 0)
+                        {
+                            for(var index_13 = 0 ; index_13 < All_table_obj.tables[13].length ; index_13++)
+                            {
+                                if(All_table_obj.tables[13][index_13].id == All_table_obj.tables[11][index_11].employee_id )
+                                {
+                                    col_table_rows[counter] = All_table_obj.tables[13][index_13].name;counter++;
+                                    col_table_rows[counter] = All_table_obj.tables[13][index_13].phone;counter++;
+                                    col_table_rows[counter] = All_table_obj.tables[13][index_13].email;counter++;
+                                    col_table_rows[counter] = All_table_obj.tables[13][index_13].zoomlink;counter++;
 
                                     break;
                                 }
                             }
                         }
 
+                        col_table_rows[counter] = All_table_obj.tables[11][index_11].zoomlink;counter++;
+                        col_table_rows[counter] = All_table_obj.tables[11][index_11].session_date;counter++;
+                        col_table_rows[counter] = All_table_obj.tables[11][index_11].session_num;counter++;
+                        col_table_rows[counter] = All_table_obj.tables[11][index_11].open_by;counter++;
+
+                        break;
                     }
                 }
             }
 
-            create_new_tabl_rows[index] = col_table_rows;
+            create_new_tabl_rows[index_12] = col_table_rows;
         }
    }
 
@@ -473,13 +513,20 @@ function create_table_student_sessions(all_tables)
 {
     var inputs_names_search = [
         ""
-        ,"Student Num : "
-        ,"Group Age : " 
-        ,"Group ID : "
-        ,"Group Lvl : " 
-        ,"Group Slot : " 
-        ,"Group Day : " 
-
+        ,"St ID : "
+        ,"St iSchool ID : "
+        ,"St Name : "
+        ,"Grp ID : " 
+        ,"Grp Slot : " 
+        ,"Grp Day : " 
+        ,"Inst Name : " 
+        ,"Inst Phone : " 
+        ,"Inst Email : " 
+        ,"Inst Zoom Link : " 
+        ,"Se Zoom Link : " 
+        ,"Se Date : " 
+        ,"Se Number : " 
+        ,"Se Open By : " 
     ];
 
    const All_data_obj = {};
@@ -508,10 +555,22 @@ function create_table_student_sessions_customized(all_tables)
 
     var inputs_names_search = [
         ""
-        ,"Student ID :"
-        ,"" 
-        ,""
-        ,"" 
+        ,"Student ID : "
+        ,"Student iSchool ID : "
+        ,"Student Name : "
+        ,"Group Age : " 
+        ,"Group ID : "
+        ,"Group Lvl : " 
+        ,"Group Slot : " 
+        ,"Group Day : " 
+        ,"Instructor Name : " 
+        ,"Instructor Phone : " 
+        ,"Instructor Email : " 
+        ,"Instructor Zoom Link : " 
+        ,"Session Zoom Link : " 
+        ,"Session Date : " 
+        ,"Session Number : " 
+        ,"Open By : " 
 
     ];
 
@@ -539,14 +598,14 @@ function create_table_student_sessions_customized(all_tables)
    if(values_ == "")
    {
       All_data_obj.Start_Index = 1;
-      createTable(all_tables ,All_data_obj , 'clear' , 1 , 4);
+      createTable(all_tables ,All_data_obj , 'clear' , 6, 4);
       return;
    }
 
     var result = Search_for_value(all_tables , values_)
 
 
-   createTable(result ,All_data_obj , 'clear' , 1, 4); 
+   createTable(result ,All_data_obj , 'clear' , 6, 4); 
 }
 
 
