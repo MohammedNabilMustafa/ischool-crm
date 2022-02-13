@@ -109,14 +109,14 @@ function ADD_NEW_GROUP_FUNC()
                  
         html_create_lists_groups_func(paper_inputs , paper_inputs_label , "Location_1" );
 
-        get_paper_tables_groups_func(All_req_obj ,quary_tables_all_status_groups , '' , 5  , 1);
+        get_paper_tables_groups_func(All_req_obj ,quary_tables_all_status_groups , '' , time_out  , 1);
 
     // add_new_Groups_func(All_req_obj,paper_inputs);
-    get_paper_tables_groups_func(All_req_obj ,quary_tables_all_Groups_func,create_paper_table , 5 , 2);
+    get_paper_tables_groups_func(All_req_obj ,quary_tables_all_Groups_func,create_paper_table , time_out , 2);
 
     $('#search_btn_groups').click(function (index) {  
 
-        get_paper_tables_groups_func(All_req_obj ,quary_tables_all_Groups_func,create_paper_table_customized , 5 , 3);
+        get_paper_tables_groups_func(All_req_obj ,quary_tables_all_Groups_func,create_paper_table_customized , time_out , 3);
         });
    
 
@@ -264,7 +264,7 @@ function add_new_Groups_func(All_req_obj,paper_inputs)
             {
                 alert(response , "success");
 
-                get_paper_tables_groups_func(All_req_obj,quary_tables_all_Groups_func, create_paper_table , 5 , 4);
+                get_paper_tables_groups_func(All_req_obj,quary_tables_all_Groups_func, create_paper_table , time_out , 4);
             };
             add_one_data_from_database(All_data_obj , value_elments);
         

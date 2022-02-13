@@ -127,12 +127,12 @@ var paper_inputs_label = [
     html_create_lists_parent_student(paper_inputs , paper_inputs_label , "Location_1" );
 
     add_new_parent_student_(All_req_obj,paper_inputs);
-     get_paper_tables_parent(All_req_obj ,quary_tables_all_status_students_check,'' , 5 , 2);
-    get_paper_tables_parent(All_req_obj ,quary_tables_all__student,create_paper_table_parent_students , 5 , 3);
+     get_paper_tables_parent(All_req_obj ,quary_tables_all_status_students_check,'' , time_out , 2);
+    get_paper_tables_parent(All_req_obj ,quary_tables_all__student,create_paper_table_parent_students , time_out , 3);
 
     $('#search_btn').click(function (index) {  
 
-        get_paper_tables_parent(All_req_obj ,quary_tables_all__student,create_paper_table_customized_student , 5 , 4);
+        get_paper_tables_parent(All_req_obj ,quary_tables_all__student,create_paper_table_customized_student , time_out , 4);
     });
   
     $('#add_student_new').click(function () {  
@@ -256,7 +256,7 @@ function add_new_student_(All_req_obj,paper_inputs)
     if(st_ids == 0)
     {
         alert("No Students" , "danger");
-        get_paper_tables_parent(All_req_obj ,quary_tables_all__student,create_paper_table_parent , 5 , 5);
+        get_paper_tables_parent(All_req_obj ,quary_tables_all__student,create_paper_table_parent , time_out , 5);
         return;
     }
     

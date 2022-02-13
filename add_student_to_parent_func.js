@@ -58,13 +58,13 @@ var paper_inputs_label = [
                  
     html_create_lists_add_student_parent(paper_inputs , paper_inputs_label , "Location_1" );
 
-    get_student_parent_tables(All_req_obj ,quary_tables_all_status_add_student_to_parent , '' , 5  , 1);
+    get_student_parent_tables(All_req_obj ,quary_tables_all_status_add_student_to_parent , '' , time_out  , 1);
 
      add_new_student_parent(All_req_obj,paper_inputs);
-    // get_student_parent_tables(All_req_obj ,quary_tables_all_paper_student_groups,create_table_student_group , 5 , 2);
+    // get_student_parent_tables(All_req_obj ,quary_tables_all_paper_student_groups,create_table_student_group , time_out , 2);
 
     // $('#search_btn').click(function (index) {  
-    //     get_student_parent_tables(All_req_obj ,quary_tables_all_paper_student_groups,create_table_student_group_customized , 5 , 3);
+    //     get_student_parent_tables(All_req_obj ,quary_tables_all_paper_student_groups,create_table_student_group_customized , time_out , 3);
     //     });
 }
 

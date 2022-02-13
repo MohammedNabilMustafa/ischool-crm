@@ -65,14 +65,14 @@ function ADD_NEW_EMPLOYEE()
                  
     html_create_lists_employee(paper_inputs , paper_inputs_label , "Location_1" );
 
-    get_employee_tables(All_req_obj ,quary_tables_all_status_employee , '' , 5  , 1);
+    get_employee_tables(All_req_obj ,quary_tables_all_status_employee , '' , time_out  , 1);
 
      add_new_empolyee(All_req_obj,paper_inputs);
-     get_employee_tables(All_req_obj ,quary_tables_all_employee,create_paper_table_employee , 5 , 3);
+     get_employee_tables(All_req_obj ,quary_tables_all_employee,create_paper_table_employee , time_out , 3);
 
     $('#search_btn').click(function (index) {  
 
-        get_employee_tables(All_req_obj ,quary_tables_all_employee,create_paper_table_customized_employee , 5 , 4);
+        get_employee_tables(All_req_obj ,quary_tables_all_employee,create_paper_table_customized_employee , time_out , 4);
         });
    
 
@@ -195,7 +195,7 @@ function add_new_empolyee(All_req_obj,paper_inputs)
             {
                 alert(response , "success");
 
-                get_employee_tables(All_req_obj ,quary_tables_all_employee,create_paper_table_employee , 5 , 2);
+                get_employee_tables(All_req_obj ,quary_tables_all_employee,create_paper_table_employee , time_out , 2);
             };
             add_one_data_from_database(All_data_obj , value_elments);
         

@@ -112,7 +112,7 @@ var called_table = ['slots',
         All_req_obj_.called_table = called_table
                  
   
-    get_paper_tables_parent(All_req_obj_ ,quary_tables_all_status_groups_check , '' , 5  , 4);
+    get_paper_tables_parent(All_req_obj_ ,quary_tables_all_status_groups_check , '' , time_out  , 4);
 
 }
 
@@ -285,15 +285,15 @@ var paper_inputs_label = [
         All_req_obj.called_table = called_table
                  
     html_create_lists_parent(paper_inputs , paper_inputs_label , "Location_1" );
-    get_paper_tables_parent(All_req_obj ,quary_tables_all_employee , quary_tables_all_status_parent , 5  , 1);
+    get_paper_tables_parent(All_req_obj ,quary_tables_all_employee , quary_tables_all_status_parent , time_out  , 1);
 
 
     add_new_parent_(All_req_obj,paper_inputs);
-    get_paper_tables_parent(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , 5 , 2);
+    get_paper_tables_parent(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , time_out , 2);
 
     $('#search_btn').click(function (index) {  
 
-    get_paper_tables_parent(All_req_obj ,quary_tables_all_parent,create_paper_table_customized_parent , 5 , 3);
+    get_paper_tables_parent(All_req_obj ,quary_tables_all_parent,create_paper_table_customized_parent , time_out , 3);
         });
   
     $('#add_student_new').click(function () {  
@@ -937,7 +937,6 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
     }
 }
 
-
 function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index_pos)
 {
 
@@ -1557,7 +1556,6 @@ function quary_tables_all_status_groups_check(All_table_obj , func)
 
 
 }
-
 
 
 function createTable_pop_up(All_data_obj , index_st) {

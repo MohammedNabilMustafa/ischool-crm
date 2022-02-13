@@ -293,7 +293,8 @@
 
                       </ul>
                     </div>
-                  </li>   
+                  </li>
+                  <li class="mb-1"></li>   
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Extras-collapse" aria-expanded="false">
                       Admin Students
                     </button>
@@ -416,12 +417,17 @@
 
       <script>
 
+var database_fixed_link = "fetch.php";
+// var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
+// var database_fixed_link = "https://operation.ischool-edu.com/fetch.php";
+
+var time_out = 20;
 
   $(document).ready(function () {
       
 
-    document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student To Session</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
-        ADD_STUDENT_TO_SESSION();
+    // document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student To Session</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+    //     ADD_STUDENT_TO_SESSION();
 
       $('#groups').click(function () {
         document.getElementById("page_name").innerHTML = "<h1>All Groups</h1>"
