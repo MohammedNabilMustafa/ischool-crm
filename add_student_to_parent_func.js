@@ -161,7 +161,7 @@ function get_student_parent_tables(All_req_obj , func_quary,func , timeout , ind
         get_all_data_from_database(arr_data[index]);
     }
     counter__[index_pos] = 0;
-    again_student_group(All_table_obj , arr_data ,   func_quary , func , timeout , index_pos , All_req_obj , paper_inputs);
+    again_student_group(All_table_obj , arr_data ,   func_quary , func , timeout , index_pos , All_req_obj , paper_inputs );
 
 }
 

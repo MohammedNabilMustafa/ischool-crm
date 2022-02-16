@@ -94,7 +94,7 @@ var called_table = ['slots',
       'track',
       'session_type',
       'days',
-      'Age',
+      'age',
       'groups',
       'students',
       'student_groups',
@@ -308,27 +308,34 @@ var paper_inputs_label = [
 
 function html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , st_ids_)
 {
-    document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+    document.getElementById(location_).innerHTML +=`<div id='add_std_${st_ids_}'>`;
+    document.getElementById(location_).innerHTML +=`</div>`;
 
 
-    document.getElementById(location_).innerHTML += `<label>Student ID : </label><input type='text' id='student_id`+st_ids_+`'>`;
-    document.getElementById(location_).innerHTML += `<label>Name : </label><input type='text' id='name_id`+st_ids_+`'>`;
+    document.getElementById('add_std_'+st_ids_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
 
-    document.getElementById(location_).innerHTML +=`</div></div>`;
-    document.getElementById(location_).innerHTML += `<label>Free Session : </label><input class="largerCheckbox" type='checkbox' id='free_id`+st_ids_+`' value='yes'>`;
 
-    document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
-    document.getElementById(location_).innerHTML += `<label>birthdate : </label><input type='date' id='bd_id`+st_ids_+`'>`;
-    paper_inner_parent_1('status_id'+st_ids_ , "Status ");
+    document.getElementById('add_std_'+st_ids_).innerHTML += `<label>Student ID : </label><input type='text' id='student_id`+st_ids_+`'>`;
+    document.getElementById('add_std_'+st_ids_).innerHTML += `<label>Name : </label><input type='text' id='name_id`+st_ids_+`'>`;
+
+    document.getElementById('add_std_'+st_ids_).innerHTML +=`</div></div>`;
+    document.getElementById('add_std_'+st_ids_).innerHTML += `<label>Free Session : </label><input class="largerCheckbox" type='checkbox' id='free_id`+st_ids_+`' value='yes'>`;
+    document.getElementById('add_std_'+st_ids_).innerHTML += `<button type="button" id='add_std_btn_${st_ids_}' class="btn btn-light" style='float:right;font-size:25px'>
+    <i class="fa-solid fa-circle-minus"></i>
+  </button>`;
+
+    document.getElementById('add_std_'+st_ids_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+    document.getElementById('add_std_'+st_ids_).innerHTML += `<label>birthdate : </label><input type='date' id='bd_id`+st_ids_+`'>`;
+    paper_inner_parent_1_func('status_id'+st_ids_ , "Status " , 'add_std_'+st_ids_);
 
     for(var index = 0 ;index < saved_status_arr.length ; index++)
     {
         $('#status_id'+st_ids_).append(`<option value="${saved_status_arr[index][0]}"
         >${saved_status_arr[index][1]} </option>`); 
     }
-    document.getElementById(location_).innerHTML +=`</div></div>`;
+    document.getElementById('add_std_'+st_ids_).innerHTML +=`</div></div>`;
 
-    paper_inner_parent_1('Packages_id_input'+st_ids_ , "Packages ");
+    paper_inner_parent_1_func('Packages_id_input'+st_ids_ , "Packages " , 'add_std_'+st_ids_);
 
     for(var index = 0 ;index < saved_package_arr.length ; index++)
     {
@@ -336,10 +343,10 @@ function html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , s
         >${saved_package_arr[index][1]} </option>`); 
     }
 
-    document.getElementById(location_).innerHTML +=`<label>Paid Date : </label><input type='date' id='package_data_${st_ids_}' />`;
+    document.getElementById('add_std_'+st_ids_).innerHTML +=`<label>Paid Date : </label><input type='date' id='package_data_${st_ids_}' />`;
 
 
-    paper_inner_parent_1('groups_id_input'+st_ids_ , "Groups ");
+    paper_inner_parent_1_func('groups_id_input'+st_ids_ , "Groups " , 'add_std_'+st_ids_);
 
     for(var index = 0 ;index < saved_group_arr.length ; index++)
     {
@@ -350,9 +357,20 @@ function html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , s
 
 
 
-    document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
-    document.getElementById(location_).innerHTML +=`<hr class="hr-primary" />`;
-    document.getElementById(location_).innerHTML +=`</div></div>`;
+    document.getElementById('add_std_'+st_ids_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+    document.getElementById('add_std_'+st_ids_).innerHTML +=`<hr class="hr-primary" />`;
+    document.getElementById('add_std_'+st_ids_).innerHTML +=`</div></div>`;
+
+
+    $('#add_std_btn_'+st_ids_).click(function () {  
+
+        var id = this.id;
+        var ret = id.replace('add_std_btn_','');
+
+        console.log("add_std_"+ret);
+        // document.getElementById("add_std_"+ret).innerHTML = "";
+        // st_ids--;
+    });
 
 
 }
@@ -611,8 +629,6 @@ function add_new_student(All_req_obj,paper_inputs , parent_id )
             value_elments[6] = document.getElementById('bd_id'+index).value;
 
 
-
-
             if(value_elments[0] == '' && index == 0)
             {
                 alert("Parent Add Successfully - No Student" , "primary");
@@ -639,10 +655,6 @@ function add_new_student(All_req_obj,paper_inputs , parent_id )
                             {
                                 var student_id =  All_data_obj.obj[All_data_obj.obj.length-student_id_counter_saved_deduct].id;
                                 student_id_counter_saved_deduct--;
-                                console.log(All_data_obj.group_id_value[count_index-1]);
-                                console.log(All_data_obj.student_age_range[count_index-1]);
-                                console.log(All_data_obj.package_id_value[count_index-1]);
-                                console.log(All_data_obj.student_package_date[count_index-1]);
 
                                 add_student_to_group_(All_req_obj,paper_inputs , student_id , All_data_obj.group_id_value[count_index-1] , All_data_obj.student_age_range[count_index-1]);
                                 add_new_student_package_parent(All_req_obj,paper_inputs , student_id , All_data_obj.package_id_value[count_index-1] , All_data_obj.student_package_date[count_index-1]);
@@ -976,11 +988,11 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
         get_all_data_from_database(arr_data[index]);
     }
     counter__[index_pos] = 0;
-    again(All_table_obj , arr_data ,   func_quary , func , timeout , index_pos);
+    again(All_table_obj , arr_data ,   func_quary , func , timeout , index_pos );
 
 }
 
- function again(All_table_obj , arr_data , func_quary ,  func , timeout , index_pos )
+ function again(All_table_obj , arr_data , func_quary ,  func , timeout , index_pos)
  {
 
     setTimeout(function () {
@@ -990,6 +1002,10 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
             if(arr_data[index].check == false)
             {   
                 counter__[index_pos]++;
+                if(counter__[index_pos]  > time_out_retries)
+                {
+                    arr_data[index].check = true; 
+                }
                 again(All_table_obj , arr_data , func_quary ,  func , timeout , index_pos );
             }
         }
@@ -1365,9 +1381,9 @@ function paper_inner_parent (paper_ , title)
   </select>` ;
 }
 
-function paper_inner_parent_1 (paper_ , title)
+function paper_inner_parent_1_func (paper_ , title , loc)
 {
-  document.getElementById("Location_2").innerHTML += `<label for="`+paper_+`">`+title+`:</label>
+  document.getElementById(loc).innerHTML += `<label for="`+paper_+`">`+title+`:</label>
   <select class='col-1' name="`+paper_+`" id="`+paper_+`">
   <option value=""></option>
   </select>` ;

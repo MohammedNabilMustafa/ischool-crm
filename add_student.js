@@ -495,35 +495,9 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
         get_all_data_from_database(arr_data[index]);
     }
     counter__[index_pos] = 0;
-    again(All_table_obj , arr_data ,   func_quary , func , timeout , index_pos);
+    again(All_table_obj , arr_data ,   func_quary , func , timeout , index_pos );
 
 }
-
- function again(All_table_obj , arr_data , func_quary ,  func , timeout , index_pos )
- {
-
-    setTimeout(function () {
-        
-        for(var index = 0 ; index < arr_data.length ; index++)
-        {
-            if(arr_data[index].check == false)
-            {   
-                counter__[index_pos]++;
-                again(All_table_obj , arr_data , func_quary ,  func , timeout , index_pos );
-            }
-        }
-        if(func_quary)
-        {
-            counter__[index_pos]--;
-            if(counter__[index_pos] == -1)
-            {
-                func_quary(All_table_obj , func)
-
-            }
-
-        }
-    }, timeout);
- }
 
  function quary_tables_all__student(All_table_obj , func)
  {
@@ -719,8 +693,13 @@ function quary_tables_all_status_students_check(All_table_obj , func)
 
         create_new_tabl_cols[counter] = get_group_info[index][0];counter++;
 
-        return_search[index] = get_group_info[index][8];
-        var return_data = search_for_data(All_table_obj.tables[3] , return_search , 0 , 2 );
+        
+        return_search[index] = get_group_info[index][9];
+        var test_return = [];
+        test_return[0] = return_search[index];
+
+        var return_data = search_for_data(All_table_obj.tables[3] , test_return , 0 , 2 );
+
         string_collect += return_data[0];return_search = [];
         string_collect += '-'
 

@@ -237,41 +237,17 @@ function get_employee_tables(All_req_obj , func_quary,func , timeout , index_pos
     {
         arr_data[index].callbackfunc = function(All_data_obj)
         {
+            console.log(All_data_obj.obj);
             All_table_obj.tables[All_data_obj.index] = All_data_obj.obj;
             All_data_obj.check = true;
         };
         get_all_data_from_database(arr_data[index]);
     }
     counter__[index_pos] = 0;
-    again(All_table_obj , arr_data ,   func_quary , func , timeout , index_pos);
+    again(All_table_obj , arr_data ,   func_quary , func , timeout , index_pos );
 
 }
 
- function again(All_table_obj , arr_data , func_quary ,  func , timeout , index_pos )
- {
-
-    setTimeout(function () {
-        
-        for(var index = 0 ; index < arr_data.length ; index++)
-        {
-            if(arr_data[index].check == false)
-            {   
-                counter__[index_pos]++;
-                again(All_table_obj , arr_data , func_quary ,  func , timeout , index_pos );
-            }
-        }
-        if(func_quary)
-        {
-            counter__[index_pos]--;
-            if(counter__[index_pos] == -1)
-            {
-                func_quary(All_table_obj , func)
-
-            }
-
-        }
-    }, timeout);
- }
 
  function quary_tables_all_employee(All_table_obj , func)
  {

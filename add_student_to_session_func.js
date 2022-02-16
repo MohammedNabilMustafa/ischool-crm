@@ -671,32 +671,7 @@ function get_student_groups_tables(All_req_obj , func_quary,func , timeout , ind
         get_all_data_from_database(arr_data[index]);
     }
     counter__[index_pos] = 0;
-    again_student_group(All_table_obj , arr_data ,   func_quary , func , timeout , index_pos , All_req_obj , paper_inputs);
+    again_student_group(All_table_obj , arr_data ,   func_quary , func , timeout , index_pos , All_req_obj , paper_inputs );
 
 }
 
- function again_student_group(All_table_obj , arr_data , func_quary ,  func , timeout , index_pos , All_req_obj , paper_inputs )
- {
-
-    setTimeout(function () {
-        
-        for(var index = 0 ; index < arr_data.length ; index++)
-        {
-            if(arr_data[index].check == false)
-            {   
-                counter__[index_pos]++;
-                again_student_group(All_table_obj , arr_data , func_quary ,  func , timeout , index_pos , All_req_obj , paper_inputs );
-            }
-        }
-        if(func_quary)
-        {
-            counter__[index_pos]--;
-            if(counter__[index_pos] == -1)
-            {
-                func_quary(All_table_obj , func , arr_data , All_req_obj , paper_inputs)
-
-            }
-
-        }
-    }, timeout);
- }
