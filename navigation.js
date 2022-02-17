@@ -1,6 +1,8 @@
 
 function groups()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -100,6 +102,8 @@ function groups()
 
 function sessions()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -181,6 +185,8 @@ function sessions()
 
 function att_feed()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -254,6 +260,8 @@ function att_feed()
 
 function slots()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -320,6 +328,8 @@ function slots()
 
 function lan()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -383,6 +393,8 @@ function lan()
 
 function attend()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -447,6 +459,8 @@ function attend()
 
 function track()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -511,6 +525,8 @@ function track()
 
 function age()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -581,6 +597,8 @@ function age()
 
 function level()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -644,6 +662,8 @@ function level()
 
 function session_type()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -707,6 +727,8 @@ function session_type()
 
 function days()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -770,6 +792,8 @@ function days()
 
 function students()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -851,6 +875,8 @@ function students()
 
 function student_groups()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -921,6 +947,8 @@ function student_groups()
 
 function parent()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -1019,6 +1047,8 @@ function parent()
 
 function employee()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -1110,6 +1140,8 @@ function employee()
 
 function permission()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -1175,6 +1207,8 @@ function permission()
 
 function role()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -1240,6 +1274,8 @@ function role()
 
 function department()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -1305,6 +1341,8 @@ function department()
 
 function student_status()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -1370,6 +1408,8 @@ function student_status()
 
 function packages()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -1452,6 +1492,8 @@ function packages()
 
 function invoice()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -1547,6 +1589,8 @@ function invoice()
 
 function student_package()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 
@@ -1617,6 +1661,8 @@ function student_package()
 
 function invoice_status()
 {
+  document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+
     var Saved_data = [];
     var Database_link = database_fixed_link
 

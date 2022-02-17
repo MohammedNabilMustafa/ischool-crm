@@ -7,7 +7,7 @@ function ADD_NEW_EMPLOYEE()
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
     //document.getElementById("Location_4").innerHTML = "";
-    document.getElementById("search-results").innerHTML = "";
+    document.getElementById("search-results").innerHTML = "Loading";
 
     var Database_link = database_fixed_link
 
@@ -33,36 +33,38 @@ function ADD_NEW_EMPLOYEE()
                         'employee',
                     ];
 
-    var paper_inputs = ['name_input' , 
-                        'phone_input',
-                        'email_input',
-                        'zoomlink_input',
-                        'username_input',
-                        'password_input',
-                        'permission_input',
-                        'department_input',
-                        'role_input'
-                    ];
 
-
-
-    var paper_inputs_label = [
-                        'Name : ' , 
-                        'Phone : ',
-                        'Email : ',
-                        'Zoom Link : ',
-                        'Username : ',
-                        'Password : ',
-                        'Permission  ',
-                        'Department  ',
-                        'Role  ',
-
-                    ];
         const All_req_obj = {};
         All_req_obj.Database_link = Database_link
         All_req_obj.inputs_col = inputs_col
         All_req_obj.called_table = called_table
                  
+
+        var paper_inputs = ['name_input' , 
+        'phone_input',
+        'email_input',
+        'zoomlink_input',
+        'username_input',
+        'password_input',
+        'permission_input',
+        'department_input',
+        'role_input'
+    ];
+
+
+
+var paper_inputs_label = [
+        'Name : ' , 
+        'Phone : ',
+        'Email : ',
+        'Zoom Link : ',
+        'Username : ',
+        'Password : ',
+        'Permission  ',
+        'Department  ',
+        'Role  ',
+
+    ];
     html_create_lists_employee(paper_inputs , paper_inputs_label , "Location_1" );
 
     get_employee_tables(All_req_obj ,quary_tables_all_status_employee , '' , time_out  , 1);
@@ -84,7 +86,7 @@ function html_create_lists_employee(paper_inputs , paper_inputs_label  , locatio
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
     //document.getElementById("Location_4").innerHTML = "";
-    document.getElementById("search-results").innerHTML = "";
+    document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
 
     //  `<div class='col justify-content-start'><button class='btn btn-danger' style='float:left;' id='add_back'>BACK</button></div>`;
     
@@ -237,7 +239,6 @@ function get_employee_tables(All_req_obj , func_quary,func , timeout , index_pos
     {
         arr_data[index].callbackfunc = function(All_data_obj)
         {
-            console.log(All_data_obj.obj);
             All_table_obj.tables[All_data_obj.index] = All_data_obj.obj;
             All_data_obj.check = true;
         };
@@ -301,6 +302,7 @@ function get_employee_tables(All_req_obj , func_quary,func , timeout , index_pos
 
  function quary_tables_all_status_employee(All_table_obj , func)
  {
+    //  console.log(All_table_obj.tables);
     if(All_table_obj.tables[0] && All_table_obj.tables[0] !== undefined && All_table_obj.tables[0].length != 0){
         if(All_table_obj.tables[1] && All_table_obj.tables[1] !== undefined && All_table_obj.tables[1].length != 0){
             if(All_table_obj.tables[2] && All_table_obj.tables[2] !== undefined && All_table_obj.tables[2].length != 0){

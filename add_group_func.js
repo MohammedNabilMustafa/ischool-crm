@@ -64,7 +64,7 @@ function ADD_NEW_GROUP_FUNC()
                         'track',
                         'session_type',
                         'days',
-                        'Age',
+                        'age',
                         'groups',
                         'student_groups',
                         'employee',
@@ -111,7 +111,6 @@ function ADD_NEW_GROUP_FUNC()
 
         get_paper_tables_groups_func(All_req_obj ,quary_tables_all_status_groups , '' , time_out  , 1);
 
-    // add_new_Groups_func(All_req_obj,paper_inputs);
     get_paper_tables_groups_func(All_req_obj ,quary_tables_all_Groups_func,create_paper_table , time_out , 2);
 
     $('#search_btn_groups').click(function (index) {  
@@ -128,32 +127,7 @@ function html_create_lists_groups_func(paper_inputs , paper_inputs_label  , loca
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
     //document.getElementById("Location_4").innerHTML = "";
-    document.getElementById("search-results").innerHTML = "";
-
-
-
-
-    //  `<div class='col justify-content-start'><button class='btn btn-danger' style='float:left;' id='add_back'>BACK</button></div>`;
-
-    // document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
-
-    // for(var index = 0 ; index < 8 ; index++)
-    // {
-    //   paper_inner(paper_inputs[index] , paper_inputs_label[index]);
-    // }
-    // document.getElementById(location_).innerHTML +=`</div></div>`;
-    // document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
-
-    // document.getElementById(location_).innerHTML +=`</div></div>`;
-
-    // document.getElementById(location_).innerHTML +=`<input type="hidden" type="date" id="`+paper_inputs[8]+`">`;
-
-    // document.getElementById(location_).innerHTML +=`<label>Start:</label><input type="date" id="`+paper_inputs[9]+`" name="`+paper_inputs[9]+`">`;
-    // document.getElementById(location_).innerHTML +=`<label>End:</label><input type="date" id="`+paper_inputs[10]+`" name="`+paper_inputs[10]+`">`;
-    // // document.getElementById(location_).innerHTML +=`<label>Number Of Session:</label><input class='col-1' type="number" id="`+paper_inputs[11]+`" name="`+paper_inputs[11]+`">`;
-    // // paper_inner('emp_input', 'Instructor');
-
-    // document.getElementById(location_).innerHTML += `<div class='col justify-content-start'><button class='btn btn-success' style='float:right;' id='send_group'>ADD</button></div>`;
+    document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
 
     document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
     document.getElementById(location_).innerHTML +=`</div></div>`;
@@ -488,6 +462,8 @@ function get_paper_tables_groups_func(All_req_obj , func_quary,func , timeout , 
  function quary_tables_all_status_groups(All_table_obj , func)
  {
 
+    // console.log(All_table_obj);
+
     if(All_table_obj.tables[6] && All_table_obj.tables[6] !== undefined && All_table_obj.tables[6].length != 0){
         
         for(var index = 0 ; index < All_table_obj.tables[6].length ; index++ )
@@ -514,13 +490,6 @@ function get_paper_tables_groups_func(All_req_obj , func_quary,func , timeout , 
 
 
     if(All_table_obj.tables[0] && All_table_obj.tables[0] !== undefined && All_table_obj.tables[0].length != 0){
-        if(All_table_obj.tables[1] && All_table_obj.tables[1] !== undefined && All_table_obj.tables[1].length != 0){
-            if(All_table_obj.tables[2] && All_table_obj.tables[2] !== undefined && All_table_obj.tables[2].length != 0){
-                if(All_table_obj.tables[3] && All_table_obj.tables[3] !== undefined && All_table_obj.tables[3].length != 0){
-                    if(All_table_obj.tables[4] && All_table_obj.tables[4] !== undefined && All_table_obj.tables[4].length != 0){
-                        if(All_table_obj.tables[5] && All_table_obj.tables[5] !== undefined && All_table_obj.tables[5].length != 0){
-                            if(All_table_obj.tables[6] && All_table_obj.tables[6] !== undefined && All_table_obj.tables[6].length != 0){
-                                if(All_table_obj.tables[7] && All_table_obj.tables[7] !== undefined && All_table_obj.tables[7].length != 0){
 
         for(var index_ = 0 ; index_ < All_table_obj.tables[0].length ; index_++)
         {
@@ -528,52 +497,59 @@ function get_paper_tables_groups_func(All_req_obj , func_quary,func , timeout , 
             >${All_table_obj.tables[0][index_].name} 
             - ${All_table_obj.tables[0][index_].slot} </option>`);  
         }
-        for(var index_ = 0 ; index_ < All_table_obj.tables[1].length ; index_++)
-        {
-            $('#lang_input').append(`<option value="${All_table_obj.tables[1][index_].id}"
-            >${All_table_obj.tables[1][index_].name}  </option>`);  
+    }
+        if(All_table_obj.tables[1] && All_table_obj.tables[1] !== undefined && All_table_obj.tables[1].length != 0){
+            for(var index_ = 0 ; index_ < All_table_obj.tables[1].length ; index_++)
+            {
+                $('#lang_input').append(`<option value="${All_table_obj.tables[1][index_].id}"
+                >${All_table_obj.tables[1][index_].name}  </option>`);  
+            }
         }
-        for(var index_ = 0 ; index_ < All_table_obj.tables[2].length ; index_++)
-        {
-            $('#attend_input').append(`<option value="${All_table_obj.tables[2][index_].id}"
-            >${All_table_obj.tables[2][index_].name}  </option>`);
-        }
-        for(var index_ = 0 ; index_ < All_table_obj.tables[3].length ; index_++)
-        {
-            $('#level_input').append(`<option value="${All_table_obj.tables[3][index_].id}"
-            >${All_table_obj.tables[3][index_].name}  </option>`);
-        }
-        for(var index_ = 0 ; index_ < All_table_obj.tables[4].length ; index_++)
-        {
-            $('#track_input').append(`<option value="${All_table_obj.tables[4][index_].id}"
-            >${All_table_obj.tables[4][index_].name}  </option>`);
-        }
-        for(var index_ = 0 ; index_ < All_table_obj.tables[5].length ; index_++)
-        {
-            $('#type_input').append(`<option value="${All_table_obj.tables[5][index_].id}"
-            >${All_table_obj.tables[5][index_].name}  </option>`);
-        }
-        for(var index_ = 0 ; index_ < All_table_obj.tables[6].length ; index_++)
-        {
-            $('#wokring_input').append(`<option value="${All_table_obj.tables[6][index_].id}"
-            >${All_table_obj.tables[6][index_].name}  </option>`);
-        }
-        for(var index_ = 0 ; index_ < All_table_obj.tables[7].length ; index_++)
-        {
-            $('#age_input').append(`<option value="${All_table_obj.tables[7][index_].id}"
-            >${All_table_obj.tables[7][index_].name}  </option>`);
-        }
-    }
-    }
-    }
-    }
-    }
-    }
-    }
-    }
- 
+            if(All_table_obj.tables[2] && All_table_obj.tables[2] !== undefined && All_table_obj.tables[2].length != 0){
+                for(var index_ = 0 ; index_ < All_table_obj.tables[2].length ; index_++)
+                {
+                    $('#attend_input').append(`<option value="${All_table_obj.tables[2][index_].id}"
+                    >${All_table_obj.tables[2][index_].name}  </option>`);
+                }
+            }
+                if(All_table_obj.tables[3] && All_table_obj.tables[3] !== undefined && All_table_obj.tables[3].length != 0){
+                for(var index_ = 0 ; index_ < All_table_obj.tables[3].length ; index_++)
+                {
+                    $('#level_input').append(`<option value="${All_table_obj.tables[3][index_].id}"
+                    >${All_table_obj.tables[3][index_].name}  </option>`);
+                }    
+            }
+                    if(All_table_obj.tables[4] && All_table_obj.tables[4] !== undefined && All_table_obj.tables[4].length != 0){
+                        for(var index_ = 0 ; index_ < All_table_obj.tables[4].length ; index_++)
+                        {
+                            $('#track_input').append(`<option value="${All_table_obj.tables[4][index_].id}"
+                            >${All_table_obj.tables[4][index_].name}  </option>`);
+                        }
+                    }
+                        if(All_table_obj.tables[5] && All_table_obj.tables[5] !== undefined && All_table_obj.tables[5].length != 0){
+                            for(var index_ = 0 ; index_ < All_table_obj.tables[5].length ; index_++)
+                            {
+                                $('#type_input').append(`<option value="${All_table_obj.tables[5][index_].id}"
+                                >${All_table_obj.tables[5][index_].name}  </option>`);
+                            }
+                        }
+                            if(All_table_obj.tables[6] && All_table_obj.tables[6] !== undefined && All_table_obj.tables[6].length != 0){
+                                for(var index_ = 0 ; index_ < All_table_obj.tables[6].length ; index_++)
+                                {
+                                    $('#wokring_input').append(`<option value="${All_table_obj.tables[6][index_].id}"
+                                    >${All_table_obj.tables[6][index_].name}  </option>`);
+                                }
+                            }
+                                if(All_table_obj.tables[7] && All_table_obj.tables[7] !== undefined && All_table_obj.tables[7].length != 0){
+                                    for(var index_ = 0 ; index_ < All_table_obj.tables[7].length ; index_++)
+                                    {
+                                        $('#age_input').append(`<option value="${All_table_obj.tables[7][index_].id}"
+                                        >${All_table_obj.tables[7][index_].name}  </option>`);
+                                    }
+                                }
 
- }
+ 
+}
 
 
 

@@ -86,7 +86,7 @@ function html_create_lists_add_invoice(paper_inputs , paper_inputs_label  , loca
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
     //document.getElementById("Location_4").innerHTML = "";
-    document.getElementById("search-results").innerHTML = "";
+    document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
 
 
 

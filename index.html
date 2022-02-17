@@ -145,6 +145,30 @@
 }
 
 
+.loader {
+  display: block;
+  margin: auto;
+  border: 5px solid #bebdbd;
+  border-radius: 50%;
+  border-top: 5px solid #2975a8;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
       </style>
 
 
@@ -422,7 +446,7 @@
 var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
 // var database_fixed_link = "https://operation.ischool-edu.com/fetch.php";
 
-var time_out = 20;
+var time_out = 1000;
 var time_out_retries = 10;
 
   $(document).ready(function () {
