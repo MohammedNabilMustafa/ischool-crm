@@ -241,7 +241,7 @@ function search_for_data_all(table_from , values_search , index_from  )
           var search_from = Object.values(table_from[index_])
           if(values_search[index] == search_from[index_from])
           {
-            data_return[counter++] =  search_from;
+            data_return[index] =  search_from;
           }
       }
     }
@@ -280,18 +280,21 @@ function search_for_data_custom(table_from , values_search , index_from  , index
 {
 
   var data_return = [];
-  var counter = 0;
 
   if(table_from && table_from !== undefined && table_from.length != 0)
   {
+    var counter = 0;
+
     for(var index = 0 ; index < values_search.length ; index++)
     {
+
       for(var index_ = 0 ; index_ < table_from.length ; index_++)
       {
           var search_from = Object.values(table_from[index_])
           if(values_search[index] == search_from[index_from] && search_from[4] == 'active')
           {
-            data_return[counter++] =  search_from[index_return];
+            data_return[index] =  search_from[index_return];
+            break;
           }
       }
     }

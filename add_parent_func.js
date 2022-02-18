@@ -14,6 +14,11 @@ var saved_att_feed_id_arr = []
 function ADD_NEW_PARENT_GROUPS()
 {
 
+    saved_sessions_id_arr = [];
+    saved_group_arr = []
+    saved_age_arr = []
+    saved_status_arr = []
+
     var Database_link = database_fixed_link
     var inputs_col = [["name" , "slot" ],
     ["name"],
@@ -1059,11 +1064,9 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
 
             if(arr_data[index].check == false)
             {
-                console.log(arr_data[index].check);
    
                 counter__[index_pos]++;
 
-                console.log(counter__);
                 if(counter__[index_pos]  > time_out_retries)
                 {
                     arr_data[index].check = true; 
@@ -1075,7 +1078,6 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
         if(func_quary)
         {
             counter__[index_pos]--;
-            console.log(counter__);
 
             if(counter__[index_pos] == -1)
             {
@@ -1204,9 +1206,16 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
 
                     create_new_tabl_cols[counter] = count_arr;counter++;
 
+
                     var return_data = search_two_tables(All_table_obj.tables[4][index] , All_table_obj.tables[5] , 0 , 3 , 0);
+
+
                     var return_data = search_for_data_custom(All_table_obj.tables[8] , return_data , 3 , 2 );
+
                     var return_data_1 = search_for_data_all(All_table_obj.tables[6] , return_data , 0 , 2 );
+
+                    console.log(return_data_1);
+
 
 
                         var count_arr = [];
@@ -1411,6 +1420,7 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
  function create_paper_table_parent(all_tables , create_new_tabl_rows)
  {
 
+
     for(var index_ = 0 ; index_ < create_new_tabl_rows.length ; index_++)
     {
         if(create_new_tabl_rows[index_][7] == 'Customer Support' )
@@ -1472,6 +1482,9 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
 
 function create_view(All_data_obj , End_Index)
 {
+
+
+
     var div = document.getElementById("search-results_1");
     div.innerHTML = '';
     for(var index = All_data_obj.Start_Index-1 ; index < End_Index ; index++)
@@ -1751,30 +1764,24 @@ function quary_tables_all_status_groups_check(All_table_obj , func)
              special_counter++;
             }
         }
-
-
-        if(All_table_obj.tables[13] && All_table_obj.tables[13] !== undefined && All_table_obj.tables[13].length != 0){
-            for(var index__ = 0 ; index__ < All_table_obj.tables[13].length ; index__++)
-            {
-                var count_package = 0;
-                var created_package = [];
-
-                created_package[count_package] = All_table_obj.tables[13][index__].id;count_package++;
-                created_package[count_package] = All_table_obj.tables[13][index__].name;count_package++;
-                created_package[count_package] = All_table_obj.tables[13][index__].fees;count_package++;
-                created_package[count_package] = All_table_obj.tables[13][index__].quota;count_package++;
-                created_package[count_package] = All_table_obj.tables[13][index__].discount;count_package++;
-                created_package[count_package] = All_table_obj.tables[13][index__].installments;count_package++;
-                created_package[count_package] = All_table_obj.tables[13][index__].paid_as;count_package++;
-                
-                saved_package_arr[index__] = created_package;
-            }
-        }
-
     }
+    if(All_table_obj.tables[13] && All_table_obj.tables[13] !== undefined && All_table_obj.tables[13].length != 0){
+        for(var index__ = 0 ; index__ < All_table_obj.tables[13].length ; index__++)
+        {
+            var count_package = 0;
+            var created_package = [];
 
-
-
+            created_package[count_package] = All_table_obj.tables[13][index__].id;count_package++;
+            created_package[count_package] = All_table_obj.tables[13][index__].name;count_package++;
+            created_package[count_package] = All_table_obj.tables[13][index__].fees;count_package++;
+            created_package[count_package] = All_table_obj.tables[13][index__].quota;count_package++;
+            created_package[count_package] = All_table_obj.tables[13][index__].discount;count_package++;
+            created_package[count_package] = All_table_obj.tables[13][index__].installments;count_package++;
+            created_package[count_package] = All_table_obj.tables[13][index__].paid_as;count_package++;
+            
+            saved_package_arr[index__] = created_package;
+        }
+    }
 
 
 }
@@ -1818,6 +1825,8 @@ function createTable_pop_up(All_data_obj , index_st) {
 
                     result += "<td style='white-space:nowrap' >";
 
+                    console.log(Object.values(dataArray[index_st])[15][0][index]);
+
                     if(Object.values(dataArray[index_st])[15][0][index] == undefined)
                     {
                         result += `<label style='color:red'><br><br>No Group Assigned</label>` ; 
@@ -1836,6 +1845,10 @@ function createTable_pop_up(All_data_obj , index_st) {
                     result +="</td>"
 
                     result += "<td style='white-space:nowrap' >";
+
+                    // console.log(Object.values(dataArray[index_st])[15][8][index]);
+
+
                     if(Object.values(dataArray[index_st])[15][8][index] && Object.values(dataArray[index_st])[15][8][index] !== undefined && Object.values(dataArray[index_st])[15][8][index].length != 0)
                     {
                         var count_pack = 1;

@@ -288,6 +288,7 @@
                         <li><a href="#" id="add_student_invoice" class="link-dark rounded">Invoices</a></li>
                         <li><a href="#" id="add_session_group" class="link-dark rounded">Schedule</a></li>
                         <li><a href="#" id="add_employee" class="link-dark rounded">Employee</a></li>
+                        <li><a href="#" id="add_feedback" class="link-dark rounded">Attendance / Feedback</a></li>
                         <li><a href="#" id="add_student_parent" class="link-dark rounded">Add Student To Parent</a></li>
                         <li><a href="#" id="add_student_group" class="link-dark rounded">Add Student To Group</a></li>
                         <li><a href="#" id="add_student_package" class="link-dark rounded">Add Student To Packages</a></li>
@@ -431,6 +432,7 @@
       <script   src="add_student_package_func.js" ></script>
       <script   src="add_student_to_session_func.js" ></script>
       <script   src="invoice_student.js" ></script>
+      <script   src="feedback_attendance_func.js" ></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -464,6 +466,14 @@ var time_out_retries = 10;
         document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student To Session</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
         ADD_STUDENT_TO_SESSION();
       }); 
+
+
+      $('#add_feedback').click(function () {
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Attendance / Feedback</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        ATT_FEED_STUDENT();
+      }); 
+
+
       
       $('#package').click(function () {
         document.getElementById("page_name").innerHTML = "<h1>Packges</h1>"
