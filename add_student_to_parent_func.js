@@ -39,17 +39,17 @@ function ADD_STUDENT_TO_PARENT()
 var called_table = [
 
       'parent',
-      'students',
+      'students'
   ];
 
 var paper_inputs = [
     'parent_input' , 
-    'student_input',
+    'student_input'
   ];
 
 var paper_inputs_label = [
     'Parent' , 
-    'Student',   
+    'Student'   
   ];
         const All_req_obj = {};
         All_req_obj.Database_link = Database_link

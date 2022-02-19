@@ -2,6 +2,7 @@
 var days_arr_sessions = []
 var employee_arr_sessions = []
 var session_ids = []
+var student_att_arr = []
 
 var days_flag = false;
 
@@ -74,7 +75,15 @@ function ADD_SESSION_TO_GROUP()
             ,"zoomlink"
             ,"attendance"
             ,"feedback"
-        ]
+        ],
+        ["std_id"
+        ,"parent_id"
+        ,"free_session_status"
+        ,"std_status"
+        ,"name"
+        ,"age"
+        ,"birthdate"
+      ]
 
     
   ];
@@ -93,6 +102,7 @@ var called_table = [
       'employee',
       'sessions',
       'att_feed',
+      'students'
   ];
 
 var paper_inputs = [
@@ -168,7 +178,16 @@ function schedule_create(All_req_obj)
                 {                        
                     if(session_ids[index__][16] == employee_arr_sessions[index_][1])
                     {
-                        var data_for_all = ['Group ID : '+session_ids[index__][5] , 'Session ID : '+session_ids[index__][0] , "Session Num : "+session_ids[index__][3] , "Lang : "+session_ids[index__][9] , "Type : "+session_ids[index__][13] , "Level : "+session_ids[index__][11] , "5 Students" ];
+                        var count_st = 0
+                        for(var ii = 0 ;  ii < student_att_arr.length ; ii++ )
+                        {
+                            
+                            if(student_att_arr[ii][0] == session_ids[index__][0])
+                            {
+                                count_st++;
+                            }
+                        }
+                        var data_for_all = ['Group ID : '+session_ids[index__][5] , 'Session ID : '+session_ids[index__][0] , "Session Num : "+session_ids[index__][3] , "Lang : "+session_ids[index__][9] , "Type : "+session_ids[index__][13] , "Level : "+session_ids[index__][11] , count_st+" Students"  ];
                         if(session_ids[index__][7] == 'Slot 1' && schedule_data_cols[1] == undefined )
                         {
                             schedule_data_cols[1] = data_for_all;
@@ -650,21 +669,21 @@ function paper_inner_session_group (paper_ , title)
 function quary_tables_all_status_add_session_to_parent(All_table_obj , func , data , All_req_obj)
 {
     var seached_rows = [];
-
+    var count__ = 0;
 
 
 if(All_table_obj.tables[6] && All_table_obj.tables[6] !== undefined && All_table_obj.tables[6].length != 0){
 
-if(days_flag == false)
-{
-    days_flag = true;
-    for(var index = 0 ; index < All_table_obj.tables[6].length ; index++)
+    if(days_flag == false)
     {
-        days_arr_sessions[index] =  All_table_obj.tables[6][index].name;
-        $('#days_input').append(`<option value="${ All_table_obj.tables[6][index].name}"
-        > ${All_table_obj.tables[6][index].name}</option>`);  
+        days_flag = true;
+        for(var index = 0 ; index < All_table_obj.tables[6].length ; index++)
+        {
+            days_arr_sessions[index] =  All_table_obj.tables[6][index].name;
+            $('#days_input').append(`<option value="${ All_table_obj.tables[6][index].name}"
+            > ${All_table_obj.tables[6][index].name}</option>`);  
+        }
     }
-}
 
 }
 
@@ -699,8 +718,52 @@ Age_slots = All_table_obj.tables[7];
 if(All_table_obj.tables[11] && All_table_obj.tables[11] !== undefined && All_table_obj.tables[11].length != 0){
 
     var counter_index = 0
+    var count_outer = 0;
+    student_att_arr = [];
+
     for(var index = 0 ; index < All_table_obj.tables[11].length ; index++)
     {
+
+        if(All_table_obj.tables[12] && All_table_obj.tables[12] !== undefined && All_table_obj.tables[12].length != 0)
+        {
+            for(var index_12 = 0 ; index_12 < All_table_obj.tables[12].length ; index_12++)
+            {
+                var inner_arr_ = []
+                var counter = 0;
+                if(All_table_obj.tables[11][index].id == All_table_obj.tables[12][index_12].session_id)
+                {
+                    inner_arr_[counter] = All_table_obj.tables[12][index_12].session_id;counter++;
+                    inner_arr_[counter] = All_table_obj.tables[12][index_12].id;counter++;
+
+                    if(All_table_obj.tables[13] && All_table_obj.tables[13] !== undefined && All_table_obj.tables[13].length != 0)
+                    {
+                        for(var index_13 = 0 ; index_13 < All_table_obj.tables[13].length ; index_13++)
+                        {
+
+                            if(All_table_obj.tables[12][index_12].student_id == All_table_obj.tables[13][index_13].id)
+                            {
+                                inner_arr_[counter] = All_table_obj.tables[13][index_13].id;counter++;
+                                inner_arr_[counter] = All_table_obj.tables[13][index_13].name;counter++;
+                                break;
+                            }
+                        }
+                    }
+
+
+                    inner_arr_[counter] = All_table_obj.tables[12][index_12].attendance;counter++;
+                    inner_arr_[counter] = All_table_obj.tables[12][index_12].feedback;counter++;
+                    student_att_arr[count_outer] = inner_arr_;count_outer++;
+                    
+                   
+
+                }
+
+            }   
+
+        }
+
+
+        
 
             var session_ids_rows = [];
             var counter = 0;

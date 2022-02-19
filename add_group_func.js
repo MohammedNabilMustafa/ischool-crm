@@ -34,6 +34,7 @@ function ADD_NEW_GROUP_FUNC()
                   ],
                   ["groups_id" 
                   , "student_id" 
+                  , "status" 
                 ]
                 ,
                 ["name" 
@@ -42,8 +43,8 @@ function ADD_NEW_GROUP_FUNC()
                 , "zoomlink" 
                 , "username" 
                 , "password" 
-                , "department_id" 
                 , "permission_id" 
+                , "department_id" 
                 , "role_id" 
                     ]
                     ,
@@ -111,11 +112,11 @@ function ADD_NEW_GROUP_FUNC()
 
         get_paper_tables_groups_func(All_req_obj ,quary_tables_all_status_groups , '' , time_out  , 1);
 
-    get_paper_tables_groups_func(All_req_obj ,quary_tables_all_Groups_func,create_paper_table , time_out , 2);
+    get_paper_tables_groups_func(All_req_obj ,quary_tables_all_Groups_func,create_group_table , time_out , 2);
 
     $('#search_btn_groups').click(function (index) {  
 
-        get_paper_tables_groups_func(All_req_obj ,quary_tables_all_Groups_func,create_paper_table_customized , time_out , 3);
+        get_paper_tables_groups_func(All_req_obj ,quary_tables_all_Groups_func,create_group_table_customized , time_out , 3);
         });
    
 
@@ -553,7 +554,7 @@ function get_paper_tables_groups_func(All_req_obj , func_quary,func , timeout , 
 
 
 
- function create_paper_table(all_tables)
+ function create_group_table(all_tables)
  {
     var inputs_names_search = [
     "ID :"
@@ -593,7 +594,7 @@ function get_paper_tables_groups_func(All_req_obj , func_quary,func , timeout , 
     createTable(all_tables ,All_data_obj , 'clear' , 4 , 5); 
 }
 
-function create_paper_table_customized(all_tables)
+function create_group_table_customized(all_tables)
 {
 
 
