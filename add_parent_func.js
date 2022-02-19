@@ -1214,9 +1214,6 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
 
                     var return_data_1 = search_for_data_all(All_table_obj.tables[6] , return_data , 0 , 2 );
 
-                    console.log(return_data_1);
-
-
 
                         var count_arr = [];
                         var count_num = 0;
@@ -1825,8 +1822,6 @@ function createTable_pop_up(All_data_obj , index_st) {
 
                     result += "<td style='white-space:nowrap' >";
 
-                    console.log(Object.values(dataArray[index_st])[15][0][index]);
-
                     if(Object.values(dataArray[index_st])[15][0][index] == undefined)
                     {
                         result += `<label style='color:red'><br><br>No Group Assigned</label>` ; 
@@ -1846,7 +1841,6 @@ function createTable_pop_up(All_data_obj , index_st) {
 
                     result += "<td style='white-space:nowrap' >";
 
-                    // console.log(Object.values(dataArray[index_st])[15][8][index]);
 
 
                     if(Object.values(dataArray[index_st])[15][8][index] && Object.values(dataArray[index_st])[15][8][index] !== undefined && Object.values(dataArray[index_st])[15][8][index].length != 0)
@@ -1888,18 +1882,7 @@ function createTable_pop_up(All_data_obj , index_st) {
 
                     }
      
-
-
-                    // result += `Attend Sessions : `+Object.values(dataArray[index_st])[16][1][index] ; 
-                    // result += `Absent Sessions : `+Object.values(dataArray[index_st])[16][2][index]; 
-                    // result += `Feedbacks : `+Object.values(dataArray[index_st])[16][3][index]; 
                     
-
-
- 
-                    // console.log(dataArray)
-
-
 
                     result +="</td>"
                     result += "</tr>";
