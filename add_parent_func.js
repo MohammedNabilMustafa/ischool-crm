@@ -14,10 +14,16 @@ var saved_att_feed_id_arr = []
 function ADD_NEW_PARENT_GROUPS()
 {
 
-    saved_sessions_id_arr = [];
-    saved_group_arr = []
-    saved_age_arr = []
-    saved_status_arr = []
+     st_ids = 0;
+     saved_group_arr = []
+     saved_package_arr = []
+     student_id_counter = 0;
+     student_id_counter_saved = 0;
+     student_id_counter_saved_deduct = 0;
+     saved_age_arr = []
+     saved_status_arr = []
+     saved_sessions_id_arr = []
+     saved_att_feed_id_arr = []
 
     var Database_link = database_fixed_link
     var inputs_col = [["name" , "slot" ],
@@ -119,7 +125,7 @@ var called_table = ['slots',
         All_req_obj_.called_table = called_table
                  
   
-    get_paper_tables_parent(All_req_obj_ ,quary_tables_all_status_groups_check , '' , time_out  , 1);
+    get_paper_tables_parent(All_req_obj_ ,quary_tables_all_status_groups_check , '' , time_out  , 0);
 
 }
 
@@ -301,7 +307,7 @@ var paper_inputs_label = [
 
 
     add_new_parent_(All_req_obj,paper_inputs);
-    get_paper_tables_parent(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , time_out , 0);
+    get_paper_tables_parent(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , time_out , 1);
 
     $('#search_btn').click(function (index) {  
 
@@ -1077,16 +1083,30 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
         }
         if(func_quary)
         {
+
             counter__[index_pos]--;
 
             if(counter__[index_pos] == -1)
             {
-                func_quary(All_table_obj , func)
+                setTimeout(function () {
+        
+                    console.log(All_table_obj);
+
+                    func_quary(All_table_obj , func);
+                }, 1000);
+
+
 
             }
 
+
         }
     }, timeout);
+
+
+
+
+
  }
 
  function quary_tables_all_parent(All_table_obj , func)

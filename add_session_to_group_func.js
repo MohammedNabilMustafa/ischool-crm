@@ -178,7 +178,11 @@ function schedule_create(All_req_obj)
                 {                        
                     if(session_ids[index__][16] == employee_arr_sessions[index_][1])
                     {
+
                         var count_st = 0
+                        var check_att = 0;
+                        var check_feed = 0;
+
                         for(var ii = 0 ;  ii < student_att_arr.length ; ii++ )
                         {
                             
@@ -186,8 +190,61 @@ function schedule_create(All_req_obj)
                             {
                                 count_st++;
                             }
+
+                            if(student_att_arr[ii][0] == session_ids[index__][0] && student_att_arr[ii][4] == "")
+                            {
+                                check_att++;
+
+                            }
+                            if(student_att_arr[ii][0] == session_ids[index__][0] && student_att_arr[ii][5] == "")
+                            {
+                                check_feed++;
+                            }
                         }
-                        var data_for_all = ['Group ID : '+session_ids[index__][5] , 'Session ID : '+session_ids[index__][0] , "Session Num : "+session_ids[index__][3] , "Lang : "+session_ids[index__][9] , "Type : "+session_ids[index__][13] , "Level : "+session_ids[index__][11] , count_st+" Students"  ];
+
+                        if(check_att)
+                        {
+                            check_att = `<label style='color:red'> ${check_att} Attendance Remain </label>`;
+                        }
+                        else
+                        {
+                            check_att = '';
+                        }
+
+                        if(check_feed)
+                        {
+                            check_feed = `<label style='color:red'> ${check_feed} Feeback Remain </label>`;
+                        }
+                        else
+                        {
+                            check_feed = '';
+                        }
+
+                        if(check_att == "" && check_feed =="")
+                        {
+                            check_att = `<label style='color:Green'>Materials Up To Date </label>`;
+                        }
+
+                        var Button_view = '';
+                        var today_date = new Date();
+                        var compared_date = new Date(session_ids[index__][2]);
+                        
+                        if(today_date >=  compared_date)
+                        {
+                            Button_view = `<button  type="button" id='view_more_${index__}' class="btn btn-light" style='float:right'><i class="fa-solid fa-eye"></i></button>` ;
+                        }
+                        else
+                        {
+                            Button_view = '';
+                            check_att = '';
+                            check_feed = '';
+                        }
+
+                        var data_for_all = ['Group ID : '+session_ids[index__][5] , 'Session ID : '+session_ids[index__][0] , "Session Num : "+session_ids[index__][3] , "Lang : "+session_ids[index__][9] , "Type : "+session_ids[index__][13] , "Level : "+session_ids[index__][11] , count_st+" Students" 
+                        ,check_att 
+                        ,check_feed
+                        ,Button_view ];
+
                         if(session_ids[index__][7] == 'Slot 1' && schedule_data_cols[1] == undefined )
                         {
                             schedule_data_cols[1] = data_for_all;
@@ -516,6 +573,42 @@ function schedule_create(All_req_obj)
 
     var div = document.getElementById("search-results");
     div.innerHTML += result;
+// Tiger
+
+for(var index_se = 0 ; index_se < session_ids.length ; index_se++)
+{
+    $('#view_more_'+index_se).click(function () {
+        var id = this.id;
+        var ret = id.replace('view_more_','');
+        modal.style.display = "block";
+
+        var students_arr = [];
+        var counter_student = 0;
+        for(var index_view = 0 ; index_view < student_att_arr.length ; index_view++ )
+        {
+            var students_arr_inner = [];
+            var counter_student_inner = 0;
+
+            if(Number(session_ids[ret][0]) == Number(student_att_arr[index_view][0]))
+            {
+                students_arr_inner[counter_student_inner] = student_att_arr[index_view][0];counter_student_inner++;
+                students_arr_inner[counter_student_inner] = student_att_arr[index_view][2];counter_student_inner++;
+                students_arr_inner[counter_student_inner] = student_att_arr[index_view][3];counter_student_inner++;
+                students_arr_inner[counter_student_inner] = student_att_arr[index_view][4];counter_student_inner++;
+                students_arr_inner[counter_student_inner] = student_att_arr[index_view][5];counter_student_inner++;
+                students_arr_inner[counter_student_inner] = student_att_arr[index_view][1];counter_student_inner++;
+                students_arr[counter_student] = students_arr_inner;counter_student++;
+
+            }
+
+        }
+
+        createTable_pop_up_schedule(students_arr , All_req_obj);
+
+
+    });
+}
+
 
 
     for(var i_0 = 0 ; i_0 < object_data.table_count ; i_0++)
@@ -533,7 +626,6 @@ function schedule_create(All_req_obj)
                 }
                 else
                 {
-                    // console.log('time_'+table_1+'_'+row_1+'_'+col_1)
                     // var values_time = ;
                     // var values_lan = document.getElementById('lan_'+table_1+'_'+row_1+'_'+col_1).value;
 
@@ -559,7 +651,6 @@ function schedule_create(All_req_obj)
                                 // var Year_inc = Number(Todate_schedule_sessions(object_group.date)[4]);
                                 // var newDate  = Todate_schedule_sessions(null  , Date_inc ,  Month_inc , Year_inc)
                         
-                                // console.log(newDate);
 
                                     add_new_group_schedule(object_group , All_req_obj);
                                 }
@@ -1071,8 +1162,7 @@ function add_new_session_schedule(object_group , group_id_in , All_req_obj)
         All_data_obj.callbackfunc;
         All_data_obj.obj;
 
-        // console.log(object_group);
-        // console.log(group_id_in);
+
         var Date_inc = Number(Todate_schedule_sessions(object_group.date)[1]);
         var Month_inc = Number(Todate_schedule_sessions(object_group.date)[2]);
         var Year_inc = Number(Todate_schedule_sessions(object_group.date)[4]);
@@ -1110,4 +1200,155 @@ function add_new_session_schedule(object_group , group_id_in , All_req_obj)
             }
         
         
+}
+
+
+
+function createTable_pop_up_schedule(All_data_obj , All_req_obj ) {
+
+
+    var dataArray = All_data_obj;
+
+
+  if(dataArray && dataArray !== undefined && dataArray.length != 0){
+
+    var result = "<table class='table' id='dtable'>"+
+                 "<thead   style='white-space:nowrap' >"+
+                   "<tr>";                               //Change table headings to match witht he Google Sheet     
+                   result +="<th scope='col'>Session ID </th>";
+                   result +="<th scope='col'>Student ID </th>";
+                   result +="<th scope='col'>Student Name </th>";
+                   result +="<th scope='col'>Attendance </th>";
+                   result +="<th scope='col'>Feeback </th>";
+
+              result += "</tr>"+
+                        "</thead>";
+
+                    for(var index = 0 ; index < dataArray.length ; index++)
+                    {
+                        result += "<tr>";
+                        result += "<td style='white-space:nowrap' >";
+                        result += `Session ID : ${dataArray[index][0]}` 
+                        result +="</td>"
+                        result += "<td style='white-space:nowrap' >";
+                        result += `Student ID : ${dataArray[index][1]}`   
+                        result +="</td>"
+                        result += "<td style='white-space:nowrap' >";                      
+                        result += `Student Name : ${dataArray[index][2]}`    
+                        result +="</td>"
+                        result += "<td style='white-space:nowrap' >";   
+                                          
+                        result += `Attendance : <select id='att_id_${index}' > `
+
+                        if(dataArray[index][3] == "YES")
+                        {
+                            result += `<option>YES</option> `
+                            result += `<option>NO</option> `
+                            result += `<option></option> `
+
+                        }
+                        else if(dataArray[index][3] == "NO")
+                        {
+                            result += `<option>NO</option> `
+                            result += `<option>YES</option> `
+                            result += `<option></option> `
+
+                        }
+                        else
+                        {
+                            result += `<option></option> `
+                            result += `<option>YES</option> `
+                            result += `<option>NO</option> `       
+                        }
+
+                        result += `</select> `
+
+                        result +="</td>"
+                        result += "<td style='white-space:nowrap' >";       
+                        if(dataArray[index][4] != "")
+                        result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="50"> ${dataArray[index][4]} </textarea> `;
+                        else
+                        result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="50"></textarea> `;
+
+
+                        result +="</td>"
+                        result += "<td style='white-space:nowrap' >";     
+                                //  Tiger
+                        result += `<button  type="button" id='send_att_feed${index}' class="btn btn-light" style='float:right'><i class="fa-solid fa-circle-arrow-right"></i></button>`               
+                        result +="</td>"
+                        result += "</tr>";
+
+                    }
+                  
+            //   }
+                 
+    result += "</table>";
+    var div = document.getElementById("search-results_1");
+    div.innerHTML = result;
+    for(var index = 0 ; index < dataArray.length ; index++)
+    {
+        $('#send_att_feed'+index).click(function () {  
+
+            var id = this.id;
+            var ret = id.replace('send_att_feed','');
+
+            if (confirm("Updated Student ?") == true) {
+                dataArray[ret][3] = document.getElementById('att_id_'+ret).value;
+                dataArray[ret][4] = document.getElementById('feed_id_'+ret).value;
+
+                update_studnet_att(dataArray[ret] , dataArray , All_req_obj)
+            }
+            else{
+
+            }
+
+        });
+    }
+
+  }else{
+    var div = document.getElementById("search-results_1");
+    div.innerHTML = "Data not found!";
+  }
+}
+
+function update_studnet_att(value_elments , students_arr , All_req_obj)
+{
+
+    var Database_link = database_fixed_link;
+
+    var inputs_col = 
+    ["student_id" 
+    , "session_id" 
+    , "attendance" 
+    , "feedback" 
+
+    ]
+    
+    var inputs_check = ["Parent missing" , "Student missing"];
+
+    var called_table = 'att_feed';
+
+        const All_data_obj_ = {};
+        All_data_obj_.table_ = called_table;
+        All_data_obj_.inputs_col_ = inputs_col;
+        All_data_obj_.inputs_check_ = inputs_check;
+        All_data_obj_.Database_link = Database_link;
+        All_data_obj_.callbackfunc;
+        All_data_obj_.callbackfunc_1;
+        All_data_obj_.obj;
+        All_data_obj_.index_num = 0;
+
+            var COL_DATA =  "attendance='"+value_elments[3]+"' , feedback='"+value_elments[4]+"'";
+            All_data_obj_.index_num = value_elments[5];
+
+            All_data_obj_.callbackfunc = function(All_data_obj, response)
+            {
+                alert(response);
+                // get_student_groups_tables(All_req_obj ,quary_tables_all_status_add_session_to_parent , '' , time_out  , 0);
+                get_student_groups_tables(All_req_obj ,quary_tables_all_status_add_session_to_parent , schedule_create , time_out  , 4);
+
+                // createTable_pop_up_schedule(students_arr); 
+            };
+            update_one_data_from_database(All_data_obj_ , COL_DATA)
+
 }
