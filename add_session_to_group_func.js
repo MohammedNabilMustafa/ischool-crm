@@ -1206,7 +1206,6 @@ function add_new_session_schedule(object_group , group_id_in , All_req_obj)
 
 function createTable_pop_up_schedule(All_data_obj , All_req_obj ) {
 
-
     var dataArray = All_data_obj;
 
 
@@ -1345,9 +1344,8 @@ function update_studnet_att(value_elments , students_arr , All_req_obj)
             {
                 alert(response);
                 // get_student_groups_tables(All_req_obj ,quary_tables_all_status_add_session_to_parent , '' , time_out  , 0);
+                if(All_req_obj)
                 get_student_groups_tables(All_req_obj ,quary_tables_all_status_add_session_to_parent , schedule_create , time_out  , 4);
-
-                // createTable_pop_up_schedule(students_arr); 
             };
             update_one_data_from_database(All_data_obj_ , COL_DATA)
 

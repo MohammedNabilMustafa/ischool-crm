@@ -1088,12 +1088,8 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
 
             if(counter__[index_pos] == -1)
             {
-                setTimeout(function () {
         
-                    console.log(All_table_obj);
-
                     func_quary(All_table_obj , func);
-                }, 1000);
 
 
 

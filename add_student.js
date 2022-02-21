@@ -88,6 +88,12 @@ function ADD_NEW_STUDENT()
         , "installments" 
         , "paid_as" 
         ]
+        ,
+        ["student_id" 
+        ,"session_id" 
+        ,"attendance" 
+        ,"feedback" 
+      ]
 
 
       ];
@@ -101,7 +107,8 @@ var called_table = [
           'operation_status',
           'level',
           'sessions',
-          'package'
+          'package',
+          'att_feed'
 
 
       ];
@@ -600,7 +607,6 @@ function add_new_student_to_groups(All_req_obj,paper_inputs , value_group_id , v
                 }
             }
 
-            console.log(counter_student);
             if(counter_student >= 6)
             {
                 if(value_parent_id == 0)
@@ -744,6 +750,18 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
     var create_new_tabl_rows = []
     var counter = 0;
 
+    // 'parent',
+    // 'students',
+    // 'groups',
+    // 'age',
+    // 'student_groups',
+    // 'operation_status',
+    // 'level',
+    // 'sessions',
+    // 'package',
+    // 'att_feed'
+
+
     if(All_table_obj.tables[1] && All_table_obj.tables[1] !== undefined && All_table_obj.tables[1].length != 0)
     {
         create_new_tabl_rows = All_table_obj.tables[1]
@@ -754,6 +772,7 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
             var counter_col = 0;
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].id; counter_col++;
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].std_id; counter_col++;
+            create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].name; counter_col++;
 
             var return_data = search_two_tables(All_table_obj.tables[1][index] , All_table_obj.tables[0] , 3 , 0 , 0)
             create_new_tabl_col[counter_col] = return_data;counter_col++;
@@ -763,9 +782,77 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
 
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].free_session_status; counter_col++;
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].std_status; counter_col++;
-            create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].name; counter_col++;
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].age; counter_col++;
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].birthdate; counter_col++;
+
+            var count= 0;
+            var Att= 0;
+            var Abs= 0;
+            var Feed= 0;
+            var Non_att= 0;
+            var students_sessions = [];
+
+            if(All_table_obj.tables[9] && All_table_obj.tables[9] !== undefined && All_table_obj.tables[9].length != 0)
+            {        
+
+                for(var index_9 = 0 ; index_9 < All_table_obj.tables[9].length ; index_9++)
+                {
+
+                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id )
+                    {
+                        students_sessions[count] = All_table_obj.tables[9][index_9];
+                        count++;
+                    }
+
+                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "YES")
+                    {
+                        Att++;
+                    }
+                    else if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "NO")
+                    {
+                        Abs++;
+                    }
+                    else
+                    {
+                        Non_att++;
+                    }
+                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].feedback == "")
+                    {
+                        Feed++;
+                    }
+
+                }
+
+            }
+            create_new_tabl_col[counter_col] = count; counter_col++;
+            create_new_tabl_col[counter_col] = Att; counter_col++;
+            create_new_tabl_col[counter_col] = Abs; counter_col++;
+
+            create_new_tabl_col[counter_col] = count - (Att + Abs); counter_col++;
+
+
+            create_new_tabl_col[counter_col] = Feed; counter_col++;
+
+            if(Non_att)
+            {
+                create_new_tabl_col[counter_col] = 'Not Updated Attendance';counter_col++;
+            }
+            else
+            {
+                create_new_tabl_col[counter_col] = 'Up to Date';counter_col++;
+            }
+
+
+            if(Feed)
+            {
+                create_new_tabl_col[counter_col] = 'Not Updated Feedback';counter_col++;
+            }
+            else
+            {
+                create_new_tabl_col[counter_col] = 'Up to Date';counter_col++;
+            }
+
+            create_new_tabl_col[counter_col] = students_sessions; counter_col++;
 
             create_new_tabl_rows[counter] = create_new_tabl_col;counter++;
 
@@ -781,13 +868,18 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
     var inputs_names_search = [
         "ID :"
     ,"Student ID :"
+    , "Student Name :"
     ,"Parent ID :" 
     , "Parent Name :" 
     , "Free Session Status :" 
     , "Student Status :" 
-    , "Name :"
     , "Age :"
     , "Birthdate :"
+    , "Created Sessions :"
+    , "Attended Sessions :"
+    , "Absence Sessions :"
+    , "Remain Sessions :"
+    , "Remain Feedback :"
 
 
 
@@ -808,11 +900,65 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
     All_data_obj.btn_index = 'btn_index';
     All_data_obj.edit_index = [];
     All_data_obj.delete_index = [];
+    All_data_obj.view_index = [];
     All_data_obj.index_num_value = [];
     All_data_obj.obj;
+    All_data_obj.obj_data = [];
+    All_data_obj.saved_index ;
 
-    createTable(all_tables ,All_data_obj , 'clear' , 3 , 4); 
+    // createTable(all_tables ,All_data_obj , 'clear' , 4 , 5); 
+
+    createTable(all_tables ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view_student , all_tables[0].length-1); 
+
 }
+
+
+function create_view_student(All_data_obj , End_Index)
+{
+
+
+
+    var div = document.getElementById("search-results_1");
+    div.innerHTML = '';
+    for(var index = All_data_obj.Start_Index-1 ; index < End_Index ; index++)
+    {
+        var btn = document.getElementById(All_data_obj.view_index[index]);
+
+        All_data_obj.saved_index = index;
+
+        btn.onclick = function() {
+            var id = this.id;
+            var ret = id.replace('view_more_','');
+
+          modal.style.display = "block";
+
+        var data_arr = [];
+
+        console.log(All_data_obj);
+        console.log(saved_sessions_id_arr);
+        console.log(saved_group_arr);
+        
+        for(var index = 0 ; index < All_data_obj.obj_data[ret][16].length ; index++)
+        {  
+            var inner_arr = []
+
+            inner_arr[0] =  All_data_obj.obj_data[ret][16][index].session_id;
+            inner_arr[1] =  All_data_obj.obj_data[ret][16][index].student_id;
+            inner_arr[2] =  All_data_obj.obj_data[ret][16][index].student_id;
+            inner_arr[3] =  All_data_obj.obj_data[ret][16][index].attendance;
+            inner_arr[4] =  All_data_obj.obj_data[ret][16][index].feedback;
+
+            data_arr[index] = inner_arr;
+        }
+        createTable_pop_up_students(data_arr , null);
+
+        //   createTable_pop_up(All_data_obj  , ret);
+        }
+
+    }
+}
+
+
 
 function create_paper_table_customized_student(all_tables)
 {
@@ -821,30 +967,21 @@ function create_paper_table_customized_student(all_tables)
 
     var inputs_names_search = [
         "ID :"
-    ,"Name :"
-    ,"Phone :" 
-    , "Email :" 
-    , "Name 2 :" 
-    , "Phone 2 :" 
-    , "Email 2 :"
-    , "Address :"
-    , "Location :"
-    , "Job :"
-    , "Reg Status :"
-    , "Customer Support Agent :"
-    , "Sales Agent :"
-    , "Students :"
-    , "Free Se :"
-    , "Status :"
-    , "Names :"
-    , "Ages :"
-    , "Slots :"
-    , "Lan :"
-    , "Att :"
-    , "Lvl :"
-    , "Type :"
-    , "Day :"
-    , "Group Age :"
+    ,"Student ID :"
+    ,"Parent ID :" 
+    , "Parent Name :" 
+    , "Free Session Status :" 
+    , "Student Status :" 
+    , "Name :"
+    , "Age :"
+    , "Birthdate :"
+    , "Created Sessions :"
+    , "Attended Sessions :"
+    , "Absence Sessions :"
+    , "Remain Sessions :"
+    , "Remain Feedback :"
+    , "Attendance Status :"
+    , "Feedback Status:"
 
 ];
 
@@ -1025,6 +1162,155 @@ function quary_tables_all_status_students_check(All_table_obj , func)
     }
 
     saved_group_arr = create_new_tabl_rows;
+
+}
+
+
+
+function createTable_pop_up_students(All_data_obj , All_req_obj ) {
+
+    var dataArray = All_data_obj;
+
+
+  if(dataArray && dataArray !== undefined && dataArray.length != 0){
+
+    var result = "<table class='table' id='dtable'>"+
+                 "<thead   style='white-space:nowrap' >"+
+                   "<tr>";                               //Change table headings to match witht he Google Sheet     
+                   result +="<th scope='col'>Session ID </th>";
+                   result +="<th scope='col'>Student ID </th>";
+                   result +="<th scope='col'>Student Name </th>";
+                   result +="<th scope='col'>Attendance </th>";
+                   result +="<th scope='col'>Feeback </th>";
+
+              result += "</tr>"+
+                        "</thead>";
+
+                    for(var index = 0 ; index < dataArray.length ; index++)
+                    {
+                        result += "<tr>";
+                        result += "<td style='white-space:nowrap' >";
+                        result += `Session ID : ${dataArray[index][0]}` 
+                        result +="</td>"
+                        result += "<td style='white-space:nowrap' >";
+                        result += `Student ID : ${dataArray[index][1]}`   
+                        result +="</td>"
+                        result += "<td style='white-space:nowrap' >";                      
+                        result += `Student Name : ${dataArray[index][2]}`    
+                        result +="</td>"
+                        result += "<td style='white-space:nowrap' >";   
+                                          
+                        result += `Attendance : <select id='att_id_${index}' > `
+
+                        if(dataArray[index][3] == "YES")
+                        {
+                            result += `<option>YES</option> `
+                            result += `<option>NO</option> `
+                            result += `<option></option> `
+
+                        }
+                        else if(dataArray[index][3] == "NO")
+                        {
+                            result += `<option>NO</option> `
+                            result += `<option>YES</option> `
+                            result += `<option></option> `
+
+                        }
+                        else
+                        {
+                            result += `<option></option> `
+                            result += `<option>YES</option> `
+                            result += `<option>NO</option> `       
+                        }
+
+                        result += `</select> `
+
+                        result +="</td>"
+                        result += "<td style='white-space:nowrap' >";       
+                        if(dataArray[index][4] != "")
+                        result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="50"> ${dataArray[index][4]} </textarea> `;
+                        else
+                        result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="50"></textarea> `;
+
+
+                        result +="</td>"
+                        result += "<td style='white-space:nowrap' >";     
+                                //  Tiger
+                        result += `<button  type="button" id='send_att_feed${index}' class="btn btn-light" style='float:right'><i class="fa-solid fa-circle-arrow-right"></i></button>`               
+                        result +="</td>"
+                        result += "</tr>";
+
+                    }
+                  
+            //   }
+                 
+    result += "</table>";
+    var div = document.getElementById("search-results_1");
+    div.innerHTML = result;
+    for(var index = 0 ; index < dataArray.length ; index++)
+    {
+        $('#send_att_feed'+index).click(function () {  
+
+            var id = this.id;
+            var ret = id.replace('send_att_feed','');
+
+            if (confirm("Updated Student ?") == true) {
+                dataArray[ret][3] = document.getElementById('att_id_'+ret).value;
+                dataArray[ret][4] = document.getElementById('feed_id_'+ret).value;
+
+                update_studnet_att_students(dataArray[ret] , dataArray , All_req_obj)
+            }
+            else{
+
+            }
+
+        });
+    }
+
+  }else{
+    var div = document.getElementById("search-results_1");
+    div.innerHTML = "Data not found!";
+  }
+}
+
+function update_studnet_att_students(value_elments , students_arr , All_req_obj)
+{
+
+    var Database_link = database_fixed_link;
+
+    var inputs_col = 
+    ["student_id" 
+    , "session_id" 
+    , "attendance" 
+    , "feedback" 
+
+    ]
+    
+    var inputs_check = ["Parent missing" , "Student missing"];
+
+    var called_table = 'att_feed';
+
+        const All_data_obj_ = {};
+        All_data_obj_.table_ = called_table;
+        All_data_obj_.inputs_col_ = inputs_col;
+        All_data_obj_.inputs_check_ = inputs_check;
+        All_data_obj_.Database_link = Database_link;
+        All_data_obj_.callbackfunc;
+        All_data_obj_.callbackfunc_1;
+        All_data_obj_.obj;
+        All_data_obj_.index_num = 0;
+
+            var COL_DATA =  "attendance='"+value_elments[3]+"' , feedback='"+value_elments[4]+"'";
+            All_data_obj_.index_num = value_elments[5];
+
+            All_data_obj_.callbackfunc = function(All_data_obj, response)
+            {
+                alert(response);
+                // get_student_groups_tables(All_req_obj ,quary_tables_all_status_add_session_to_parent , '' , time_out  , 0);
+                if(All_req_obj)
+                get_student_groups_tables(All_req_obj ,quary_tables_all_status_add_session_to_parent , schedule_create , time_out  , 4);
+            };
+            update_one_data_from_database(All_data_obj_ , COL_DATA)
 
 }
 

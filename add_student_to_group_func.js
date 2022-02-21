@@ -41,6 +41,20 @@ function ADD_STUDENT_TO_GROUP()
     , "student_id" 
     , "status" 
     ]
+    ,
+    ["groups_id" 
+    ,"employee_id" 
+    ,"zoomlink" 
+    ,"session_date" 
+    ,"session_num" 
+    ,"open_by"
+  ]
+  ,
+  ["student_id" 
+  ,"session_id" 
+  ,"attendance" 
+  ,"feedback" 
+]
   ];
 
 var called_table = [
@@ -54,7 +68,10 @@ var called_table = [
       'age',
       'groups',
       'students',
-      'student_groups'
+      'student_groups',
+      'sessions',
+      'att_feed'
+      
   ];
 
 var paper_inputs = [
@@ -410,12 +427,32 @@ function return_func(All_table_obj , func , arr_data , All_req_obj , paper_input
 {
     var value_elments = document.getElementById('student_input').value;
     var check_active_flag = false;
+
+
+
+
+            var counter___ses = 0;
+            var session_ids = [];
+
+            if(All_table_obj.tables[11] && All_table_obj.tables[11] !== undefined && All_table_obj.tables[11].length != 0)
+            {
+                for(var index_11 = 0 ; index_11 < All_table_obj.tables[11].length ; index_11++)
+                {
+                    if(document.getElementById(paper_inputs[0] ).value == All_table_obj.tables[11][index_11].groups_id )
+                    {
+
+                        session_ids[counter___ses] = All_table_obj.tables[11][index_11].id;counter___ses++;
+                    }
+                }
+            }
+            console.log(session_ids);
+
     if(All_table_obj.tables[10] && All_table_obj.tables[10] !== undefined && All_table_obj.tables[10].length != 0)
     {
 
         for(var index = 0 ; index < All_table_obj.tables[10].length ; index++)
         {
-
+// Tiger
             if(All_table_obj.tables[10][index].student_id == value_elments && All_table_obj.tables[10][index].status == "active" )
             {
 
@@ -462,8 +499,24 @@ function return_func(All_table_obj , func , arr_data , All_req_obj , paper_input
             arr_data[10].callbackfunc = function(All_data_obj , response)
             {
                 // console.log('func_1');
-                alert(response , "success");
-                ADD_STUDENT_TO_GROUP();
+                // alert(response , "success");
+                for(var index = 0 ; index < counter___ses ; index++)
+                {
+                    var value_elments_=[];
+
+                    value_elments_[0] = document.getElementById(paper_inputs[1] ).value;
+                    value_elments_[1] = session_ids[index];
+                    value_elments_[2] = '';
+                    value_elments_[3] = '';
+
+                    arr_data[12].callbackfunc = function(All_data_obj , response)
+                    {
+                        // console.log('func_1');
+                        alert(response , "success");
+                        ADD_STUDENT_TO_GROUP();
+                    };
+                    add_one_data_from_database(arr_data[12] , value_elments_);
+                }
             };
             add_one_data_from_database(arr_data[10] , value_elments);
     }
@@ -662,12 +715,24 @@ function quary_tables_all_status_add_student(All_table_obj , func)
                 }
             }
 
+            var counter___ses = 0;
+
+            if(All_table_obj.tables[11] && All_table_obj.tables[11] !== undefined && All_table_obj.tables[11].length != 0)
+            {
+                for(var index_11 = 0 ; index_11 < All_table_obj.tables[11].length ; index_11++)
+                {
+                    if((All_table_obj.tables[8][index_].id == All_table_obj.tables[11][index_11].groups_id) )
+                    {
+                        counter___ses++;
+                    }
+                }
+            }
 
 
             if(counter__ < 6)
             {
                 $('#group_input').append(`<option value="${seached_cols[0]}"
-                > ${seached_cols[9]}-${seached_cols[5]}-`+All_table_obj.tables[8][index_].id+` | ${seached_cols[8]}-${seached_cols[2]} | ${seached_cols[7]}-${seached_cols[3]} | `+counter__+`-St </option>`);  
+                > ${seached_cols[9]}-${seached_cols[5]}-`+All_table_obj.tables[8][index_].id+` | ${seached_cols[8]}-${seached_cols[2]} | ${seached_cols[7]}-${seached_cols[3]} | `+counter__+`-St | ${counter___ses}-Se</option>`);  
 
                 $('#student_number').append(`<option value="${seached_cols[0]}">`+counter__+`  </option>`);  
             }
