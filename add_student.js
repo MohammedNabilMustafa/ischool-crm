@@ -865,13 +865,13 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
 
             create_new_tabl_col[counter_col] = Feed; counter_col++;
 
-            if(Non_att)
+            if(count - (Att + Abs))
             {
                 create_new_tabl_col[counter_col] = 'Not Updated Attendance';counter_col++;
             }
             else
             {
-                create_new_tabl_col[counter_col] = 'Up to Date';counter_col++;
+                create_new_tabl_col[counter_col] = 'Attendance Up to Date';counter_col++;
             }
 
 
@@ -881,7 +881,7 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
             }
             else
             {
-                create_new_tabl_col[counter_col] = 'Up to Date';counter_col++;
+                create_new_tabl_col[counter_col] = 'Feedback Up to Date';counter_col++;
             }
 
             create_new_tabl_col[counter_col] = students_sessions; counter_col++;
@@ -1050,11 +1050,11 @@ function create_paper_table_customized_student(all_tables)
     var inputs_names_search = [
         "ID :"
     ,"Student ID :"
+    , "Student Name :"
     ,"Parent ID :" 
     , "Parent Name :" 
     , "Free Session Status :" 
     , "Student Status :" 
-    , "Name :"
     , "Age :"
     , "Birthdate :"
     , "Created Sessions :"
@@ -1062,43 +1062,51 @@ function create_paper_table_customized_student(all_tables)
     , "Absence Sessions :"
     , "Remain Sessions :"
     , "Remain Feedback :"
-    , "Attendance Status :"
-    , "Feedback Status:"
+
+
 
 ];
 
 
-   const All_data_obj = {};
-   All_data_obj.Start_Index = 1;
-   All_data_obj.next_btn = '#btn2';
-   All_data_obj.prev_btn = '#btn1';
-   All_data_obj.ind_btn = '#page_index';
-   All_data_obj.location_index = "Location_4";
-   All_data_obj.table_div = 'search-results';
-   All_data_obj.all_names = inputs_names_search;
-   All_data_obj.location_next = "Location_3";
-   All_data_obj.Location_2 = "Location_2";
-   All_data_obj.location_1 = "Location_1";
-   All_data_obj.btn_index = 'btn_index';
-   All_data_obj.btn_index = 'btn_index';
-   All_data_obj.edit_index = [];
-   All_data_obj.delete_index = [];
-   All_data_obj.index_num_value = [];
-   All_data_obj.obj;
+    const All_data_obj = {};
+    All_data_obj.Start_Index = 1;
+    All_data_obj.next_btn = '#btn2';
+    All_data_obj.prev_btn = '#btn1';
+    All_data_obj.ind_btn = '#page_index';
+    All_data_obj.location_index = "Location_4";
+    All_data_obj.table_div = 'search-results';
+    All_data_obj.all_names = inputs_names_search;
+    All_data_obj.location_next = "Location_3";
+    All_data_obj.Location_2 = "Location_2";
+    All_data_obj.location_1 = "Location_1";
+    All_data_obj.btn_index = 'btn_index';
+    All_data_obj.btn_index = 'btn_index';
+    All_data_obj.edit_index = [];
+    All_data_obj.delete_index = [];
+    All_data_obj.view_index = [];
+    All_data_obj.index_num_value = [];
+    All_data_obj.obj;
+    All_data_obj.obj_data = [];
+    All_data_obj.saved_index ;
 
    var values_ = document.getElementById("search_all").value;
 
    if(values_ == "")
    {
       All_data_obj.Start_Index = 1;
-      createTable(all_tables ,All_data_obj , 'clear' , 3 , 4);
+      createTable(all_tables ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view_student , all_tables[0].length-1); 
+
       return;
    }
 
     var result = Search_for_value(all_tables , values_)
         
-   createTable(result ,All_data_obj , 'clear' , 3 , 4); 
+   createTable(result ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view_student , result[0].length-1); 
+
 }
+
+
+
 
 function paper_inner_parent (paper_ , title)
 {
