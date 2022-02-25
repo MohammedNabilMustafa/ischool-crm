@@ -7,6 +7,8 @@
 //---------------------Admin -------------------------
 //------------------------------------------------------------
 
+let counter__ = [];
+
 var alertPlaceholder = document.getElementById('liveAlertPlaceholder')
 
 // function alert(message, type) {

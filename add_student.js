@@ -171,12 +171,12 @@ var paper_inputs_label = [
     html_create_lists_parent_student(paper_inputs , paper_inputs_label , "Location_1" );
 
     add_new_parent_student_(All_req_obj,paper_inputs);
-    get_paper_tables_parent(All_req_obj ,quary_tables_all_status_students_check,'' , time_out , 2);
-    get_paper_tables_parent(All_req_obj ,quary_tables_all__student,create_paper_table_parent_students , time_out , 3);
+    get_all_data_arr(All_req_obj ,quary_tables_all_status_students_check,'' , time_out , 2);
+    get_all_data_arr(All_req_obj ,quary_tables_all__student,create_paper_table_parent_students , time_out , 3);
 
     $('#search_btn').click(function (index) {  
 
-        get_paper_tables_parent(All_req_obj ,quary_tables_all__student,create_paper_table_customized_student , time_out , 4);
+        get_all_data_arr(All_req_obj ,quary_tables_all__student,create_paper_table_customized_student , time_out , 4);
     });
   
     $('#add_student_new').click(function () {  
@@ -458,7 +458,7 @@ function add_new_student___(All_req_obj,paper_inputs)
     if(st_ids == 0)
     {
         alert("No Students" , "danger");
-        get_paper_tables_parent(All_req_obj ,quary_tables_all__student,create_paper_table_parent , time_out , 5);
+        get_all_data_arr(All_req_obj ,quary_tables_all__student,create_paper_table_parent , time_out , 5);
         return;
     }
     
@@ -720,7 +720,7 @@ function add_student_to_student_Sessions(All_req_obj,paper_inputs , group_id_val
 
 
 
-function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index_pos)
+function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos)
 {
 
     var Database_link = All_req_obj.Database_link;
@@ -749,17 +749,16 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
     }
 
 
+    counter__[index_pos] = 0;
+
     for(var index = 0 ; index < arr_data.length ; index++)
     {
-        arr_data[index].callbackfunc = function(All_data_obj)
-        {
-            All_table_obj.tables[All_data_obj.index] = All_data_obj.obj;
-            All_data_obj.check = true;
-        };
-        get_all_data_from_database(arr_data[index]);
+        counter__[index_pos] ++;
+
+        get_all_data_from_database_doAjax_arr(arr_data[index] , index_pos,   func_quary , func , All_table_obj);
+
     }
-    counter__[index_pos] = 0;
-    again(All_table_obj , arr_data ,   func_quary , func , timeout , index_pos );
+
 
 }
 
@@ -1518,10 +1517,9 @@ function update_studnet_att_students(value_elments , students_arr , All_req_obj 
                     All_req_obj.called_table = called_table
 
 
-                    get_paper_tables_parent(All_req_obj ,quary_tables_all_status_students_check,'' , time_out , 5);
-                    get_paper_tables_parent(All_req_obj ,quary_tables_all__student,create_paper_table_parent_students , time_out , 6);
+                    get_all_data_arr(All_req_obj ,quary_tables_all_status_students_check,'' , time_out , 5);
+                    get_all_data_arr(All_req_obj ,quary_tables_all__student,create_paper_table_parent_students , time_out , 6);
 
-                // get_student_groups_tables(All_req_obj ,quary_tables_all_status_add_session_to_parent , '' , time_out  , 0);
 
             };
             update_one_data_from_database(All_data_obj_ , COL_DATA)

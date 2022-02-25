@@ -67,14 +67,14 @@ var paper_inputs_label = [
     ];
     html_create_lists_employee(paper_inputs , paper_inputs_label , "Location_1" );
 
-    get_employee_tables(All_req_obj ,quary_tables_all_status_employee , '' , time_out  , 1);
+    get_all_data_arr(All_req_obj ,quary_tables_all_status_employee , '' , time_out  , 1);
 
      add_new_empolyee(All_req_obj,paper_inputs);
-     get_employee_tables(All_req_obj ,quary_tables_all_employee,create_paper_table_employee , time_out , 3);
+     get_all_data_arr(All_req_obj ,quary_tables_all_employee,create_paper_table_employee , time_out , 3);
 
     $('#search_btn').click(function (index) {  
 
-        get_employee_tables(All_req_obj ,quary_tables_all_employee,create_paper_table_customized_employee , time_out , 4);
+        get_all_data_arr(All_req_obj ,quary_tables_all_employee,create_paper_table_customized_employee , time_out , 4);
         });
    
 
@@ -197,7 +197,7 @@ function add_new_empolyee(All_req_obj,paper_inputs)
             {
                 alert(response , "success");
 
-                get_employee_tables(All_req_obj ,quary_tables_all_employee,create_paper_table_employee , time_out , 2);
+                get_all_data_arr(All_req_obj ,quary_tables_all_employee,create_paper_table_employee , time_out , 2);
             };
             add_one_data_from_database(All_data_obj , value_elments);
         
@@ -206,48 +206,6 @@ function add_new_empolyee(All_req_obj,paper_inputs)
         
 }
 
-function get_employee_tables(All_req_obj , func_quary,func , timeout , index_pos)
-{
-
-    var Database_link = All_req_obj.Database_link;
-    var inputs_col = All_req_obj.inputs_col; 
-    var called_table = All_req_obj.called_table;
-
-
-      const All_table_obj = {};
-      All_table_obj.tables= [];
-
-
-      var arr_data = [];
-    for(var index = 0 ; index < inputs_col.length ; index ++)
-    {
-        const All_data_obj = {};
-        All_data_obj.table_ = called_table[index];
-        All_data_obj.inputs_col_ = inputs_col[index];
-        All_data_obj.Database_link = Database_link;
-        All_data_obj.callbackfunc;
-        All_data_obj.obj;
-        All_data_obj.index = index;
-        All_data_obj.length = inputs_col.length-1;
-        All_data_obj.check = false;
-        
-        arr_data[index] = All_data_obj;
-    }
-
-
-    for(var index = 0 ; index < arr_data.length ; index++)
-    {
-        arr_data[index].callbackfunc = function(All_data_obj)
-        {
-            All_table_obj.tables[All_data_obj.index] = All_data_obj.obj;
-            All_data_obj.check = true;
-        };
-        get_all_data_from_database(arr_data[index]);
-    }
-    counter__[index_pos] = 0;
-    again(All_table_obj , arr_data ,   func_quary , func , timeout , index_pos );
-
-}
 
 
  function quary_tables_all_employee(All_table_obj , func)

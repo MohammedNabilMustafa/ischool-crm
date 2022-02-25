@@ -288,7 +288,6 @@
                         <li><a href="#" id="add_student_invoice" class="link-dark rounded">Invoices</a></li>
                         <li><a href="#" id="add_session_group" class="link-dark rounded">Schedule</a></li>
                         <li><a href="#" id="add_employee" class="link-dark rounded">Employee</a></li>
-                        <li><a href="#" id="add_feedback" class="link-dark rounded">Attendance / Feedback</a></li>
                         <li><a href="#" id="add_student_parent" class="link-dark rounded">Add Student To Parent</a></li>
                         <li><a href="#" id="add_student_group" class="link-dark rounded">Add Student To Group</a></li>
                         <li><a href="#" id="add_student_package" class="link-dark rounded">Add Student To Packages</a></li>
@@ -299,10 +298,10 @@
                     
                   </li>
                   <li class="mb-1">
-                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Papers-collapse" aria-expanded="false">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Groups-collapse" aria-expanded="false">
                       Admin Groups
                     </button>
-                    <div class="collapse" id="Papers-collapse">
+                    <div class="collapse" id="Groups-collapse">
                       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li><a href="#" id="groups" class="link-dark rounded">All Groups</a></li>
                         <li><a href="#" id="sessions" class="link-dark rounded">All Sessions</a></li>
@@ -320,10 +319,10 @@
                     </div>
                   </li>
                   <li class="mb-1"></li>   
-                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Extras-collapse" aria-expanded="false">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Students-collapse" aria-expanded="false">
                       Admin Students
                     </button>
-                    <div class="collapse" id="Extras-collapse">
+                    <div class="collapse" id="Students-collapse">
                       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li><a href="#" id="students" class="link-dark rounded">Students</a></li>
                         <li><a href="#" id="student_groups" class="link-dark rounded">Student Groups</a></li>
@@ -332,10 +331,10 @@
                     </div>
                   </li>
                   <li class="mb-1">
-                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Payment-collapse" aria-expanded="false">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Finance-collapse" aria-expanded="false">
                       Admin Finance & Users
                     </button> 
-                    <div class="collapse" id="Payment-collapse">
+                    <div class="collapse" id="Finance-collapse">
                       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li><a href="#" id="package" class="link-dark rounded">Packages</a></li>
                         <li><a href="#" id="invoice" class="link-dark rounded">Invoice</a></li>
@@ -351,10 +350,10 @@
 
 
                   <li class="mb-1">
-                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Customers-collapse" aria-expanded="false">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Parents-collapse" aria-expanded="false">
                       Admin Parents
                     </button> 
-                    <div class="collapse" id="Customers-collapse">
+                    <div class="collapse" id="Parents-collapse">
                       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li><a href="#" id="parent_loc" class="link-dark rounded">Parent</a></li>
                         <li><a href="#" id="cs_calls" class="link-dark rounded">CS Calls</a></li>
@@ -362,6 +361,19 @@
                         <li><a href="#" id="close" class="link-dark rounded">Closing</a></li>
                         <li><a href="#" id="call_type" class="link-dark rounded">Call Type</a></li>
                         <li><a href="#" id="call_status" class="link-dark rounded">Call Status</a></li>
+
+                      </ul>
+                    </div>
+                  </li>
+
+                  <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Commerical-collapse" aria-expanded="false">
+                      Admin Commerical
+                    </button> 
+                    <div class="collapse" id="Commerical-collapse">
+                      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" id="parent_loc" class="link-dark rounded">Parent</a></li>
+
 
                       </ul>
                     </div>
@@ -419,6 +431,7 @@
       
 
       <script   src="navigation.js" ></script>
+      <script   src="database_functions_v2.js" ></script>
       <script   src="database_functions.js" ></script>
       <script   src="help_functions.js" ></script>
       <script   src="admin_function.js" ></script>
@@ -432,7 +445,6 @@
       <script   src="add_student_package_func.js" ></script>
       <script   src="add_student_to_session_func.js" ></script>
       <script   src="invoice_student.js" ></script>
-      <script   src="feedback_attendance_func.js" ></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -444,14 +456,16 @@
       <script>
 
 // var database_fixed_link = "fetch.php";
-var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
-// var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
+// var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
+var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
 // var database_fixed_link = "https://operation.ischool-edu.com/fetch.php";
 
 var time_out = 1000;
 var time_out_retries = 100000;
 
   $(document).ready(function () {
+
+
       
 
     // document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student To Session</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
@@ -466,15 +480,7 @@ var time_out_retries = 100000;
         document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student To Session</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
         ADD_STUDENT_TO_SESSION();
       }); 
-
-
-      $('#add_feedback').click(function () {
-        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Attendance / Feedback</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
-        ATT_FEED_STUDENT();
-      }); 
-
-
-      
+  
       $('#package').click(function () {
         document.getElementById("page_name").innerHTML = "<h1>Packges</h1>"
         packages();

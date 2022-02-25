@@ -70,13 +70,13 @@ var paper_inputs_label = [
                  
     html_create_lists_add_invoice(paper_inputs , paper_inputs_label , "Location_1" );
 
-    get_student_groups_tables(All_req_obj ,quary_tables_all_status_invoice , '' , time_out  , 1);
+    get_all_data_arr(All_req_obj ,quary_tables_all_status_invoice , '' , time_out  , 1);
 
     // add_new_student_group(All_req_obj,paper_inputs);
-    get_student_groups_tables(All_req_obj ,quary_tables_all_paper_invoice,create_table_invoice , time_out , 2);
+    get_all_data_arr(All_req_obj ,quary_tables_all_paper_invoice,create_table_invoice , time_out , 2);
 
     $('#search_btn').click(function (index) {  
-        get_student_groups_tables(All_req_obj ,quary_tables_all_paper_invoice,create_table_inovice_customized , time_out , 3);
+        get_all_data_arr(All_req_obj ,quary_tables_all_paper_invoice,create_table_inovice_customized , time_out , 3);
         });
 }
 

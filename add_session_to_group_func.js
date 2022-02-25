@@ -126,12 +126,12 @@ var paper_inputs_label = [
                  
         html_create_lists_add_session_group(paper_inputs , paper_inputs_label , "Location_1" );
 
-    get_student_groups_tables(All_req_obj ,quary_tables_all_status_add_session_to_parent , '' , time_out  , 1);
+        get_all_data_arr(All_req_obj ,quary_tables_all_status_add_session_to_parent , '' , time_out  , 1);
 
 
     $('#search_btn_all').click(function () {  
 
-        get_student_groups_tables(All_req_obj ,quary_tables_all_status_add_session_to_parent , schedule_create , time_out  , 2);
+        get_all_data_arr(All_req_obj ,quary_tables_all_status_add_session_to_parent , schedule_create , time_out  , 2);
 
     });
 }
@@ -1192,7 +1192,7 @@ function add_new_session_schedule(object_group , group_id_in , All_req_obj)
                 All_data_obj.callbackfunc = function(All_data_obj , response)
                 {
                     alert(response);
-                    get_student_groups_tables(All_req_obj ,quary_tables_all_status_add_session_to_parent , schedule_create , time_out  , 3);
+                    get_all_data_arr(All_req_obj ,quary_tables_all_status_add_session_to_parent , schedule_create , time_out  , 3);
 
                 };
                 add_one_data_from_database(All_data_obj , value_elments);
@@ -1343,9 +1343,9 @@ function update_studnet_att(value_elments , students_arr , All_req_obj)
             All_data_obj_.callbackfunc = function(All_data_obj, response)
             {
                 alert(response);
-                // get_student_groups_tables(All_req_obj ,quary_tables_all_status_add_session_to_parent , '' , time_out  , 0);
+                // get_all_data_arr(All_req_obj ,quary_tables_all_status_add_session_to_parent , '' , time_out  , 0);
                 if(All_req_obj)
-                get_student_groups_tables(All_req_obj ,quary_tables_all_status_add_session_to_parent , schedule_create , time_out  , 4);
+                get_all_data_arr(All_req_obj ,quary_tables_all_status_add_session_to_parent , schedule_create , time_out  , 4);
             };
             update_one_data_from_database(All_data_obj_ , COL_DATA)
 

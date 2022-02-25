@@ -1,6 +1,7 @@
 
 <?php
 
+// get_header();
 header("Access-Control-Allow-Origin: *");
 
 //local
@@ -15,7 +16,10 @@ $dbname = "ischool";
 // $password = "123456";
 // $dbname = "ischool4_operation";
 
+
 if (isset($_POST["status"])){
+
+  // echo 'here';
 
         if($_POST["status"] == "Getall")
         {

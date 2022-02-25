@@ -125,7 +125,7 @@ var called_table = ['slots',
         All_req_obj_.called_table = called_table
                  
   
-    get_paper_tables_parent(All_req_obj_ ,quary_tables_all_status_groups_check , '' , time_out  , 0);
+        get_all_data_arr(All_req_obj_ ,quary_tables_all_status_groups_check , '' , time_out  , 0);
 
 }
 
@@ -258,7 +258,8 @@ var called_table = ['permission',
           'invoice'
       ];
 
-var paper_inputs = ['name_input' , 
+var paper_inputs = [
+          'name_input' , 
           'phone_input',
           'email_input',
           'name2_input',
@@ -303,15 +304,15 @@ var paper_inputs_label = [
         All_req_obj.called_table = called_table
                  
     html_create_lists_parent(paper_inputs , paper_inputs_label , "Location_1" );
-    // get_paper_tables_parent(All_req_obj ,quary_tables_all_employee , quary_tables_all_status_parent , time_out  , 0);
+    // get_all_data_arr(All_req_obj ,quary_tables_all_employee , quary_tables_all_status_parent , time_out  , 0);
 
 
     add_new_parent_(All_req_obj,paper_inputs);
-    get_paper_tables_parent(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , time_out , 1);
+    get_all_data_arr(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , time_out , 1);
 
     $('#search_btn').click(function (index) {  
 
-    get_paper_tables_parent(All_req_obj ,quary_tables_all_parent,create_paper_table_customized_parent , time_out , 2);
+        get_all_data_arr(All_req_obj ,quary_tables_all_parent,create_paper_table_customized_parent , time_out , 2);
         });
   
     $('#add_student_new').click(function () {  
@@ -319,6 +320,13 @@ var paper_inputs_label = [
         html_create_lists_student_num(All_req_obj,paper_inputs ,"Location_2" , st_ids);
         st_ids++;
     });
+
+
+
+        // $('#send_group').click(function () {
+
+        // ADD_PARENT_SENRIO(paper_inputs);
+        // });
 
 
 }
@@ -337,9 +345,9 @@ function html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , s
 
     document.getElementById('add_std_'+st_ids_).innerHTML +=`</div></div>`;
     document.getElementById('add_std_'+st_ids_).innerHTML += `<label>Free Session : </label><input class="largerCheckbox" type='checkbox' id='free_id`+st_ids_+`' value='yes'>`;
-    document.getElementById('add_std_'+st_ids_).innerHTML += `<button type="button" id='add_std_btn_${st_ids_}' class="btn btn-light" style='float:right;font-size:25px'>
-    <i class="fa-solid fa-circle-minus"></i>
-  </button>`;
+//     document.getElementById('add_std_'+st_ids_).innerHTML += `<button type="button" id='add_std_btn_${st_ids_}' class="btn btn-light" style='float:right;font-size:25px'>
+//     <i class="fa-solid fa-circle-minus"></i>
+//   </button>`;
 
     document.getElementById('add_std_'+st_ids_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
     document.getElementById('add_std_'+st_ids_).innerHTML += `<label>birthdate : </label><input type='date' id='bd_id`+st_ids_+`'>`;
@@ -782,9 +790,6 @@ function add_student_to_group_(All_req_obj,paper_inputs , student_id , group_id_
                 get_all_data_from_database(All_data_obj);
 }
 
-
-
-
 function add_student_to_group_Sessions(All_req_obj,paper_inputs , group_id_value , student_id)
 {
     
@@ -1016,94 +1021,6 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
     }
 }
 
-function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index_pos)
-{
-
-    var Database_link = All_req_obj.Database_link;
-    var inputs_col = All_req_obj.inputs_col; 
-    var called_table = All_req_obj.called_table;
-
-
-      const All_table_obj = {};
-      All_table_obj.tables= [];
-
-
-      var arr_data = [];
-    for(var index = 0 ; index < inputs_col.length ; index ++)
-    {
-        const All_data_obj = {};
-        All_data_obj.table_ = called_table[index];
-        All_data_obj.inputs_col_ = inputs_col[index];
-        All_data_obj.Database_link = Database_link;
-        All_data_obj.callbackfunc;
-        All_data_obj.obj;
-        All_data_obj.index = index;
-        All_data_obj.length = inputs_col.length-1;
-        All_data_obj.check = false;
-        
-        arr_data[index] = All_data_obj;
-    }
-
-
-    for(var index = 0 ; index < arr_data.length ; index++)
-    {
-        arr_data[index].callbackfunc = function(All_data_obj)
-        {
-            All_table_obj.tables[All_data_obj.index] = All_data_obj.obj;
-            All_data_obj.check = true;
-        };
-        get_all_data_from_database(arr_data[index]);
-    }
-    counter__[index_pos] = 0;
-    again(All_table_obj , arr_data ,   func_quary , func , timeout , index_pos );
-
-}
-
- function again(All_table_obj , arr_data , func_quary ,  func , timeout , index_pos)
- {
-
-    setTimeout(function () {
-        
-
-        for(var index = 0 ; index < arr_data.length ; index++)
-        {
-
-            if(arr_data[index].check == false)
-            {
-   
-                counter__[index_pos]++;
-
-                if(counter__[index_pos]  > time_out_retries)
-                {
-                    arr_data[index].check = true; 
-                    //break;
-                }
-                again(All_table_obj , arr_data , func_quary ,  func , timeout , index_pos );
-            }
-        }
-        if(func_quary)
-        {
-
-            counter__[index_pos]--;
-
-            if(counter__[index_pos] == -1)
-            {
-        
-                    func_quary(All_table_obj , func);
-
-
-
-            }
-
-
-        }
-    }, timeout);
-
-
-
-
-
- }
 
  function quary_tables_all_parent(All_table_obj , func)
  {
@@ -1408,8 +1325,6 @@ function get_paper_tables_parent(All_req_obj , func_quary,func , timeout , index
     func(create_new_tabl_rows , create_new_tabl_rows_emp);
 }
 
-
-
  function quary_tables_all_status_parent(create_new_tabl_rows)
  {
         for(var index_ = 0 ; index_ < create_new_tabl_rows.length ; index_++)
@@ -1520,8 +1435,6 @@ function create_view(All_data_obj , End_Index)
 function create_paper_table_customized_parent(all_tables)
 {
 
-
-
     var inputs_names_search = [
         "ID :"
     ,"Name :"
@@ -1540,24 +1453,26 @@ function create_paper_table_customized_parent(all_tables)
 
 ];
 
-
-   const All_data_obj = {};
-   All_data_obj.Start_Index = 1;
-   All_data_obj.next_btn = '#btn2';
-   All_data_obj.prev_btn = '#btn1';
-   All_data_obj.ind_btn = '#page_index';
-   All_data_obj.location_index = "Location_4";
-   All_data_obj.table_div = 'search-results';
-   All_data_obj.all_names = inputs_names_search;
-   All_data_obj.location_next = "Location_3";
-   All_data_obj.Location_2 = "Location_2";
-   All_data_obj.location_1 = "Location_1";
-   All_data_obj.btn_index = 'btn_index';
-   All_data_obj.btn_index = 'btn_index';
-   All_data_obj.edit_index = [];
-   All_data_obj.delete_index = [];
-   All_data_obj.index_num_value = [];
-   All_data_obj.obj;
+    const All_data_obj = {};
+    All_data_obj.Start_Index = 1;
+    All_data_obj.next_btn = '#btn2';
+    All_data_obj.prev_btn = '#btn1';
+    All_data_obj.ind_btn = '#page_index';
+    All_data_obj.location_index = "Location_4";
+    All_data_obj.table_div = 'search-results';
+    All_data_obj.all_names = inputs_names_search;
+    All_data_obj.location_next = "Location_3";
+    All_data_obj.Location_2 = "Location_2";
+    All_data_obj.location_1 = "Location_1";
+    All_data_obj.btn_index = 'btn_index';
+    All_data_obj.btn_index = 'btn_index';
+    All_data_obj.edit_index = [];
+    All_data_obj.delete_index = [];
+    All_data_obj.view_index = [];
+    All_data_obj.index_num_value = [];
+    All_data_obj.obj;
+    All_data_obj.obj_data = [];
+    All_data_obj.saved_index ;
 
    var values_ = document.getElementById("search_all").value;
 
@@ -1945,7 +1860,7 @@ result += "</tr>"+
   }
 
 
-  function Add_Section(All_data_obj)
+function Add_Section(All_data_obj)
   {
       var values = "";
       values = `<div style='display:flex;justify-content:right;'><button id='add_user' class='btn btn-success' type='button' > Add New </button></div>`;
@@ -1965,4 +1880,86 @@ result += "</tr>"+
     });
 
 
+}
+
+
+
+async function ADD_PARENT_SENRIO(paper_inputs)
+{
+    var data_to_send_arr_parent = [];
+    for(var index = 0 ; index < paper_inputs.length ; index++)
+    {
+        data_to_send_arr_parent[index] = document.getElementById(paper_inputs[index]).value;
+        if(data_to_send_arr_parent[index] == '')
+        {
+            alert('Parent Data Missing')
+            return;
+        }
     }
+
+    if(st_ids == 0)
+    {   
+        alert('No Student Added')
+        return;
+    }
+
+    for(var index = 0 ; index < st_ids ; index ++)
+    {
+        if(document.getElementById('student_id'+index).value == ''){alert(`Student ${(index +1)} data Missing`);return;}
+        if(document.getElementById('name_id'+index).value == ''){alert(`Student ${(index +1)} data Missing`);return;}
+        if(document.getElementById('bd_id'+index).value == ''){alert(`Student ${(index +1)} data Missing`);return;}
+        if(document.getElementById('status_id'+index).value == ''){alert(`Student ${(index +1)} data Missing`);return;}
+        if(document.getElementById('Packages_id_input'+index).value == ''){alert(`Student ${(index +1)} data Missing`);return;}
+        if(document.getElementById('package_data_'+index).value == ''){alert(`Student ${(index +1)} data Missing`);return;}
+        if(document.getElementById('groups_id_input'+index).value == ''){alert(`Student ${(index +1)} data Missing`);return;}
+    }
+    
+    var get_add_data_var_parent = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'parent' ,     
+    [
+    "name" 
+    , "phone" 
+    , "email" 
+    , "name_2" 
+    , "phone_2" 
+    , "email_2" 
+    , "address" 
+    , "location" 
+    , "job" 
+    , "reg_status" 
+    , "customer_agent_id" 
+    , "sales_agent_id" 
+     ]
+      , data_to_send_arr_parent);
+
+      var get_data_var = await GET_DATA_TABLES(database_fixed_link , 'parent');
+
+      var save_last_parent_id = get_data_var[get_data_var.length-1].id;
+
+    for(var index = 0 ; index < st_ids ; index ++)
+    {
+        var data_to_send_arr_student = [];
+        var counter = 0 ;
+        data_to_send_arr_student[counter] = document.getElementById('student_id'+index).value;counter++;
+        data_to_send_arr_student[counter] = save_last_parent_id;counter++;
+        data_to_send_arr_student[counter] = document.getElementById('free_id'+index).value;counter++
+        data_to_send_arr_student[counter] = document.getElementById('status_id'+index).value;counter++
+        data_to_send_arr_student[counter] = document.getElementById('name_id'+index).value;counter++
+        data_to_send_arr_student[counter] = '';counter++
+        data_to_send_arr_student[counter] = document.getElementById('bd_id'+index).value;
+
+    var get_add_data_var_std = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'students' ,     
+    ["std_id" 
+    , "parent_id" 
+    , "free_session_status" 
+    , "std_status" 
+    , "name" 
+    , "age" 
+    , "birthdate" 
+     ]
+        , data_to_send_arr_student);
+
+
+
+    }
+
+}
