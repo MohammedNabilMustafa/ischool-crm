@@ -262,7 +262,7 @@ function html_create_lists_parent_student(paper_inputs , paper_inputs_label  , l
     <div class='col justify-content-start'>
       <input type="search" id="search_all" class="form-control" />
     </div>
-    <div class='col justify-content-start'><button type="button" id='search_btn' class="btn btn-primary">
+    <div class='col justify-content-start' style='z-index:0;'><button type="button" id='search_btn' class="btn btn-primary">
       <i class="fas fa-search"></i>
     </button></div>
   </div>`;
@@ -755,7 +755,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos)
     {
         counter__[index_pos] ++;
 
-        get_all_data_from_database_doAjax_arr(arr_data[index] , index_pos,   func_quary , func , All_table_obj);
+        get_all_data_from_database_doAjax_arr(arr_data[index] , index_pos,   func_quary , func , All_table_obj , All_req_obj );
 
     }
 
@@ -1378,7 +1378,7 @@ function createTable_pop_up_students(All_data_obj , All_req_obj  , End_Index) {
 
   }else{
     var div = document.getElementById("search-results_1");
-    div.innerHTML = "Data not found!";
+    div.innerHTML = "<h3 style='text-align:center;color:green;'>Attendance / Feedback Uptodate<h3>";
   }
 }
 

@@ -307,7 +307,7 @@ var paper_inputs_label = [
     // get_all_data_arr(All_req_obj ,quary_tables_all_employee , quary_tables_all_status_parent , time_out  , 0);
 
 
-    add_new_parent_(All_req_obj,paper_inputs);
+    // add_new_parent_(All_req_obj,paper_inputs);
     get_all_data_arr(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , time_out , 1);
 
     $('#search_btn').click(function (index) {  
@@ -323,10 +323,10 @@ var paper_inputs_label = [
 
 
 
-        // $('#send_group').click(function () {
+        $('#send_group').click(function () {
 
-        // ADD_PARENT_SENRIO(paper_inputs);
-        // });
+        ADD_PARENT_SENRIO(paper_inputs);
+        });
 
 
 }
@@ -355,8 +355,11 @@ function html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , s
 
     for(var index = 0 ;index < saved_status_arr.length ; index++)
     {
-        $('#status_id'+st_ids_).append(`<option value="${saved_status_arr[index][0]}"
-        >${saved_status_arr[index][1]} </option>`); 
+        if(saved_status_arr[index][0] != undefined)
+        {
+            $('#status_id'+st_ids_).append(`<option value="${saved_status_arr[index][0]}"
+            >${saved_status_arr[index][1]} </option>`); 
+        }
     }
     document.getElementById('add_std_'+st_ids_).innerHTML +=`</div></div>`;
 
@@ -364,8 +367,11 @@ function html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , s
 
     for(var index = 0 ;index < saved_package_arr.length ; index++)
     {
-        $('#Packages_id_input'+st_ids_).append(`<option value="${saved_package_arr[index][0]}"
-        >${saved_package_arr[index][1]} </option>`); 
+        if(saved_package_arr[index][0] != undefined)
+        {
+            $('#Packages_id_input'+st_ids_).append(`<option value="${saved_package_arr[index][0]}"
+            >${saved_package_arr[index][1]} </option>`); 
+        }
     }
 
     document.getElementById('add_std_'+st_ids_).innerHTML +=`<label>Paid Date : </label><input type='date' id='package_data_${st_ids_}' />`;
@@ -375,8 +381,12 @@ function html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , s
 
     for(var index = 0 ;index < saved_group_arr.length ; index++)
     {
-        $('#groups_id_input'+st_ids_).append(`<option value="${saved_group_arr[index][0]}"
-        >${saved_group_arr[index][1]} </option>`); 
+        if(saved_group_arr[index][0] != undefined)
+        {
+            $('#groups_id_input'+st_ids_).append(`<option value="${saved_group_arr[index][0]}"
+            >${saved_group_arr[index][1]} </option>`); 
+        }
+
     }
 
 
@@ -451,7 +461,7 @@ function html_create_lists_parent(paper_inputs , paper_inputs_label  , location_
     <div class='col justify-content-start'>
       <input type="search" id="search_all" class="form-control" />
     </div>
-    <div class='col justify-content-start'><button type="button" id='search_btn' class="btn btn-primary">
+    <div class='col justify-content-start' style='z-index:0;'><button type="button" id='search_btn' class="btn btn-primary">
       <i class="fas fa-search"></i>
     </button></div>
   </div>`;
@@ -1420,10 +1430,12 @@ function create_view(All_data_obj , End_Index)
         var btn = document.getElementById(All_data_obj.view_index[index]);
 
         All_data_obj.saved_index = index;
+        
 
         btn.onclick = function() {
+
             var id = this.id;
-            var ret = id.replace('view_more_','');
+            var ret = id.replace('view_more_','') ;
 
           modal.style.display = "block";
           createTable_pop_up(All_data_obj  , ret);
@@ -1721,7 +1733,7 @@ function createTable_pop_up(All_data_obj , index_st) {
 
     var dataArray = All_data_obj.obj_data;
     // var index_st = All_data_obj.saved_index;
-
+    
   if(dataArray && dataArray !== undefined && dataArray.length != 0){
 
     var result = "<table class='table' id='dtable'>"+
@@ -1736,7 +1748,7 @@ function createTable_pop_up(All_data_obj , index_st) {
                         "</thead>";
                 // for(var i=0; i<dataArray.length; i++) {
 
-                    for(var index = All_data_obj.Start_Index-1 ; index < Object.values(dataArray[index_st])[14][0].length ; index++)
+                    for(var index = 0 ; index < Object.values(dataArray[index_st])[14][0].length ; index++)
                     {
                         result += "<tr>";
 
@@ -1887,6 +1899,7 @@ function Add_Section(All_data_obj)
 async function ADD_PARENT_SENRIO(paper_inputs)
 {
     var data_to_send_arr_parent = [];
+    var check_code = 0;
     for(var index = 0 ; index < paper_inputs.length ; index++)
     {
         data_to_send_arr_parent[index] = document.getElementById(paper_inputs[index]).value;
@@ -1959,7 +1972,172 @@ async function ADD_PARENT_SENRIO(paper_inputs)
         , data_to_send_arr_student);
 
 
+      var get_data_var = await GET_DATA_TABLES(database_fixed_link , 'students');
+
+      var save_last_student_id = get_data_var[get_data_var.length-1].id;
+
+
+    var get_add_data_var_std = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'student_groups' ,     
+    ["groups_id" 
+    , "student_id" 
+    , "status" 
+     ]
+        , [ document.getElementById('groups_id_input'+index).value , save_last_student_id ,  'active']);
+
+
+    var get_add_data_var_std = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'student_package' ,     
+    ["student_id" 
+    , "package_id" 
+     ]
+        , [  save_last_student_id , document.getElementById('Packages_id_input'+index).value]);
+
+
+
+
+    var counter_loop = 0;
+    saved_package_arr.forEach((element) => {
+        if(element[0] == document.getElementById('Packages_id_input'+index).value)
+        {
+            counter_loop= Number(element[5]);
+        }
+      })
+
+      const saved_date = new Date(document.getElementById('package_data_'+index).value) ;
+
+      for(var index_ = 0 ; index_ < counter_loop ; index_++)
+      {
+
+        var data_invoice = [];
+        var counter_inv = 0;
+        data_invoice[counter_inv] =  save_last_student_id; counter_inv++;
+        // data_invoice[counter_inv] =  1520; counter_inv++;
+
+    saved_package_arr.forEach((element) => {
+        if(element[0] == document.getElementById('Packages_id_input'+index).value)
+        {
+            data_invoice[counter_inv] =  element[2]; counter_inv++;
+            data_invoice[counter_inv] =  element[6]; counter_inv++;
+        }
+      })
+
+      if(index_ == 0)
+      {
+        data_invoice[counter_inv] =  'done'; counter_inv++;
+      }
+      else
+      {
+        data_invoice[counter_inv] =  'waiting'; counter_inv++;
+      }
+
+
+      data_invoice[counter_inv] =  getFormattedDate(saved_date);counter_inv++;
+
+      saved_date.setUTCDate(saved_date.getUTCDate() + 30);
+      
+
+      if(index_ == 0)
+      {
+      data_invoice[counter_inv] =  getFormattedDate(saved_date);counter_inv++;
+      }
+      else
+      {
+        data_invoice[counter_inv] = '';counter_inv++;
+      }
+
+      data_invoice[counter_inv] =  0;counter_inv++;
+      data_invoice[counter_inv] =  '';counter_inv++;
+      data_invoice[counter_inv] =  document.getElementById('Packages_id_input'+index).value;counter_inv++;
+
+      saved_package_arr.forEach((element) => {
+        if(element[0] == document.getElementById('Packages_id_input'+index).value)
+        {
+            data_invoice[counter_inv] =  (Number(element[3]) / Number(element[5])); counter_inv++;
+        }
+      })
+      data_invoice[counter_inv] =  0;counter_inv++;
+
+    var get_add_data_var_std = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'invoice' ,     
+    ["student_id" 
+    , "fees" 
+    , "amount" 
+    , "status" 
+    , "due_date" 
+    , "paid_date" 
+    , "discount" 
+    , "attach" 
+    , "package_id" 
+    , "qouta" 
+    , "remain" 
+     ]
+        , data_invoice);
 
     }
+
+
+    if( Number((new Date()).getFullYear()) - Number((new Date(document.getElementById('bd_id'+index).value)).getFullYear()) < 6  )
+    {
+        alert("Parent Added - Student Added - Package Added - Group Failed - Student too young");
+        ADD_NEW_PARENT();
+        return;
+    }
+
+
+    var saved_data_att = [];
+    var ineer_index = 0;
+    saved_group_arr.forEach((element) => {
+
+        if(element[0] == document.getElementById('groups_id_input'+index).value)
+        {
+            saved_sessions_id_arr.forEach((element_) => {
+                if(element[0] == element_.groups_id)
+                {
+                    var data_arr_to = [];
+                    var counnt = 0;
+                    data_arr_to[counnt] = save_last_student_id;counnt++;
+                    data_arr_to[counnt] = element_.id;counnt++;
+                    data_arr_to[counnt] = '';counnt++;
+                    data_arr_to[counnt] = '';
+                    saved_data_att[ineer_index] = data_arr_to;ineer_index++;
+                }
+              })
+        }
+
+
+      })
+
+      for(var i = 0 ; i < saved_data_att.length ; i++)
+      {
+        var get_add_data_var_std = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'att_feed' ,     
+        ["student_id" 
+        , "session_id" 
+        , "attendance" 
+        , "feedback" 
+  
+         ]
+            , saved_data_att[i]);
+      }
+
+
+
+    }
+
+    alert("Sended");
+
+    ADD_NEW_PARENT();
+    // var new_e
+
+
+    // saved_group_arr.forEach(function(f)
+    //     {
+
+    //     } 
+    // )
+    
+
+    // console.log(saved_group_arr);
+    // console.log(saved_package_arr);
+    // console.log(saved_sessions_id_arr);
+
+
 
 }

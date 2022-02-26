@@ -409,7 +409,7 @@ function html_create_lists_add_student_group(paper_inputs , paper_inputs_label  
     <div class='col justify-content-start'>
       <input type="search" id="search_all" class="form-control" />
     </div>
-    <div class='col justify-content-start'><button type="button" id='search_btn' class="btn btn-primary">
+    <div class='col justify-content-start' style='z-index:0;'><button type="button" id='search_btn' class="btn btn-primary">
       <i class="fas fa-search"></i>
     </button></div>
   </div>`;

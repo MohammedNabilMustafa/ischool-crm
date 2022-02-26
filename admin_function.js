@@ -73,6 +73,7 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
   
   var end_of_arr = 0;
 
+  // All_data_obj.obj_data = [];
 
     clear(All_data_obj.location_next);
     next_Section(All_data_obj.location_next);
@@ -207,7 +208,15 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
                 }
                 if(Create_btn == "open")
                 {
-                  result += `<td><button id='view_more_`+i+`' class='btn btn-danger' > <i class="fa-solid fa-eye"></i> </button></td>`;  
+                  if(Object.values(dataArray[i])[13] == '0 Student/s')
+                  {
+                    result += `<td><button id='view_more_`+i+`' class='btn btn-danger' hidden > <i class="fa-solid fa-eye"></i> </button></td>`;  
+
+                  }
+                  else
+                  {
+                    result += `<td><button id='view_more_`+i+`' class='btn btn-danger' > <i class="fa-solid fa-eye"></i> </button></td>`;  
+                  }
                   All_data_obj.view_index[i] = 'view_more_'+i;  
                   All_data_obj.obj_data[i] = Object.values(dataArray[i]);
 

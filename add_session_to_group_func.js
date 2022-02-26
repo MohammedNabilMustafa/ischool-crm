@@ -757,7 +757,7 @@ function paper_inner_session_group (paper_ , title)
 }
 
 
-function quary_tables_all_status_add_session_to_parent(All_table_obj , func , data , All_req_obj)
+function quary_tables_all_status_add_session_to_parent(All_table_obj , func , All_req_obj)
 {
     var seached_rows = [];
     var count__ = 0;
@@ -1192,6 +1192,7 @@ function add_new_session_schedule(object_group , group_id_in , All_req_obj)
                 All_data_obj.callbackfunc = function(All_data_obj , response)
                 {
                     alert(response);
+                    if(All_req_obj)
                     get_all_data_arr(All_req_obj ,quary_tables_all_status_add_session_to_parent , schedule_create , time_out  , 3);
 
                 };
@@ -1350,3 +1351,6 @@ function update_studnet_att(value_elments , students_arr , All_req_obj)
             update_one_data_from_database(All_data_obj_ , COL_DATA)
 
 }
+
+
+
