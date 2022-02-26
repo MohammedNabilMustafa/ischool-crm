@@ -12,9 +12,16 @@
     <title>Sidebars · Bootstrap v5.1</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/global.css">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sidebars/">
     <link href="sidebars.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<!-- Material Design Bootstrap -->
+<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet"> -->
     <style>
 
 /* @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css); */
@@ -24,6 +31,8 @@
   margin-left: 15px;
   margin-bottom:-3px;
 } */
+
+.pointer {cursor: pointer;}
 
         .bd-placeholder-img {
           font-size: 1.125rem;
@@ -169,6 +178,30 @@
 }
 
 
+.btn-color{
+  background-color: #063883;
+  color: #fff;
+  
+}
+
+.profile-image-pic{
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+}
+
+
+
+.cardbody-color{
+  background-color: #ebf2fa;
+}
+
+a{
+  text-decoration: none;
+}
+
+
+
       </style>
 
 
@@ -266,17 +299,51 @@
         </symbol>
       </svg>
 
-      <div class="container-fluid">
-        <div class="row row_adj">
+
+      <div class="container" id="login_page" style="display: none;">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <!-- <h2 class="text-center text-dark mt-5">Login</h2> -->
+            <div class="card my-5">
+    
+              <form class="card-body cardbody-color p-lg-5">
+    
+                <div class="text-center">
+                  <img src="Logo.svg"
+                    width="200px" style="margin-bottom: 50px;" alt="profile">
+                </div>
+    
+                <div class="mb-3">
+                  <input type="text" class="form-control" id="Username" aria-describedby="emailHelp"
+                    placeholder="User Name" style="padding-top:0 !important;">
+                </div>
+                <div class="mb-3">
+                  <input type="password" class="form-control" id="password" placeholder="Password" style="padding-top:0 !important;">
+                </div>
+                <div class="text-center"><button id="login_id" class="btn btn-color px-5 mb-5 w-100">Login</button></div>
+
+              </form>
+            </div>
+    
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="container-fluid" id="all_countainer" style="display: none;">
+          <div class="row row_adj">
           <div class="col-2">
             <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
                 <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
                   <!-- <svg class="bi me-2" width="150" height="50" style="margin-top: 20px;"><use xlink:href="#bootstrap"/></svg> -->
                   <img src="Logo.svg" style="width:150px;margin:auto;" alt="">
                 </a>
-                <ul class="list-unstyled ps-0">
+
+                  <ul class="list-unstyled ps-0" >
  
-                  <li class="mb-1">
+                  <li class="mb-1" id="system_id">
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Users-collapse" aria-expanded="true">
                         System
                     </button>
@@ -297,7 +364,7 @@
                     </div>
                     
                   </li>
-                  <li class="mb-1">
+                  <li class="mb-1" id="admin_group_id">
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Groups-collapse" aria-expanded="false">
                       Admin Groups
                     </button>
@@ -318,7 +385,7 @@
                       </ul>
                     </div>
                   </li>
-                  <li class="mb-1"></li>   
+                  <li class="mb-1" id="admin_student_id">
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Students-collapse" aria-expanded="false">
                       Admin Students
                     </button>
@@ -330,9 +397,9 @@
                       </ul>
                     </div>
                   </li>
-                  <li class="mb-1">
+                  <li class="mb-1" id="admin_fin_id">
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Finance-collapse" aria-expanded="false">
-                      Admin Finance & Users
+                      Admin Finance/Users
                     </button> 
                     <div class="collapse" id="Finance-collapse">
                       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
@@ -349,7 +416,7 @@
                   </li> 
 
 
-                  <li class="mb-1">
+                  <li class="mb-1" id="admin_parent_id">
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Parents-collapse" aria-expanded="false">
                       Admin Parents
                     </button> 
@@ -366,7 +433,7 @@
                     </div>
                   </li>
 
-                  <li class="mb-1">
+                  <li class="mb-1" id="admin_commerical_id">
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Commerical-collapse" aria-expanded="false">
                       Admin Commerical
                     </button> 
@@ -387,18 +454,21 @@
           </div>
           <div class="col bg-light col2adj" id="content_container">
 
+            
+
             <div id="liveAlertPlaceholder"></div>
 
             <div class='col-12 justify-content-center' style="text-align: center;margin-top: 20px;" >
+              <div class="row" style="display: flex; flex-direction: column;    align-items: flex-end;"> 
+                <div class="account_pic" style="width: 50px;">
+                  <img src="img/img.jpg" alt="">
+              </div>
+            <!-- <span  style="width: 60px;">Logout</span> -->
+            <p class="pointer" style="width: 60px;">Logout</p>
+            </div>
             <div id="page_name"></div>
             </div>
 
-            <!-- <label style='background-color: rgb(99, 56, 56);color: rgb(30, 53, 255);'>2/6/2022 - Fri</labe -->
-
-
-                        <!-- Trigger/Open The Modal -->
-
-          <!-- The Modal -->
           <div id="myModal" class="modal">
 
             <!-- Modal content -->
@@ -412,8 +482,8 @@
 
           </div>
 
-
-
+      
+      
               <div id="Location_1"></div>
               <div id="Location_2"></div>
                 <div class="row">
@@ -429,7 +499,7 @@
         </div>
       </div>
       
-
+      <script src="js/jquery.min.js"></script>
       <script   src="navigation.js" ></script>
       <script   src="database_functions_v2.js" ></script>
       <script   src="database_functions.js" ></script>
@@ -445,27 +515,35 @@
       <script   src="add_student_package_func.js" ></script>
       <script   src="add_student_to_session_func.js" ></script>
       <script   src="invoice_student.js" ></script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script   src="login_page.js" ></script>
+      <script src="js/dd.min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    
+  
+     
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
       <script src="js/bootstrap.bundle.min.js"></script>
 
       <script src="sidebars.js"></script>
-
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
       <script>
 
 // var database_fixed_link = "fetch.php";
-// var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
-var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
+var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
+// var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
 // var database_fixed_link = "https://operation.ischool-edu.com/fetch.php";
 
 var time_out = 1000;
 var time_out_retries = 100000;
 
+
+
   $(document).ready(function () {
 
+    login_success()
 
+    // login_page_check();
       
 
     // document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student To Session</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`

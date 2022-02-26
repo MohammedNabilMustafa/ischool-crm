@@ -286,7 +286,8 @@ function add_new_empolyee(All_req_obj,paper_inputs)
     }
     
 
- 
+    $('.select2').select2();
+
 
  }
 
@@ -319,6 +320,8 @@ function add_new_empolyee(All_req_obj,paper_inputs)
 
  function create_paper_table_employee(all_tables)
  {
+
+
     var inputs_names_search = [
     "ID :"
     ,"Name :" 
@@ -408,7 +411,7 @@ function create_paper_table_customized_employee(all_tables)
 function paper_inner_employee (paper_ , title)
 {
   document.getElementById("Location_1").innerHTML += `<label for="`+paper_+`">`+title+`:</label>
-  <select class='col-1' name="`+paper_+`" id="`+paper_+`">
+  <select class='col-2 select2' name="`+paper_+`" id="`+paper_+`">
   <option value=""></option>
   </select>` ;
 }

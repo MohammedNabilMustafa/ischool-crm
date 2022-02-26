@@ -304,7 +304,6 @@ var paper_inputs_label = [
         All_req_obj.called_table = called_table
                  
     html_create_lists_parent(paper_inputs , paper_inputs_label , "Location_1" );
-    // get_all_data_arr(All_req_obj ,quary_tables_all_employee , quary_tables_all_status_parent , time_out  , 0);
 
 
     // add_new_parent_(All_req_obj,paper_inputs);
@@ -351,7 +350,7 @@ function html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , s
 
     document.getElementById('add_std_'+st_ids_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
     document.getElementById('add_std_'+st_ids_).innerHTML += `<label>birthdate : </label><input type='date' id='bd_id`+st_ids_+`'>`;
-    paper_inner_parent_1_func('status_id'+st_ids_ , "Status " , 'add_std_'+st_ids_);
+    paper_inner_parent_1_func('status_id'+st_ids_ , "Status " , 'add_std_'+st_ids_ , "col-1");
 
     for(var index = 0 ;index < saved_status_arr.length ; index++)
     {
@@ -363,7 +362,7 @@ function html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , s
     }
     document.getElementById('add_std_'+st_ids_).innerHTML +=`</div></div>`;
 
-    paper_inner_parent_1_func('Packages_id_input'+st_ids_ , "Packages " , 'add_std_'+st_ids_);
+    paper_inner_parent_1_func('Packages_id_input'+st_ids_ , "Packages " , 'add_std_'+st_ids_ , "col-1");
 
     for(var index = 0 ;index < saved_package_arr.length ; index++)
     {
@@ -377,7 +376,7 @@ function html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , s
     document.getElementById('add_std_'+st_ids_).innerHTML +=`<label>Paid Date : </label><input type='date' id='package_data_${st_ids_}' />`;
 
 
-    paper_inner_parent_1_func('groups_id_input'+st_ids_ , "Groups " , 'add_std_'+st_ids_);
+    paper_inner_parent_1_func('groups_id_input'+st_ids_ , "Groups " , 'add_std_'+st_ids_ , "col-3");
 
     for(var index = 0 ;index < saved_group_arr.length ; index++)
     {
@@ -406,6 +405,7 @@ function html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , s
         // st_ids--;
     });
 
+    $('.select2').select2();
 
 }
 
@@ -449,7 +449,7 @@ function html_create_lists_parent(paper_inputs , paper_inputs_label  , location_
 
     for(var index = 10 ; index < 12 ; index++)
     {
-        paper_inner_parent(paper_inputs[index] , paper_inputs_label[index]);
+        paper_inner_parent__(paper_inputs[index] , paper_inputs_label[index]);
     }
     document.getElementById(location_).innerHTML +=`</div></div>`;
 
@@ -1333,26 +1333,11 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
         }
     }
     func(create_new_tabl_rows , create_new_tabl_rows_emp);
+
+  
+
 }
 
- function quary_tables_all_status_parent(create_new_tabl_rows)
- {
-        for(var index_ = 0 ; index_ < create_new_tabl_rows.length ; index_++)
-        {
-            if(create_new_tabl_rows[index_][7] == 'Customer Support' )
-            {
-                $('#customer_input').append(`<option value="${create_new_tabl_rows[index_][0]}"
-                >${create_new_tabl_rows[index_][1]} </option>`); 
-            }
-
-            if(create_new_tabl_rows[index_][7] == 'Sales' )
-            {
-                $('#sales_input').append(`<option value="${create_new_tabl_rows[index_][0]}"
-                >${create_new_tabl_rows[index_][1]} </option>`); 
-            }
-        }
-
- }
 
 
  function create_paper_table_parent(all_tables , create_new_tabl_rows)
@@ -1374,6 +1359,8 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
         }
     }
 
+
+    $('.select2').select2();
 
     var inputs_names_search = [
         "ID :"
@@ -1500,18 +1487,20 @@ function create_paper_table_customized_parent(all_tables)
    createTable(result ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view , 14); 
 }
 
-function paper_inner_parent (paper_ , title)
+function paper_inner_parent__ (paper_ , title)
 {
   document.getElementById("Location_1").innerHTML += `<label for="`+paper_+`">`+title+`:</label>
-  <select class='col-1' name="`+paper_+`" id="`+paper_+`">
+  <select class="col-1 select2" name="`+paper_+`" id="`+paper_+`">
   <option value=""></option>
   </select>` ;
+  
+
 }
 
-function paper_inner_parent_1_func (paper_ , title , loc)
+function paper_inner_parent_1_func (paper_ , title , loc , COLS)
 {
   document.getElementById(loc).innerHTML += `<label for="`+paper_+`">`+title+`:</label>
-  <select class='col-1' name="`+paper_+`" id="`+paper_+`">
+  <select class="${COLS} select2" name="`+paper_+`" id="`+paper_+`">
   <option value=""></option>
   </select>` ;
 }
@@ -1759,7 +1748,7 @@ function createTable_pop_up(All_data_obj , index_st) {
                     result += `<br>Name : `+Object.values(dataArray[index_st])[14][4][index] ; 
                     result += `<br>Status : `+Object.values(dataArray[index_st])[14][3][index]; 
                     result += `<br>Age Range : `+Object.values(dataArray[index_st])[14][5][index]; 
-                    result += `<br>Free Session : `+Object.values(dataArray[index_st])[14][2][index] + `<br><hr class="hr-primary" style="width:40%;text-align:left;margin-left:0" /><br>`; 
+                    result += `<br>Free Session : `+Object.values(dataArray[index_st])[14][2][index] + `<br><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" /><br>`; 
 
                     result +="</td>"
 
@@ -1778,7 +1767,7 @@ function createTable_pop_up(All_data_obj , index_st) {
                         result += `<br>Level : `+Object.values(dataArray[index_st])[15][4][index]; 
                         result += `<br>Status : `+Object.values(dataArray[index_st])[15][5][index]; 
                         result += `<br>Day : `+Object.values(dataArray[index_st])[15][6][index];
-                        result += `<br>Age Range : `+Object.values(dataArray[index_st])[15][7][index] + `<br><hr class="hr-primary" style="width:40%;text-align:left;margin-left:0" /><br>`; 
+                        result += `<br>Age Range : `+Object.values(dataArray[index_st])[15][7][index] + `<br><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" /><br>`; 
                     }
                     result +="</td>"
 
@@ -1798,7 +1787,7 @@ function createTable_pop_up(All_data_obj , index_st) {
                                 result += `Quota : `+Object.values(dataArray[index_st])[15][8][index][index_pac][2] + `<br>`; 
                                 result += `Fees : `+Object.values(dataArray[index_st])[15][8][index][index_pac][3] + `<br>`; 
                                 result += `Discount : `+Object.values(dataArray[index_st])[15][8][index][index_pac][4] + `<br>`; 
-                                result += `Paid As : `+Object.values(dataArray[index_st])[15][8][index][index_pac][5] + `<br><hr class="hr-primary" style="width:40%;text-align:left;margin-left:0" /><br>`; 
+                                result += `Paid As : `+Object.values(dataArray[index_st])[15][8][index][index_pac][5] + `<br><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" /><br>`; 
                                 count_pack++;
                             }
                         }
@@ -1887,7 +1876,7 @@ function Add_Section(All_data_obj)
         $('#add_user').click(function () {
             Add_User(All_data_obj);
         });
-
+      
 
     });
 

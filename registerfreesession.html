@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="css/global.css"> -->
+    <link rel="stylesheet" href="css/registerfreesession.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;500;700;900&family=Roboto:wght@100;300;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="https://kit.fontawesome.com/159acad575.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/dd.css">
+    <link rel="stylesheet" href="css/flags.css">
+    <title>Register New Account</title>
+</head>
+
+<body>
+    <div class="header">
+
+        <div class="row">
+            <div class="col-auto"><img src="img/white-logo.svg" alt=""></div>
+            <div class="col">
+                <nav>
+                    <ul>
+                        <li id="navHome" class="nav-item active">Home</li>
+                        <li id="navPrograms" class="nav-item">Programs</li>
+                        <li id="navAbout" class="nav-item">About us</li>
+                        <li id="navContact" class="nav-item">Contact us</li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-auto right-align">
+                <nav>
+                    <ul>
+                        <li class="nav-item"><b>Enroll</b></li>
+                        <li class="nav-item">Login</li>
+                        <button class="btn btn-warning">Book a Free Session</button>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="mobile-header">
+        <div class="header-optmize">
+            <div class="logo"><img src="img/white-logo.svg" alt=""></div>
+            <div class="menu"><i class="fa-solid fa-bars"></i></div>
+        </div>
+
+        <ul class="menucontainer">
+            <div class="close"><i class="fa-solid fa-xmark"></i></div>
+            <li id="navHome" class="mobilemenu-item active">Home</li>
+            <li id="navPrograms" class="mobilemenu-item">Programs</li>
+            <li id="navAbout" class="mobilemenu-item">About us</li>
+            <li id="navContact" class="mobilemenu-item">Contact us</li>
+        </ul>
+
+    </div>
+    <div class="coontent-container">
+        <div class="step01">
+            <div class="row headding">
+                <h1>Book a Free Session</h1>
+
+            </div>
+            <div class="row body" style="padding-top: 70px;">
+                <div class="col form">
+                    <h4 style="color: #2c2c2c;">Basic Information</h4>
+                    <hr>
+
+                    <div class="row twosides">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="firstnameInput" placeholder="First name">
+                            <label for="firstnameInput">First Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="lastnameInput" placeholder="Last name">
+                            <label for="lastnameInput">Last Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-floating mb-3">
+                            <input type="tel" class="form-control" id="phonenumInput" placeholder="Phone Number">
+                            <label for="phonenumInput">Phone Number</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="emailInput" placeholder="Email Address">
+                            <label for="usernameInput">Email Address</label>
+                        </div>
+                    </div>
+
+
+                    <button class="btn btn-primary signup">Next</button>
+                </div>
+                <div class="col picture">
+                    <div class="title-right">
+                        Creating the next
+                        <br><b>tech  leaders.</b>
+                    </div>
+                    <img src="img/OBJECTS.svg" alt=""></div>
+            </div>
+        </div>
+        <div class="step02" style="display: none;">
+            <div class="back" style="margin-left: 60px;"><i class="fa-solid fa-arrow-left"></i></div>
+            <div class="row headding" style="margin-bottom: 30px;">
+                <h1>Select You Schedule</h1>
+            </div>
+            <div class="row body">
+                <div class="col form">
+                    <h4 style="color: #2c2c2c;">Select Schedule</h4>
+                    <hr>
+
+                    <div class="row">
+                        <div class="row scheduletablehead ">
+                            <span class="col-auto">Starting date</span>
+                            <span class="col-3">Day</span>
+                            <span class="col-3">Time</span>
+                            <span class="col"></span>
+                        </div>
+                        <div class="row scheduletableitem">
+                            <span class="col-auto">22/07/2022</span>
+                            <span class="col-3">Friday</span>
+                            <span class="col-3">4:30 PM</span>
+                            <span class="col"><a class="check"></a></span>
+                        </div>
+                        <div class="row scheduletableitem ">
+                            <span class="col-auto">22/07/2022</span>
+                            <span class="col-3">Wednesday</span>
+                            <span class="col-3">10:30 PM</span>
+                            <span class="col"><a class="check"></a></span>
+                        </div>
+                        <div class="row scheduletableitem ">
+                            <span class="col-auto">22/07/2022</span>
+                            <span class="col-3">Sunday</span>
+                            <span class="col-3">4:30 PM</span>
+                            <span class="col"><a  class="check"></a></span>
+                        </div>
+                        <div class="row scheduletableitem ">
+                            <span class="col-auto">22/07/2022</span>
+                            <span class="col-3">Tuesday</span>
+                            <span class="col-3">4:30 PM</span>
+                            <span class="col"><a  class="check"></a></span>
+                        </div>
+                        <div class="row scheduletableitem ">
+                            <span class="col-auto">22/07/2022</span>
+                            <span class="col-3">Friday</span>
+                            <span class="col-3">4:30 PM</span>
+                            <span class="col"><a class="check"></a></span>
+                        </div>
+                        <div class="form-check" style="margin-top: 20px;">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                I have a Laptop / PC at home
+                            </label>
+                        </div>
+
+                    </div>
+
+
+
+
+                    <button class="btn btn-primary next">Next</button>
+                </div>
+                <div class="col picture">
+                    <div class="title-right">
+                        <b> Tech  leaders</b>
+                        <br>started from here.
+                    </div>
+                    <img src="img/hero 1.png" alt=""></div>
+            </div>
+        </div>
+        <div class="step03" style="display: none;">
+
+            <div class="row body">
+
+                <div class="col form" style="padding:90px; padding-right:10px;">
+                    <div class="card">
+
+                        <div class="card-body">
+                            <p class="card-text">
+                                <div class="row" style="display:flex; align-items:center;color:#05BC0C">
+                                    <span style="font-size:100px" class="col-auto"><i class="fa-solid fa-square-check"></i></span>
+                                    <span style="font-size:30px" class="col">Booking a free session is confirmed</span>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        Student Name : <a>Alaa Nabil Mostafa</a>
+                                    </div>
+                                    <div class="col">
+                                        Starting Date : <a>22/07/2022</a>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        Day : <a>Friday</a>
+                                    </div>
+                                    <div class="col">
+                                        Age : <a>8 Years old</a>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        Time : <a>4:30 PM</a>
+                                    </div>
+                                    <div class="col">
+                                        Payment Reference : <a>1239199</a>
+                                    </div>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col picture" style="padding:90px; padding-left:10px">
+                    <div class="card">
+
+                        <div class="card-body">
+                            <p class="card-text">
+                                <h3>How to join ?</h3>
+                                <hr>
+                                <p>1- s simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                    <br> <br>1- s simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                    <br> <br>1- s simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                    <br> <br>1- s simply dummy text of the printing and typesetting industry. Lorem Ipsum
+
+                                </p>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="js/jquery.min.js"></script>
+        <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+
+        <script src="js/global.js"></script>
+        <script src="js/registerfreesession.js"></script>
+        <script src="js/dd.min.js"></script>
+</body>
+
+</html>

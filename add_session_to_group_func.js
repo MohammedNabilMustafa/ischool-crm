@@ -444,7 +444,7 @@ function schedule_create(All_req_obj)
                         result += `<br>`+ paper_inner_session_return(`lvl_${object_data_.table_count}_${return_data}_${return_data_1}` , "Level" , Lvl_slots , 0 , 2);
                         result += `<br>`+ paper_inner_session_return(`type_${object_data_.table_count}_${return_data}_${return_data_1}` , "Type" , Type_slots , 0 , 2);
                         result += `<br>`+ paper_inner_session_return(`age_${object_data_.table_count}_${return_data}_${return_data_1}` , "Age" , Age_slots , 0 , 2);
-                        result += `<br><label id='Lnum_${object_data_.table_count}_${return_data}_${return_data_1}' style='visibility:hidden'># of Sessions : </label><input class='col-3' id='num_${object_data_.table_count}_${return_data}_${return_data_1}' type='number' style='visibility:hidden'>`
+                        result += `<br><label id='Lnum_${object_data_.table_count}_${return_data}_${return_data_1}' style='visibility:hidden'># of Sessions : </label><input class='col-5' id='num_${object_data_.table_count}_${return_data}_${return_data_1}' type='number' style='visibility:hidden'>`
                         result += `<input id='inst_${object_data_.table_count}_${return_data}_${return_data_1}'  value='${object_data_.schedule_data_rows[return_data][return_data_1][2]}' hidden>`
                         result += `<input id='date_${object_data_.table_count}_${return_data}_${return_data_1}'  value='${object_data_.schedule_data_rows[return_data][return_data_1][3]}' hidden>`
 
@@ -574,6 +574,9 @@ function schedule_create(All_req_obj)
     var div = document.getElementById("search-results");
     div.innerHTML += result;
 // Tiger
+
+$('.select2').select2();
+
 
 for(var index_se = 0 ; index_se < session_ids.length ; index_se++)
 {
@@ -751,7 +754,7 @@ function html_create_lists_add_session_group(paper_inputs , paper_inputs_label  
 function paper_inner_session_group (paper_ , title)
 {
   document.getElementById("Location_1").innerHTML += `<label for="`+paper_+`">`+title+`:</label>
-  <select class='col-3' name="`+paper_+`" id="`+paper_+`">
+  <select class='col-3 select2' name="`+paper_+`" id="`+paper_+`">
   <option value=""></option>
   </select>` ;
 }
@@ -917,6 +920,9 @@ if(func)
     func(All_req_obj);
 }
 
+$('.select2').select2();
+
+
 }
 
 
@@ -1011,7 +1017,7 @@ function createTable_schedule(dataArray , object_data) {
 function paper_inner_session (paper_ , title)
 {
   document.getElementById("Location_1").innerHTML += `<label for="`+paper_+`">`+title+`:</label>
-  <select class='col-1' name="`+paper_+`" id="`+paper_+`">
+  <select class='col-1 select2' name="`+paper_+`" id="`+paper_+`">
   <option value=""></option>
   </select>` ;
 }
