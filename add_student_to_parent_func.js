@@ -88,9 +88,9 @@ function html_create_lists_add_student_parent(paper_inputs , paper_inputs_label 
 
     for(var index = 0 ; index < paper_inputs.length ; index++)
     {
-        paper_inner_1(paper_inputs[index] , paper_inputs_label[index]);
+        paper_inner_1__(paper_inputs[index] , paper_inputs_label[index]);
     }
-    paper_inner_1_hidden('student_number' , 'num');
+    paper_inner_1_hidden__('student_number' , 'num');
 
     document.getElementById(location_).innerHTML +=`</div></div>`;
 
@@ -146,6 +146,8 @@ function quary_tables_all_status_add_student_to_parent(All_table_obj , func)
                 >${All_table_obj.tables[1][index_].id} - ${All_table_obj.tables[1][index_].std_id} - ${All_table_obj.tables[1][index_].name} - ${All_table_obj.tables[1][index_].parent_id}   </option>`);  
             }
         }
+
+        $('.select2').select2();
 
 }
 
@@ -219,3 +221,5 @@ function add_new_student_parent(All_req_obj,paper_inputs)
     });
         
 }
+
+

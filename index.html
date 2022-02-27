@@ -201,11 +201,7 @@ a{
 }
 
 
-
       </style>
-
-
-
 
 </head>
 <body>
@@ -300,10 +296,9 @@ a{
       </svg>
 
 
-      <div class="container" id="login_page" style="display: none;">
+     <div class="container" id="login_page" style="display: none;">
         <div class="row">
           <div class="col-md-6 offset-md-3">
-            <!-- <h2 class="text-center text-dark mt-5">Login</h2> -->
             <div class="card my-5">
     
               <form class="card-body cardbody-color p-lg-5">
@@ -320,14 +315,18 @@ a{
                 <div class="mb-3">
                   <input type="password" class="form-control" id="password" placeholder="Password" style="padding-top:0 !important;">
                 </div>
-                <div class="text-center"><button id="login_id" class="btn btn-color px-5 mb-5 w-100">Login</button></div>
+                <input type="checkbox" value="lsRememberMe" id="rememberMe"> <label for="rememberMe">Remember me</label>
+
+                <div class="text-center"><button id="login_id" onclick="lsRememberMe()" class="btn btn-color px-5 mb-5 w-100">Login</button></div>
+
+
 
               </form>
             </div>
     
           </div>
         </div>
-      </div>
+      </div> 
 
 
 
@@ -433,7 +432,7 @@ a{
                     </div>
                   </li>
 
-                  <li class="mb-1" id="admin_commerical_id">
+                  <!-- <li class="mb-1" id="admin_commerical_id">
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Commerical-collapse" aria-expanded="false">
                       Admin Commerical
                     </button> 
@@ -444,7 +443,7 @@ a{
 
                       </ul>
                     </div>
-                  </li>
+                  </li> -->
 
 
 
@@ -460,11 +459,12 @@ a{
 
             <div class='col-12 justify-content-center' style="text-align: center;margin-top: 20px;" >
               <div class="row" style="display: flex; flex-direction: column;    align-items: flex-end;"> 
-                <div class="account_pic" style="width: 50px;">
+
+                <div class="account_pic"  style="width: 50px;"> 
                   <img src="img/img.jpg" alt="">
               </div>
             <!-- <span  style="width: 60px;">Logout</span> -->
-            <p class="pointer" style="width: 60px;">Logout</p>
+            <p class="pointer" style="width: 60px;" id="logout_id">Logout</p>
             </div>
             <div id="page_name"></div>
             </div>
@@ -530,20 +530,35 @@ a{
       <script>
 
 // var database_fixed_link = "fetch.php";
-var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
-// var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
+// var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
+var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
 // var database_fixed_link = "https://operation.ischool-edu.com/fetch.php";
 
 var time_out = 1000;
 var time_out_retries = 100000;
 
+const rmCheck = document.getElementById("rememberMe"),
+    nameInput = document.getElementById("Username");
+    passInput = document.getElementById("password");
 
 
   $(document).ready(function () {
 
-    login_success()
+    // login_success()
 
-    // login_page_check();
+    
+
+    $('#logout_id').click(function () {
+      nameInput.value = '';
+      passInput.value = '';
+      localStorage.username = '';
+      localStorage.password = '';
+      rmCheck.removeAttribute("checked");
+      
+      localStorage.checkbox = '';
+
+        login_page_check();
+      }); 
       
 
     // document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student To Session</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
@@ -726,6 +741,41 @@ var time_out_retries = 100000;
     }); 
     
 
+
+
+
+    waiting_login();
+
+async function waiting_login()
+{
+  if (localStorage.checkbox && localStorage.checkbox !== "") {
+  rmCheck.setAttribute("checked", "checked");
+  nameInput.value = localStorage.username;
+  passInput.value = localStorage.password;
+
+  var value__ = await login_page_check_auto(nameInput.value , passInput.value);
+  if(!value__){login_page_check();}
+} else {
+  rmCheck.removeAttribute("checked");
+  nameInput.value = "";
+  passInput.value = "";
+  login_page_check();
+
+
+}
+}
+
+function lsRememberMe() {
+  if (rmCheck.checked && nameInput.value !== "" && passInput.value !== "") {
+    localStorage.username = nameInput.value;
+    localStorage.password = passInput.value;
+
+    localStorage.checkbox = rmCheck.value;
+  } else {
+    localStorage.username = "";
+    localStorage.checkbox = "";
+  }
+}
 
     </script>
 

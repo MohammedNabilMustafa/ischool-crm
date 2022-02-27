@@ -932,23 +932,23 @@ function createTable_schedule(dataArray , object_data) {
   if(dataArray && dataArray !== undefined && dataArray.length != 0){
 
 
-        var result = "<table class='table' id='dtable' style='border: 1px solid black;border-collapse: collapse;'>"+
+        var result = "<table class='table' id='dtable' >"+
                     "<thead   style='white-space:nowrap' >"+
                     "<tr>";                               //Change table headings to match witht he Google Sheet
 
                     result +="<th scope='col' colspan='7' style='text-align:center;background-color: rgb(214, 212, 212);'><label style='font-size: 25px;color: rgb(30, 53, 255);'>"+object_data.start_from+' - ' + object_data.start_from_day+"</label></th>";
                     result += "</tr><tr>";
-                    result +="<th scope='col' rowspan='2' style='text-align:center;border: 1px solid black;border-collapse: collapse;'><label style='font-size: 20px;color: rgb(62, 76, 85);'>Instructors</label></th>";
-                    result +="<th scope='col' colspan='2' style='text-align:center;border: 1px solid black;border-collapse: collapse;'><label style='font-size: 20px;color: rgb(62, 76, 85);'>01:30 - 04:00</label></th>";
-                    result +="<th scope='col' colspan='2' style='text-align:center;border: 1px solid black;border-collapse: collapse;'><label style='font-size: 20px;color: rgb(62, 76, 85);'>04:30 - 07:00</label></th>";
-                    result +="<th scope='col' colspan='2' style='text-align:center;border: 1px solid black;border-collapse: collapse;'><label style='font-size: 20px;color: rgb(62, 76, 85);'>07:30 - 10:00</label></th>";
+                    result +="<th scope='col' rowspan='2' style='text-align:center;'><label style='font-size: 20px;color: rgb(62, 76, 85);'>Instructors</label></th>";
+                    result +="<th scope='col' colspan='2' style='text-align:center; '><label style='font-size: 20px;color: rgb(62, 76, 85);'>01:30 - 04:00</label></th>";
+                    result +="<th scope='col' colspan='2' style='text-align:center;'><label style='font-size: 20px;color: rgb(62, 76, 85);'>04:30 - 07:00</label></th>";
+                    result +="<th scope='col' colspan='2' style='text-align:center;'><label style='font-size: 20px;color: rgb(62, 76, 85);'>07:30 - 10:00</label></th>";
                     result += "</tr><tr>";
-                    result +="<th scope='col' colspan='1' style='text-align:center;border: 1px solid black;border-collapse: collapse;'><label style='font-size: 20px;color: rgb(99, 56, 56);'>02:00 - 03:00</label></th>";
-                    result +="<th scope='col' colspan='1' style='text-align:center;border: 1px solid black;border-collapse: collapse;'><label style='font-size: 20px;color: rgb(99, 56, 56);'>03:00 - 04:00</label></th>";
-                    result +="<th scope='col' colspan='1' style='text-align:center;border: 1px solid black;border-collapse: collapse;'><label style='font-size: 20px;color: rgb(99, 56, 56);'>05:00 - 06:00</label></th>";
-                    result +="<th scope='col' colspan='1' style='text-align:center;border: 1px solid black;border-collapse: collapse;'><label style='font-size: 20px;color: rgb(99, 56, 56);'>06:00 - 07:00</label></th>";
-                    result +="<th scope='col' colspan='1' style='text-align:center;border: 1px solid black;border-collapse: collapse;'><label style='font-size: 20px;color: rgb(99, 56, 56);'>08:00 - 09:00</label></th>";
-                    result +="<th scope='col' colspan='1' style='text-align:center;border: 1px solid black;border-collapse: collapse;'><label style='font-size: 20px;color: rgb(99, 56, 56);'>09:00 - 10:00</label></th>";
+                    result +="<th scope='col' colspan='1' style='text-align:center;'><label style='font-size: 20px;color: rgb(99, 56, 56);'>02:00 - 03:00</label></th>";
+                    result +="<th scope='col' colspan='1' style='text-align:center;'><label style='font-size: 20px;color: rgb(99, 56, 56);'>03:00 - 04:00</label></th>";
+                    result +="<th scope='col' colspan='1' style='text-align:center;'><label style='font-size: 20px;color: rgb(99, 56, 56);'>05:00 - 06:00</label></th>";
+                    result +="<th scope='col' colspan='1' style='text-align:center;'><label style='font-size: 20px;color: rgb(99, 56, 56);'>06:00 - 07:00</label></th>";
+                    result +="<th scope='col' colspan='1' style='text-align:center;'><label style='font-size: 20px;color: rgb(99, 56, 56);'>08:00 - 09:00</label></th>";
+                    result +="<th scope='col' colspan='1' style='text-align:center;'><label style='font-size: 20px;color: rgb(99, 56, 56);'>09:00 - 10:00</label></th>";
                                       
                     
                     
@@ -975,7 +975,7 @@ function createTable_schedule(dataArray , object_data) {
                         {
                             siz_col = 2;
                         }
-                        result += `<td colspan='`+siz_col+`'style='white-space:nowrap;border: 1px solid black;border-collapse: collapse;text-align:center;font-size: 15px;' >`;
+                        result += `<td colspan='`+siz_col+`'style='white-space:nowrap;text-align:center;font-size: 15px;' >`;
                         if(Object.values(dataArray[i])[index][0]!= 'empty')
                         {                            
                             for(var index_ = 0 ; index_ < Object.values(dataArray[i])[index].length ; index_++)
@@ -1027,7 +1027,7 @@ function paper_inner_session_return (paper_ , title , data_slot , id_ , value_)
 {
 var value = '';
 value += `<label id='L`+paper_+`' for="`+paper_+`" style='visibility:hidden'>`+title+`:</label>
-  <select class='col-7' name="`+paper_+`" id="`+paper_+`" style='visibility:hidden'>`
+  <select class='col-7 ' name="`+paper_+`" id="`+paper_+`" style='visibility:hidden'>`
 //   value +=`<option value=""></option>`;
 
   for(var index = 0 ; index < Object.values(data_slot).length ; index ++)
@@ -1272,9 +1272,9 @@ function createTable_pop_up_schedule(All_data_obj , All_req_obj ) {
                         result +="</td>"
                         result += "<td style='white-space:nowrap' >";       
                         if(dataArray[index][4] != "")
-                        result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="50"> ${dataArray[index][4]} </textarea> `;
+                        result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="25"> ${dataArray[index][4]} </textarea> `;
                         else
-                        result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="50"></textarea> `;
+                        result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="25"></textarea> `;
 
 
                         result +="</td>"

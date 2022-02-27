@@ -109,7 +109,6 @@ function quary_tables_all_paper_student_groups_(All_table_obj , func)
     var row_count_1 = 0;
     var student_count;
 
-    // console.log(All_table_obj.tables);
    if(All_table_obj.tables[8] && All_table_obj.tables[8] !== undefined && All_table_obj.tables[8].length != 0){
    
     if(All_table_obj.tables[10] && All_table_obj.tables[10] !== undefined && All_table_obj.tables[10].length != 0)
@@ -293,10 +292,12 @@ function quary_tables_all_paper_student_groups_(All_table_obj , func)
 
    func( create_new_tabl_rows );
 
+
 }
 
 function create_table_student_group(all_tables)
 {
+
     var inputs_names_search = [
         ""
         ,"Student ID :"
@@ -390,9 +391,9 @@ function html_create_lists_add_student_group(paper_inputs , paper_inputs_label  
 
     for(var index = 0 ; index < paper_inputs.length ; index++)
     {
-        paper_inner_1(paper_inputs[index] , paper_inputs_label[index]);
+        paper_inner_1__(paper_inputs[index] , paper_inputs_label[index]);
     }
-    paper_inner_1_hidden('student_number' , 'num');
+    paper_inner_1_hidden__('student_number' , 'num');
 
     document.getElementById(location_).innerHTML +=`</div></div>`;
 
@@ -423,14 +424,11 @@ function html_create_lists_add_student_group(paper_inputs , paper_inputs_label  
 
 }
 
-function return_func(All_table_obj , func , arr_data , All_req_obj , paper_inputs)
+function return_func(All_table_obj , func  , All_req_obj, arr_data , paper_inputs)
 {
     var value_elments = document.getElementById('student_input').value;
     var check_active_flag = false;
-
-
-
-
+    
             var counter___ses = 0;
             var session_ids = [];
 
@@ -445,7 +443,6 @@ function return_func(All_table_obj , func , arr_data , All_req_obj , paper_input
                     }
                 }
             }
-            console.log(session_ids);
 
     if(All_table_obj.tables[10] && All_table_obj.tables[10] !== undefined && All_table_obj.tables[10].length != 0)
     {
@@ -486,6 +483,7 @@ function return_func(All_table_obj , func , arr_data , All_req_obj , paper_input
 
         }
 
+
         if(check_active_flag == false)
         {
             var value_elments = [];
@@ -494,12 +492,10 @@ function return_func(All_table_obj , func , arr_data , All_req_obj , paper_input
             {
             value_elments[index] = document.getElementById(paper_inputs[index] ).value;
             }
-            value_elments[paper_inputs.length] = 'active'
+            value_elments[paper_inputs.length] = 'active';
 
             arr_data[10].callbackfunc = function(All_data_obj , response)
             {
-                // console.log('func_1');
-                // alert(response , "success");
                 for(var index = 0 ; index < counter___ses ; index++)
                 {
                     var value_elments_=[];
@@ -511,7 +507,6 @@ function return_func(All_table_obj , func , arr_data , All_req_obj , paper_input
 
                     arr_data[12].callbackfunc = function(All_data_obj , response)
                     {
-                        // console.log('func_1');
                         alert(response , "success");
                         ADD_STUDENT_TO_GROUP();
                     };
@@ -591,6 +586,7 @@ function add_new_student_group(All_req_obj,paper_inputs)
                     return;
                 }
             }
+
 
             get_all_data_arr(All_req_obj ,return_func, '' , time_out , 5 , paper_inputs);
 
@@ -763,16 +759,14 @@ function quary_tables_all_status_add_student(All_table_obj , func)
 
     }
 
-
-
-
+    $('.select2').select2();
 
 }
 
-function paper_inner_1 (paper_ , title)
+function paper_inner_1__ (paper_ , title)
 {
   document.getElementById("Location_1").innerHTML += `<label for="`+paper_+`">`+title+`:</label>
-  <select class='col-4' name="`+paper_+`" id="`+paper_+`">
+  <select class='col-4 select2' name="`+paper_+`" id="`+paper_+`">
   <option value=""></option>
   </select>` ;
 }
@@ -780,41 +774,11 @@ function paper_inner_1 (paper_ , title)
 /* <select id="select-state" placeholder="Pick a state..."></select> */
 
 
-function paper_inner_1_hidden (paper_ , title)
+function paper_inner_1_hidden__ (paper_ , title)
 {
   document.getElementById("Location_1").innerHTML += `<label for="`+paper_+`" hidden>`+title+`:</label>
-  <select class='col-4' name="`+paper_+`" id="`+paper_+`" hidden>
+  <select class='col-4 ' name="`+paper_+`" id="`+paper_+`" hidden>
   <option value=""></option>
   </select>` ;
 }
 
-
- function again_student_group(All_table_obj , arr_data , func_quary ,  func , timeout , index_pos , All_req_obj , paper_inputs)
- {
-
-    setTimeout(function () {
-        
-        for(var index = 0 ; index < arr_data.length ; index++)
-        {
-            if(arr_data[index].check == false)
-            {   
-                counter__[index_pos]++;
-                if(counter__[index_pos]  > time_out_retries)
-                {
-                    arr_data[index].check = true; 
-                }
-                again_student_group(All_table_obj , arr_data , func_quary ,  func , timeout , index_pos , All_req_obj , paper_inputs );
-            }
-        }
-        if(func_quary)
-        {
-            counter__[index_pos]--;
-            if(counter__[index_pos] == -1)
-            {
-                func_quary(All_table_obj , func , arr_data , All_req_obj , paper_inputs)
-
-            }
-
-        }
-    }, timeout);
- }

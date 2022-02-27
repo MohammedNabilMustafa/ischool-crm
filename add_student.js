@@ -458,7 +458,7 @@ function add_new_student___(All_req_obj,paper_inputs)
     if(st_ids == 0)
     {
         alert("No Students" , "danger");
-        get_all_data_arr(All_req_obj ,quary_tables_all__student,create_paper_table_parent , time_out , 5);
+        get_all_data_arr(All_req_obj ,quary_tables_all__student,create_paper_table_parent_students , time_out , 5);
         return;
     }
     
@@ -720,7 +720,7 @@ function add_student_to_student_Sessions(All_req_obj,paper_inputs , group_id_val
 
 
 
-function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos)
+function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , paper_inputs)
 {
 
     var Database_link = All_req_obj.Database_link;
@@ -755,7 +755,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos)
     {
         counter__[index_pos] ++;
 
-        get_all_data_from_database_doAjax_arr(arr_data[index] , index_pos,   func_quary , func , All_table_obj , All_req_obj );
+        get_all_data_from_database_doAjax_arr(arr_data[index] , index_pos,   func_quary , func , All_table_obj , All_req_obj , paper_inputs , arr_data );
 
     }
 
@@ -816,38 +816,56 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos)
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].age; counter_col++;
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].birthdate; counter_col++;
 
-            var count= 0;
+            var count_all= 0;
+            var all_created= 0;
+            var count_comp= 0;
             var Att= 0;
             var Abs= 0;
             var Feed= 0;
             var Non_att= 0;
             var students_sessions = [];
 
+
+
             if(All_table_obj.tables[9] && All_table_obj.tables[9] !== undefined && All_table_obj.tables[9].length != 0)
             {        
 
                 for(var index_9 = 0 ; index_9 < All_table_obj.tables[9].length ; index_9++)
                 {
+                    var session_date_check = 0;
+                    for(var x = 0 ; x < saved_sessions_id_arr.length ; x++)
+                    {
+                        if(saved_sessions_id_arr[x].id == All_table_obj.tables[9][index_9].session_id)
+                        {
+                            session_date_check = saved_sessions_id_arr[x].session_date;
+                        }
+                    }
+
+                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id && new Date(session_date_check) < new Date()  )
+                    {
+                        students_sessions[count_comp] = All_table_obj.tables[9][index_9];
+                        count_comp++;
+                    }
 
                     if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id )
                     {
-                        students_sessions[count] = All_table_obj.tables[9][index_9];
-                        count++;
+                        all_created++;
                     }
+                
 
-                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "YES")
+                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "YES" && new Date(session_date_check) < new Date())
                     {
                         Att++;
                     }
-                    else if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "NO")
+                    else if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "NO" && new Date(session_date_check) < new Date())
                     {
                         Abs++;
                     }
-                    else
+                    else if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "" && new Date(session_date_check) > new Date())
                     {
                         Non_att++;
                     }
-                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].feedback == "")
+                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].feedback != "" && new Date(session_date_check) < new Date())
                     {
                         Feed++;
                     }
@@ -855,32 +873,41 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos)
                 }
 
             }
-            create_new_tabl_col[counter_col] = count; counter_col++;
-            create_new_tabl_col[counter_col] = Att; counter_col++;
-            create_new_tabl_col[counter_col] = Abs; counter_col++;
 
-            create_new_tabl_col[counter_col] = count - (Att + Abs); counter_col++;
+            console.log(All_table_obj.tables[1][index].session_date);
 
 
-            create_new_tabl_col[counter_col] = Feed; counter_col++;
+            create_new_tabl_col[counter_col] = all_created + ` - Created SE`; counter_col++;
+            create_new_tabl_col[counter_col] = count_comp + ` - Ended SE`; counter_col++;
+            create_new_tabl_col[counter_col] = Non_att + ` - Remains SE`; counter_col++;
+            create_new_tabl_col[counter_col] = ''; counter_col++;
 
-            if(count - (Att + Abs))
+            create_new_tabl_col[counter_col] = (Att+Abs) + ` - Completed SE`; counter_col++;
+            create_new_tabl_col[counter_col] = Abs + ` - Absence SE`; counter_col++;
+            create_new_tabl_col[counter_col] = Att + ` - Attended SE`; counter_col++;
+            create_new_tabl_col[counter_col] = (Feed) + ` - Feedbacks SE`; counter_col++;
+
+
+
+            // create_new_tabl_col[counter_col] = Feed; counter_col++;
+
+            if(count_comp - (Att + Abs))
             {
                 create_new_tabl_col[counter_col] = 'Not Updated Attendance';counter_col++;
             }
             else
             {
-                create_new_tabl_col[counter_col] = 'Attendance Up to Date';counter_col++;
+                create_new_tabl_col[counter_col] = '';counter_col++;
             }
 
 
-            if(Feed)
+            if(Att - Feed > 0)
             {
                 create_new_tabl_col[counter_col] = 'Not Updated Feedback';counter_col++;
             }
             else
             {
-                create_new_tabl_col[counter_col] = 'Feedback Up to Date';counter_col++;
+                create_new_tabl_col[counter_col] = '';counter_col++;
             }
 
             create_new_tabl_col[counter_col] = students_sessions; counter_col++;
@@ -906,11 +933,14 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos)
     , "Student Status :" 
     , "Age :"
     , "Birthdate :"
-    , "Created Sessions :"
-    , "Attended Sessions :"
-    , "Absence Sessions :"
-    , "Remain Sessions :"
-    , "Remain Feedback :"
+    , ""
+    , ""
+    , ""
+    , ""
+    , ""
+    , ""
+    , ""
+    , ""
 
 
 
@@ -939,6 +969,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos)
 
     // createTable(all_tables ,All_data_obj , 'clear' , 4 , 5); 
 
+
     createTable(all_tables ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view_student , all_tables[0].length-1); 
 
 }
@@ -962,34 +993,36 @@ function create_view_student(All_data_obj , End_Index)
 
         var data_arr = [];
 
+        var index_ret = 19
 
-        for(var index = 0 ; index < All_data_obj.obj_data[ret][16].length ; index++)
+
+        for(var index = 0 ; index < All_data_obj.obj_data[ret][index_ret].length ; index++)
         {  
             var inner_arr = []
             var index_count = 0;
 
-            inner_arr[index_count] =  All_data_obj.obj_data[ret][16][index].session_id;index_count++;
-            inner_arr[index_count] =  All_data_obj.obj_data[ret][16][index].student_id;index_count++;
+            inner_arr[index_count] =  All_data_obj.obj_data[ret][index_ret][index].session_id;index_count++;
+            inner_arr[index_count] =  All_data_obj.obj_data[ret][index_ret][index].student_id;index_count++;
 
             if(saved_student_arr&& saved_student_arr!== undefined && saved_student_arr.length != 0)
             {        
                 for(var index_11 = 0 ; index_11 < saved_student_arr.length ; index_11++)
                 {
-                    if(All_data_obj.obj_data[ret][16][index].student_id == saved_student_arr[index_11].id)
+                    if(All_data_obj.obj_data[ret][index_ret][index].student_id == saved_student_arr[index_11].id)
                     {
                         inner_arr[index_count] =  saved_student_arr[index_11].name;index_count++;
                         break;
                     }
                 }
             }
-            inner_arr[index_count] =  All_data_obj.obj_data[ret][16][index].attendance;index_count++;
-            inner_arr[index_count] =  All_data_obj.obj_data[ret][16][index].feedback;index_count++;
+            inner_arr[index_count] =  All_data_obj.obj_data[ret][index_ret][index].attendance;index_count++;
+            inner_arr[index_count] =  All_data_obj.obj_data[ret][index_ret][index].feedback;index_count++;
 
             if(saved_sessions_id_arr&& saved_sessions_id_arr!== undefined && saved_sessions_id_arr.length != 0)
             {        
                 for(var index_9 = 0 ; index_9 < saved_sessions_id_arr.length ; index_9++)
                 {
-                    if(All_data_obj.obj_data[ret][16][index].session_id == saved_sessions_id_arr[index_9].id)
+                    if(All_data_obj.obj_data[ret][index_ret][index].session_id == saved_sessions_id_arr[index_9].id)
                     {
                         if(saved_group_arr&& saved_group_arr!== undefined && saved_group_arr.length != 0)
                         {        
@@ -1023,7 +1056,7 @@ function create_view_student(All_data_obj , End_Index)
                             }
                         }
 
-                        inner_arr[index_count] =  All_data_obj.obj_data[ret][16][index].id;index_count++;
+                        inner_arr[index_count] =  All_data_obj.obj_data[ret][index_ret][index].id;index_count++;
 
 
                     }
@@ -1056,11 +1089,14 @@ function create_paper_table_customized_student(all_tables)
     , "Student Status :" 
     , "Age :"
     , "Birthdate :"
-    , "Created Sessions :"
-    , "Attended Sessions :"
-    , "Absence Sessions :"
-    , "Remain Sessions :"
-    , "Remain Feedback :"
+    , ""
+    , ""
+    , ""
+    , ""
+    , ""
+    , ""
+    , ""
+    , ""
 
 
 
@@ -1337,9 +1373,9 @@ function createTable_pop_up_students(All_data_obj , All_req_obj  , End_Index) {
                         result +="</td>"
                         result += "<td style='white-space:nowrap' >";       
                         if(dataArray[index][4] != "")
-                        result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="40"> ${dataArray[index][4]} </textarea> `;
+                        result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="30"> ${dataArray[index][4]} </textarea> `;
                         else
-                        result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="40"></textarea> `;
+                        result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="30"></textarea> `;
 
 
                         result +="</td>"

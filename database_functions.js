@@ -25,7 +25,7 @@ function get_all_data_from_database(All_data_obj)
 }
 
 
-async function get_all_data_from_database_doAjax_arr(arr_data , index_pos ,  func_quary ,  func , All_table_obj , All_req_obj)
+async function get_all_data_from_database_doAjax_arr(arr_data , index_pos ,  func_quary ,  func , All_table_obj , All_req_obj , paper_inputs , arr_data_)
 {
     const stuff = await get_all_data_from_database_doAjax(arr_data);
 
@@ -36,7 +36,7 @@ async function get_all_data_from_database_doAjax_arr(arr_data , index_pos ,  fun
     if(counter__[index_pos] == 0)
     {
 
-        func_quary(All_table_obj , func , All_req_obj);
+        func_quary(All_table_obj , func , All_req_obj , arr_data_ , paper_inputs);
 
     }
 }

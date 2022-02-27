@@ -365,6 +365,7 @@ function quary_tables_all_status_add_student_sessions(All_table_obj , func)
     
 
 
+        $('.select2').select2();
 
 
 
@@ -617,7 +618,7 @@ function create_table_student_sessions_customized(all_tables)
 function paper_inner_1 (paper_ , title)
 {
   document.getElementById("Location_1").innerHTML += `<label for="`+paper_+`">`+title+`:</label>
-  <select class='col-4' name="`+paper_+`" id="`+paper_+`">
+  <select class='col-4 select2' name="`+paper_+`" id="`+paper_+`">
   <option value=""></option>
   </select>` ;
 }
