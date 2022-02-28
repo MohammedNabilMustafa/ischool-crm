@@ -1943,6 +1943,7 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
 
                       var close_arr_test_val = '';
 
+
                       close_arr_test.forEach(el =>
                         {
 
@@ -1952,8 +1953,10 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
                             }
                         })
 
+                        console.log(All_data_obj.check_val);
+
                         $("#send_group"+ret).hide();
-                      if(close_arr_test_val != All_data_obj.check_val)
+                      if(close_arr_test_val != All_data_obj.check_val  && All_data_obj.check_val != null)
                       {ret=null;}
                       
 
@@ -2270,18 +2273,18 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
 
                       close_arr_test.forEach(el =>
                         {
-
                             if(Number(el.id) == Number($("#call_closing_input"+ret).val()))
                             {
                                 close_arr_test_val = el.name;
                             }
                         })
 
+                        console.log(All_data_obj.check_val);
 
 
-                      if(close_arr_test_val != All_data_obj.check_val)
+                      if(close_arr_test_val != All_data_obj.check_val && All_data_obj.check_val != null)
                       {ret=null;
-                    }
+                        }
                     $("#send_group"+ret).hide();
                       
                         create_table_customer_custom(customer_ser_arr_3 , All_data_obj.check_val , ret , All_data_obj.Start_Index);
