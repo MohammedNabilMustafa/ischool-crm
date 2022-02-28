@@ -13,6 +13,7 @@ var saved_att_feed_id_arr = []
 
 function ADD_NEW_PARENT_GROUPS()
 {
+    document.getElementById("blob_Location_1").innerHTML = ``;
 
      st_ids = 0;
      saved_group_arr = []
@@ -1105,12 +1106,22 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
             create_new_tabl_cols[counter] = All_table_obj.tables[4][index].reg_status;counter++;
 
             var return_data = search_two_tables(All_table_obj.tables[4][index] , All_table_obj.tables[3] , 12 , 0 , 2)
+            if(return_data.length == 0)
+            {
+                create_new_tabl_cols[counter] = "C-None";counter++;
+
+            }
             for(var index_ = 0 ; index_ < return_data.length ; index_++)
             {
                 create_new_tabl_cols[counter] = return_data[index_];counter++;
             }
 
             var return_data = search_two_tables(All_table_obj.tables[4][index] , All_table_obj.tables[3] , 13 , 0 , 2)
+            if(return_data.length == 0)
+            {
+                create_new_tabl_cols[counter] = "S-None";counter++;
+
+            }
             for(var index_ = 0 ; index_ < return_data.length ; index_++)
             {
                 create_new_tabl_cols[counter] = return_data[index_];counter++;
@@ -1343,6 +1354,7 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
  function create_paper_table_parent(all_tables , create_new_tabl_rows)
  {
 
+    // console.log(all_tables);
 
     for(var index_ = 0 ; index_ < create_new_tabl_rows.length ; index_++)
     {
@@ -1402,7 +1414,7 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
     All_data_obj.saved_index ;
 
 
-    createTable(all_tables ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view , 14); 
+    createTable(all_tables ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view , all_tables[0].length-3); 
 }
 
 function create_view(All_data_obj , End_Index)
@@ -1478,13 +1490,13 @@ function create_paper_table_customized_parent(all_tables)
    if(values_ == "")
    {
       All_data_obj.Start_Index = 1;
-      createTable(all_tables ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view , 14); ;
+      createTable(all_tables ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view ,  all_tables[0].length-3); ;
       return;
    }
 
     var result = Search_for_value(all_tables , values_)
         
-   createTable(result ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view , 14); 
+   createTable(result ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view , all_tables[0].length-3); 
 }
 
 function paper_inner_parent__ (paper_ , title)
@@ -1726,7 +1738,7 @@ function createTable_pop_up(All_data_obj , index_st) {
   if(dataArray && dataArray !== undefined && dataArray.length != 0){
 
     var result = "<table class='table' id='dtable'>"+
-                 "<thead   style='white-space:nowrap' >"+
+                 "<thead   style='white-space:wrap' >"+
                    "<tr>";                               //Change table headings to match witht he Google Sheet     
                    result +="<th scope='col'>Students Info </th>";
                    result +="<th scope='col'>Group Info </th>";
@@ -1741,7 +1753,7 @@ function createTable_pop_up(All_data_obj , index_st) {
                     {
                         result += "<tr>";
 
-                        result += "<td style='white-space:nowrap' >";
+                        result += "<td style='white-space:wrap' >";
 
                     result += `ID : `+Object.values(dataArray[index_st])[14][0][index]; 
                     result += `<br> iSchool ID : `+Object.values(dataArray[index_st])[14][1][index]; 
@@ -1752,7 +1764,7 @@ function createTable_pop_up(All_data_obj , index_st) {
 
                     result +="</td>"
 
-                    result += "<td style='white-space:nowrap' >";
+                    result += "<td style='white-space:wrap' >";
 
                     if(Object.values(dataArray[index_st])[15][0][index] == undefined)
                     {
@@ -1771,7 +1783,7 @@ function createTable_pop_up(All_data_obj , index_st) {
                     }
                     result +="</td>"
 
-                    result += "<td style='white-space:nowrap' >";
+                    result += "<td style='white-space:wrap' >";
 
 
 
@@ -1799,7 +1811,7 @@ function createTable_pop_up(All_data_obj , index_st) {
 
                     result +="</td>"
 
-                    result += "<td style='white-space:nowrap' >";
+                    result += "<td style='white-space:wrap' >";
                     if(Object.values(dataArray[index_st])[16][index][0] )
                     {
                         result += `Created Sessions : `+Object.values(dataArray[index_st])[16][index][0] ; 
@@ -1842,7 +1854,7 @@ function Nodata_func(All_data_obj) {
 
 
   var result = "<table class='table' id='dtable'>"+
-  "<thead   style='white-space:nowrap' >"+
+  "<thead   style='white-space:wrap' >"+
     "<tr>";                               //Change table headings to match witht he Google Sheet
      
      for(var index = 0 ; index < All_data_obj.all_names.length ; index ++)

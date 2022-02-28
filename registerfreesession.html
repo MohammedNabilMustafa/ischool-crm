@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;500;700;900&family=Roboto:wght@100;300;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="js/bootstrap.min.js"></script>
@@ -128,30 +128,35 @@
                             <span class="col"></span>
                         </div>
                         <div class="row scheduletableitem">
+                            <span class="col-auto" hidden>52</span>
                             <span class="col-auto">22/07/2022</span>
                             <span class="col-3">Friday</span>
                             <span class="col-3">4:30 PM</span>
                             <span class="col"><a class="check"></a></span>
                         </div>
                         <div class="row scheduletableitem ">
+                            <span class="col-auto" hidden>52</span>
                             <span class="col-auto">22/07/2022</span>
                             <span class="col-3">Wednesday</span>
                             <span class="col-3">10:30 PM</span>
                             <span class="col"><a class="check"></a></span>
                         </div>
                         <div class="row scheduletableitem ">
+                            <span class="col-auto" hidden>52</span>
                             <span class="col-auto">22/07/2022</span>
                             <span class="col-3">Sunday</span>
                             <span class="col-3">4:30 PM</span>
                             <span class="col"><a  class="check"></a></span>
                         </div>
                         <div class="row scheduletableitem ">
+                            <span class="col-auto" hidden>52</span>
                             <span class="col-auto">22/07/2022</span>
                             <span class="col-3">Tuesday</span>
                             <span class="col-3">4:30 PM</span>
                             <span class="col"><a  class="check"></a></span>
                         </div>
                         <div class="row scheduletableitem ">
+                            <span class="col-auto" hidden>52</span>
                             <span class="col-auto">22/07/2022</span>
                             <span class="col-3">Friday</span>
                             <span class="col-3">4:30 PM</span>
@@ -242,12 +247,48 @@
         </div>
 
         <script src="js/jquery.min.js"></script>
-        <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="js/bootstrap.bundle.min.js"></script>
 
         <script src="js/global.js"></script>
         <script src="js/registerfreesession.js"></script>
         <script src="js/dd.min.js"></script>
+
+        <script>
+            
+            // $(".scheduletableitem").click(function()
+            // {
+            //     var index = ($(this).index() )+1 ;
+            //     if(index == "2")
+            //     {
+            //         $( ".scheduletableitem:nth-child(2)" + " span:nth-child(1)").html("12");
+            //         console.log($( ".scheduletableitem:nth-child(2)" + " span:nth-child(1)").html());
+            //     }
+            //     else if(index == "3")
+            //     {
+            //         $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html("22");
+            //         console.log($( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html());
+            //     }
+            //     else if(index == "4")
+            //     {
+            //         $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html("32");
+            //     console.log($( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html());
+            //     }
+            //     else if(index == "5")
+            //     {
+            //         $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html("42");
+            //     console.log($( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html());
+            //     }
+            //     else if(index == "6")
+            //     {
+            //         $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html("52");
+            //     console.log($( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html());
+            //     }
+
+            // }
+            // );
+
+        </script>
 </body>
 
 </html>

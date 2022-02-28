@@ -17,6 +17,8 @@ var Age_slots = [];
 
 function ADD_SESSION_TO_GROUP()
 {
+    document.getElementById("blob_Location_1").innerHTML = ``;
+
     days_flag = false;
     document.getElementById("Location_1").innerHTML = "";
     document.getElementById("Location_2").innerHTML = "";
@@ -933,7 +935,7 @@ function createTable_schedule(dataArray , object_data) {
 
 
         var result = "<table class='table' id='dtable' >"+
-                    "<thead   style='white-space:nowrap' >"+
+                    "<thead   style='white-space:wrap' >"+
                     "<tr>";                               //Change table headings to match witht he Google Sheet
 
                     result +="<th scope='col' colspan='7' style='text-align:center;background-color: rgb(214, 212, 212);'><label style='font-size: 25px;color: rgb(30, 53, 255);'>"+object_data.start_from+' - ' + object_data.start_from_day+"</label></th>";
@@ -975,7 +977,7 @@ function createTable_schedule(dataArray , object_data) {
                         {
                             siz_col = 2;
                         }
-                        result += `<td colspan='`+siz_col+`'style='white-space:nowrap;text-align:center;font-size: 15px;' >`;
+                        result += `<td colspan='`+siz_col+`'style='white-space:wrap;text-align:center;font-size: 15px;' >`;
                         if(Object.values(dataArray[i])[index][0]!= 'empty')
                         {                            
                             for(var index_ = 0 ; index_ < Object.values(dataArray[i])[index].length ; index_++)
@@ -1219,7 +1221,7 @@ function createTable_pop_up_schedule(All_data_obj , All_req_obj ) {
   if(dataArray && dataArray !== undefined && dataArray.length != 0){
 
     var result = "<table class='table' id='dtable'>"+
-                 "<thead   style='white-space:nowrap' >"+
+                 "<thead   style='white-space:wrap' >"+
                    "<tr>";                               //Change table headings to match witht he Google Sheet     
                    result +="<th scope='col'>Session ID </th>";
                    result +="<th scope='col'>Student ID </th>";
@@ -1233,16 +1235,16 @@ function createTable_pop_up_schedule(All_data_obj , All_req_obj ) {
                     for(var index = 0 ; index < dataArray.length ; index++)
                     {
                         result += "<tr>";
-                        result += "<td style='white-space:nowrap' >";
+                        result += "<td style='white-space:wrap' >";
                         result += `Session ID : ${dataArray[index][0]}` 
                         result +="</td>"
-                        result += "<td style='white-space:nowrap' >";
+                        result += "<td style='white-space:wrap' >";
                         result += `Student ID : ${dataArray[index][1]}`   
                         result +="</td>"
-                        result += "<td style='white-space:nowrap' >";                      
+                        result += "<td style='white-space:wrap' >";                      
                         result += `Student Name : ${dataArray[index][2]}`    
                         result +="</td>"
-                        result += "<td style='white-space:nowrap' >";   
+                        result += "<td style='white-space:wrap' >";   
                                           
                         result += `Attendance : <select id='att_id_${index}' > `
 
@@ -1270,7 +1272,7 @@ function createTable_pop_up_schedule(All_data_obj , All_req_obj ) {
                         result += `</select> `
 
                         result +="</td>"
-                        result += "<td style='white-space:nowrap' >";       
+                        result += "<td style='white-space:wrap' >";       
                         if(dataArray[index][4] != "")
                         result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="25"> ${dataArray[index][4]} </textarea> `;
                         else
@@ -1278,7 +1280,7 @@ function createTable_pop_up_schedule(All_data_obj , All_req_obj ) {
 
 
                         result +="</td>"
-                        result += "<td style='white-space:nowrap' >";     
+                        result += "<td style='white-space:wrap' >";     
                                 //  Tiger
                         result += `<button  type="button" id='send_att_feed${index}' class="btn btn-light" style='float:right'><i class="fa-solid fa-circle-arrow-right"></i></button>`               
                         result +="</td>"

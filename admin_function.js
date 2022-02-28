@@ -69,7 +69,7 @@ function clear(location)
 let get_ids = [];
 
 
-function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num) {
+function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num , ret_manual) {
   
   var end_of_arr = 0;
 
@@ -77,6 +77,10 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
 
     clear(All_data_obj.location_next);
     next_Section(All_data_obj.location_next);
+
+
+
+  if(dataArray && dataArray !== undefined && dataArray.length != 0){
 
     if(All_data_obj.Start_Index > dataArray.length)
     {
@@ -94,12 +98,12 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
         End_Index = dataArray.length;
     }
 
-  if(dataArray && dataArray !== undefined && dataArray.length != 0){
+    
 
     document.getElementById(All_data_obj.location_index).innerHTML = `<label>`+Math.ceil(All_data_obj.Start_Index/10)+" - "+Math.ceil(dataArray.length/10)+` </label>`;
 
     var result = "<table class='table' id='dtable'>"+
-                 "<thead   style='white-space:nowrap' >"+
+                 "<thead   style='white-space:wrap' >"+
                    "<tr>";                               //Change table headings to match witht he Google Sheet
                     
                    if(table_cols == null)
@@ -138,7 +142,7 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
                   
                   for(var index = 0 ; index < end_of_arr  ; index++)
                   {
-                    result += "<td style='white-space:nowrap' >";
+                    result += "<td style='white-space:wrap' >";
                     result += Object.values(dataArray[i])[index]; 
                     result +="</td>"
                   }
@@ -167,7 +171,7 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
               for(var i=(All_data_obj.Start_Index-1); i<End_Index; i++) {
                 result += "<tr>";
                 counter = i;
-                result += "<td style='white-space:nowrap' >"+ Object.values(dataArray[i])[0]+" </td>";
+                result += "<td style='white-space:wrap' >"+ Object.values(dataArray[i])[0]+" </td>";
 
                 if(deduct_num == null)
                 {
@@ -181,7 +185,7 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
                   for(var index = 1 ; index < end_of_arr ; index+=table_rows)
                   {
 
-                    result += "<td style='white-space:nowrap' >";
+                    result += "<td style='white-space:wrap' >";
                     for(var index_ = 0 ; index_ < table_rows ; index_++)
                     {
 
@@ -241,7 +245,7 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
 
     if(func_callback)
     {
-      func_callback(All_data_obj , End_Index);
+      func_callback(All_data_obj , End_Index , ret_manual);
     }
 
     $(document).ready(function () {
@@ -282,7 +286,7 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
     {
 
         All_data_obj.Start_Index = End_Index+1;
-        createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num)
+        createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num ,  ret_manual)
     }
     else if( (dataArray.length - All_data_obj.Start_Index ) < 10 &&  (dataArray.length - All_data_obj.Start_Index ) > 0)
     {
@@ -292,7 +296,7 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
       }
       else{
         All_data_obj.Start_Index = End_Index+1;
-        createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num)
+        createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num ,  ret_manual)
       }
 
 
@@ -309,7 +313,7 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
         if(perv > 0)
         {
           All_data_obj.Start_Index = perv;
-          createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num)
+          createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num ,  ret_manual)
         }
 });
 $(All_data_obj.ind_btn).change(function () {
@@ -324,13 +328,13 @@ $(All_data_obj.ind_btn).change(function () {
             if( dataArray.length > value_pages_multi  )
                 {
                     All_data_obj.Start_Index = value_pages_multi-9;
-                    createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num)
+                    createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num ,  ret_manual)
                 }
                 else{
                     if((value_pages_multi - dataArray.length ) < 10)
                     {
                         All_data_obj.Start_Index = value_pages_multi-9;
-                        createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num)
+                        createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_cols , Create_btn , func_callback , deduct_num ,  ret_manual)
                     }
                 }
             }
@@ -350,7 +354,7 @@ function Nodata_func(All_data_obj) {
 
 
   var result = "<table class='table' id='dtable'>"+
-  "<thead   style='white-space:nowrap' >"+
+  "<thead   style='white-space:wrap' >"+
     "<tr>";                               //Change table headings to match witht he Google Sheet
      
      for(var index = 0 ; index < All_data_obj.all_names.length ; index ++)
@@ -646,7 +650,7 @@ function createTable_invoice(dataArray ,All_data_obj , Clear_btn , table_rows , 
     document.getElementById(All_data_obj.location_index).innerHTML = `<label>`+Math.ceil(All_data_obj.Start_Index/10)+" - "+Math.ceil(dataArray.length/10)+` </label>`;
 
     var result = "<table class='table' id='dtable'>"+
-                 "<thead   style='white-space:nowrap' >"+
+                 "<thead   style='white-space:wrap' >"+
                    "<tr>";                               //Change table headings to match witht he Google Sheet
                     
                    if(table_cols == null)
@@ -685,7 +689,7 @@ function createTable_invoice(dataArray ,All_data_obj , Clear_btn , table_rows , 
                   
                   for(var index = 0 ; index < end_of_arr  ; index++)
                   {
-                    result += "<td style='white-space:nowrap' >";
+                    result += "<td style='white-space:wrap' >";
                     result += Object.values(dataArray[i])[index]; 
                     result +="</td>"
                   }
@@ -714,7 +718,7 @@ function createTable_invoice(dataArray ,All_data_obj , Clear_btn , table_rows , 
               for(var i=(All_data_obj.Start_Index-1); i<End_Index; i++) {
                 result += "<tr>";
                 counter = i;
-                result += "<td style='white-space:nowrap' >"+ Object.values(dataArray[i])[0]+" </td>";
+                result += "<td style='white-space:wrap' >"+ Object.values(dataArray[i])[0]+" </td>";
 
                 if(deduct_num == null)
                 {
@@ -726,14 +730,14 @@ function createTable_invoice(dataArray ,All_data_obj , Clear_btn , table_rows , 
                 }
 
 
-                    result += "<td style='white-space:nowrap' >";
+                    result += "<td style='white-space:wrap' >";
                     result += Object.values(dataArray[i])[1]+"<br>"; 
                     result += Object.values(dataArray[i])[2]+"<br>"; 
                     result += Object.values(dataArray[i])[3]+"<br>"; 
                     result += Object.values(dataArray[i])[4]+"<br>"; 
                     result += Object.values(dataArray[i])[5]+"<br>"; 
                     result +="</td>"
-                    result += "<td style='white-space:nowrap' >";
+                    result += "<td style='white-space:wrap' >";
                     result += Object.values(dataArray[i])[6]+"<br>"; 
                     result += Object.values(dataArray[i])[7]+"<br>"; 
                     result += Object.values(dataArray[i])[8]+"<br>"; 
@@ -742,7 +746,7 @@ function createTable_invoice(dataArray ,All_data_obj , Clear_btn , table_rows , 
                     result += Object.values(dataArray[i])[11]+"<br>"; 
                     result +="</td>"  
 
-                    result += "<td style='white-space:nowrap' >";
+                    result += "<td style='white-space:wrap' >";
                     result += Object.values(dataArray[i])[12]+"<br>"; 
                     result += Object.values(dataArray[i])[13]+"<br>"; 
                     result += Object.values(dataArray[i])[14]+"<br>"; 
@@ -750,7 +754,7 @@ function createTable_invoice(dataArray ,All_data_obj , Clear_btn , table_rows , 
                     result += Object.values(dataArray[i])[16]+"<br>"; 
                     result +="</td>"  
 
-                    result += "<td style='white-space:nowrap' >";
+                    result += "<td style='white-space:wrap' >";
 
                     result += Object.values(dataArray[i])[17]+"<br>"; 
                     result += Object.values(dataArray[i])[18]+"<br>"; 

@@ -13,6 +13,8 @@ var saved_employee_arr = []
 
 function ADD_NEW_STUDENT()
 {
+    document.getElementById("blob_Location_1").innerHTML = ``;
+
     saved_sessions_id_arr = [];
     Packages_id_input = [];
     saved_group_arr = []
@@ -1317,7 +1319,7 @@ function createTable_pop_up_students(All_data_obj , All_req_obj  , End_Index) {
   if(dataArray && dataArray !== undefined && dataArray.length != 0){
 
     var result = "<table class='table' id='dtable'>"+
-                 "<thead   style='white-space:nowrap' >"+
+                 "<thead   style='white-space:wrap' >"+
                    "<tr>";                               //Change table headings to match witht he Google Sheet     
                    result +="<th scope='col'>Session ID </th>";
                    result +="<th scope='col'>Student ID </th>";
@@ -1331,19 +1333,19 @@ function createTable_pop_up_students(All_data_obj , All_req_obj  , End_Index) {
                     for(var index = 0 ; index < dataArray.length ; index++)
                     {
                         result += "<tr>";
-                        result += "<td style='white-space:nowrap' >";
+                        result += "<td style='white-space:wrap' >";
                         result += `Session ID : ${dataArray[index][0]}` 
                         result += `<br>Group ID : ${dataArray[index][5]}` 
                         result += `<br>Session Date : ${dataArray[index][8]}` 
                         result += `<br>Session Num : ${dataArray[index][9]}` 
                         result +="</td>"
-                        result += "<td style='white-space:nowrap' >";
+                        result += "<td style='white-space:wrap' >";
                         result += `Student ID : ${dataArray[index][1]}`   
                         result += `<br>Student Name : ${dataArray[index][2]}`    
                         result += `<br>Instructor ID : ${dataArray[index][6]}`   
                         result += `<br>Instructor Name : ${dataArray[index][11]}`   
                         result +="</td>"
-                        result += "<td style='white-space:nowrap' >";   
+                        result += "<td style='white-space:wrap' >";   
                                           
                         result += `Attendance : <select id='att_id_${index}' > `
 
@@ -1371,7 +1373,7 @@ function createTable_pop_up_students(All_data_obj , All_req_obj  , End_Index) {
                         result += `</select> `
 
                         result +="</td>"
-                        result += "<td style='white-space:nowrap' >";       
+                        result += "<td style='white-space:wrap' >";       
                         if(dataArray[index][4] != "")
                         result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="30"> ${dataArray[index][4]} </textarea> `;
                         else
@@ -1379,7 +1381,7 @@ function createTable_pop_up_students(All_data_obj , All_req_obj  , End_Index) {
 
 
                         result +="</td>"
-                        result += "<td style='white-space:nowrap' >";     
+                        result += "<td style='white-space:wrap' >";     
                                 //  Tiger
                         result += `<button  type="button" id='send_att_feed${index}' class="btn btn-light" style='float:right'><i class="fa-solid fa-circle-arrow-right"></i></button>`               
                         result +="</td>"
