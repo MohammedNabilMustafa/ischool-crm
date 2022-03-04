@@ -472,7 +472,7 @@ function add_new_student_getpackage(All_req_obj,paper_inputs , package_id , st_i
 
 }
 
-function add_new_student_invoice(All_req_obj,paper_inputs , All_data_obj_obj , st_id)
+async function  add_new_student_invoice(All_req_obj,paper_inputs , All_data_obj_obj , st_id)
 {
     
     var Database_link = database_fixed_link
@@ -518,6 +518,9 @@ function add_new_student_invoice(All_req_obj,paper_inputs , All_data_obj_obj , s
             //  console.log(Number(All_data_obj_obj.quota));
             //  console.log(Number(All_data_obj_obj.installments));
 
+            var get_last_package_student_id = await GET_DATA_TABLES(database_fixed_link , "student_package");
+
+
              value_elments[0] = st_id;
              value_elments[1] = All_data_obj_obj.fees;
              value_elments[2] = All_data_obj_obj.paid_as;
@@ -526,7 +529,7 @@ function add_new_student_invoice(All_req_obj,paper_inputs , All_data_obj_obj , s
              value_elments[5] = document.getElementById('paid_date_id').value;
              value_elments[6] = 0;
              value_elments[7] = '';
-             value_elments[8] = All_data_obj_obj.id;
+             value_elments[8] = get_last_package_student_id[get_last_package_student_id.length-1].id;
              value_elments[9] = qouta;
              value_elments[10] = 0;
 
@@ -535,6 +538,8 @@ function add_new_student_invoice(All_req_obj,paper_inputs , All_data_obj_obj , s
              var date_Month = Todate_schedule_sessions(document.getElementById('paid_date_id').value)[2];
              var date_Year = Todate_schedule_sessions(document.getElementById('paid_date_id').value)[4];
 
+
+             
     for(var index = 0 ; index < count ; index++)
     {
      All_data_obj.callbackfunc = function(All_data_obj , response)
@@ -558,7 +563,7 @@ function add_new_student_invoice(All_req_obj,paper_inputs , All_data_obj_obj , s
      value_elments[5] = '';
      value_elments[6] = 0;
      value_elments[7] = '';
-     value_elments[8] = All_data_obj_obj.id;
+     value_elments[8] = get_last_package_student_id[get_last_package_student_id.length-1].id;
      value_elments[9] = qouta;
      value_elments[10] = 0;
 

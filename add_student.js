@@ -182,66 +182,80 @@ var paper_inputs_label = [
     });
   
     $('#add_student_new').click(function () {  
-
+        // $('.select2').clear();
         html_create_lists_student_num_parent(All_req_obj,paper_inputs ,"Location_2" , st_ids);
+        $('.select2').select2();
         st_ids++;
     });
 
 }
 function html_create_lists_student_num_parent(All_req_obj , paper_inputs ,location_ , st_ids_)
 {
-    document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
-
-    document.getElementById(location_).innerHTML += `<label>Student ID : </label><input type='text' id='student_id`+st_ids_+`'>`;
-    document.getElementById(location_).innerHTML += `<label>Name : </label><input type='text' id='name_id`+st_ids_+`'>`;
-
-    document.getElementById(location_).innerHTML +=`</div></div>`;
-    document.getElementById(location_).innerHTML += `<label>Free Session : </label><input class="largerCheckbox" type='checkbox' id='free_id`+st_ids_+`' value='yes'>`;
-
-    document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
-    document.getElementById(location_).innerHTML += `<label>birthdate : </label><input type='date' id='bd_id`+st_ids_+`'>`;
-    paper_inner_parent_1('status_id'+st_ids_ , "Status ");
-
-    for(var index = 0 ;index < saved_status_arr.length ; index++)
+    document.getElementById(location_).innerHTML = '';
+    for(var index__ = 0 ; index__ < st_ids_+1 ; index__++)
     {
-        $('#status_id'+st_ids_).append(`<option value="${saved_status_arr[index][0]}"
-        >${saved_status_arr[index][2]} </option>`); 
+
+        document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+
+        document.getElementById(location_).innerHTML += `<label>Student ID : </label><input type='text' id='student_id`+index__+`'>`;
+        document.getElementById(location_).innerHTML += `<label>Name : </label><input type='text' id='name_id`+index__+`'>`;
+    
+        document.getElementById(location_).innerHTML +=`</div></div>`;
+        document.getElementById(location_).innerHTML += `<label>Free Session : </label><input class="largerCheckbox" type='checkbox' id='free_id`+index__+`' value='yes'>`;
+    
+        document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+        document.getElementById(location_).innerHTML += `<label>birthdate : </label><input type='date' id='bd_id`+index__+`'>`;
+        paper_inner_parent_1('status_id'+index__ , "Status ");
+    
+        for(var index = 0 ;index < saved_status_arr.length ; index++)
+        {
+            $('#status_id'+index__).append(`<option value="${saved_status_arr[index][0]}"
+            >${saved_status_arr[index][2]} </option>`); 
+        }
+        document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+    
+        document.getElementById(location_).innerHTML +=`</div></div>`;
+    
+        paper_inner_parent_1('Packages_id_input'+index__ , "Packages ");
+        for(var index = 0 ;index < saved_package_arr.length ; index++)
+        {
+            $('#Packages_id_input'+index__).append(`<option value="${saved_package_arr[index][0]}"
+            >${saved_package_arr[index][1]} </option>`); 
+        }
+    
+        document.getElementById(location_).innerHTML +=`<label>Paid Date : </label><input type='date' id='package_data_${index__}' />`;
+    
+    
+    
+        paper_inner_parent_1('Parent_id_input'+index__ , "Parent ");
+    
+        for(var index = 0 ;index < saved_parent_arr.length ; index++)
+        {
+            $('#Parent_id_input'+index__).append(`<option value="${saved_parent_arr[index][0]}"
+            >${saved_parent_arr[index][2]} </option>`); 
+        }
+        document.getElementById(location_).innerHTML +=`</div></div>`;
+    
+        document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+    
+        paper_inner_parent_1('groups_id_input'+index__ , "Groups ");
+    
+        for(var index = 0 ;index < saved_group_arr.length ; index++)
+        {
+            $('#groups_id_input'+index__).append(`<option value="${saved_group_arr[index][0]}"
+            >${saved_group_arr[index][1]} </option>`); 
+        }
+        document.getElementById(location_).innerHTML +=`</div></div>`;
+    
+    
+    
+        document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+        document.getElementById(location_).innerHTML +=`<hr class="hr-primary" />`;
+        document.getElementById(location_).innerHTML +=`</div></div>`;
     }
-    document.getElementById(location_).innerHTML +=`</div></div>`;
-
-    paper_inner_parent_1('Packages_id_input'+st_ids_ , "Packages ");
-    for(var index = 0 ;index < saved_package_arr.length ; index++)
-    {
-        $('#Packages_id_input'+st_ids_).append(`<option value="${saved_package_arr[index][0]}"
-        >${saved_package_arr[index][1]} </option>`); 
-    }
-
-    document.getElementById(location_).innerHTML +=`<label>Paid Date : </label><input type='date' id='package_data_${st_ids_}' />`;
 
 
-
-    paper_inner_parent_1('Parent_id_input'+st_ids_ , "Parent ");
-
-    for(var index = 0 ;index < saved_parent_arr.length ; index++)
-    {
-        $('#Parent_id_input'+st_ids_).append(`<option value="${saved_parent_arr[index][0]}"
-        >${saved_parent_arr[index][2]} </option>`); 
-    }
-
-    paper_inner_parent_1('groups_id_input'+st_ids_ , "Groups ");
-
-    for(var index = 0 ;index < saved_group_arr.length ; index++)
-    {
-        $('#groups_id_input'+st_ids_).append(`<option value="${saved_group_arr[index][0]}"
-        >${saved_group_arr[index][1]} </option>`); 
-    }
-
-
-
-    document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
-    document.getElementById(location_).innerHTML +=`<hr class="hr-primary" />`;
-    document.getElementById(location_).innerHTML +=`</div></div>`;
-
+    
 
     // saved_group_arr
 
@@ -1156,8 +1170,9 @@ function paper_inner_parent (paper_ , title)
 
 function paper_inner_parent_1 (paper_ , title)
 {
+
   document.getElementById("Location_2").innerHTML += `<label for="`+paper_+`">`+title+`:</label>
-  <select class='col-1' name="`+paper_+`" id="`+paper_+`">
+  <select class='col-2 select2' name="`+paper_+`" id="`+paper_+`">
   <option value=""></option>
   </select>` ;
 }

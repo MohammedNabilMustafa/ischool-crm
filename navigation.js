@@ -1742,9 +1742,10 @@ function cs_calls()
       "close_id",
       "follow_date",
       "note",
-      "parent_id",
       "call_id",
-      "student_id"
+      "student_id",
+      "parent_id"
+
   ];
 
     var inputs_names_inputs = 
@@ -1755,9 +1756,9 @@ function cs_calls()
       "Closing ID",
       "Follow Up Date",
       "Note",
-      "Parent ID",
       "Call ID",
       "Student ID",
+      "parent ID",
   ];
 
     var inputs_names_search = 
@@ -1769,9 +1770,9 @@ function cs_calls()
     "Closing ID",
     "Follow Up Date",
     "Note",
-    "Parent ID",
     "Call ID",
     "Student ID",
+    "parent ID"
     ,"Edit" 
     ,"Delete"
   ];

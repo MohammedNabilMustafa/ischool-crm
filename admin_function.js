@@ -75,12 +75,17 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
 
   // All_data_obj.obj_data = [];
 
+  
     clear(All_data_obj.location_next);
     next_Section(All_data_obj.location_next);
 
 
 
   if(dataArray && dataArray !== undefined && dataArray.length != 0){
+
+    All_data_obj.edit_index = [];
+    All_data_obj.delete_index = [];
+    All_data_obj.index_num_value = [];
 
     if(All_data_obj.Start_Index > dataArray.length)
     {
@@ -160,7 +165,7 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
                   }
                   result += "</tr>";
   
-                  All_data_obj.index_num_value[i] = dataArray[i].id;
+                  All_data_obj.index_num_value[i] =  Object.values(dataArray[i])[0];
                   All_data_obj.edit_index[i] = 'btn_get_'+i;
                   All_data_obj.delete_index[i] = 'btn_del_'+i;
                   
@@ -259,6 +264,7 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
 
             $('#btn_del_'+index).click(function () {
               if (confirm("You want to delete!") == true) {
+
               Delete_User( All_data_obj , this.id );
               }
               else
@@ -594,6 +600,7 @@ function Add_User(All_data_obj)
 
 function Delete_User(All_data_obj ,id )
 {
+ 
 
 
   var index_id = 0;
@@ -804,6 +811,7 @@ function createTable_invoice(dataArray ,All_data_obj , Clear_btn , table_rows , 
 
             $('#btn_del_'+index).click(function () {
               if (confirm("You want to delete!") == true) {
+                console.log(this.id );
               Delete_User( All_data_obj , this.id );
               }
               else

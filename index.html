@@ -359,6 +359,7 @@ a{
                         <li><a href="#" id="add_session_group" class="link-dark rounded">Schedule</a></li>
                         <li><a href="#" id="add_employee" class="link-dark rounded">Employee</a></li>
                         <li><a href="#" id="calls" class="link-dark rounded">Customer Calls</a></li>
+                        <li><a href="#" id="calls_assign" class="link-dark rounded">Assign CS Agent</a></li>
 
                         <li><a href="#" id="add_student_parent" class="link-dark rounded">Add Student To Parent</a></li>
                         <li><a href="#" id="add_student_group" class="link-dark rounded">Add Student To Group</a></li>
@@ -530,6 +531,7 @@ a{
       <script   src="login_page.js" ></script>
       <script   src="customer_calls.js" ></script>
       <script   src="json_func_admin.js" ></script>
+      <script   src="Assign_cs.js" ></script>
 
       <script src="js/dd.min.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
@@ -552,12 +554,14 @@ var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
 var time_out = 1000;
 var time_out_retries = 100000;
 
-const rmCheck = document.getElementById("rememberMe"),
-    nameInput = document.getElementById("Username");
-    passInput = document.getElementById("password");
+const rmCheck = document.getElementById("rememberMe");
+var   nameInput = document.getElementById("Username");
+var  passInput = document.getElementById("password");
 
 
   $(document).ready(function () {
+
+    clear_all_selected();
 
     // login_success()
 
@@ -573,221 +577,374 @@ const rmCheck = document.getElementById("rememberMe"),
       localStorage.checkbox = '';
 
         login_page_check();
+
       }); 
       
 
-    // document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student To Session</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
-    //     ADD_STUDENT_TO_SESSION();
-
-    document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Calls Status</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
-        ADD_Customer_call();
-
       $('#groups').click(function () {
+        clear_all_selected();
+        $('#groups').css('background', '#008CBA').css('color','white');
         document.getElementById("page_name").innerHTML = "<h1>All Groups</h1>"
         groups();
       }); 
 
       $('#add_student_session').click(function () {
+        clear_all_selected();
+        $('#add_student_session').css('background', '#008CBA').css('color','white');
         document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student To Session</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
         ADD_STUDENT_TO_SESSION();
       }); 
   
       $('#package').click(function () {
+        clear_all_selected();
+        $('#package').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Packges</h1>"
         packages();
       });
 
       $('#invoice_status').click(function () {
+        clear_all_selected();
+        $('#invoice_status').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Invoice Status</h1>"
         invoice_status();
       });
-      
-      
+           
       $('#invoice').click(function () {
+        clear_all_selected();
+        $('#invoice').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Invoices</h1>"
         invoice();
       });
 
-      invoice
       $('#sessions').click(function () {
+        clear_all_selected();
+        $('#sessions').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>All Sessions</h1>"
         sessions();
       }); 
 
       $('#att_feed').click(function () {
+        clear_all_selected();
+        $('#att_feed').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Attendance / Feedback </h1>"
         att_feed();
       }); 
 
       $('#slots').click(function () {
+        clear_all_selected();
+        $('#slots').css('background', '#008CBA').css('color','white');
         document.getElementById("page_name").innerHTML = "<h1>Slots </h1>"
         slots();
       }); 
       
       $('#lan').click(function () {
+        clear_all_selected();
+        $('#lan').css('background', '#008CBA').css('color','white');
         document.getElementById("page_name").innerHTML = "<h1>Language </h1>"
         lan();
       }); 
 
       $('#attend').click(function () {
+        clear_all_selected();
+        $('#attend').css('background', '#008CBA').css('color','white');
         document.getElementById("page_name").innerHTML = "<h1>Attend </h1>"
         attend();
       }); 
 
       $('#age').click(function () {
+        clear_all_selected();
+        $('#age').css('background', '#008CBA').css('color','white');
         document.getElementById("page_name").innerHTML = "<h1>Age </h1>"
         age();
       }); 
 
       $('#level').click(function () {
+        clear_all_selected();
+        $('#level').css('background', '#008CBA').css('color','white');
         document.getElementById("page_name").innerHTML = "<h1>Level </h1>"
         level();
       }); 
       
       $('#track').click(function () {
+        clear_all_selected();
+        $('#track').css('background', '#008CBA').css('color','white');
         document.getElementById("page_name").innerHTML = "<h1>Track </h1>"
         track();
       }); 
 
       $('#session_type').click(function () {
+        clear_all_selected();
+        $('#session_type').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Type</h1>"
         session_type();
       }); 
 
       $('#days').click(function () {
+        clear_all_selected();
+        $('#days').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Days </h1>"
         days();
       }); 
 
       $('#students').click(function () {
+        clear_all_selected();
+       $('#students').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>All Students </h1>"
         students();
       }); 
 
       $('#parent_loc').click(function () {
+        clear_all_selected();
+        $('#parent_loc').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>All parent </h1>"
         parent();
       }); 
 
       $('#employee').click(function () {
+        clear_all_selected();
+        $('#employee').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>All Employee </h1>"
         employee();
       }); 
 
       $('#permission').click(function () {
+        clear_all_selected();
+        $('#permission').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Permission </h1>"
         permission();
       }); 
       
       $('#role').click(function () {
+        clear_all_selected();
+        $('#role').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Role </h1>"
         role();
       });      
       
       $('#department').click(function () {
+        clear_all_selected();
+        $('#department').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Department </h1>"
         department();
       }); 
 
       $('#student_status').click(function () {
+        clear_all_selected();
+        $('#student_status').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Student Status </h1>"
         student_status();
       });       
 
       $('#student_groups').click(function () {
+        clear_all_selected();
+        $('#student_groups').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Students / Groups </h1>"
         student_groups();
       }); 
 
       $('#add_group').click(function () {
-        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Groups </h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        clear_all_selected();
+        $('#add_group').css('background', '#008CBA').css('color','white');
 
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Groups </h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
         ADD_NEW_GROUP_FUNC();
       }); 
 
       $('#add_student_group').click(function () {
-        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student To Group </h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        clear_all_selected();
+        $('#add_student_group').css('background', '#008CBA').css('color','white');
 
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student To Group </h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
         ADD_STUDENT_TO_GROUP();
       }); 
       
       $('#add_parent').click(function () {
+        clear_all_selected();
+        $('#add_parent').css('background', '#008CBA').css('color','white');
         document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Parents </h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
         ADD_NEW_PARENT();
       }); 
 
       $('#add_employee').click(function () {
-        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Employee </h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        clear_all_selected();
+        $('#add_employee').css('background', '#008CBA').css('color','white');
 
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Employee </h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
         ADD_NEW_EMPLOYEE();
       }); 
 
       $('#add_student').click(function () {
-        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student </h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        clear_all_selected();
+        $('#add_student').css('background', '#008CBA').css('color','white');
 
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student </h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
         ADD_NEW_STUDENT();
       }); 
    
       $('#add_student_parent').click(function () {
+        clear_all_selected();
+        $('#add_student_parent').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student To Parent </h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
 
         ADD_STUDENT_TO_PARENT();
       }); 
       
       $('#add_session_group').click(function () {
+        clear_all_selected();
+        $('#add_session_group').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Schedule</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
 
         ADD_SESSION_TO_GROUP();
       }); 
 
       $('#add_student_package').click(function () {
+        clear_all_selected();
+        $('#add_student_package').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Add Student To Packages</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
         ADD_STUDENT_TO_PACKAGE();
       }); 
 
       $('#student_package').click(function () {
+        clear_all_selected();
+        $('#student_package').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Student / Packge </h1>"
         student_package();
       }); 
 
       $('#add_student_invoice').click(function () {
+        clear_all_selected();
+        $('#add_student_invoice').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Invoices</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
         INVOICE_STUDENT();
       }); 
 
       $('#cs_calls').click(function () {
+        clear_all_selected();
+        $('#cs_calls').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Calls</h1>"
         cs_calls();
       }); 
 
       $('#cat').click(function () {
+        clear_all_selected();
+        $('#cat').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Calls Category</h1>"
         cat();
       }); 
 
       $('#close').click(function () {
+        clear_all_selected();
+        $('#close').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Calls closing</h1>"
         close();
       }); 
   
       $('#call_type').click(function () {
+        clear_all_selected();
+        $('#call_type').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Calls Type</h1>"
         call_type();
       }); 
 
       $('#call_status').click(function () {
+        clear_all_selected();
+        $('#call_status').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = "<h1>Calls Status</h1>"
         call_status();
       }); 
 
-
       $('#calls').click(function () {
+        clear_all_selected();
+        $('#calls').css('background', '#008CBA').css('color','white');
+
         document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Calls Status</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
         ADD_Customer_call();
       }); 
       
+      $('#calls_assign').click(function () {
+        clear_all_selected();
+        $('#calls_assign').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Calls Status</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        ASSGIN_CS_AGENT();
+      }); 
+
+
+      
     }); 
     
+
+    function clear_all_selected()
+      {
+        $('#calls_assign').css('background', 'white').css('color','#008CBA');
+        $('#calls').css('background', 'white').css('color','#008CBA');
+        $('#call_status').css('background', 'white').css('color','#008CBA');
+        $('#call_type').css('background', 'white').css('color','#008CBA');
+        $('#close').css('background', 'white').css('color','#008CBA');
+        $('#cat').css('background', 'white').css('color','#008CBA');
+        $('#cs_calls').css('background', 'white').css('color','#008CBA');
+        $('#cs_calls').css('background', 'white').css('color','#008CBA');
+        $('#add_student_invoice').css('background', 'white').css('color','#008CBA');
+        $('#student_package').css('background', 'white').css('color','#008CBA');
+        $('#add_student_package').css('background', 'white').css('color','#008CBA');
+        $('#add_student_package').css('background', 'white').css('color','#008CBA');
+        $('#add_session_group').css('background', 'white').css('color','#008CBA');
+        $('#add_student_parent').css('background', 'white').css('color','#008CBA');
+        $('#add_employee').css('background', 'white').css('color','#008CBA');
+        $('#add_student_group').css('background', 'white').css('color','#008CBA');
+        $('#add_group').css('background', 'white').css('color','#008CBA');
+        $('#student_groups').css('background', 'white').css('color','#008CBA');
+        $('#role').css('background', 'white').css('color','#008CBA');
+        $('#student_status').css('background', 'white').css('color','#008CBA');
+        $('#department').css('background', 'white').css('color','#008CBA');
+        $('#permission').css('background', 'white').css('color','#008CBA');
+        $('#employee').css('background', 'white').css('color','#008CBA');
+        $('#parent_loc').css('background', 'white').css('color','#008CBA');
+        $('#students').css('background', 'white').css('color','#008CBA');
+        $('#days').css('background', 'white').css('color','#008CBA');
+        $('#session_type').css('background', 'white').css('color','#008CBA');
+        $('#track').css('background', 'white').css('color','#008CBA');
+        $('#level').css('background', 'white').css('color','#008CBA');
+        $('#age').css('background', 'white').css('color','#008CBA');
+        $('#attend').css('background', 'white').css('color','#008CBA');
+        $('#lan').css('background', 'white').css('color','#008CBA');
+        $('#slots').css('background', 'white').css('color','#008CBA');
+        $('#att_feed').css('background', 'white').css('color','#008CBA');
+        $('#sessions').css('background', 'white').css('color','#008CBA');
+        $('#invoice').css('background', 'white').css('color','#008CBA');
+        $('#invoice_status').css('background', 'white').css('color','#008CBA');
+        $('#package').css('background', 'white').css('color','#008CBA');
+        $('#add_student_session').css('background', 'white').css('color','#008CBA');
+        $('#groups').css('background', 'white').css('color','#008CBA');
+        $('#add_parent').css('background', 'white').css('color','#008CBA');
+        $('#add_parent').css('background', 'white').css('color','#008CBA');
+        $('#add_student').css('background', 'white').css('color','#008CBA');
+      }
 
     // <li><a href="#" id="cs_calls" class="link-dark rounded">CS Calls</a></li>
     //                     <li><a href="#" id="cat" class="link-dark rounded">Category</a></li>

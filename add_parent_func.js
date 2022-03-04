@@ -11,7 +11,7 @@ var saved_status_arr = []
 var saved_sessions_id_arr = []
 var saved_att_feed_id_arr = []
 
-function ADD_NEW_PARENT_GROUPS()
+async function ADD_NEW_PARENT_GROUPS()
 {
     document.getElementById("blob_Location_1").innerHTML = ``;
 
@@ -130,7 +130,7 @@ var called_table = ['slots',
 
 }
 
-function ADD_NEW_PARENT()
+async function ADD_NEW_PARENT()
 {
     saved_group_arr = []
     saved_age_arr = []
@@ -236,7 +236,8 @@ function ADD_NEW_PARENT()
         ]
       ];
 
-var called_table = ['permission',
+var called_table = [
+         'permission',
           'department',
           'role',
           'employee',
@@ -295,7 +296,7 @@ var paper_inputs_label = [
       ];
 
 
-      ADD_NEW_PARENT_GROUPS();
+      await ADD_NEW_PARENT_GROUPS();
 
 
 
@@ -311,14 +312,16 @@ var paper_inputs_label = [
     get_all_data_arr(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , time_out , 1);
 
     $('#search_btn').click(function (index) {  
-
-        get_all_data_arr(All_req_obj ,quary_tables_all_parent,create_paper_table_customized_parent , time_out , 2);
+        get_all_data_arr(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , time_out , 2);
         });
+
   
     $('#add_student_new').click(function () {  
 
         html_create_lists_student_num(All_req_obj,paper_inputs ,"Location_2" , st_ids);
         st_ids++;
+        $('.select2').select2();
+
     });
 
 
@@ -329,61 +332,78 @@ var paper_inputs_label = [
         });
 
 
+        $('#reg_btn').click(function () {
+
+            
+            $('#reg_input').val("<label style='color:green'>Registered</label>");
+            get_all_data_arr(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , time_out , 3);
+
+        });
+
+            
+        $('#not_reg_btn').click(function () {
+            $('#not_reg_input').val("<label style='color:red'>Not Registered</label>");
+
+            get_all_data_arr(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , time_out , 4);
+
+        });
+        
 }
 
 function html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , st_ids_)
 {
-    document.getElementById(location_).innerHTML +=`<div id='add_std_${st_ids_}'>`;
+    document.getElementById(location_).innerHTML = '';
+    for(var indexx = 0 ; indexx < st_ids_+1 ; indexx++)
+    {
+    document.getElementById(location_).innerHTML +=`<div id='add_std_${indexx}'>`;
     document.getElementById(location_).innerHTML +=`</div>`;
 
 
-    document.getElementById('add_std_'+st_ids_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+    document.getElementById('add_std_'+indexx).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
 
 
-    document.getElementById('add_std_'+st_ids_).innerHTML += `<label>Student ID : </label><input type='text' id='student_id`+st_ids_+`'>`;
-    document.getElementById('add_std_'+st_ids_).innerHTML += `<label>Name : </label><input type='text' id='name_id`+st_ids_+`'>`;
+    document.getElementById('add_std_'+indexx).innerHTML += `<label>Student ID : </label><input type='text' id='student_id`+indexx+`'>`;
+    document.getElementById('add_std_'+indexx).innerHTML += `<label>Name : </label><input type='text' id='name_id`+indexx+`'>`;
 
-    document.getElementById('add_std_'+st_ids_).innerHTML +=`</div></div>`;
-    document.getElementById('add_std_'+st_ids_).innerHTML += `<label>Free Session : </label><input class="largerCheckbox" type='checkbox' id='free_id`+st_ids_+`' value='yes'>`;
-//     document.getElementById('add_std_'+st_ids_).innerHTML += `<button type="button" id='add_std_btn_${st_ids_}' class="btn btn-light" style='float:right;font-size:25px'>
-//     <i class="fa-solid fa-circle-minus"></i>
-//   </button>`;
+    document.getElementById('add_std_'+indexx).innerHTML +=`</div></div>`;
+    document.getElementById('add_std_'+indexx).innerHTML += `<label>Free Session : </label><input class="largerCheckbox" type='checkbox' id='free_id`+indexx+`' value='yes'>`;
 
-    document.getElementById('add_std_'+st_ids_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
-    document.getElementById('add_std_'+st_ids_).innerHTML += `<label>birthdate : </label><input type='date' id='bd_id`+st_ids_+`'>`;
-    paper_inner_parent_1_func('status_id'+st_ids_ , "Status " , 'add_std_'+st_ids_ , "col-1");
+
+    document.getElementById('add_std_'+indexx).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+    document.getElementById('add_std_'+indexx).innerHTML += `<label>birthdate : </label><input type='date' id='bd_id`+indexx+`'>`;
+    paper_inner_parent_1_func('status_id'+indexx , "Status " , 'add_std_'+indexx , "col-1");
 
     for(var index = 0 ;index < saved_status_arr.length ; index++)
     {
         if(saved_status_arr[index][0] != undefined)
         {
-            $('#status_id'+st_ids_).append(`<option value="${saved_status_arr[index][0]}"
+            $('#status_id'+indexx).append(`<option value="${saved_status_arr[index][0]}"
             >${saved_status_arr[index][1]} </option>`); 
         }
     }
-    document.getElementById('add_std_'+st_ids_).innerHTML +=`</div></div>`;
+    document.getElementById('add_std_'+indexx).innerHTML +=`</div></div>`;
 
-    paper_inner_parent_1_func('Packages_id_input'+st_ids_ , "Packages " , 'add_std_'+st_ids_ , "col-1");
+    paper_inner_parent_1_func('Packages_id_input'+indexx , "Packages " , 'add_std_'+indexx , "col-1");
 
     for(var index = 0 ;index < saved_package_arr.length ; index++)
     {
         if(saved_package_arr[index][0] != undefined)
         {
-            $('#Packages_id_input'+st_ids_).append(`<option value="${saved_package_arr[index][0]}"
+            $('#Packages_id_input'+indexx).append(`<option value="${saved_package_arr[index][0]}"
             >${saved_package_arr[index][1]} </option>`); 
         }
     }
 
-    document.getElementById('add_std_'+st_ids_).innerHTML +=`<label>Paid Date : </label><input type='date' id='package_data_${st_ids_}' />`;
+    document.getElementById('add_std_'+indexx).innerHTML +=`<label>Paid Date : </label><input type='date' id='package_data_${indexx}' />`;
 
 
-    paper_inner_parent_1_func('groups_id_input'+st_ids_ , "Groups " , 'add_std_'+st_ids_ , "col-3");
+    paper_inner_parent_1_func('groups_id_input'+indexx , "Groups " , 'add_std_'+indexx , "col-3");
 
     for(var index = 0 ;index < saved_group_arr.length ; index++)
     {
         if(saved_group_arr[index][0] != undefined)
         {
-            $('#groups_id_input'+st_ids_).append(`<option value="${saved_group_arr[index][0]}"
+            $('#groups_id_input'+indexx).append(`<option value="${saved_group_arr[index][0]}"
             >${saved_group_arr[index][1]} </option>`); 
         }
 
@@ -392,25 +412,29 @@ function html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , s
 
 
 
-    document.getElementById('add_std_'+st_ids_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
-    document.getElementById('add_std_'+st_ids_).innerHTML +=`<hr class="hr-primary" />`;
-    document.getElementById('add_std_'+st_ids_).innerHTML +=`</div></div>`;
+    document.getElementById('add_std_'+indexx).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+    document.getElementById('add_std_'+indexx).innerHTML +=`<hr class="hr-primary" />`;
+    document.getElementById('add_std_'+indexx).innerHTML +=`</div></div>`;
 
 
-    $('#add_std_btn_'+st_ids_).click(function () {  
 
-        var id = this.id;
-        var ret = id.replace('add_std_btn_','');
 
-        // document.getElementById("add_std_"+ret).innerHTML = "";
-        // st_ids--;
-    });
+    }
 
-    $('.select2').select2();
+
+
+//   $('#add_std_btn_remove').clear();
+
+//   $('#add_std_btn_remove').click(function () {  
+
+//     st_ids--;
+//     html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , st_ids_);
+
+// });
 
 }
 
-function html_create_lists_parent(paper_inputs , paper_inputs_label  , location_)
+async function html_create_lists_parent(paper_inputs , paper_inputs_label  , location_)
 {
     document.getElementById("Location_1").innerHTML = "";
     document.getElementById("Location_2").innerHTML = "";
@@ -420,8 +444,8 @@ function html_create_lists_parent(paper_inputs , paper_inputs_label  , location_
 
 
 
-    //  `<div class='col justify-content-start'><button class='btn btn-danger' style='float:left;' id='add_back'>BACK</button></div>`;
-    
+    if(localStorage.permission == 4)
+    {    
     document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
 
     for(var index = 0 ; index < 3 ; index++)
@@ -457,24 +481,46 @@ function html_create_lists_parent(paper_inputs , paper_inputs_label  , location_
 
     document.getElementById(location_).innerHTML += `<div class='col justify-content-start'><button class='btn btn-success' style='float:right;' id='send_group'>ADD</button></div>`;
 
+}
 
     document.getElementById(location_).innerHTML +=`<div class="input-group">
     <div class='col justify-content-start'>
       <input type="search" id="search_all" class="form-control" />
-    </div>
-    <div class='col justify-content-start' style='z-index:0;'><button type="button" id='search_btn' class="btn btn-primary">
+    </div><div id='search_assign'> </div><div class='col justify-content-start' style='z-index:0;'><button type="button" id='search_btn' class="btn btn-primary">
       <i class="fas fa-search"></i>
     </button></div>
   </div>`;
+
+
+
+  if(localStorage.permission == 4)
+  {
+  employee_drop_down_search('search_assign');
+
   document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
   document.getElementById(location_).innerHTML +=`</div></div>`;
 
-  document.getElementById(location_).innerHTML +=`<div class='col justify-content-start'><button class='btn btn-primary' style='float:left;' id='add_student_new'>+ ADD Student</button></div><br>`;
-    
+  document.getElementById(location_).innerHTML +=`<div class='col justify-content-start'><button class='btn btn-primary' style='float:left;' id='add_student_new'>+ ADD Student</button>
+
+  </div><br>`;
+}
+document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+document.getElementById(location_).innerHTML +=`</div></div>`;
+document.getElementById(location_).innerHTML +=`<div class='col justify-content-start' style='z-index:0;'><button type="button" id='reg_btn' class="btn btn-success">
+Registered
+</button><input type='text' id='reg_input' value='' hidden/>
+<button type="button" id='not_reg_btn' class="btn btn-danger">
+Not Registered
+</button>
+</button><input type='text' id='not_reg_input' value='' hidden/>
+<input id='counter_id' readonly />
+</div>`;
+
   document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
   document.getElementById(location_).innerHTML +=`<hr class="hr-primary" />`;
   document.getElementById(location_).innerHTML +=`</div></div>`;
 
+  
 }
 
 function add_new_parent_(All_req_obj,paper_inputs )
@@ -852,7 +898,7 @@ function add_student_to_group_Sessions(All_req_obj,paper_inputs , group_id_value
 
 }
 
-function add_new_student_package_parent(All_req_obj,paper_inputs , student_id , package_id_value , student_package_date)
+function add_new_student_package_parent(All_req_obj,paper_inputs , student_id , package_id_value , student_package_date , return_)
 {
     
     var Database_link = database_fixed_link
@@ -889,14 +935,14 @@ function add_new_student_package_parent(All_req_obj,paper_inputs , student_id , 
 
                 All_data_obj.callbackfunc = function(All_data_obj , response)
                 {
-                    add_new_student_getpackage_parent( All_req_obj,paper_inputs , value_elments[1] , value_elments[0] , student_package_date);
+                    add_new_student_getpackage_parent( All_req_obj,paper_inputs , value_elments[1] , value_elments[0] , student_package_date , return_);
                 };
                 add_one_data_from_database(All_data_obj , value_elments);
 
         
 }
 
-function add_new_student_getpackage_parent(All_req_obj,paper_inputs , package_id , st_id , student_package_date)
+function add_new_student_getpackage_parent(All_req_obj,paper_inputs , package_id , st_id , student_package_date , return_)
 {
     
     var Database_link = database_fixed_link
@@ -933,13 +979,13 @@ function add_new_student_getpackage_parent(All_req_obj,paper_inputs , package_id
 
             All_data_obj.callbackfunc = function(All_data_obj, response)
             {
-                add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj.obj , st_id , student_package_date)
+                add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj.obj , st_id , student_package_date , return_)
             };
              get_one_data_from_database(All_data_obj);
 
 }
 
-function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_obj , st_id , student_package_date)
+function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_obj , st_id , student_package_date , return_)
 {
     
     var Database_link = database_fixed_link
@@ -1006,7 +1052,15 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
      All_data_obj.callbackfunc = function(All_data_obj , response)
         {
             alert('Package : '+response);
-            ADD_NEW_PARENT();
+            if(return_)
+            {
+                ADD_NEW_STUDENT();
+            }
+            else
+            {
+                ADD_NEW_PARENT();
+            }
+
         };
      add_one_data_from_database(All_data_obj , value_elments);
      date_Month++;
@@ -1084,12 +1138,17 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
     }
     //func( create_new_tabl_rows );
 
+    var package_arr_status = [];
+    var counter_arr_pack = 0;
 
 
     if(All_table_obj.tables[4] && All_table_obj.tables[4] !== undefined && All_table_obj.tables[4].length != 0)
     {
+
         for(var index = 0 ; index < All_table_obj.tables[4].length ; index++)
         {
+
+
             counter = 0;
             var Student_id_save = 0;
             var create_new_tabl_cols = []
@@ -1103,7 +1162,91 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
             create_new_tabl_cols[counter] = All_table_obj.tables[4][index].address;counter++;
             create_new_tabl_cols[counter] = All_table_obj.tables[4][index].location;counter++;
             create_new_tabl_cols[counter] = All_table_obj.tables[4][index].job;counter++;
-            create_new_tabl_cols[counter] = All_table_obj.tables[4][index].reg_status;counter++;
+
+
+            var reg_status = false;
+
+            if(All_table_obj.tables[5] && All_table_obj.tables[5] !== undefined && All_table_obj.tables[5].length != 0)
+            {
+                All_table_obj.tables[5].forEach(element_st => {
+
+                    if(element_st.parent_id == All_table_obj.tables[4][index].id)
+                    {
+                        if(All_table_obj.tables[18] && All_table_obj.tables[18] !== undefined && All_table_obj.tables[18].length != 0)
+                        {
+                            All_table_obj.tables[18].forEach(element_pac => {
+                                var pack_inner_arr = [];
+                                var counter_arr_pack_inner = 0;
+
+                                if(element_st.id == element_pac.student_id)
+                                {
+                                    reg_status = true;
+                                    pack_inner_arr[counter_arr_pack_inner] = element_pac.id; counter_arr_pack_inner++;
+
+                                    if(All_table_obj.tables[20] && All_table_obj.tables[20] !== undefined && All_table_obj.tables[20].length != 0)
+                                    {
+                                        var done_inv = 0;
+                                        var wait_inv = 0
+                                        var refund_inv = 0
+                                        var ar_refund_inv = 0
+
+                                        All_table_obj.tables[20].forEach(element_inv => {
+                                            if(element_st.id == element_inv.student_id)
+                                            {
+                                                if(element_inv.status == 'done')
+                                                {
+                                                    done_inv += Number(element_inv.qouta);
+                                                }
+                                                else if(element_inv.status == 'waiting')
+                                                {
+                                                    wait_inv += Number(element_inv.qouta);
+                                                }
+                                                else if(element_inv.status == 'refund')
+                                                {
+                                                    refund_inv += Number(element_inv.qouta);
+                                                }
+                                                else if(element_inv.status == 'ar-refund')
+                                                {
+                                                    ar_refund_inv += Number(element_inv.qouta);
+                                                }
+                                            }
+                                        });
+                                        pack_inner_arr[counter_arr_pack_inner] = done_inv; counter_arr_pack_inner++;
+                                        pack_inner_arr[counter_arr_pack_inner] = wait_inv; counter_arr_pack_inner++;
+                                        pack_inner_arr[counter_arr_pack_inner] = refund_inv; counter_arr_pack_inner++;
+                                        pack_inner_arr[counter_arr_pack_inner] = ar_refund_inv; counter_arr_pack_inner++;
+
+                                    }
+                                    package_arr_status[counter_arr_pack] = pack_inner_arr;counter_arr_pack++;
+                                }
+
+
+                            });
+                        }
+                    }
+
+                });
+
+            }
+
+
+            if(reg_status == true)
+            {
+                create_new_tabl_cols[counter] = "<label style='color:green'>Registered</label>";counter++;
+            }
+
+            else if(reg_status == false)
+            {
+                create_new_tabl_cols[counter] = "<label style='color:red'>Not Registered</label>";counter++;
+
+            }
+
+            // create_new_tabl_cols[counter] = package_arr_status[0][0];counter++;
+
+            // create_new_tabl_cols[counter] = package_arr_status[0][1];counter++;
+            // create_new_tabl_cols[counter] = package_arr_status[0][2];counter++;
+            // create_new_tabl_cols[counter] = package_arr_status[0][3];counter++;
+
 
             var return_data = search_two_tables(All_table_obj.tables[4][index] , All_table_obj.tables[3] , 12 , 0 , 2)
             if(return_data.length == 0)
@@ -1142,6 +1285,101 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
                     student_length = return_data.length;
                     create_new_tabl_cols[counter] = student_length + ` Student/s` ;counter++;
                     count_arr[count_num] = return_data;count_num++;
+
+
+                    var saved_invoice = [];
+                    var saved_invoice_count = 0;
+                    
+                    All_table_obj.tables[5].forEach(element_st => {
+
+                                if(element_st.parent_id == All_table_obj.tables[4][index].id)
+                                {
+                                    var per_st_arr = [];
+                                    var per_st_arr_count = 0;
+                                    if(All_table_obj.tables[20] && All_table_obj.tables[20] !== undefined && All_table_obj.tables[20].length != 0)
+                                    {
+                                        All_table_obj.tables[20].forEach(element_pac => {
+                                            if(element_st.id == element_pac.student_id)
+                                            {
+                                                per_st_arr[per_st_arr_count] = element_pac;per_st_arr_count++;
+                                            }
+                                             
+                                        })
+                                    }
+
+                                    saved_invoice[saved_invoice_count] = per_st_arr;saved_invoice_count++;
+
+                                }
+
+                        }
+                    )
+
+                    
+                    // if(Number(student_length) )
+                    // {
+                    //     if( reg_status == true)
+                    //     { 
+                    //         var chech_elment_pac_ = false;
+                    //         var get_all_pac = [];
+                    //         var get_all_pac_count = 0;
+                    //     saved_invoice.forEach(elment_inc =>
+                    //         {
+                    //             var count_check_status = false;
+                    //             var record_data = '';
+                    //             elment_inc.forEach(elment_inc_inner => {
+
+                    //             package_arr_status.forEach(elment_pac_ => {
+
+                    //                         if(Number(elment_pac_[0]) == Number(elment_inc_inner.package_id))
+                    //                         {
+                    //                             if(count_check_status == false)
+                    //                             {
+                    //                                 record_data = `<hr>${get_all_pac_count+1}-  STid${elment_inc_inner.student_id} | ${elment_inc_inner.due_date} <br> DN{${elment_pac_[1]}} | WA{${elment_pac_[2]}} | RF{${elment_pac_[2]}}  | ARRF{${elment_pac_[2]}}`;
+                    //                                 count_check_status = true;
+                    //                             }
+                    //                             chech_elment_pac_ = true;
+                    //                         }
+                    //                 })
+
+                    //             })
+                    //             get_all_pac[get_all_pac_count] = record_data;get_all_pac_count++;    
+
+                    //         })
+
+                    //         if(chech_elment_pac_ == false)
+                    //         {
+                    //             create_new_tabl_cols[counter] = ``;counter++;    
+                    //         }
+                    //         else if (chech_elment_pac_ == true)
+                    //         {
+                    //             var countt = 0;
+
+                    //             get_all_pac.forEach(element => 
+                    //                 {
+                    //                     if(countt == 0)
+                    //                     {
+                    //                         create_new_tabl_cols[counter] =  element
+
+                    //                     }
+                    //                     else 
+                    //                     {
+                    //                         create_new_tabl_cols[counter] += '<br>'+  element
+                    //                     }
+                    //                     countt++;
+                    //                 })
+                    //                  counter++;   
+
+                    //         }
+                    //     }
+                    //     else
+                    //     {
+                    //         create_new_tabl_cols[counter] = 'Not Registered';counter++;
+                    //     }
+                    // }
+                    // else
+                    // {
+                    //     create_new_tabl_cols[counter] = 'No Students';counter++;
+                    // }
 
 
                     var return_data = search_two_tables(All_table_obj.tables[4][index] , All_table_obj.tables[5] , 0 , 3 , 4)
@@ -1277,6 +1515,10 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
                                                 package_arr[3] = All_table_obj.tables[19][index_3].fees;
                                                 package_arr[4] = All_table_obj.tables[19][index_3].discount;
                                                 package_arr[5] = All_table_obj.tables[19][index_3].paid_as;
+
+
+                                                // package_arr_status
+
                                                 break;
                                             }
                                         }
@@ -1343,6 +1585,8 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
             create_new_tabl_rows[index] = create_new_tabl_cols;
         }
     }
+
+
     func(create_new_tabl_rows , create_new_tabl_rows_emp);
 
   
@@ -1353,8 +1597,14 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
 
  function create_paper_table_parent(all_tables , create_new_tabl_rows)
  {
+    document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
 
-    // console.log(all_tables);
+     var arr_result = assigned_agent_parent_page(all_tables);
+
+    $('#customer_input').empty();
+    $('#customer_input').append(`<option value=""></option>`); 
+    $('#sales_input').empty();
+    $('#sales_input').append(`<option value=""></option>`); 
 
     for(var index_ = 0 ; index_ < create_new_tabl_rows.length ; index_++)
     {
@@ -1370,7 +1620,17 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
             >${create_new_tabl_rows[index_][1]} </option>`); 
         }
     }
-
+    
+    if($('#reg_input').val() != '')
+    {
+        arr_result = Search_for_value(arr_result ,$('#reg_input').val() );
+        $('#reg_input').val('');
+    }
+    else if($('#not_reg_input').val() != '')
+    {
+        arr_result = Search_for_value(arr_result , $('#not_reg_input').val());
+        $('#not_reg_input').val('');
+    }
 
     $('.select2').select2();
 
@@ -1386,7 +1646,7 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
     , "Location :"
     , "Job :"
     , "Reg Status :"
-    , "Customer Support Agent :"
+    , "CS Agent :"
     , "Sales Agent :"
 
 
@@ -1414,14 +1674,25 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
     All_data_obj.saved_index ;
 
 
-    createTable(all_tables ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view , all_tables[0].length-3); 
+    var values_ = document.getElementById("search_all").value;
+
+    if(values_ == "")
+    {
+       All_data_obj.Start_Index = 1;
+       $('#counter_id').val(arr_result.length)
+
+       createTable( arr_result ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view ,  all_tables[0].length-3); ;
+       return;
+    }
+ 
+     var result = Search_for_value(arr_result , values_);
+     $('#counter_id').val(result.length)
+    createTable(result ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view , all_tables[0].length-3); 
+
 }
 
 function create_view(All_data_obj , End_Index)
 {
-
-
-
     var div = document.getElementById("search-results_1");
     div.innerHTML = '';
     for(var index = All_data_obj.Start_Index-1 ; index < End_Index ; index++)
@@ -1443,61 +1714,6 @@ function create_view(All_data_obj , End_Index)
     }
 }
 
-function create_paper_table_customized_parent(all_tables)
-{
-
-    var inputs_names_search = [
-        "ID :"
-    ,"Name :"
-    ,"Phone :" 
-    , "Email :" 
-    , "Name 2 :" 
-    , "Phone 2 :" 
-    , "Email 2 :"
-    , "Address :"
-    , "Location :"
-    , "Job :"
-    , "Reg Status :"
-    , "Customer Support Agent :"
-    , "Sales Agent :"
-
-
-];
-
-    const All_data_obj = {};
-    All_data_obj.Start_Index = 1;
-    All_data_obj.next_btn = '#btn2';
-    All_data_obj.prev_btn = '#btn1';
-    All_data_obj.ind_btn = '#page_index';
-    All_data_obj.location_index = "Location_4";
-    All_data_obj.table_div = 'search-results';
-    All_data_obj.all_names = inputs_names_search;
-    All_data_obj.location_next = "Location_3";
-    All_data_obj.Location_2 = "Location_2";
-    All_data_obj.location_1 = "Location_1";
-    All_data_obj.btn_index = 'btn_index';
-    All_data_obj.btn_index = 'btn_index';
-    All_data_obj.edit_index = [];
-    All_data_obj.delete_index = [];
-    All_data_obj.view_index = [];
-    All_data_obj.index_num_value = [];
-    All_data_obj.obj;
-    All_data_obj.obj_data = [];
-    All_data_obj.saved_index ;
-
-   var values_ = document.getElementById("search_all").value;
-
-   if(values_ == "")
-   {
-      All_data_obj.Start_Index = 1;
-      createTable(all_tables ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view ,  all_tables[0].length-3); ;
-      return;
-   }
-
-    var result = Search_for_value(all_tables , values_)
-        
-   createTable(result ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view , all_tables[0].length-3); 
-}
 
 function paper_inner_parent__ (paper_ , title)
 {
@@ -1725,6 +1941,7 @@ function quary_tables_all_status_groups_check(All_table_obj , func)
     }
 
 
+
 }
 
 
@@ -1749,37 +1966,37 @@ function createTable_pop_up(All_data_obj , index_st) {
                         "</thead>";
                 // for(var i=0; i<dataArray.length; i++) {
 
-                    for(var index = 0 ; index < Object.values(dataArray[index_st])[14][0].length ; index++)
+                    for(var index = 0 ; index < Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-3][0].length ; index++)
                     {
                         result += "<tr>";
 
                         result += "<td style='white-space:wrap' >";
 
-                    result += `ID : `+Object.values(dataArray[index_st])[14][0][index]; 
-                    result += `<br> iSchool ID : `+Object.values(dataArray[index_st])[14][1][index]; 
-                    result += `<br>Name : `+Object.values(dataArray[index_st])[14][4][index] ; 
-                    result += `<br>Status : `+Object.values(dataArray[index_st])[14][3][index]; 
-                    result += `<br>Age Range : `+Object.values(dataArray[index_st])[14][5][index]; 
-                    result += `<br>Free Session : `+Object.values(dataArray[index_st])[14][2][index] + `<br><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" /><br>`; 
+                    result += `ID : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-3][0][index]; 
+                    result += `<br> iSchool ID : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-3][1][index]; 
+                    result += `<br>Name : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-3][4][index] ; 
+                    result += `<br>Status : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-3][3][index]; 
+                    result += `<br>Age Range : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-3][5][index]; 
+                    result += `<br>Free Session : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-3][2][index] + `<br><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" /><br>`; 
 
                     result +="</td>"
 
                     result += "<td style='white-space:wrap' >";
 
-                    if(Object.values(dataArray[index_st])[15][0][index] == undefined)
+                    if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][0][index] == undefined)
                     {
                         result += `<label style='color:red'><br><br>No Group Assigned</label>` ; 
                     }
                     else
                     {
-                        result += `ID : `+Object.values(dataArray[index_st])[15][0][index] ; 
-                        result += `<br>Slot : `+Object.values(dataArray[index_st])[15][1][index] ; 
-                        result += `<br>Lang : `+Object.values(dataArray[index_st])[15][2][index]; 
-                        result += `<br>Attend : `+Object.values(dataArray[index_st])[15][3][index]; 
-                        result += `<br>Level : `+Object.values(dataArray[index_st])[15][4][index]; 
-                        result += `<br>Status : `+Object.values(dataArray[index_st])[15][5][index]; 
-                        result += `<br>Day : `+Object.values(dataArray[index_st])[15][6][index];
-                        result += `<br>Age Range : `+Object.values(dataArray[index_st])[15][7][index] + `<br><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" /><br>`; 
+                        result += `ID : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][0][index] ; 
+                        result += `<br>Slot : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][1][index] ; 
+                        result += `<br>Lang : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][2][index]; 
+                        result += `<br>Attend : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][3][index]; 
+                        result += `<br>Level : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][4][index]; 
+                        result += `<br>Status : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][5][index]; 
+                        result += `<br>Day : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][6][index];
+                        result += `<br>Age Range : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][7][index] + `<br><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" /><br>`; 
                     }
                     result +="</td>"
 
@@ -1787,19 +2004,19 @@ function createTable_pop_up(All_data_obj , index_st) {
 
 
 
-                    if(Object.values(dataArray[index_st])[15][8][index] && Object.values(dataArray[index_st])[15][8][index] !== undefined && Object.values(dataArray[index_st])[15][8][index].length != 0)
+                    if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index] && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index] !== undefined && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index].length != 0)
                     {
                         var count_pack = 1;
-                        for(var index_pac = 0 ; index_pac < Object.values(dataArray[index_st])[15][8][index].length ; index_pac++)
+                        for(var index_pac = 0 ; index_pac < Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index].length ; index_pac++)
                         {
-                            if(Object.values(dataArray[index_st])[15][8][index][index_pac] && Object.values(dataArray[index_st])[15][8][index][index_pac] !== undefined && Object.values(dataArray[index_st])[15][8][index][index_pac].length != 0){
+                            if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac] && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac] !== undefined && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac].length != 0){
 
-                                result += `<label style='color:blue'>Package  ${count_pack} </label><br>ID :`+Object.values(dataArray[index_st])[15][8][index][index_pac][0] + `<br>`; 
-                                result += `Name : `+Object.values(dataArray[index_st])[15][8][index][index_pac][1] + `<br>`; 
-                                result += `Quota : `+Object.values(dataArray[index_st])[15][8][index][index_pac][2] + `<br>`; 
-                                result += `Fees : `+Object.values(dataArray[index_st])[15][8][index][index_pac][3] + `<br>`; 
-                                result += `Discount : `+Object.values(dataArray[index_st])[15][8][index][index_pac][4] + `<br>`; 
-                                result += `Paid As : `+Object.values(dataArray[index_st])[15][8][index][index_pac][5] + `<br><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" /><br>`; 
+                                result += `<label style='color:blue'>Package  ${count_pack} </label><br>ID :`+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][0] + `<br>`; 
+                                result += `Name : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][1] + `<br>`; 
+                                result += `Quota : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][2] + `<br>`; 
+                                result += `Fees : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][3] + `<br>`; 
+                                result += `Discount : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][4] + `<br>`; 
+                                result += `Paid As : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][5] + `<br><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" /><br>`; 
                                 count_pack++;
                             }
                         }
@@ -1812,13 +2029,13 @@ function createTable_pop_up(All_data_obj , index_st) {
                     result +="</td>"
 
                     result += "<td style='white-space:wrap' >";
-                    if(Object.values(dataArray[index_st])[16][index][0] )
+                    if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-1][index][0] )
                     {
-                        result += `Created Sessions : `+Object.values(dataArray[index_st])[16][index][0] ; 
-                        result += `<br>Completed Sessions : `+Object.values(dataArray[index_st])[16][index][1] ; 
-                        result += `<br>Attend Sessions : `+Object.values(dataArray[index_st])[16][index][2] ; 
-                        result += `<br>Absent Sessions : `+Object.values(dataArray[index_st])[16][index][3] ; 
-                        result += `<br>Feedbacks : `+Object.values(dataArray[index_st])[16][index][4] ; 
+                        result += `Created Sessions : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-1][index][0] ; 
+                        result += `<br>Completed Sessions : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-1][index][1] ; 
+                        result += `<br>Attend Sessions : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-1][index][2] ; 
+                        result += `<br>Absent Sessions : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-1][index][3] ; 
+                        result += `<br>Feedbacks : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-1][index][4] ; 
                     }
                     else
                     {
@@ -1995,6 +2212,8 @@ async function ADD_PARENT_SENRIO(paper_inputs)
 
 
 
+        var get_student_pac_arr = await GET_DATA_TABLES(database_fixed_link , 'student_package' )
+
     var counter_loop = 0;
     saved_package_arr.forEach((element) => {
         if(element[0] == document.getElementById('Packages_id_input'+index).value)
@@ -2047,7 +2266,7 @@ async function ADD_PARENT_SENRIO(paper_inputs)
 
       data_invoice[counter_inv] =  0;counter_inv++;
       data_invoice[counter_inv] =  '';counter_inv++;
-      data_invoice[counter_inv] =  document.getElementById('Packages_id_input'+index).value;counter_inv++;
+      data_invoice[counter_inv] =  get_student_pac_arr[get_student_pac_arr.length-1].id;counter_inv++;
 
       saved_package_arr.forEach((element) => {
         if(element[0] == document.getElementById('Packages_id_input'+index).value)
@@ -2125,19 +2344,55 @@ async function ADD_PARENT_SENRIO(paper_inputs)
     alert("Sended");
 
     ADD_NEW_PARENT();
-    // var new_e
+
+}
 
 
-    // saved_group_arr.forEach(function(f)
-    //     {
 
-    //     } 
-    // )
+function assigned_agent_parent_page(arr_data )
+{
+
+    var search_for = '';
+    if(localStorage.permission == 4)
+    {
+        search_for = $("#assign_select_search").val();
+        if(search_for == '')
+        {
+            return arr_data;
+        }
+
+    }
+    else
+    {
+        search_for = localStorage.agentname;
+    }
+
+    return Search_for_value(arr_data , search_for);
+}
+
+
+async function employee_drop_down_search( location_)
+{
+    if(localStorage.permission == 4)
+    {
+        var arr_emp = await GET_DATA_TABLES(database_fixed_link , 'employee');
+
+        var result = '';
     
+    
+        result += `<label>Assigned : </label><select class='select2' id='assign_select_search'  > `;
+    
+        result += `<option value=''>  </option>`
+    
+        for(var index =0 ; index < Object.values(arr_emp).length ; index++)
+        {
+            result+= `<option value='${arr_emp[index].name}'> ${arr_emp[index].name} </option>`
+        }
+        result += ` </select>`;
+    
+        document.getElementById(location_).innerHTML += result;
+    }
 
-    // console.log(saved_group_arr);
-    // console.log(saved_package_arr);
-    // console.log(saved_sessions_id_arr);
 
 
 

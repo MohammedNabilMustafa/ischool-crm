@@ -4,6 +4,7 @@ var all_countainer = "all_countainer";
 var login_page = "login_page";
 var arr_system = [
     'system_id',
+    "add_parent",
     "add_student",
     "add_group",
     "add_student_invoice",
@@ -12,9 +13,13 @@ var arr_system = [
     "add_student_parent",
     "add_student_group",
     "add_student_package",
-    "add_student_session"
+    "add_student_session",
+    "calls",
+    "calls_assign"
+    
 ]
 
+calls
 var arr_admin_group = [
     "admin_group_id",
     "groups",
@@ -68,14 +73,11 @@ async function login_page_check()
 
     Show_Element(login_page);
     Hide_Element(all_countainer);
+    localStorage.agentname = '';
     
-    var All_data_obj = {};
-    All_data_obj.Database_link = database_fixed_link;
-    All_data_obj.table_ = 'employee';
 
-    var value_emp = JSON.parse(await get_all_data_from_database_doAjax(All_data_obj));
+    var value_emp = await  GET_DATA_TABLES( database_fixed_link, 'employee');
     
-    // console.log(value_emp)
     $('#login_id').off();
     $('#login_id').click(function (index) {  
 
@@ -93,6 +95,7 @@ async function login_page_check()
             return;
         }
 
+
         var check_user = false;
         var check_pass = false;
                 for(var index = 0 ; index < value_emp.length ; index++)
@@ -100,11 +103,12 @@ async function login_page_check()
                     if(value_emp[index].username == $('#Username').val())
                     {
                         check_user = true;
-                        for(var index = 0 ; index < value_emp.length ; index++)
+                        for(var index_ = 0 ; index_ < value_emp.length ; index_++)
                         {
                             if(value_emp[index].password == $('#password').val())
                             {
                                 check_pass = true;
+
                                 login_success(value_emp[index]);
                                 // alert("login success")
                                 return;
@@ -132,14 +136,12 @@ async function login_page_check_auto(user , pass)
 
     // Show_Element(login_page);
     // Hide_Element(all_countainer);
-    
-    var All_data_obj = {};
-    All_data_obj.Database_link = database_fixed_link;
-    All_data_obj.table_ = 'employee';
 
-    var value_emp = JSON.parse(await get_all_data_from_database_doAjax(All_data_obj));
+
     
-    // console.log(value_emp)
+    var value_emp = await  GET_DATA_TABLES( database_fixed_link, 'employee');
+
+    
 
         if(user == "")
         {
@@ -153,6 +155,7 @@ async function login_page_check_auto(user , pass)
             return false;
         }
 
+
         var check_user = false;
         var check_pass = false;
                 for(var index = 0 ; index < value_emp.length ; index++)
@@ -160,7 +163,7 @@ async function login_page_check_auto(user , pass)
                     if(value_emp[index].username == user)
                     {
                         check_user = true;
-                        for(var index = 0 ; index < value_emp.length ; index++)
+                        for(var index_1 = 0 ; index_1 < value_emp.length ; index_1++)
                         {
                             if(value_emp[index].password == pass)
                             {
@@ -191,6 +194,12 @@ async function login_page_check_auto(user , pass)
 
 function login_success(user_info)
 {
+
+
+    Show_all();
+    localStorage.agentname =  user_info.name;
+    localStorage.permission = user_info.permission_id;
+
     if(user_info.permission_id == 4)
     {
         Admin_permission();
@@ -199,6 +208,20 @@ function login_success(user_info)
     {
         Operation_permission();
     }
+    else if(user_info.permission_id == 2)
+    {
+        Sales_permission();
+    }
+    else if(user_info.permission_id == 3)
+    {
+        CS_permission();
+    }
+
+    clear_all_selected();
+    $('#add_parent').css('background', '#008CBA').css('color','white');
+    document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Parents </h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+    ADD_NEW_PARENT();
+
 }
 
 function Hide_Element(Elment_id)
@@ -211,63 +234,6 @@ function Show_Element(Elment_id)
     $("#"+Elment_id).show();
 }
 
-// var arr_system = [
-//     'system_id',
-//     "add_student",
-//     "add_group",
-//     "add_student_invoice",
-//     "add_session_group",
-//     "add_employee" ,
-//     "add_student_parent",
-//     "add_student_group",
-//     "add_student_package",
-//     "add_student_session"
-// ]
-
-// var arr_admin_group = [
-//     "admin_group_id",
-//     "groups",
-//     "sessions",
-//     "att_feed",
-//     "slots",
-//     "lan",
-//     "attend",
-//     "age",
-//     "level",
-//     "track",
-//     "session_type",
-//     "days"
-// ]
-
-// var arr_admin_students = [
-//     "admin_student_id",
-//     "students",
-//     "student_groups",
-//     "student_status"
-// ]
-
-
-// var arr_admin_fin = [
-//     "admin_fin_id",
-//     "package",
-//     "invoice",
-//     "invoice_status",
-//     "student_package",
-//     "employee",
-//     "role",
-//     "department",
-//     "permission"
-// ]
-// var arr_admin_parent= [
-//     "admin_parent_id",
-//     "parent_loc",
-//     "cs_calls",
-//     "cat",
-//     "close",
-//     "call_type",
-//     "call_status",
-
-// ]
 function Operation_permission()
 {
     Hide_Element(login_page);
@@ -278,6 +244,84 @@ function Operation_permission()
     Hide_Element(arr_admin_parent[0]);
 }
 
+function Show_all()
+{
+    Show_Element(all_countainer);
+    for(var index = 0 ; index < arr_admin_fin.length ; index++)
+    {
+        Show_Element(arr_admin_fin[index]);
+    }
+
+    for(var index = 0 ; index < arr_admin_students.length ; index++)
+    {
+        Show_Element(arr_admin_students[index]);
+    }
+
+    for(var index = 0 ; index < arr_admin_group.length ; index++)
+    {
+        Show_Element(arr_admin_group[index]);
+    }
+
+
+    for(var index = 0 ; index < arr_admin_parent.length ; index++)
+    {
+        Show_Element(arr_admin_parent[index]);
+    }
+
+
+    for(var index = 0 ; index < arr_system.length ; index++)
+    {
+        Show_Element(arr_system[index]);
+    }
+
+}
+
+function CS_permission()
+{
+    Hide_Element(login_page);
+    Show_Element(all_countainer);
+    Hide_Element(arr_admin_fin[0]);
+    Hide_Element(arr_admin_students[0]);
+    Hide_Element(arr_admin_group[0]);
+    Hide_Element(arr_admin_parent[0]);
+    Hide_Element(arr_system[2]);
+    Hide_Element(arr_system[3]);
+    Hide_Element(arr_system[4]);
+    Hide_Element(arr_system[5]);
+    Hide_Element(arr_system[6]);
+    Hide_Element(arr_system[7]);
+    Hide_Element(arr_system[8]);
+    Hide_Element(arr_system[9]);
+    Hide_Element(arr_system[10]);
+    Hide_Element(arr_system[11]);
+    Hide_Element(arr_system[12]);
+    Hide_Element(arr_system[13]);
+    Hide_Element(arr_system[14]);
+}
+
+function Sales_permission()
+{
+    Hide_Element(login_page);
+    Show_Element(all_countainer);
+    Hide_Element(arr_admin_fin[0]);
+    Hide_Element(arr_admin_students[0]);
+    Hide_Element(arr_admin_group[0]);
+    Hide_Element(arr_admin_parent[0]);
+    Hide_Element(arr_system[2]);
+    Hide_Element(arr_system[3]);
+    Hide_Element(arr_system[4]);
+    Hide_Element(arr_system[5]);
+    Hide_Element(arr_system[6]);
+    Hide_Element(arr_system[7]);
+    Hide_Element(arr_system[8]);
+    Hide_Element(arr_system[9]);
+    Hide_Element(arr_system[10]);
+    Hide_Element(arr_system[11]);
+    Hide_Element(arr_system[12]);
+    Hide_Element(arr_system[13]);
+    Hide_Element(arr_system[14]);
+
+}
 function Admin_permission()
 {
     Hide_Element(login_page);
