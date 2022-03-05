@@ -158,6 +158,30 @@ th,td{
 }
 
 
+.modal_loading {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal_loading-content {
+  background-color: #fefefe00;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid rgba(136, 136, 136, 0);
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+
+
 .loader {
   display: block;
   margin: auto;
@@ -169,6 +193,20 @@ th,td{
   -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
 }
+
+
+.loader_1 {
+  display: block;
+  margin: auto;
+  border: 10px solid #ffffff;
+  border-radius: 50%;
+  border-top: 10px solid #18547c;
+  width: 50px;
+  height: 50px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
 
 /* Safari */
 @-webkit-keyframes spin {
@@ -495,6 +533,18 @@ a{
 
           </div>
 
+
+          <div id="myModal_1" class="modal_loading">
+
+            <!-- Modal content -->
+            <div class="modal_loading-content">
+              <div id="loading_location" ></div>
+
+            </div>
+
+          </div>
+          
+
       
       
               <div id="Location_1"></div>
@@ -547,8 +597,8 @@ a{
       <script>
 
 // var database_fixed_link = "fetch.php";
-var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
-// var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
+// var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
+var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
 // var database_fixed_link = "https://operation.ischool-edu.com/fetch.php";
 
 var time_out = 1000;

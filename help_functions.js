@@ -332,9 +332,23 @@ function search_value_from_table(table_from , values_search , index_from  , inde
 }
 
 
+          // <div id="myModal_1" class="modal_loading">
+
+          //   <!-- Modal content -->
+          //   <div class="modal_loading-content">
+          //     <span class="close">&times;</span>
+
+          //     <div id="loading_location" ></div>
+
+          //   </div>
+
+          // </div>
+
+
 
 // Get the modal
 var modal = document.getElementById("myModal");
+var modal_1 = document.getElementById("myModal_1");
 
 
 // Get the <span> element that closes the modal
@@ -358,5 +372,6 @@ function getFormattedDate(date) {
   let month = (1 + date.getMonth()).toString().padStart(2, '0');
   let day = date.getDate().toString().padStart(2, '0');
 
-  return month + '/' + day + '/' + year;
+  // return month + '/' + day + '/' + year;
+  return year + '/' + month + '/' + day;
 }

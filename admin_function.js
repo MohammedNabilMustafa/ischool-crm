@@ -348,7 +348,7 @@ $(All_data_obj.ind_btn).change(function () {
 
 });
 
-
+Loading_page_clear();
   return End_Index;
 }
 

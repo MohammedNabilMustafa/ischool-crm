@@ -2,6 +2,8 @@
 
 async function ASSGIN_CS_AGENT()
 {
+  Loading_page_set();
+
     document.getElementById("Location_1").innerHTML = "";
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
@@ -68,6 +70,7 @@ async function ASSGIN_CS_AGENT()
 
 
       $('#search_btn').click(function (index) {  
+        Loading_page_set();
 
         var values_ = document.getElementById("search_all").value;
 
@@ -82,6 +85,8 @@ async function ASSGIN_CS_AGENT()
 
         });
         $('#send_group').click(async function () {
+
+
             if($('#parent_input_id').val() == "")
             {
                 alert('Select Parent')
@@ -92,6 +97,8 @@ async function ASSGIN_CS_AGENT()
                 alert('Select Agent')
                 return;
             }
+            Loading_page_set();
+
             // console.log($('#parent_input_id').val());
             // console.log($('#agent_input_id').val());
             var respose = await UPDATE_DATA_TABLES_ONE_COL(database_fixed_link , 'parent' , $('#parent_input_id').val() , `customer_agent_id = '${$('#agent_input_id').val()}'`);
@@ -115,6 +122,8 @@ function select_func_assign (paper_ , title)
 
 
 function createTable_assign_agent(all_tables ) {
+
+  Loading_page_clear();
 
   var data_arr = [];
   var outer_counter = 0;
@@ -165,53 +174,6 @@ function createTable_assign_agent(all_tables ) {
   createTable(data_arr ,All_data_obj , 'clear' , 1 , 4 ); 
 
 
-  //   var dataArray = All_data_obj;
-  //   // var index_st = All_data_obj.saved_index;
-
-  //   // console.log(dataArray)
-  // if(dataArray && dataArray !== undefined && dataArray.length != 0){
-
-
-
-  //   var result = "<table class='table' id='dtable'>"+
-  //                "<thead   style='white-space:wrap' >"+
-  //                  "<tr>";                               //Change table headings to match witht he Google Sheet     
-  //                  result +="<th scope='col'>Parent ID</th>";
-  //                  result +="<th scope='col'>Parent Name </th>";
-  //                  result +="<th scope='col'>Agent ID </th>";
-  //                  result +="<th scope='col'>Agent Name </th>";
-
-  //             result += "</tr>"+
-  //                       "</thead>";
-
-  //                       for(var index = 0 ; index < Object.values(dataArray).length ; index++)
-  //                       {
-
-  //                           result += "<tr>";
-  //                           result += "<td>";
-  //                           result +=  Object.values(dataArray[index])[0]
-  //                           result += "</td>";
-  //                           result += "<td>";
-  //                           result +=  Object.values(dataArray[index])[2]
-  //                           result += "</td>";
-  //                           result += "<td>";
-  //                           result +=  Object.values(dataArray[index])[12]
-  //                           result += "</td>";
-  //                           result += "<td>";
-  //                           result +=  Object.values(dataArray[index])[14]
-  //                           result += "</td>";
-
-  //                           result += "</tr>";
-  //                       }
-                 
-  //   result += "</table>";
-  //   var div = document.getElementById("search-results");
-  //   div.innerHTML = result;
-
-  // }else{
-  //   var div = document.getElementById("search-results");
-  //   div.innerHTML = "Data not found!";
-  // }
 
 }
 

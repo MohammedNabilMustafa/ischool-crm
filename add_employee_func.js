@@ -3,11 +3,11 @@
 
 function ADD_NEW_EMPLOYEE()
 {
+    Loading_page_set();
     document.getElementById("Location_1").innerHTML = "";
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
     //document.getElementById("Location_4").innerHTML = "";
-    document.getElementById("search-results").innerHTML = "Loading";
 
     var Database_link = database_fixed_link
 
@@ -73,6 +73,7 @@ var paper_inputs_label = [
      get_all_data_arr(All_req_obj ,quary_tables_all_employee,create_paper_table_employee , time_out , 3);
 
     $('#search_btn').click(function (index) {  
+        Loading_page_set();
 
         get_all_data_arr(All_req_obj ,quary_tables_all_employee,create_paper_table_customized_employee , time_out , 4);
         });
@@ -176,6 +177,7 @@ function add_new_empolyee(All_req_obj,paper_inputs)
 
         $('#send_group').click(function () {
 
+            Loading_page_set();
 
             var value_elments = [];
 
@@ -321,6 +323,7 @@ function add_new_empolyee(All_req_obj,paper_inputs)
  function create_paper_table_employee(all_tables)
  {
 
+    Loading_page_clear();
 
     var inputs_names_search = [
     "ID :"
@@ -360,6 +363,7 @@ function add_new_empolyee(All_req_obj,paper_inputs)
 function create_paper_table_customized_employee(all_tables)
 {
 
+    Loading_page_clear();
 
     var inputs_names_search = [
         "ID :"

@@ -3,6 +3,8 @@ var get_days = []
 
 function ADD_NEW_GROUP_FUNC()
 {
+    Loading_page_set();
+
     get_days = [];
     document.getElementById("Location_1").innerHTML = "";
     document.getElementById("Location_2").innerHTML = "";
@@ -115,6 +117,7 @@ function ADD_NEW_GROUP_FUNC()
         get_all_data_arr(All_req_obj ,quary_tables_all_Groups_func,create_group_table , time_out , 2);
 
     $('#search_btn_groups').click(function (index) {  
+        Loading_page_set();
 
         get_all_data_arr(All_req_obj ,quary_tables_all_Groups_func,create_group_table_customized , time_out , 3);
         });
@@ -128,7 +131,7 @@ function html_create_lists_groups_func(paper_inputs , paper_inputs_label  , loca
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
     //document.getElementById("Location_4").innerHTML = "";
-    document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+    // document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
 
     document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
     document.getElementById(location_).innerHTML +=`</div></div>`;
@@ -511,6 +514,8 @@ function add_new_Groups_func(All_req_obj,paper_inputs)
 
  function create_group_table(all_tables)
  {
+    Loading_page_clear();
+
     var inputs_names_search = [
     "ID :"
     ,"Slots :" 
@@ -553,6 +558,7 @@ function create_group_table_customized(all_tables)
 {
 
 
+    Loading_page_clear();
 
     var inputs_names_search = [
         "ID :"

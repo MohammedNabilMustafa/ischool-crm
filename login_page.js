@@ -19,6 +19,7 @@ var arr_system = [
     
 ]
 
+
 calls
 var arr_admin_group = [
     "admin_group_id",
@@ -199,7 +200,7 @@ function login_success(user_info)
     Show_all();
     localStorage.agentname =  user_info.name;
     localStorage.permission = user_info.permission_id;
-
+    localStorage.userid = user_info.id;
     if(user_info.permission_id == 4)
     {
         Admin_permission();
@@ -284,7 +285,6 @@ function CS_permission()
     Hide_Element(arr_admin_students[0]);
     Hide_Element(arr_admin_group[0]);
     Hide_Element(arr_admin_parent[0]);
-    Hide_Element(arr_system[2]);
     Hide_Element(arr_system[3]);
     Hide_Element(arr_system[4]);
     Hide_Element(arr_system[5]);
@@ -293,10 +293,7 @@ function CS_permission()
     Hide_Element(arr_system[8]);
     Hide_Element(arr_system[9]);
     Hide_Element(arr_system[10]);
-    Hide_Element(arr_system[11]);
     Hide_Element(arr_system[12]);
-    Hide_Element(arr_system[13]);
-    Hide_Element(arr_system[14]);
 }
 
 function Sales_permission()

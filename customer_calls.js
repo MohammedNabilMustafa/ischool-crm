@@ -2,11 +2,12 @@
 
 async function ADD_Customer_call()
 {
-    document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+    Loading_page_set();
+
 
     document.getElementById("blob_Location_1").innerHTML = ``;
     
-    var parent_arr = await GET_DATA_TABLES(database_fixed_link , "parent" );
+    var parent_arr_all = await GET_DATA_TABLES(database_fixed_link , "parent" );
     var students_arr_0 = await GET_DATA_TABLES(database_fixed_link , "students" );
 
     var call_status_arr = await GET_DATA_TABLES(database_fixed_link , "call_status" );
@@ -20,13 +21,13 @@ async function ADD_Customer_call()
     document.getElementById("Location_1").innerHTML = "";
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
-    document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+    document.getElementById("search-results").innerHTML = ``;
 
     document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
 
     students_arr_0.forEach(elment => {
         var check = false;
-        parent_arr.forEach(elment_pt => {
+        parent_arr_all.forEach(elment_pt => {
 
                 if(elment.parent_id == elment_pt.id)
                 {
@@ -50,6 +51,29 @@ async function ADD_Customer_call()
     add_select_html_students_search("Location_1" , "search_s" , "Search ST/PT " , students_arr_0 );
 
     document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+    var parent_arr=[]
+
+
+    if(localStorage.permission == 4)
+    {
+        parent_arr = parent_arr_all;
+    }
+    else
+    {
+        var count_in = 0;
+        parent_arr_all.forEach(element=>
+            {
+                if(localStorage.userid == element.customer_agent_id)
+                {
+                    parent_arr[count_in] = element;count_in++;
+                }
+            }
+    
+        )
+    }
+
+
+
     add_select_html("Location_1" , "call_parent_input" , "Parent " , parent_arr);
     add_select_html_students("Location_1" , "call_student_input" , "Student " );
 
@@ -92,12 +116,15 @@ async function ADD_Customer_call()
     document.getElementById("Location_1").innerHTML +=`<div class="input-group">
     <div class='col justify-content-start'>
       <input type="search" id="search_all" class="form-control" />
-    </div>
+    </div><div id='search_assign'> </div>
     <div class='col justify-content-start' style='z-index:0;'><button type="button" id='search_btn' class="btn btn-primary">
       <i class="fas fa-search"></i>
     </button></div>
   </div>`;
 
+
+    employee_drop_down_search('search_assign');
+  
   document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
 
   document.getElementById("Location_1").innerHTML +=`<div class='col justify-content-start' style='z-index:0;'>
@@ -133,6 +160,7 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
   document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
   document.getElementById("Location_1").innerHTML +=`<hr class="hr-primary" />`;
   document.getElementById("Location_1").innerHTML +=`</div></div>`;
+
   $('.select2').select2();
 
   if(customer_ser_arr_0 && customer_ser_arr_0 !== undefined && customer_ser_arr_0.length != 0){
@@ -172,7 +200,14 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
 
             if(element.close_id == Data_.id)
             {
-                element.close_id = Data_.name
+                                              if(Data_.name == "Call Closed")
+                              {
+                                element.close_id = `<label style='color:green'>Call Closed</label>`;
+                              }
+                              else if (Data_.name == "Call Follow Up")
+                              {
+                                element.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                              }
             }
         });
         
@@ -278,7 +313,14 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
             
                         if(Data__.close_id == Data_.id)
                         {
-                            Data__.close_id = Data_.name
+                            if(Data_.name == "Call Closed")
+                            {
+                                Data__.close_id = `<label style='color:green'>Call Closed</label>`;
+                            }
+                            else if (Data_.name == "Call Follow Up")
+                            {
+                                Data__.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                            }
                         }
                     });
                     
@@ -325,6 +367,8 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
 
   $('#search_btn').click(async function (index) {  
 
+    Loading_page_set();
+
     var customer_ser_arr_1 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
 
     if(customer_ser_arr_1 && customer_ser_arr_1 !== undefined && customer_ser_arr_1.length != 0){
@@ -363,7 +407,14 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
       
                   if(element.close_id == Data_.id)
                   {
-                      element.close_id = Data_.name
+                                                    if(Data_.name == "Call Closed")
+                              {
+                                element.close_id = `<label style='color:green'>Call Closed</label>`;
+                              }
+                              else if (Data_.name == "Call Follow Up")
+                              {
+                                element.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                              }
                   }
               });
               
@@ -469,7 +520,14 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
                   
                               if(Data__.close_id == Data_.id)
                               {
-                                  Data__.close_id = Data_.name
+                                                              if(Data_.name == "Call Closed")
+                            {
+                                Data__.close_id = `<label style='color:green'>Call Closed</label>`;
+                            }
+                            else if (Data_.name == "Call Follow Up")
+                            {
+                                Data__.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                            }
                               }
                           });
                           
@@ -517,6 +575,8 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
 
     $('#closed_calls_btn').click(async function (index) {  
 
+        Loading_page_set();
+
         var customer_ser_arr_1 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
 
         if(customer_ser_arr_1 && customer_ser_arr_1 !== undefined && customer_ser_arr_1.length != 0){
@@ -555,7 +615,14 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
           
                       if(element.close_id == Data_.id)
                       {
-                          element.close_id = Data_.name
+                                                        if(Data_.name == "Call Closed")
+                              {
+                                element.close_id = `<label style='color:green'>Call Closed</label>`;
+                              }
+                              else if (Data_.name == "Call Follow Up")
+                              {
+                                element.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                              }
                       }
                   });
                   
@@ -661,7 +728,14 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
                       
                                   if(Data__.close_id == Data_.id)
                                   {
-                                      Data__.close_id = Data_.name
+                                                                  if(Data_.name == "Call Closed")
+                            {
+                                Data__.close_id = `<label style='color:green'>Call Closed</label>`;
+                            }
+                            else if (Data_.name == "Call Follow Up")
+                            {
+                                Data__.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                            }
                                   }
                               });
                               
@@ -702,10 +776,12 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
             customer_ser_arr_1 = customer_ser_arr_1.filter(value => value.call_id == 0);
           }
     
-        create_table_customer_custom(customer_ser_arr_1 , 'Call Closed' , null);
+        create_table_customer_custom(customer_ser_arr_1 , `<label style='color:green'>Call Closed</label>` , null);
     });
 
         $('#follow_up_btn').click(async function (index) {  
+            Loading_page_set();
+
             var customer_ser_arr_1 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
 
             if(customer_ser_arr_1 && customer_ser_arr_1 !== undefined && customer_ser_arr_1.length != 0){
@@ -744,7 +820,17 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
               
                           if(element.close_id == Data_.id)
                           {
-                              element.close_id = Data_.name
+
+                              if(Data_.name == "Call Closed")
+                              {
+                                element.close_id = `<label style='color:green'>Call Closed</label>`;
+                              }
+                              else if (Data_.name == "Call Follow Up")
+                              {
+                                element.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                              }
+
+
                           }
                       });
                       
@@ -850,7 +936,14 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
                           
                                       if(Data__.close_id == Data_.id)
                                       {
-                                          Data__.close_id = Data_.name
+                                 if(Data_.name == "Call Closed")
+                                {
+                                    Data__.close_id = `<label style='color:green'>Call Closed</label>`;
+                                }
+                                else if (Data_.name == "Call Follow Up")
+                                {
+                                    Data__.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                                }
                                       }
                                   });
                                   
@@ -892,9 +985,10 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
               }
 
 
-        create_table_customer_custom(customer_ser_arr_1 , 'Call Follow Up' , null);
+        create_table_customer_custom(customer_ser_arr_1 , `<label style='color:red'>Call Follow Up</label>` , null);
     });
-    $('#check_follow_type_id').change(function (index) {  
+    $('#check_follow_type_id').change(function (index) { 
+ 
 
         if($('#check_follow_type_id').val() == "eq")
         {
@@ -921,6 +1015,7 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
     });
 
     $('#follow_up_btn_date').click(async function (index) {  
+        Loading_page_set();
 
         if( $('#check_follow_type_id').val() == "")
         {
@@ -984,7 +1079,14 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
           
                       if(element.close_id == Data_.id)
                       {
-                          element.close_id = Data_.name
+                                                        if(Data_.name == "Call Closed")
+                              {
+                                element.close_id = `<label style='color:green'>Call Closed</label>`;
+                              }
+                              else if (Data_.name == "Call Follow Up")
+                              {
+                                element.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                              }
                       }
                   });
                   
@@ -1090,7 +1192,14 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
                       
                                   if(Data__.close_id == Data_.id)
                                   {
-                                      Data__.close_id = Data_.name
+                                                                  if(Data_.name == "Call Closed")
+                            {
+                                Data__.close_id = `<label style='color:green'>Call Closed</label>`;
+                            }
+                            else if (Data_.name == "Call Follow Up")
+                            {
+                                Data__.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                            }
                                   }
                               });
                               
@@ -1141,12 +1250,14 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
         }
 
 
-        create_table_customer_custom(customer_ser_arr_1 , 'Call Follow Up' , null);
+        create_table_customer_custom(customer_ser_arr_1 , `<label style='color:red'>Call Follow Up</label>` , null);
     });
 
     
 
-    $('#all_calls_btn').click(async function (index) {  
+    $('#all_calls_btn').click(async function (index) {
+        Loading_page_set();
+  
         var customer_ser_arr_1 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
 
         if(customer_ser_arr_1 && customer_ser_arr_1 !== undefined && customer_ser_arr_1.length != 0){
@@ -1185,7 +1296,14 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
           
                       if(element.close_id == Data_.id)
                       {
-                          element.close_id = Data_.name
+                                                        if(Data_.name == "Call Closed")
+                              {
+                                element.close_id = `<label style='color:green'>Call Closed</label>`;
+                              }
+                              else if (Data_.name == "Call Follow Up")
+                              {
+                                element.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                              }
                       }
                   });
                   
@@ -1291,7 +1409,14 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
                       
                                   if(Data__.close_id == Data_.id)
                                   {
-                                      Data__.close_id = Data_.name
+                                                                  if(Data_.name == "Call Closed")
+                            {
+                                Data__.close_id = `<label style='color:green'>Call Closed</label>`;
+                            }
+                            else if (Data_.name == "Call Follow Up")
+                            {
+                                Data__.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                            }
                                   }
                               });
                               
@@ -1339,6 +1464,7 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
 
     $("#call_parent_input").change(async function()
     {
+
         var parent_id_ = $("#call_parent_input").val();
         var students_arr = await GET_DATA_TABLES(database_fixed_link , "students" );
 
@@ -1398,6 +1524,7 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
             return;
         } 
 
+        Loading_page_set();
 
         var data_res = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , "cs_calls"  , 
         [
@@ -1492,6 +1619,7 @@ document.getElementById(location_).innerHTML += result
 
 function create_table_customer_custom(all_tables , check_val , ret_manual , index_start)
 {
+    Loading_page_clear();
 
     var inputs_names_search = [
         ''
@@ -1561,18 +1689,18 @@ function create_table_customer_custom(all_tables , check_val , ret_manual , inde
 
       if(all_tables && all_tables !== undefined && all_tables.length != 0)
       {
-        $("#count_id").val(Object.values(all_tables).length);
+        $("#count_id").val(Object.values(assigned_agent_parent_page(all_tables)).length);
 
-          createTable(all_tables ,All_data_obj , 'clear' , 4 , 7 ,  "open" , create_view_customer , Object.values(all_tables[0]).length-1 , ret_manual); 
+          createTable(assigned_agent_parent_page(all_tables) ,All_data_obj , 'clear' , 4 , 7 ,  "open" , create_view_customer , Object.values(all_tables[0]).length-1 , ret_manual); 
       }
       else
       {
-          createTable(all_tables ,All_data_obj , 'clear' , 4 , 7 ,  "open" , create_view_customer , 0 , ret_manual); 
+          createTable(assigned_agent_parent_page(all_tables) ,All_data_obj , 'clear' , 4 , 7 ,  "open" , create_view_customer , 0 , ret_manual); 
       }
         return;
    }
 
-    var result = Search_for_value(all_tables, values_)
+    var result = Search_for_value(assigned_agent_parent_page(all_tables), values_)
         
 
     if(all_tables && all_tables !== undefined && all_tables.length != 0)
@@ -1792,7 +1920,14 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
                       
                                   if(element.close_id == Data_.id)
                                   {
-                                      element.close_id = Data_.name
+                                                                    if(Data_.name == "Call Closed")
+                              {
+                                element.close_id = `<label style='color:green'>Call Closed</label>`;
+                              }
+                              else if (Data_.name == "Call Follow Up")
+                              {
+                                element.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                              }
                                   }
                               });
                               
@@ -1898,7 +2033,14 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
                                   
                                               if(Data__.close_id == Data_.id)
                                               {
-                                                  Data__.close_id = Data_.name
+                                                                              if(Data_.name == "Call Closed")
+                            {
+                                Data__.close_id = `<label style='color:green'>Call Closed</label>`;
+                            }
+                            else if (Data_.name == "Call Follow Up")
+                            {
+                                Data__.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                            }
                                               }
                                           });
                                           
@@ -2158,7 +2300,14 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
                       
                                   if(element.close_id == Data_.id)
                                   {
-                                      element.close_id = Data_.name
+                                                                    if(Data_.name == "Call Closed")
+                              {
+                                element.close_id = `<label style='color:green'>Call Closed</label>`;
+                              }
+                              else if (Data_.name == "Call Follow Up")
+                              {
+                                element.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                              }
                                   }
                               });
                               
@@ -2222,7 +2371,14 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
                                   
                                               if(Data__.close_id == Data_.id)
                                               {
-                                                  Data__.close_id = Data_.name
+                                                                              if(Data_.name == "Call Closed")
+                            {
+                                Data__.close_id = `<label style='color:green'>Call Closed</label>`;
+                            }
+                            else if (Data_.name == "Call Follow Up")
+                            {
+                                Data__.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                            }
                                               }
                                           });
                                           
@@ -2339,7 +2495,14 @@ function createTable_pop_up_customer(All_data_obj ) {
                             result += "</td>";
 
                             result += "<td>";
-                            result +=  `Call Closing : ${dataArray[index].close_id}`
+                            if(dataArray[index].close_id == "Call Closed")
+                            {
+                                result +=  `Call Closing : <label style='color:green'>${dataArray[index].close_id}</label>`
+                            }
+                            else if (dataArray[index].close_id == "Call Follow Up")
+                            {
+                                result +=  `Call Closing : <label style='color:red'>${dataArray[index].close_id}</label>`
+                            }
                             result +=  `<br>Date : ${dataArray[index].follow_date}`
  
                             result += "</td>";

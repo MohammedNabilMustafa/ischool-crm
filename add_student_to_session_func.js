@@ -4,6 +4,8 @@ var student__arr = [];
 
 function ADD_STUDENT_TO_SESSION()
 {
+    Loading_page_set();
+
     document.getElementById("Location_1").innerHTML = "";
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
@@ -112,6 +114,8 @@ var paper_inputs_label = [
 
     $('#search_btn').click(function (index) 
     {  
+        Loading_page_set();
+
         get_all_data_arr(All_req_obj ,quary_tables_all_paper_student_groups,create_table_student_sessions_customized , time_out , 3);
     });
 }
@@ -122,7 +126,7 @@ function html_create_lists_add_student_session(paper_inputs , paper_inputs_label
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
     //document.getElementById("Location_4").innerHTML = "";
-    document.getElementById("search-results").innerHTML = "";
+    // document.getElementById("search-results").innerHTML = "";
 
 
 
@@ -195,7 +199,8 @@ function add_new_student_session(All_req_obj,paper_inputs)
     $(document).ready(function () {
 
         $('#send_group').click(function () {
-            
+            Loading_page_set();
+
             var value_elments = [];
 
             var student_index = document.getElementById('student_input').value;
@@ -512,6 +517,8 @@ function quary_tables_all_paper_student_groups(All_table_obj , func)
 
 function create_table_student_sessions(all_tables)
 {
+    Loading_page_clear();
+
     var inputs_names_search = [
         ""
         ,"St ID : "
@@ -553,6 +560,7 @@ function create_table_student_sessions(all_tables)
 
 function create_table_student_sessions_customized(all_tables)
 {
+    Loading_page_clear();
 
     var inputs_names_search = [
         ""

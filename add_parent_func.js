@@ -132,6 +132,7 @@ var called_table = ['slots',
 
 async function ADD_NEW_PARENT()
 {
+    Loading_page_set();
     saved_group_arr = []
     saved_age_arr = []
 
@@ -139,7 +140,6 @@ async function ADD_NEW_PARENT()
     document.getElementById("Location_1").innerHTML = "";
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
-    //document.getElementById("Location_4").innerHTML = "";
     document.getElementById("search-results").innerHTML = "";
 
     var Database_link = database_fixed_link
@@ -312,9 +312,17 @@ var paper_inputs_label = [
     get_all_data_arr(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , time_out , 1);
 
     $('#search_btn').click(function (index) {  
+        Loading_page_set();
+
         get_all_data_arr(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , time_out , 2);
         });
 
+        $('#all_calls_btn').click(function () {
+            Loading_page_set();
+    
+            get_all_data_arr(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , time_out , 5);
+    
+        });
   
     $('#add_student_new').click(function () {  
 
@@ -334,7 +342,8 @@ var paper_inputs_label = [
 
         $('#reg_btn').click(function () {
 
-            
+            Loading_page_set();
+
             $('#reg_input').val("<label style='color:green'>Registered</label>");
             get_all_data_arr(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , time_out , 3);
 
@@ -342,6 +351,8 @@ var paper_inputs_label = [
 
             
         $('#not_reg_btn').click(function () {
+            Loading_page_set();
+
             $('#not_reg_input').val("<label style='color:red'>Not Registered</label>");
 
             get_all_data_arr(All_req_obj ,quary_tables_all_parent,create_paper_table_parent , time_out , 4);
@@ -440,7 +451,7 @@ async function html_create_lists_parent(paper_inputs , paper_inputs_label  , loc
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
     //document.getElementById("Location_4").innerHTML = "";
-    document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+    // document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
 
 
 
@@ -506,7 +517,11 @@ async function html_create_lists_parent(paper_inputs , paper_inputs_label  , loc
 }
 document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
 document.getElementById(location_).innerHTML +=`</div></div>`;
-document.getElementById(location_).innerHTML +=`<div class='col justify-content-start' style='z-index:0;'><button type="button" id='reg_btn' class="btn btn-success">
+document.getElementById(location_).innerHTML +=`<div class='col justify-content-start' style='z-index:0;'>
+<button type="button" id='all_calls_btn' class="btn btn-secondary">
+All
+</button>
+<button type="button" id='reg_btn' class="btn btn-success">
 Registered
 </button><input type='text' id='reg_input' value='' hidden/>
 <button type="button" id='not_reg_btn' class="btn btn-danger">
@@ -738,7 +753,7 @@ function add_new_student(All_req_obj,paper_inputs , parent_id )
                                 student_id_counter_saved_deduct--;
 
                                 add_student_to_group_(All_req_obj,paper_inputs , student_id , All_data_obj.group_id_value[count_index-1] , All_data_obj.student_age_range[count_index-1]);
-                                add_new_student_package_parent(All_req_obj,paper_inputs , student_id , All_data_obj.package_id_value[count_index-1] , All_data_obj.student_package_date[count_index-1]);
+                                add_new_student_package_parent(All_req_obj,paper_inputs , student_id , All_data_obj.package_id_value[count_index-1] , All_data_obj.student_package_date[count_index-1] , null);
                             }
                         };
                         get_all_data_from_database(All_data_obj);
@@ -1051,7 +1066,7 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
     {
      All_data_obj.callbackfunc = function(All_data_obj , response)
         {
-            alert('Package : '+response);
+            //alert('Package : '+response);
             if(return_)
             {
                 ADD_NEW_STUDENT();
@@ -1597,7 +1612,9 @@ function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_
 
  function create_paper_table_parent(all_tables , create_new_tabl_rows)
  {
-    document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+    Loading_page_clear();
+
+    // document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
 
      var arr_result = assigned_agent_parent_page(all_tables);
 
@@ -2116,6 +2133,10 @@ function Add_Section(All_data_obj)
 
 async function ADD_PARENT_SENRIO(paper_inputs)
 {
+
+    // document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+    Loading_page_set();
+
     var data_to_send_arr_parent = [];
     var check_code = 0;
     for(var index = 0 ; index < paper_inputs.length ; index++)
@@ -2230,7 +2251,6 @@ async function ADD_PARENT_SENRIO(paper_inputs)
         var data_invoice = [];
         var counter_inv = 0;
         data_invoice[counter_inv] =  save_last_student_id; counter_inv++;
-        // data_invoice[counter_inv] =  1520; counter_inv++;
 
     saved_package_arr.forEach((element) => {
         if(element[0] == document.getElementById('Packages_id_input'+index).value)
@@ -2252,7 +2272,6 @@ async function ADD_PARENT_SENRIO(paper_inputs)
 
       data_invoice[counter_inv] =  getFormattedDate(saved_date);counter_inv++;
 
-      saved_date.setUTCDate(saved_date.getUTCDate() + 30);
       
 
       if(index_ == 0)
@@ -2263,6 +2282,8 @@ async function ADD_PARENT_SENRIO(paper_inputs)
       {
         data_invoice[counter_inv] = '';counter_inv++;
       }
+
+      saved_date.setUTCDate(saved_date.getUTCDate() + 30);
 
       data_invoice[counter_inv] =  0;counter_inv++;
       data_invoice[counter_inv] =  '';counter_inv++;
@@ -2336,13 +2357,9 @@ async function ADD_PARENT_SENRIO(paper_inputs)
          ]
             , saved_data_att[i]);
       }
-
-
-
     }
 
-    alert("Sended");
-
+    alert("Send Success");
     ADD_NEW_PARENT();
 
 }
@@ -2356,7 +2373,7 @@ function assigned_agent_parent_page(arr_data )
     if(localStorage.permission == 4)
     {
         search_for = $("#assign_select_search").val();
-        if(search_for == '')
+        if(search_for == '' || search_for == undefined)
         {
             return arr_data;
         }
@@ -2391,9 +2408,25 @@ async function employee_drop_down_search( location_)
         result += ` </select>`;
     
         document.getElementById(location_).innerHTML += result;
+
+        $('.select2').select2();
+
     }
 
 
 
 
+}
+
+
+function Loading_page_set()
+{
+    modal_1.style.display = "block";
+    document.getElementById("loading_location").innerHTML = `<div class="loader_1" ></div>`;
+
+}
+
+function Loading_page_clear()
+{
+    modal_1.style.display = "none";
 }

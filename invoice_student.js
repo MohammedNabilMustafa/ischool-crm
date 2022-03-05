@@ -4,6 +4,8 @@ var invoice_package_arr = [];
 
 function INVOICE_STUDENT()
 {
+    Loading_page_set();
+
     document.getElementById("Location_1").innerHTML = "";
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
@@ -44,6 +46,12 @@ function INVOICE_STUDENT()
 
 ],
 ["name"]
+,
+[
+    "student_id"
+    ,"package_id"
+    
+]
 
   ];
 
@@ -51,7 +59,8 @@ var called_table = [
       'invoice',
       'students',
       'package',
-      'invoice_status'
+      'invoice_status',
+      'student_package'
   ];
 
 var paper_inputs = [
@@ -76,6 +85,8 @@ var paper_inputs_label = [
     get_all_data_arr(All_req_obj ,quary_tables_all_paper_invoice,create_table_invoice , time_out , 2);
 
     $('#search_btn').click(function (index) {  
+        Loading_page_set();
+
         get_all_data_arr(All_req_obj ,quary_tables_all_paper_invoice,create_table_inovice_customized , time_out , 3);
         });
 }
@@ -86,7 +97,7 @@ function html_create_lists_add_invoice(paper_inputs , paper_inputs_label  , loca
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
     //document.getElementById("Location_4").innerHTML = "";
-    document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+    // document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
 
 
 
@@ -146,7 +157,15 @@ function quary_tables_all_paper_invoice(All_table_obj , func)
                 }
         }
 
-        var saved_pk_id = All_table_obj.tables[0][index].package_id;
+        var saved_pk_id = '';
+
+        All_table_obj.tables[4].forEach(element => {
+            if(All_table_obj.tables[0][index].package_id == element.id)
+            {
+                saved_pk_id = element.package_id;
+                return;
+            }
+        });
 
         if(All_table_obj.tables[2] && All_table_obj.tables[2] !== undefined && All_table_obj.tables[2].length != 0){
 
@@ -166,7 +185,6 @@ function quary_tables_all_paper_invoice(All_table_obj , func)
             }
     }
     
-    // padding-top: 20px !important;
         saved_arr[counter] = All_table_obj.tables[0][index].fees;counter++;
         saved_arr[counter] = All_table_obj.tables[0][index].amount;counter++;
         saved_arr[counter] = All_table_obj.tables[0][index].status;counter++;
@@ -180,10 +198,6 @@ function quary_tables_all_paper_invoice(All_table_obj , func)
 
 
 
-        // <input type="text" class="form-control"  placeholder="`+All_data_obj.inputs_col_[index]+`" id=`+ All_data_obj.search_data[index]+`>
-        // <label for=`+ All_data_obj.search_data[index]+` >`+ All_data_obj.search_data[index]+`</label>
-
-
         saved_arr[counter] = All_table_obj.tables[0][index].qouta;counter++;
         saved_arr[counter] = All_table_obj.tables[0][index].remain;counter++;
 
@@ -192,12 +206,14 @@ function quary_tables_all_paper_invoice(All_table_obj , func)
         }
 
     }
+    console.log(create_new_tabl_rows)
            func( create_new_tabl_rows );
 
 }
 
 function change_input_layer(create_new_tabl_rows)
 {
+
     var create_new_tabl_rows_2 = [];
     for(var index = 0 ; index < create_new_tabl_rows.length ; index++ )
     {
@@ -205,12 +221,11 @@ function change_input_layer(create_new_tabl_rows)
         var counter = 0;
         saved_arr[counter] = `<div class='row'><input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='id_invoice_${index}' value='${create_new_tabl_rows[index][0]}' readonly></div>`;counter++;
 
-
-        saved_arr[counter] = `<div class='row'>Student ID : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='id_student_${index}' value='${create_new_tabl_rows[index][1]}' readonly></div>`;counter++;
-        saved_arr[counter] = `<div class='row'>Student iSchool  ID : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='text' id='std_id_student_${index}' value='${create_new_tabl_rows[index][2]}' readonly></div>`;counter++;
-        saved_arr[counter] = `<div class='row'>Student Name : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:200px!important;text-align:center;' type='text' id='name_student_${index}' value='${create_new_tabl_rows[index][3]}' readonly></div>`;counter++;
-        saved_arr[counter] = `<div class='row'>Student Parent ID : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='parent_id_student_${index}' value='${create_new_tabl_rows[index][4]}' readonly></div>`;counter++;
-        saved_arr[counter] = `<div class='row'>Student Status : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='status_student_${index}' value='${create_new_tabl_rows[index][5]}' readonly></div>`;counter++;
+        saved_arr[counter] = `<div class='row'>ID : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:80px!important;text-align:center;' type='number' id='id_student_${index}' value='${create_new_tabl_rows[index][1]}' readonly></div>`;counter++;
+        saved_arr[counter] = `<div class='row'>iSchool  ID : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:80px!important;text-align:center;' type='text' id='std_id_student_${index}' value='${create_new_tabl_rows[index][2]}' readonly></div>`;counter++;
+        saved_arr[counter] = `<div class='row'>Name : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:150px!important;text-align:center;' type='text' id='name_student_${index}' value='${create_new_tabl_rows[index][3]}' readonly></div>`;counter++;
+        saved_arr[counter] = `<div class='row'>Parent ID : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='parent_id_student_${index}' value='${create_new_tabl_rows[index][4]}' readonly></div>`;counter++;
+        saved_arr[counter] = `<div class='row'>Status : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='status_student_${index}' value='${create_new_tabl_rows[index][5]}' readonly></div>`;counter++;
     
     
         saved_arr[counter] = `<div class='row'>Package ID : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='id_pack_${index}' value='${create_new_tabl_rows[index][6]}' readonly></div>`;counter++;
@@ -243,6 +258,8 @@ function change_input_layer(create_new_tabl_rows)
 
 function create_table_invoice(all_tables)
 {
+    Loading_page_clear();
+
     var inputs_names_search = [
         ""
         ,""
@@ -376,6 +393,7 @@ function update_invoice(value_elments)
 
 function create_table_inovice_customized(all_tables)
 {
+    Loading_page_clear();
 
     var inputs_names_search = [
         ""

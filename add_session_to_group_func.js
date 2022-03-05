@@ -17,6 +17,8 @@ var Age_slots = [];
 
 function ADD_SESSION_TO_GROUP()
 {
+    Loading_page_set();
+
     document.getElementById("blob_Location_1").innerHTML = ``;
 
     days_flag = false;
@@ -132,6 +134,7 @@ var paper_inputs_label = [
 
 
     $('#search_btn_all').click(function () {  
+        Loading_page_set();
 
         get_all_data_arr(All_req_obj ,quary_tables_all_status_add_session_to_parent , schedule_create , time_out  , 2);
 
@@ -730,7 +733,7 @@ function html_create_lists_add_session_group(paper_inputs , paper_inputs_label  
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
     //document.getElementById("Location_4").innerHTML = "";
-    document.getElementById("search-results").innerHTML = "";
+    // document.getElementById("search-results").innerHTML = "";
 
     document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
 
@@ -924,6 +927,7 @@ if(func)
 
 $('.select2').select2();
 
+Loading_page_clear();
 
 }
 

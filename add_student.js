@@ -13,6 +13,8 @@ var saved_employee_arr = []
 
 function ADD_NEW_STUDENT()
 {
+
+    Loading_page_set();
     document.getElementById("blob_Location_1").innerHTML = ``;
 
     saved_sessions_id_arr = [];
@@ -177,9 +179,38 @@ var paper_inputs_label = [
     get_all_data_arr(All_req_obj ,quary_tables_all__student,create_paper_table_parent_students , time_out , 3);
 
     $('#search_btn').click(function (index) {  
+        Loading_page_set();
 
-        get_all_data_arr(All_req_obj ,quary_tables_all__student,create_paper_table_customized_student , time_out , 4);
+        get_all_data_arr(All_req_obj ,quary_tables_all__student,create_paper_table_parent_students , time_out , 4);
     });
+
+    $('#reg_btn').click(function () {
+
+        Loading_page_set();
+
+        $('#reg_input').val("<label style='color:red'>Not Updated Attendance</label>");
+        get_all_data_arr(All_req_obj ,quary_tables_all__student,create_paper_table_parent_students , time_out , 5);
+
+    });
+
+    $('#all_calls_btn').click(function () {
+        Loading_page_set();
+
+        get_all_data_arr(All_req_obj ,quary_tables_all__student,create_paper_table_parent_students , time_out , 7);
+
+    });
+
+    all_calls_btn
+        
+    $('#not_reg_btn').click(function () {
+        Loading_page_set();
+
+        $('#not_reg_input').val("<label style='color:red'>Not Updated Feedback</label>");
+
+        get_all_data_arr(All_req_obj ,quary_tables_all__student,create_paper_table_parent_students , time_out , 6);
+
+    });
+    
   
     $('#add_student_new').click(function () {  
         // $('.select2').clear();
@@ -267,7 +298,7 @@ function html_create_lists_parent_student(paper_inputs , paper_inputs_label  , l
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
     //document.getElementById("Location_4").innerHTML = "";
-    document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
+    // document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
 
 
 
@@ -277,16 +308,36 @@ function html_create_lists_parent_student(paper_inputs , paper_inputs_label  , l
     document.getElementById(location_).innerHTML +=`<div class="input-group">
     <div class='col justify-content-start'>
       <input type="search" id="search_all" class="form-control" />
-    </div>
+    </div><div id='search_assign'> </div>
     <div class='col justify-content-start' style='z-index:0;'><button type="button" id='search_btn' class="btn btn-primary">
       <i class="fas fa-search"></i>
     </button></div>
   </div>`;
+
+  employee_drop_down_search('search_assign');
+
   document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
   document.getElementById(location_).innerHTML +=`</div></div>`;
 
   document.getElementById(location_).innerHTML +=`<div class='col justify-content-start'><button class='btn btn-primary' style='float:left;' id='add_student_new'>+ ADD Student</button></div><br>`;
     
+  document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+
+  document.getElementById(location_).innerHTML +=`<div class='col justify-content-start' style='z-index:0;'>
+  <button type="button" id='all_calls_btn' class="btn btn-secondary">
+  All
+</button>
+  <button type="button" id='reg_btn' class="btn btn-danger">
+Not Updated Attendance
+</button><input type='text' id='reg_input' value='' hidden/>
+<button type="button" id='not_reg_btn' class="btn btn-danger">
+Not Updated Feedback
+</button>
+</button><input type='text' id='not_reg_input' value='' hidden/>
+<input id='counter_id' readonly />
+</div>`;
+document.getElementById(location_).innerHTML +=`</div></div>`;
+
   document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
   document.getElementById(location_).innerHTML +=`<hr class="hr-primary" />`;
   document.getElementById(location_).innerHTML +=`</div></div>`;
@@ -299,6 +350,7 @@ function add_new_parent_student_(All_req_obj,paper_inputs )
     $(document).ready(function () {
 
         $('#send_group').click(function () {
+            Loading_page_set();
 
             add_new_student_(All_req_obj,paper_inputs );
         
@@ -408,7 +460,6 @@ function add_new_student_(All_req_obj,paper_inputs , parent_id )
 
             if(value_elments[0] == '' && index == 0)
             {
-                // alert("Parent Add Successfully - No Student" , "primary");
                 ADD_NEW_STUDENT();
                 return;
             }
@@ -435,7 +486,7 @@ function add_new_student_(All_req_obj,paper_inputs , parent_id )
 
 
                                 add_student_to_group_(All_req_obj,paper_inputs , student_id , All_data_obj.group_id_value[count_index-1] , All_data_obj.student_age_range[count_index-1]);
-                                add_new_student_package_parent(All_req_obj,paper_inputs , student_id , All_data_obj.package_id_value[count_index-1] , All_data_obj.student_package_date[count_index-1]);
+                                add_new_student_package_parent(All_req_obj,paper_inputs , student_id , All_data_obj.package_id_value[count_index-1] , All_data_obj.student_package_date[count_index-1] , 'true');
                             }
                         };
                         get_all_data_from_database(All_data_obj);
@@ -715,13 +766,13 @@ function add_student_to_student_Sessions(All_req_obj,paper_inputs , group_id_val
             
             All_data_obj.callbackfunc = function(All_data_obj , response)
             {      
-                if(value_parent_id == 0)
-                {
-                alert("Student Add Successfully - No Parent - Group Add Successfully  - Session Assigned Successfully" , "primary");
-                }
-                else{
-                alert("Student Add Successfully - Parent Add Successfully - Group Add Successfully  - Session Assigned Successfully" , "success");
-                }
+                // if(value_parent_id == 0)
+                // {
+                // alert("Student Add Successfully - No Parent - Group Add Successfully  - Session Assigned Successfully" , "primary");
+                // }
+                // else{
+                // alert("Student Add Successfully - Parent Add Successfully - Group Add Successfully  - Session Assigned Successfully" , "success");
+                // }
 
                 ADD_NEW_STUDENT();
             };
@@ -813,6 +864,9 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
             var return_data = search_two_tables(All_table_obj.tables[1][index] , All_table_obj.tables[0] , 3 , 0 , 2)
             create_new_tabl_col[counter_col] = return_data;counter_col++;
 
+
+
+
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].free_session_status; counter_col++;
 
             if(saved_status_arr && saved_status_arr !== undefined && saved_status_arr.length != 0)
@@ -831,6 +885,44 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
             // create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].std_status; counter_col++;
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].age; counter_col++;
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].birthdate; counter_col++;
+
+            var check_sales = false;
+            var check_cs = false;
+            All_table_obj.tables[0].forEach(element_pt => {
+                
+                if(All_table_obj.tables[1][index].parent_id == element_pt.id)
+                {
+                    All_table_obj.tables[10].forEach(element_emp => {
+                        if(element_pt.customer_agent_id == element_emp.id)
+                        {
+                            create_new_tabl_col[counter_col] = element_emp.name;counter_col++;check_cs=true;
+                        }
+                    });
+                }
+            });
+            
+            if(check_cs == false)
+            {
+                create_new_tabl_col[counter_col] = "No Agent";counter_col++ 
+            }
+
+            All_table_obj.tables[0].forEach(element_pt => {
+                
+                if(All_table_obj.tables[1][index].parent_id == element_pt.id)
+                {
+                    All_table_obj.tables[10].forEach(element_emp => {
+                        if(element_pt.sales_agent_id == element_emp.id)
+                        {
+                            create_new_tabl_col[counter_col] = element_emp.name;counter_col++;check_sales=true;
+                        }
+                    });
+                }
+            });
+
+            if(check_sales == false)
+            {
+                create_new_tabl_col[counter_col] = "No Agent";counter_col++ 
+            }
 
             var count_all= 0;
             var all_created= 0;
@@ -890,13 +982,9 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
 
             }
 
-            console.log(All_table_obj.tables[1][index].session_date);
-
-
             create_new_tabl_col[counter_col] = all_created + ` - Created SE`; counter_col++;
             create_new_tabl_col[counter_col] = count_comp + ` - Ended SE`; counter_col++;
             create_new_tabl_col[counter_col] = Non_att + ` - Remains SE`; counter_col++;
-            create_new_tabl_col[counter_col] = ''; counter_col++;
 
             create_new_tabl_col[counter_col] = (Att+Abs) + ` - Completed SE`; counter_col++;
             create_new_tabl_col[counter_col] = Abs + ` - Absence SE`; counter_col++;
@@ -905,11 +993,9 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
 
 
 
-            // create_new_tabl_col[counter_col] = Feed; counter_col++;
-
             if(count_comp - (Att + Abs))
             {
-                create_new_tabl_col[counter_col] = 'Not Updated Attendance';counter_col++;
+                create_new_tabl_col[counter_col] = `<label style='color:red'>Not Updated Attendance</label>`;counter_col++;
             }
             else
             {
@@ -919,14 +1005,48 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
 
             if(Att - Feed > 0)
             {
-                create_new_tabl_col[counter_col] = 'Not Updated Feedback';counter_col++;
+                create_new_tabl_col[counter_col] = `<label style='color:red'>Not Updated Feedback</label>`;counter_col++;
             }
             else
             {
                 create_new_tabl_col[counter_col] = '';counter_col++;
             }
 
+            create_new_tabl_col[counter_col] = 'No Date'; 
+            create_new_tabl_col[counter_col+1] = 'No Sessions'; 
+            var check_lock = false;
+
+
+            All_table_obj.tables[9].forEach(element_att => {
+
+                if(All_table_obj.tables[1][index].id == element_att.student_id)
+                {
+                    
+                        All_table_obj.tables[7].forEach(element_se => {
+    
+                            if(element_att.session_id == element_se.id && new Date(element_se.session_date) >= new Date() && check_lock == false)
+                            {
+                                create_new_tabl_col[counter_col] = element_se.session_date; 
+                                create_new_tabl_col[counter_col+1] = element_se.session_num; 
+                                check_lock = true;
+                            }
+    
+                        })
+                    
+
+                }
+
+
+
+        })
+
+            counter_col +=2;
+            
+
+
             create_new_tabl_col[counter_col] = students_sessions; counter_col++;
+
+
 
             create_new_tabl_rows[counter] = create_new_tabl_col;counter++;
 
@@ -939,6 +1059,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
 
  function create_paper_table_parent_students(all_tables)
  {
+    Loading_page_clear();
     var inputs_names_search = [
         "ID :"
     ,"Student ID :"
@@ -949,6 +1070,8 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
     , "Student Status :" 
     , "Age :"
     , "Birthdate :"
+    , "Sales Agent:"
+    , "CS Agent:"
     , ""
     , ""
     , ""
@@ -957,6 +1080,9 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
     , ""
     , ""
     , ""
+    , ""
+    , "Next Session Date : "
+    , "Next Session Num : "
 
 
 
@@ -983,10 +1109,49 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
     All_data_obj.obj_data = [];
     All_data_obj.saved_index ;
 
-    // createTable(all_tables ,All_data_obj , 'clear' , 4 , 5); 
+    var all_tables_arr = assigned_agent_parent_page(all_tables);
+
+    if($('#reg_input').val() != '')
+    {
+        
+        var result__ = Search_for_value(all_tables_arr ,$('#reg_input').val() );
+        all_tables_arr = [];
+        all_tables_arr = result__;
+        $('#reg_input').val('');
+    }
+    else if($('#not_reg_input').val() != '')
+    {
+        var result__ = Search_for_value(all_tables_arr ,$('#not_reg_input').val() );
+        all_tables_arr = [];
+        all_tables_arr = result__;
+        $('#not_reg_input').val('');
+    }
+    var limit_count  = 0;
+
+    if(all_tables_arr && all_tables_arr !== undefined && all_tables_arr.length != 0)
+    {
+        limit_count  = all_tables_arr[0].length-1
+    }
+    
 
 
-    createTable(all_tables ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view_student , all_tables[0].length-1); 
+    var values_ = document.getElementById("search_all").value;
+
+    if(values_ == "")
+    {
+       All_data_obj.Start_Index = 1;
+       $('#counter_id').val(all_tables_arr.length)
+
+       createTable(all_tables_arr ,All_data_obj , 'clear' , 8 , 5 , "open" , create_view_student , limit_count); 
+ 
+       return;
+    }
+ 
+     var result = Search_for_value(all_tables_arr , values_)
+         
+     $('#counter_id').val(result.length)
+
+    createTable(result ,All_data_obj , 'clear' , 8 , 5 , "open" , create_view_student , result[0].length-1); 
 
 }
 
@@ -1009,9 +1174,10 @@ function create_view_student(All_data_obj , End_Index)
 
         var data_arr = [];
 
-        var index_ret = 19
+        var index_ret = 22
 
-
+        if(All_data_obj.obj_data[ret][index_ret] && All_data_obj.obj_data[ret][index_ret] !== undefined && All_data_obj.obj_data[ret][index_ret].length != 0)
+    {
         for(var index = 0 ; index < All_data_obj.obj_data[ret][index_ret].length ; index++)
         {  
             var inner_arr = []
@@ -1082,8 +1248,8 @@ function create_view_student(All_data_obj , End_Index)
             data_arr[index] = inner_arr;
         }
         createTable_pop_up_students(data_arr , null , End_Index);
+    }
 
-        //   createTable_pop_up(All_data_obj  , ret);
         }
 
     }
@@ -1093,8 +1259,7 @@ function create_view_student(All_data_obj , End_Index)
 function create_paper_table_customized_student(all_tables)
 {
 
-
-
+    Loading_page_clear();
     var inputs_names_search = [
         "ID :"
     ,"Student ID :"
@@ -1145,14 +1310,14 @@ function create_paper_table_customized_student(all_tables)
    if(values_ == "")
    {
       All_data_obj.Start_Index = 1;
-      createTable(all_tables ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view_student , all_tables[0].length-1); 
+      createTable(all_tables ,All_data_obj , 'clear' , 8 , 5 , "open" , create_view_student , all_tables[0].length-1); 
 
       return;
    }
 
     var result = Search_for_value(all_tables , values_)
         
-   createTable(result ,All_data_obj , 'clear' , 6 , 5 , "open" , create_view_student , result[0].length-1); 
+   createTable(result ,All_data_obj , 'clear' , 8 , 5 , "open" , create_view_student , result[0].length-1); 
 
 }
 
@@ -1329,7 +1494,6 @@ function createTable_pop_up_students(All_data_obj , All_req_obj  , End_Index) {
 
     var dataArray = All_data_obj;
 
-    // console.log(dataArray);
 
   if(dataArray && dataArray !== undefined && dataArray.length != 0){
 
@@ -1467,7 +1631,6 @@ function update_studnet_att_students(value_elments , students_arr , All_req_obj 
 
             All_data_obj_.callbackfunc = function(All_data_obj, response)
             {
-                alert(response);
 
                 var Database_link = database_fixed_link
                 var inputs_col = [

@@ -2,6 +2,8 @@
 
 function ADD_STUDENT_TO_PARENT()
 {
+    Loading_page_set();
+
     document.getElementById("Location_1").innerHTML = "";
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
@@ -61,11 +63,7 @@ var paper_inputs_label = [
     get_all_data_arr(All_req_obj ,quary_tables_all_status_add_student_to_parent , '' , time_out  , 1);
 
      add_new_student_parent(All_req_obj,paper_inputs);
-    // get_all_data_arr(All_req_obj ,quary_tables_all_paper_student_groups,create_table_student_group , time_out , 2);
 
-    // $('#search_btn').click(function (index) {  
-    //     get_all_data_arr(All_req_obj ,quary_tables_all_paper_student_groups,create_table_student_group_customized , time_out , 3);
-    //     });
 }
 
 
@@ -77,7 +75,7 @@ function html_create_lists_add_student_parent(paper_inputs , paper_inputs_label 
     document.getElementById("Location_2").innerHTML = "";
     document.getElementById("Location_3").innerHTML = "";
     //document.getElementById("Location_4").innerHTML = "";
-    document.getElementById("search-results").innerHTML = "";
+    // document.getElementById("search-results").innerHTML = "";
 
 
 
@@ -148,6 +146,7 @@ function quary_tables_all_status_add_student_to_parent(All_table_obj , func)
         }
 
         $('.select2').select2();
+        Loading_page_clear();
 
 }
 
@@ -187,6 +186,8 @@ function add_new_student_parent(All_req_obj,paper_inputs)
     $(document).ready(function () {
 
         $('#send_group').click(function () {
+            Loading_page_set();
+
              var value_elments = [];
              var check_full = false;
              var getin = false;
