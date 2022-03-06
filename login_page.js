@@ -109,7 +109,7 @@ async function login_page_check()
                         check_user = true;
                         for(var index_ = 0 ; index_ < value_emp.length ; index_++)
                         {
-                            if(value_emp[index].password == $('#password').val())
+                            if(value_emp[index].password_value == $('#password').val())
                             {
                                 check_pass = true;
 
@@ -169,7 +169,7 @@ async function login_page_check_auto(user , pass)
                         check_user = true;
                         for(var index_1 = 0 ; index_1 < value_emp.length ; index_1++)
                         {
-                            if(value_emp[index].password == pass)
+                            if(value_emp[index].password_value == pass)
                             {
                                 check_pass = true;
                                 login_success(value_emp[index]);

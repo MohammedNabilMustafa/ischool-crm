@@ -226,7 +226,7 @@ function add_new_empolyee(All_req_obj,paper_inputs)
         create_new_table_cols[counter] = All_table_obj.tables[3][index].email;counter++;
         create_new_table_cols[counter] = All_table_obj.tables[3][index].zoomlink;counter++;
         create_new_table_cols[counter] = All_table_obj.tables[3][index].username;counter++;
-        create_new_table_cols[counter] = All_table_obj.tables[3][index].password;counter++;
+        create_new_table_cols[counter] = All_table_obj.tables[3][index].password_value;counter++;
 
         for(var index_ = 0 ; index_ < All_table_obj.tables[0].length ; index_++)
         {
@@ -292,32 +292,7 @@ function add_new_empolyee(All_req_obj,paper_inputs)
 
  }
 
- function quary_tables_all_status_for_search_employee(All_table_obj , func)
- {
 
-        
-        for(var index_ = 0 ; index_ < All_table_obj.tables[1].length ; index_++)
-        {
-            $('#paper_type_input').append(`<option value="${All_table_obj.tables[1][index_].name} - ${All_table_obj.tables[1][index_].ton_price}"
-            >${All_table_obj.tables[1][index_].name} - ${All_table_obj.tables[1][index_].ton_price} </option>`);  
-        }
-        for(var index_ = 0 ; index_ < All_table_obj.tables[2].length ; index_++)
-        {
-            $('#paper_weight_input').append(`<option value="${All_table_obj.tables[2][index_].weight}"
-            >${All_table_obj.tables[2][index_].weight}  </option>`);
-        }
-        for(var index_ = 0 ; index_ < All_table_obj.tables[3].length ; index_++)
-        {
-            $('#paper_size_input').append(`<option value="${All_table_obj.tables[3][index_].len} x ${All_table_obj.tables[3][index_].width}"
-            >${All_table_obj.tables[3][index_].len} x ${All_table_obj.tables[3][index_].width} </option>`);
-        }
-        for(var index_ = 0 ; index_ < All_table_obj.tables[4].length ; index_++)
-        {
-            $('#paper_country_input').append(`<option value="${All_table_obj.tables[4][index_].country}"
-            >${All_table_obj.tables[4][index_].country}  </option>`);
-        }
-
- }
 
  function create_paper_table_employee(all_tables)
  {
@@ -328,10 +303,10 @@ function add_new_empolyee(All_req_obj,paper_inputs)
     "ID :"
     ,"Name :" 
     , "Phone :" 
-    , "Lang :" 
     , "Email :" 
     , "Zoom Link :"
     , "User Name :"
+    , "Password :"
     , "Permission :"
     , "Department :"
     , "Role :"

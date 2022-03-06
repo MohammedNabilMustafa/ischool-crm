@@ -52,6 +52,7 @@ async function ADD_Customer_call()
 
     document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
     var parent_arr=[]
+    var parent_arr_select=[]
 
 
     if(localStorage.permission == 4)
@@ -60,12 +61,13 @@ async function ADD_Customer_call()
     }
     else
     {
+        parent_arr = parent_arr_all;
         var count_in = 0;
         parent_arr_all.forEach(element=>
             {
                 if(localStorage.userid == element.customer_agent_id)
                 {
-                    parent_arr[count_in] = element;count_in++;
+                    parent_arr_select[count_in] = element;count_in++;
                 }
             }
     
@@ -74,7 +76,7 @@ async function ADD_Customer_call()
 
 
 
-    add_select_html("Location_1" , "call_parent_input" , "Parent " , parent_arr);
+    add_select_html("Location_1" , "call_parent_input" , "Parent " , parent_arr_select);
     add_select_html_students("Location_1" , "call_student_input" , "Student " );
 
 
