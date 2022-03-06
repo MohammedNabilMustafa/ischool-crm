@@ -198,8 +198,7 @@ function add_new_empolyee(All_req_obj,paper_inputs)
             All_data_obj.callbackfunc = function(All_data_obj , response)
             {
                 alert(response , "success");
-
-                get_all_data_arr(All_req_obj ,quary_tables_all_employee,create_paper_table_employee , time_out , 2);
+                ADD_NEW_EMPLOYEE()
             };
             add_one_data_from_database(All_data_obj , value_elments);
         

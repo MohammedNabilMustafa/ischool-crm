@@ -3,21 +3,24 @@
 var all_countainer = "all_countainer";
 var login_page = "login_page";
 var arr_system = [
-    'system_id',
-    "add_parent",
-    "add_student",
-    "add_group",
-    "add_student_invoice",
-    "add_session_group",
-    "add_employee" ,
-    "add_student_parent",
-    "add_student_group",
-    "add_student_package",
-    "add_student_session",
-    "calls",
-    "calls_assign"
+    'system_id', //1
+    "add_parent", //2
+    "add_student", //3
+    "add_group", //4
+    "add_student_invoice", //5
+    "add_session_group", //6
+    "add_employee" , //7
+    "add_student_parent", //8
+    "add_student_group", //9
+    "add_student_package", //10
+    "add_student_session", //11
+    "calls",  //12
+    "calls_assign", //13
+    "calls_sales", //14
+    "calls_assign_sales" //15
     
 ]
+
 
 
 calls
@@ -294,6 +297,8 @@ function CS_permission()
     Hide_Element(arr_system[9]);
     Hide_Element(arr_system[10]);
     Hide_Element(arr_system[12]);
+    Hide_Element(arr_system[13]);
+    Hide_Element(arr_system[14]);
 }
 
 function Sales_permission()
@@ -304,7 +309,6 @@ function Sales_permission()
     Hide_Element(arr_admin_students[0]);
     Hide_Element(arr_admin_group[0]);
     Hide_Element(arr_admin_parent[0]);
-    Hide_Element(arr_system[2]);
     Hide_Element(arr_system[3]);
     Hide_Element(arr_system[4]);
     Hide_Element(arr_system[5]);
@@ -315,7 +319,6 @@ function Sales_permission()
     Hide_Element(arr_system[10]);
     Hide_Element(arr_system[11]);
     Hide_Element(arr_system[12]);
-    Hide_Element(arr_system[13]);
     Hide_Element(arr_system[14]);
 
 }

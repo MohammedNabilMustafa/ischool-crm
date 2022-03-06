@@ -399,6 +399,9 @@ a{
                         <li><a href="#" id="calls" class="link-dark rounded">Customer Calls</a></li>
                         <li><a href="#" id="calls_assign" class="link-dark rounded">Assign CS Agent</a></li>
 
+                        <li><a href="#" id="calls_sales" class="link-dark rounded">Sales Calls</a></li>
+                        <li><a href="#" id="calls_assign_sales" class="link-dark rounded">Assign Sales Agent</a></li>
+
                         <li><a href="#" id="add_student_parent" class="link-dark rounded">Add Student To Parent</a></li>
                         <li><a href="#" id="add_student_group" class="link-dark rounded">Add Student To Group</a></li>
                         <li><a href="#" id="add_student_package" class="link-dark rounded">Add Student To Packages</a></li>
@@ -468,6 +471,7 @@ a{
                       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li><a href="#" id="parent_loc" class="link-dark rounded">Parent</a></li>
                         <li><a href="#" id="cs_calls" class="link-dark rounded">CS Calls</a></li>
+                        <li><a href="#" id="sales_calls" class="link-dark rounded">Sales Calls</a></li>
                         <li><a href="#" id="cat" class="link-dark rounded">Category</a></li>
                         <li><a href="#" id="close" class="link-dark rounded">Closing</a></li>
                         <li><a href="#" id="call_type" class="link-dark rounded">Call Type</a></li>
@@ -582,6 +586,8 @@ a{
       <script   src="customer_calls.js" ></script>
       <script   src="json_func_admin.js" ></script>
       <script   src="Assign_cs.js" ></script>
+      <script   src="sales_calls.js" ></script>
+      <script   src="assign_sales.js" ></script>
 
       <script src="js/dd.min.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
@@ -612,10 +618,6 @@ var  passInput = document.getElementById("password");
   $(document).ready(function () {
 
     clear_all_selected();
-
-    // login_success()
-
-    
 
     $('#logout_id').click(function () {
       nameInput.value = '';
@@ -896,6 +898,14 @@ var  passInput = document.getElementById("password");
         cs_calls();
       }); 
 
+      $('#sales_calls').click(function () {
+        clear_all_selected();
+        $('#sales_calls').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = "<h1>Calls</h1>"
+        sales_calls();
+      }); 
+
       $('#cat').click(function () {
         clear_all_selected();
         $('#cat').css('background', '#008CBA').css('color','white');
@@ -932,7 +942,7 @@ var  passInput = document.getElementById("password");
         clear_all_selected();
         $('#calls').css('background', '#008CBA').css('color','white');
 
-        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Calls Status</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Customer Support Calls</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
         ADD_Customer_call();
       }); 
       
@@ -940,10 +950,27 @@ var  passInput = document.getElementById("password");
         clear_all_selected();
         $('#calls_assign').css('background', '#008CBA').css('color','white');
 
-        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Calls Status</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Assign CS Agent</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
         ASSGIN_CS_AGENT();
       }); 
 
+
+      $('#calls_sales').click(function () {
+        clear_all_selected();
+        $('#calls_sales').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Sales Calls</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        ADD_sales_call();
+      }); 
+
+      
+      $('#calls_assign_sales').click(function () {
+        clear_all_selected();
+        $('#calls_assign_sales').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Assign Sales Agent</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        ASSGIN_Sales_AGENT();
+      }); 
 
       
     }); 
@@ -951,6 +978,8 @@ var  passInput = document.getElementById("password");
 
     function clear_all_selected()
       {
+        $('#calls_sales').css('background', 'white').css('color','#008CBA');
+        $('#calls_assign_sales').css('background', 'white').css('color','#008CBA');
         $('#calls_assign').css('background', 'white').css('color','#008CBA');
         $('#calls').css('background', 'white').css('color','#008CBA');
         $('#call_status').css('background', 'white').css('color','#008CBA');
@@ -958,7 +987,7 @@ var  passInput = document.getElementById("password");
         $('#close').css('background', 'white').css('color','#008CBA');
         $('#cat').css('background', 'white').css('color','#008CBA');
         $('#cs_calls').css('background', 'white').css('color','#008CBA');
-        $('#cs_calls').css('background', 'white').css('color','#008CBA');
+        $('#sales_calls').css('background', 'white').css('color','#008CBA');
         $('#add_student_invoice').css('background', 'white').css('color','#008CBA');
         $('#student_package').css('background', 'white').css('color','#008CBA');
         $('#add_student_package').css('background', 'white').css('color','#008CBA');
