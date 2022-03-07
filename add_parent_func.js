@@ -453,6 +453,10 @@ function html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , s
                             >${saved_group_arr[index][1]} </option>`); 
                         }
                     }
+                    if(check_av == true)
+                    {
+                        $('#groups_id_input'+ret).append(`<option value="">Waiting List</option>`); 
+                    }
                     if(check_av == false)
                     {
                         $('#groups_id_input'+ret).empty();
@@ -1837,13 +1841,30 @@ async function ADD_PARENT_SENRIO(paper_inputs)
     {
         var data_to_send_arr_student = [];
         var counter = 0 ;
+
+        var kid_age =  (new Date()).getFullYear() - new Date($("#bd_id"+index).val()).getFullYear() 
+        var age_req = '';
+        if(kid_age < 20)
+        {
+            saved_age_arr.forEach(elment =>{
+                if(kid_age >= Number(elment[1]) && kid_age <=  Number(elment[2]))
+                {
+                    age_req = elment[0];
+                }
+            })
+
+        }
+
         data_to_send_arr_student[counter] = document.getElementById('student_id'+index).value;counter++;
         data_to_send_arr_student[counter] = save_last_parent_id;counter++;
         data_to_send_arr_student[counter] = document.getElementById('free_id'+index).value;counter++
         data_to_send_arr_student[counter] = document.getElementById('status_id'+index).value;counter++
         data_to_send_arr_student[counter] = document.getElementById('name_id'+index).value;counter++
-        data_to_send_arr_student[counter] = '';counter++
+        data_to_send_arr_student[counter] = age_req;counter++
         data_to_send_arr_student[counter] = document.getElementById('bd_id'+index).value;
+
+
+
 
     var get_add_data_var_std = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'students' ,     
     ["std_id" 
@@ -2038,7 +2059,6 @@ function assigned_agent_parent_page(arr_data )
     {
         search_for = localStorage.agentname;
     }
-
     return Search_for_value(arr_data , search_for);
 }
 

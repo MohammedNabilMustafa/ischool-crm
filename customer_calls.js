@@ -1042,7 +1042,7 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
             alert('Choose End Date');
             return;
         }
-
+        
         var customer_ser_arr_1 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
 
         if(customer_ser_arr_1 && customer_ser_arr_1 !== undefined && customer_ser_arr_1.length != 0){
@@ -1697,13 +1697,15 @@ function create_table_customer_custom(all_tables , check_val , ret_manual , inde
       }
       else
       {
-          createTable(assigned_agent_parent_page(all_tables) ,All_data_obj , 'clear' , 4 , 7 ,  "open" , create_view_customer , 0 , ret_manual); 
+          createTable(null ,All_data_obj , 'clear' , 4 , 7 ,  "open" , create_view_customer , 0 , ret_manual); 
       }
         return;
    }
 
+   if(all_tables && all_tables !== undefined && all_tables.length != 0)
+   {
     var result = Search_for_value(assigned_agent_parent_page(all_tables), values_)
-        
+   }
 
     if(all_tables && all_tables !== undefined && all_tables.length != 0)
     {
