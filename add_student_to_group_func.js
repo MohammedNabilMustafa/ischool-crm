@@ -788,7 +788,6 @@ function quary_tables_all_status_add_student(All_table_obj , func)
                                     > ${seached_cols[9]}-${seached_cols[5]}-`+All_table_obj.tables[8][index_].id+` | ${seached_cols[8]}-${seached_cols[2]} | ${seached_cols[7]}-${seached_cols[3]} | `+counter__+`-St | ${counter___ses}-Se</option>`);  
                     
                                     $('#student_number').append(`<option value="${seached_cols[0]}">`+counter__+`  </option>`);  
-
                                 }
                             }
                             if(check_av == true)

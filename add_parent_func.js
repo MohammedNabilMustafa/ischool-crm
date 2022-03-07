@@ -376,7 +376,7 @@ function html_create_lists_student_num(All_req_obj , paper_inputs ,location_ , s
     document.getElementById('add_std_'+indexx).innerHTML += `<label>Name : </label><input type='text' id='name_id`+indexx+`'>`;
 
     document.getElementById('add_std_'+indexx).innerHTML +=`</div></div>`;
-    document.getElementById('add_std_'+indexx).innerHTML += `<label>Free Session : </label><input class="largerCheckbox" type='checkbox' id='free_id`+indexx+`' value='yes'>`;
+    document.getElementById('add_std_'+indexx).innerHTML += `<label>Free Session : </label><input class="largerCheckbox" type='checkbox' id='free_id`+indexx+`' value='no'>`;
 
 
     document.getElementById('add_std_'+indexx).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
@@ -565,6 +565,8 @@ async function html_create_lists_parent(paper_inputs , paper_inputs_label  , loc
 
   if(localStorage.permission == 4 || localStorage.permission == 2)
   {
+      document.getElementById('search_assign').innerHTML = ''
+
   employee_drop_down_search('search_assign');
 
   document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
@@ -1026,6 +1028,52 @@ Not Registered
                                                 package_arr[3] = All_table_obj.tables[19][index_3].fees;
                                                 package_arr[4] = All_table_obj.tables[19][index_3].discount;
                                                 package_arr[5] = All_table_obj.tables[19][index_3].paid_as;
+                                                package_arr[6] = [];
+                                                package_arr[7] = [];
+
+                                                package_arr[7][0] = 0;
+                                                package_arr[7][1] = 0;
+                                                package_arr[7][2] = 0;
+                                                package_arr[7][3] = 0;
+                                                package_arr[7][4] = 0;
+
+                                                if(All_table_obj.tables[20] && All_table_obj.tables[20] !== undefined && All_table_obj.tables[20].length != 0)
+                                                {
+                                                    var inv_arr = [];
+                                                    var inv_arr_count = 0;
+                                                    All_table_obj.tables[20].forEach(element => {
+
+
+                                                        // console.log(element.package_id)
+                                                        if(All_table_obj.tables[18][index_2].id == element.package_id)
+                                                        {
+                                                            package_arr[7][0] += Number(element.qouta);
+
+                                                            if(element.status == 'done')
+                                                            {
+                                                                package_arr[7][1] += Number(element.qouta);
+                                                            }
+                                                            else if (element.status == 'waiting')
+                                                            {
+                                                                package_arr[7][2] += Number(element.qouta);
+                                                            }
+                                                            else if (element.status == 'refund')
+                                                            {
+                                                                package_arr[7][3] += Number(element.qouta);
+                                                            }
+                                                            else if (element.status == 'ar-refund')
+                                                            {
+                                                                package_arr[7][4] += Number(element.qouta);
+                                                            }
+
+                                                            inv_arr[inv_arr_count]  = element;inv_arr_count++;
+
+                                                        }
+                                                    })
+
+                                                    package_arr[6] = inv_arr;
+                                                }
+
 
 
                                                 // package_arr_status
@@ -1220,6 +1268,8 @@ function create_view(All_data_obj , End_Index)
         
 
         btn.onclick = function() {
+            var div = document.getElementById("search-results_1");
+            div.innerHTML = '';
 
             var id = this.id;
             var ret = id.replace('view_more_','') ;
@@ -1498,7 +1548,9 @@ function createTable_pop_up(All_data_obj , index_st) {
                    result +="<th scope='col'>Students Info </th>";
                    result +="<th scope='col'>Group Info </th>";
                    result +="<th scope='col'>Packages Info </th>";
+                   result +="<th scope='col'>Invoices Info </th>";
                    result +="<th scope='col'>Sessions Info </th>";
+                   result +="<th scope='col'>Calls Info </th>";
 
               result += "</tr>"+
                         "</thead>";
@@ -1561,7 +1613,101 @@ function createTable_pop_up(All_data_obj , index_st) {
                     }
                     else
                     {
-                            result += `<label style='color:red'><br><br>No Packages</label>` ; 
+                        result += `<label style='color:red'><br><br>No Packages</label>` ; 
+                    }
+
+                    result += "<td style='white-space:wrap' >";
+
+
+                    if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index] && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index] !== undefined && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index].length != 0)
+                    {
+
+                        var Total_t = 0;
+                        var Total_t_inv = 0;
+                        var Total_d = 0;
+                        var Total_d_inv = 0;
+                        var Total_w = 0;
+                        var Total_w_inv = 0;
+                        var Total_f = 0;
+                        var Total_f_inv = 0;
+                        var Total_ar = 0;
+                        var Total_ar_inv = 0;
+
+                        for(var index_pac = 0 ; index_pac < Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index].length ; index_pac++)
+                        {
+                            Total_t +=Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][7][0];
+                            Total_d +=Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][7][1];
+                            Total_w +=Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][7][2];
+                            Total_f +=Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][7][3];
+                            Total_ar +=Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][7][4];
+
+                            
+                            for(var index_inv= 0 ; index_inv < Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6].length ; index_inv++)
+                            {
+
+                                Total_t_inv++;
+
+                                if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'done')
+                                Total_d_inv++;
+                                if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'waiting')
+                                Total_w_inv++;
+                             
+                                if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'refund')
+                                Total_f_inv++;
+
+                                if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'ar-refund')
+                                Total_ar_inv++;
+
+                            }
+                        }
+
+                        result += `Total-Quota: ${Total_t} | Inv : ${Total_t_inv} <br> `;
+                        result += `Done-Quota: ${Total_d} | Inv : ${Total_d_inv} <br> `;
+                        result += `Waiting-Quota: ${Total_w} | Inv : ${Total_w_inv} <br> `;
+                        result += `Refund-Quota: ${Total_f} | Inv : ${Total_f_inv} <br> `;
+                        result += `AR-Refund-Quota: ${Total_ar} | Inv : ${Total_ar_inv} <br> `;
+                        result += `<hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`; 
+
+
+                        for(var index_pac = 0 ; index_pac < Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index].length ; index_pac++)
+                        {
+                            if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac] && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac] !== undefined && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac].length != 0){
+
+  
+
+
+                                for(var index_inv= 0 ; index_inv < Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6].length ; index_inv++)
+                                { 
+
+                                        result += `<label style='color:gray'>${index_inv+1}- ID: ${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].id} |
+                                        Due: ${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].due_date}  <br>
+                                        Stu: `
+                                        if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'done')
+                                        result +=`<label style='color:green'>${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status} </label> `
+                                       
+                                        if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'waiting')
+                                        result +=`<label style='color:blue'>${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status} </label> `
+                                     
+                                        if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'refund')
+                                        result +=`<label style='color:red'>${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status} </label> `
+ 
+                                        if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'ar-refund')
+                                        result +=`<label style='color:orange'>${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status} </label> `
+ 
+                                        
+                                        result +=` |
+                                        Qt: ${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].qouta}  | 
+                                        P-ID: ${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].package_id}  </label><br>`; 
+
+                                }
+                                
+                                result += `<hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`; 
+                            }
+                        }
+                    }
+                    else
+                    {
+                            result += `<label style='color:red'><br><br>No Invoices</label>` ; 
                     }
 
                     result +="</td>"
@@ -1790,10 +1936,7 @@ async function ADD_PARENT_SENRIO(paper_inputs)
     {
         data_to_send_arr_parent[10] = localStorage.userid
     }
-    //         Loading_page_clear();
-    //         console.log(data_to_send_arr_parent);
 
-    // return ;
 
     if(st_ids == 0)
     {   

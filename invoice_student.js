@@ -206,7 +206,6 @@ function quary_tables_all_paper_invoice(All_table_obj , func)
         }
 
     }
-    console.log(create_new_tabl_rows)
            func( create_new_tabl_rows );
 
 }
@@ -314,7 +313,6 @@ function create_view_invoice(All_data_obj , End_Index)
 
         
             if (confirm("You want to edite!") == true) {
-                // console.log(id);
 
                 var value_elments = []
 

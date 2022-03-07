@@ -267,11 +267,13 @@ function slots()
     var inputs_col = 
     ["name" 
     ,"slot" 
+    ,"live_slot" 
   ];
 
     var inputs_names_inputs = 
     ["Name" 
     ,"Slot" 
+    ,"Live Slot" 
   ];
 
     var inputs_names_search = 
@@ -279,6 +281,7 @@ function slots()
     ,"Timestamp"
     ,"Name" 
     ,"Slot"
+    ,"Live Slot" 
     ,"Edit" 
     ,"Delete"
   ];

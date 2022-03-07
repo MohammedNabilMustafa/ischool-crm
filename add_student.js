@@ -411,7 +411,7 @@ function add_new_parent_student_(All_req_obj,paper_inputs )
 }
 
 
-function add_new_student_(All_req_obj,paper_inputs , parent_id )
+async function add_new_student_(All_req_obj,paper_inputs , parent_id )
 {
     
     var Database_link = database_fixed_link
@@ -434,7 +434,7 @@ function add_new_student_(All_req_obj,paper_inputs , parent_id )
     if(st_ids == 0)
     {
         alert("Parent Add Successfully - No Student" , "primary");
-        ADD_NEW_PARENT();
+        ADD_NEW_STUDENT();
         return;
     }
 
@@ -519,11 +519,15 @@ function add_new_student_(All_req_obj,paper_inputs , parent_id )
             }
 
 
+
+
             All_data_obj.group_id_value[index] = document.getElementById('groups_id_input'+index).value;
-            All_data_obj.package_id_value[index] = document.getElementById('Packages_id_input'+index).value;
+            All_data_obj.package_id_value[index] = document.getElementById('Packages_id_input'+index).value ;
             All_data_obj.student_package_date[index] = document.getElementById('package_data_'+index).value
             All_data_obj.student_age_range[index] = document.getElementById('bd_id'+index).value
 
+
+            
             All_data_obj.callbackfunc = function(All_data_obj , response)
             {
                 student_id_counter--;
@@ -544,7 +548,7 @@ function add_new_student_(All_req_obj,paper_inputs , parent_id )
                                 }
                                 if(All_data_obj.package_id_value[count_index-1])
                                 {
-                                    add_new_student_package_parent(All_req_obj,paper_inputs , student_id , All_data_obj.package_id_value[count_index-1] , All_data_obj.student_package_date[count_index-1] , 'true');
+                                    add_new_student_package_parent(All_req_obj,paper_inputs , student_id , All_data_obj.package_id_value[count_index-1] , All_data_obj.student_package_date[count_index-1] , 'true' );
                                 }
                                 if(All_data_obj.group_id_value[count_index-1] == '' && All_data_obj.package_id_value[count_index-1] == '')
                                 {
@@ -663,14 +667,7 @@ function add_new_student___(All_req_obj,paper_inputs)
                     }
                     else
                     {
-                        if(All_data_obj.obj[All_data_obj.obj.length-1].parent_id == 0)
-                        {
-                            alert("Student Add successfully - No Parent - No group" , "primary");
-                        }
-                        else
-                        {
-                            alert("Student Add Successfully - Parent Add Successfully - No group " , "primary");
-                        }
+
                         ADD_NEW_STUDENT();
 
                     }
@@ -735,7 +732,7 @@ function add_new_student_to_groups(All_req_obj,paper_inputs , value_group_id , v
                 alert("Student Add Successfully - Parent Add Successfully - Student too Young to join Group" , "primary");
             }
 
-            ADD_NEW_PARENT();
+            ADD_NEW_STUDENT();
             return;
         }
         
@@ -829,13 +826,7 @@ function add_student_to_student_Sessions(All_req_obj,paper_inputs , group_id_val
             
             All_data_obj.callbackfunc = function(All_data_obj , response)
             {      
-                // if(value_parent_id == 0)
-                // {
-                // alert("Student Add Successfully - No Parent - Group Add Successfully  - Session Assigned Successfully" , "primary");
-                // }
-                // else{
-                // alert("Student Add Successfully - Parent Add Successfully - Group Add Successfully  - Session Assigned Successfully" , "success");
-                // }
+
 
                 ADD_NEW_STUDENT();
             };
@@ -1824,3 +1815,337 @@ function update_studnet_att_students(value_elments , students_arr , All_req_obj 
 
 }
 
+
+
+function add_student_to_group_(All_req_obj,paper_inputs , student_id , group_id_value , student_age  )
+{
+    
+    var Database_link = database_fixed_link
+
+    var inputs_col = 
+    ["groups_id" 
+    , "student_id" 
+    , "status" 
+
+];
+    
+    var inputs_check = ["Name missing"];
+
+    var called_table = 'student_groups';
+
+
+      var arr_data = []
+
+        const All_data_obj = {};
+        All_data_obj.table_ = called_table;
+        All_data_obj.inputs_col_ = inputs_col;
+        All_data_obj.inputs_check_ = inputs_check;
+        All_data_obj.Database_link = Database_link;
+        All_data_obj.callbackfunc;
+        All_data_obj.obj;
+
+       var value_elments = [];
+            value_elments[0] = group_id_value;
+            value_elments[1] = student_id ;
+            value_elments[2] = 'active';
+
+            if(value_elments[0] == "")
+            {
+                alert("Parent Add Successfully - Student Add Successfully - No group" , "primary");
+                ADD_NEW_STUDENT();
+                return ;
+            }
+
+            var years_old = Todate(student_age)[4];
+            var years_current = Todate(new Date())[4];
+            var compare = 0;
+            var age_range = years_current - years_old;
+
+            for(var i = 0 ; i < saved_age_arr.length ; i++)
+            {
+                if(saved_age_arr[i][0] == 'B')
+                {
+                    compare = Number(saved_age_arr[i][1]);
+                }
+            }
+            
+                  All_data_obj.callbackfunc = function(All_data_obj, response)
+                {
+
+                    var counter_full_check = 0;
+
+                    if(All_data_obj.obj && All_data_obj.obj !== undefined && All_data_obj.obj.length != 0)
+                    {
+                        for(var index = 0 ; index < All_data_obj.obj.length ; index ++)
+                        {
+                            if(value_elments[0] == All_data_obj.obj[index].groups_id && 'active' == All_data_obj.obj[index].status)
+                            {
+                                counter_full_check++;
+                            }
+    
+                        }
+                    }
+                        if(age_range < compare)
+                        {
+                            alert("Parent Add Successfully - Student Add Successfully - Student too Young to join Group" , "danger");
+                            ADD_NEW_STUDENT();
+                            return;
+                        }
+
+                        if(counter_full_check >= 6)
+                        {
+                            alert("Parent Add Successfully - Student Add Successfully - Group Full" , "primary");
+                            ADD_NEW_STUDENT();
+                            return ;
+                        }
+
+                    All_data_obj.callbackfunc = function(All_data_obj , response)
+                    {
+                        add_student_to_group_Sessions(All_req_obj,paper_inputs , group_id_value , student_id);
+
+                    };
+                    add_one_data_from_database(All_data_obj , value_elments);
+                    
+                };
+                get_all_data_from_database(All_data_obj);
+}
+
+function add_student_to_group_Sessions(All_req_obj,paper_inputs , group_id_value , student_id)
+{
+    
+    var Database_link = database_fixed_link
+
+    var inputs_col = 
+    ["student_id" 
+    ,"session_id" 
+    ,"attendance" 
+    ,"feedback" 
+  ];
+    
+    var inputs_check = ["Name missing"];
+
+    var called_table = 'att_feed';
+
+      var arr_data = []
+
+        const All_data_obj = {};
+        All_data_obj.table_ = called_table;
+        All_data_obj.inputs_col_ = inputs_col;
+        All_data_obj.inputs_check_ = inputs_check;
+        All_data_obj.Database_link = Database_link;
+        All_data_obj.callbackfunc;
+        All_data_obj.obj;
+
+
+       for(var index = 0 ; index < saved_sessions_id_arr.length; index ++)
+       {
+        if(group_id_value == saved_sessions_id_arr[index].groups_id)
+        {
+            var value_elments = [];
+            value_elments[0] = student_id;
+            value_elments[1] = saved_sessions_id_arr[index].id;
+            value_elments[2] = "";
+            value_elments[3] = "";
+            
+            All_data_obj.callbackfunc = function(All_data_obj , response)
+            {                        
+                ADD_NEW_STUDENT();
+            };
+            add_one_data_from_database(All_data_obj , value_elments);
+        }
+       }
+       
+
+
+
+}
+
+
+function add_new_student_package_parent(All_req_obj,paper_inputs , student_id , package_id_value , student_package_date , return_ , package_id_value_count )
+{
+    
+    var Database_link = database_fixed_link
+
+    var inputs_col = 
+    [
+     "student_id" 
+     ,"package_id" 
+    ];
+    
+    var inputs_check = ["Group missing" , "Student missing"];
+
+    var called_table = 'student_package';
+
+      var arr_data = []
+
+        const All_data_obj = {};
+        All_data_obj.table_ = called_table;
+        All_data_obj.inputs_col_ = inputs_col;
+        All_data_obj.inputs_check_ = inputs_check;
+        All_data_obj.Database_link = Database_link;
+        All_data_obj.callbackfunc;
+        All_data_obj.callbackfunc_1;
+        All_data_obj.obj;
+
+
+             var value_elments = [];
+             var check_full = false;
+             var getin = false;
+
+             value_elments[0] = student_id;
+             value_elments[1] = package_id_value;
+
+
+                All_data_obj.callbackfunc = async function(All_data_obj , response)
+                {
+                    var get_last_package_student_id = await GET_DATA_TABLES(database_fixed_link , "student_package");
+                    
+                    add_new_student_getpackage_parent( All_req_obj,paper_inputs , package_id_value , value_elments[0] , student_package_date , return_ , get_last_package_student_id[get_last_package_student_id.length-1].id);
+                };
+                add_one_data_from_database(All_data_obj , value_elments);
+
+        
+}
+
+function add_new_student_getpackage_parent(All_req_obj,paper_inputs , package_id , st_id , student_package_date , return_ , id_st_pc)
+{
+    
+    var Database_link = database_fixed_link
+
+    var inputs_col = 
+    [
+        "name"
+        ,"fees"
+        ,"quota"
+        ,"discount"
+        ,"installments"
+        ,"paid_as"
+    ];
+    
+    var inputs_check = ["Group missing" , "Student missing"];
+
+    var called_table = 'package';
+
+      var arr_data = []
+
+        const All_data_obj = {};
+        All_data_obj.table_ = called_table;
+        All_data_obj.inputs_col_ = inputs_col;
+        All_data_obj.inputs_check_ = inputs_check;
+        All_data_obj.Database_link = Database_link;
+        All_data_obj.callbackfunc;
+        All_data_obj.callbackfunc_1;
+        All_data_obj.obj;
+        All_data_obj.index_num = Number(package_id);
+
+             var value_elments = [];
+             var check_full = false;
+             var getin = false;
+
+            All_data_obj.callbackfunc = function(All_data_obj, response)
+            {
+                add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj.obj , st_id , student_package_date , return_ , id_st_pc)
+            };
+             get_one_data_from_database(All_data_obj);
+
+}
+
+function add_new_student_invoice_parent(All_req_obj,paper_inputs , All_data_obj_obj , st_id , student_package_date , return_ , id_st_pc)
+{
+    
+    var Database_link = database_fixed_link
+
+    var inputs_col = 
+    [
+        "student_id"
+        ,"fees"
+        ,"amount"
+        ,"status"
+        ,"due_date"
+        ,"paid_date"
+        ,"discount"
+        ,"attach"
+        ,"package_id"
+        ,"qouta"
+        ,"remain"
+
+    ];
+    
+    var inputs_check = ["Group missing" , "Student missing"];
+
+    var called_table = 'invoice';
+
+      var arr_data = []
+
+        const All_data_obj = {};
+        All_data_obj.table_ = called_table;
+        All_data_obj.inputs_col_ = inputs_col;
+        All_data_obj.inputs_check_ = inputs_check;
+        All_data_obj.Database_link = Database_link;
+        All_data_obj.callbackfunc;
+        All_data_obj.callbackfunc_1;
+        All_data_obj.obj;
+
+
+             var value_elments = [];
+
+             var count = All_data_obj_obj.installments;
+
+             var qouta = Number(All_data_obj_obj.quota) / Number(All_data_obj_obj.installments);
+
+
+
+             value_elments[0] = st_id;
+             value_elments[1] = All_data_obj_obj.fees;
+             value_elments[2] = All_data_obj_obj.paid_as;
+             value_elments[3] = 'done';
+             value_elments[4] = student_package_date;
+             value_elments[5] = student_package_date;
+             value_elments[6] = 0;
+             value_elments[7] = '';
+             value_elments[8] = id_st_pc;
+             value_elments[9] = qouta;
+             value_elments[10] = 0;
+
+
+             var date_day = Todate_schedule_sessions(student_package_date)[1];
+             var date_Month = Todate_schedule_sessions(student_package_date)[2];
+             var date_Year = Todate_schedule_sessions(student_package_date)[4];
+
+    for(var index = 0 ; index < count ; index++)
+    {
+     All_data_obj.callbackfunc = function(All_data_obj , response)
+        {
+            if(return_)
+            {
+                ADD_NEW_STUDENT();
+            }
+            else
+            {
+                ADD_NEW_STUDENT();
+            }
+
+        };
+     add_one_data_from_database(All_data_obj , value_elments);
+     date_Month++;
+
+     var Date_ = Todate_schedule_sessions(null , date_day , date_Month ,date_Year);
+     date_day = Date_[1];
+     date_Month = Date_[2];
+     date_Year = Date_[4];
+     
+     value_elments = []
+     value_elments[0] = st_id;
+     value_elments[1] = 0;
+     value_elments[2] = All_data_obj_obj.paid_as;
+     value_elments[3] = 'waiting';
+     value_elments[4] = Date_[0];
+     value_elments[5] = '';
+     value_elments[6] = 0;
+     value_elments[7] = '';
+     value_elments[8] = id_st_pc;
+     value_elments[9] = qouta;
+     value_elments[10] = 0;
+
+    }
+}
