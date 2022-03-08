@@ -33,8 +33,9 @@ function isEmail(email) {
 
   $(".btn.signup").click(async function() {
 
-   var check = await get_Customer_info();
+   var check = await go_to_step02_func_free();
    Loading_page_clear();
+   choosen_group = '';
 
    if(check == true)
    {
@@ -55,12 +56,16 @@ $(".scheduletableitem").click(function() {
 })
 $(".btn.next").click(async function() {
 
-    await send_student_schedule();
+    var check_return = await go_to_step03_func_free();
 
-    $(".step02").hide("drop", { direction: "right" }, 300);
-    setTimeout(function() {
-        $(".step03").show("drop", { direction: "left" }, 300);
-    }, 400)
+    if(check_return)
+    {        
+        $(".step02").hide("drop", { direction: "right" }, 300);
+        setTimeout(function() {
+            $(".step03").show("drop", { direction: "left" }, 300);
+        }, 400)
+    }
+
 })
 
 
@@ -91,7 +96,7 @@ $(".step03 .back").click(function() {
 
 
 
-async function get_Customer_info()
+async function go_to_step02_func_free()
 {    
     Loading_page_set();
   
@@ -199,7 +204,6 @@ async function get_Customer_info()
             }
         }
 
-
         $( ".scheduletableitem:nth-child(2)").hide();
         $( ".scheduletableitem:nth-child(3)").hide();
         $( ".scheduletableitem:nth-child(4)").hide();
@@ -263,29 +267,29 @@ async function get_Customer_info()
     return true;
 }
 
-async function get_Customer_info_once()
+async function go_to_step01_func_free()
 {    
     Loading_page_set();
-    var country_code = null;
+    // var country_code = null;
     
-    var get_data = await $.getJSON('http://ipinfo.io/' + userip);
+    // var get_data = await $.getJSON('http://ipinfo.io/' + userip);
     
-    allTimeZone.forEach(elment =>
-    {
-        if(elment.Code == get_data.country)
-        {
-            country_code = elment.MobileCode
+    // allTimeZone.forEach(elment =>
+    // {
+    //     if(elment.Code == get_data.country)
+    //     {
+    //         country_code = elment.MobileCode
 
-            $("#countries option").each(function()
-            {
-                if($(this).attr("data-title") == elment.Name)
-                {
-                    $("#countries option[value='"+$(this).attr("value")+"']").attr("selected",true)
-                }
-            });
+    //         $("#countries option").each(function()
+    //         {
+    //             if($(this).attr("data-title") == elment.Name)
+    //             {
+    //                 $("#countries option[value='"+$(this).attr("value")+"']").attr("selected",true)
+    //             }
+    //         });
 
-        }
-    })
+    //     }
+    // })
     
     var get_parent_arr = await GET_DATA_TABLES(database_fixed_link ,'parent');    
     var saved_age_arr  = await GET_DATA_TABLES(database_fixed_link ,'age');    
@@ -350,16 +354,52 @@ async function get_Customer_info_once()
 
     })
     }
-    check_groups();
+    check_groups_free();
     Loading_page_clear();
 }
 
 var choosen_group = '';
+var choosen_date = '';
+var choosen_day = '';
+var choosen_time = '';
+var choosen_lan = '';
 var choosen_group_index = '';
 
-async function send_student_schedule()
+async function go_to_step03_func_free()
 {
     Loading_page_set();
+    
+    if(choosen_group == '')
+    {
+        alert("Choose Group");
+        Loading_page_clear();
+        return false;
+    }
+    if(document.getElementById('flexCheckDefault').checked == false)
+    {
+        Loading_page_clear();
+        $('#flexCheckDefault_label').css("color", "red");
+        return false;
+    }
+
+    var saved_emp_arr  = await GET_DATA_TABLES(database_fixed_link ,'employee');    
+    var cs_emp = []
+    var cs_emp_count = 0
+    var sales_emp = []
+    var sales_emp_count = 0
+
+    saved_emp_arr.forEach(element => {
+        
+        if(element.permission_id == 2)
+        {
+            sales_emp[sales_emp_count] = element;sales_emp_count++;
+        }
+        if(element.permission_id == 3)
+        {
+            cs_emp[cs_emp_count] = element;cs_emp_count++;
+        }
+    })
+  
 
     var get_data_elements_parent_table = [];
     get_data_elements_parent_table[0] = $('#firstnameInput').val()
@@ -375,7 +415,117 @@ async function send_student_schedule()
     get_data_elements_parent_table[10] = ''
     get_data_elements_parent_table[11] = ''
 
-    var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'parent' , 
+    var get_all_parent_table = await GET_DATA_TABLES(database_fixed_link , 'parent')    
+
+
+    if(get_data_elements_parent_table[11] == '')
+    {
+        if(get_all_parent_table && get_all_parent_table !== undefined &&get_all_parent_table.length != 0)
+        {
+            var check_agent = get_all_parent_table[get_all_parent_table.length-1].sales_agent_id;
+            var check_confirm = false;
+
+            if(sales_emp.length == 1)
+            {
+                get_data_elements_parent_table[11] = sales_emp[0].id;
+            }
+            else
+            {
+                sales_emp.forEach(element => {
+
+                    if(check_confirm == true)
+                    {
+    
+                        if(element.id)
+                        {
+                            get_data_elements_parent_table[11] = element.id;
+                           
+                        }
+                        else
+                        {
+                            get_data_elements_parent_table[11] = sales_emp[0].id;
+                            
+                        }
+                    }
+                    if(element.id == check_agent && check_confirm == false)
+                    {    
+                        check_confirm = true;
+                    }
+                })
+                if(check_confirm == false)
+                {
+                    get_data_elements_parent_table[11] = sales_emp[0].id;
+                }
+            }
+
+
+
+        }
+    }
+
+    if(get_data_elements_parent_table[10] == '')
+    {
+        if(get_all_parent_table && get_all_parent_table !== undefined &&get_all_parent_table.length != 0)
+        {
+            var check_agent = get_all_parent_table[get_all_parent_table.length-1].customer_agent_id;
+            var check_confirm = false;
+
+            if(cs_emp.length == 1)
+            {
+                get_data_elements_parent_table[10] = cs_emp[0].id;
+            }
+            else
+            {
+                cs_emp.forEach(element => {
+
+                    if(check_confirm == true)
+                    {
+    
+                        if(element.id)
+                        {
+                            get_data_elements_parent_table[10] = element.id;
+                           
+                        }
+                        else
+                        {
+                            get_data_elements_parent_table[10] = cs_emp[0].id;
+                            
+                        }
+                    }
+                    if(element.id == check_agent && check_confirm == false)
+                    {
+
+                        check_confirm = true;
+                    }
+                })
+
+                if(check_confirm == false)
+                {
+                    get_data_elements_parent_table[10] = cs_emp[0].id;
+                }
+            }
+
+        }
+    }
+
+    var parent_id = '';
+
+    var check_email = false;
+
+    get_all_parent_table.forEach(element=>{
+        if(element.email == $('#emailInput').val())
+        {
+            parent_id = element.id;
+            check_email = true;
+        }
+    })
+
+    if(check_email)
+    {
+
+    }
+    else{
+        var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'parent' , 
         ["name"
         ,"phone"
         ,"email"
@@ -390,10 +540,17 @@ async function send_student_schedule()
         ,"sales_agent_id"
         ],
         get_data_elements_parent_table
-    );
+        );
+        var get_parent_arr_return = await GET_DATA_TABLES(database_fixed_link , 'parent');
+
+        parent_id = get_parent_arr_return[get_parent_arr_return.length-1].id;
+
+    }
 
 
-    var get_parent_arr_return = await GET_DATA_TABLES(database_fixed_link , 'parent');
+
+
+
     var saved_age_arr  = await GET_DATA_TABLES(database_fixed_link ,'age');    
 
     var kid_age =  (new Date()).getFullYear() - new Date($("#birthdate").val()).getFullYear() 
@@ -410,7 +567,7 @@ async function send_student_schedule()
 
     var get_data_elements_student_table = [];
     get_data_elements_student_table[0] = '';
-    get_data_elements_student_table[1] = get_parent_arr_return[get_parent_arr_return.length-1].id;
+    get_data_elements_student_table[1] = parent_id;
     get_data_elements_student_table[2] = 'yes';
     get_data_elements_student_table[3] = 'active';
     get_data_elements_student_table[4] = $('#firstnameInput').val();
@@ -428,7 +585,7 @@ async function send_student_schedule()
     ],
     get_data_elements_student_table
     );
-   
+
     var get_student_arr_return = await GET_DATA_TABLES(database_fixed_link , 'students');
 
     var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'student_groups' , 
@@ -439,7 +596,7 @@ async function send_student_schedule()
     [
         choosen_group,
         get_student_arr_return[get_student_arr_return.length-1].id,
-        ''
+        'active'
     ]
     );
 
@@ -470,14 +627,25 @@ async function send_student_schedule()
           ''
       ]
         );
+
     }
 
 
     Loading_page_clear();
 
+
+
+    $("#done_name").text($('#firstnameInput').val());
+    $("#done_date").text(choosen_date);
+    $("#done_day").text(choosen_day);
+    $("#done_time").text(choosen_time);
+    $("#done_lan").text(choosen_lan);
+
+    return true;
+
 }
 
-function check_groups()
+function check_groups_free()
 {
     $(".scheduletableitem").click(function()
     {
@@ -488,23 +656,39 @@ function check_groups()
         if(index == "2")
         {
             choosen_group = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html();
+            choosen_date = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(2)").html();
+            choosen_day = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(3)").html();
+            choosen_time = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(4)").html();
+            choosen_lan = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(5)").html();
         }
         else if(index == "3")
         {
-            choosen_group =$( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html()
-        }
+            choosen_group = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html();
+            choosen_date = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(2)").html();
+            choosen_day = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(3)").html();
+            choosen_time = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(4)").html();
+            choosen_lan = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(5)").html();        }
         else if(index == "4")
         {
-            choosen_group = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html()
-        }
+            choosen_group = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html();
+            choosen_date = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(2)").html();
+            choosen_day = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(3)").html();
+            choosen_time = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(4)").html();
+            choosen_lan = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(5)").html();        }
         else if(index == "5")
         {
-            choosen_group = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html()
-        }
+            choosen_group = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html();
+            choosen_date = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(2)").html();
+            choosen_day = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(3)").html();
+            choosen_time = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(4)").html();
+            choosen_lan = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(5)").html();        }
         else if(index == "6")
         {
-            choosen_group = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html()
-        }
+            choosen_group = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html();
+            choosen_date = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(2)").html();
+            choosen_day = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(3)").html();
+            choosen_time = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(4)").html();
+            choosen_lan = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(5)").html();        }
 
     }
     );
