@@ -411,6 +411,20 @@ a{
                     </div>
                     
                   </li>
+
+                  <li class="mb-1" id="del_system_id">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#delete-collapse" aria-expanded="false">
+                        Delete System
+                    </button>
+                    <div class="collapse" id="delete-collapse">
+                      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" id="delete_parent" class="link-dark rounded">Delete Parent</a></li>
+
+                      </ul>
+                    </div>
+                  </li>
+
+
                   <li class="mb-1" id="admin_group_id">
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Groups-collapse" aria-expanded="false">
                       Admin Groups
@@ -588,6 +602,7 @@ a{
       <script   src="Assign_cs.js" ></script>
       <script   src="sales_calls.js" ></script>
       <script   src="assign_sales.js" ></script>
+      <script   src="delete_func.js" ></script>
 
       <script src="js/dd.min.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
@@ -603,9 +618,14 @@ a{
       <script>
 
 // var database_fixed_link = "fetch.php";
-// var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
-var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
-// var database_fixed_link = "https://operation.ischool-edu.com/fetch.php";
+var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
+// var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
+
+// var database_fixed_link_history = "fetch_history.php";
+var database_fixed_link_history = "http://localhost/ischool/ischool-crm/fetch_history.php";
+// var database_fixed_link_history = "http://localhost/ischool-crm/fetch_history.php";
+
+
 
 var time_out = 1000;
 var time_out_retries = 100000;
@@ -972,15 +992,27 @@ var  passInput = document.getElementById("password");
         ASSGIN_Sales_AGENT();
       }); 
 
+      $('#delete_parent').click(function () {
+        clear_all_selected();
+        $('#delete_parent').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Delete Parent</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        DELETE_PARENT();
+      }); 
+
+      
       
     }); 
     
 
     function clear_all_selected()
-      {
+      {    
+
         $('#calls_sales').css('background', 'white').css('color','#008CBA');
+        $('#del_arr_system').css('background', 'white').css('color','#008CBA');
         $('#calls_assign_sales').css('background', 'white').css('color','#008CBA');
         $('#calls_assign').css('background', 'white').css('color','#008CBA');
+        $('#delete_parent').css('background', 'white').css('color','#008CBA');
         $('#calls').css('background', 'white').css('color','#008CBA');
         $('#call_status').css('background', 'white').css('color','#008CBA');
         $('#call_type').css('background', 'white').css('color','#008CBA');

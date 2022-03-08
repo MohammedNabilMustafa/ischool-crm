@@ -21,9 +21,13 @@ var arr_system = [
     
 ]
 
+var del_arr_system = [
+    'del_system_id', //1
+    "delete_parent", //2
 
+    
+]
 
-calls
 var arr_admin_group = [
     "admin_group_id",
     "groups",
@@ -196,7 +200,7 @@ async function login_page_check_auto(user , pass)
 
 
 
-function login_success(user_info)
+async function login_success(user_info)
 {
 
 
@@ -222,9 +226,10 @@ function login_success(user_info)
     }
 
     clear_all_selected();
-    $('#add_parent').css('background', '#008CBA').css('color','white');
-    document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Parents </h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
-    ADD_NEW_PARENT();
+    $('#delete_parent').css('background', '#008CBA').css('color','white');
+
+    document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Delete Parent</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+    await DELETE_PARENT();
 
 }
 
@@ -287,6 +292,7 @@ function CS_permission()
     Hide_Element(arr_admin_fin[0]);
     Hide_Element(arr_admin_students[0]);
     Hide_Element(arr_admin_group[0]);
+    Hide_Element(del_arr_system);
     Hide_Element(arr_admin_parent[0]);
     Hide_Element(arr_system[3]);
     Hide_Element(arr_system[4]);
@@ -303,7 +309,9 @@ function CS_permission()
 
 function Sales_permission()
 {
+    del_arr_system
     Hide_Element(login_page);
+    Hide_Element(del_arr_system);
     Show_Element(all_countainer);
     Hide_Element(arr_admin_fin[0]);
     Hide_Element(arr_admin_students[0]);

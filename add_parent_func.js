@@ -1003,18 +1003,23 @@ Not Registered
 
                         
                     var return_data = []
+                    var counter_ret = 0;
+
                     if(All_table_obj.tables[18] && All_table_obj.tables[18] !== undefined && All_table_obj.tables[18].length != 0)
                     {
-                        var counte_package = 0;
                         for(var index_1 = 0 ; index_1 < return_data_id.length; index_1 ++)
                         {
+
                             var all_student_package = []
+                            var counte_package = 0;
+
                             for(var index_2 = 0 ; index_2 < All_table_obj.tables[18].length; index_2++)
                             {
                                 var package_arr = [];
 
                                 if(All_table_obj.tables[18][index_2].student_id == return_data_id[index_1])
                                 {
+
                                     package_arr[0] = All_table_obj.tables[18][index_2].id;
 
                                     if(All_table_obj.tables[19] && All_table_obj.tables[19] !== undefined && All_table_obj.tables[19].length != 0)
@@ -1044,7 +1049,6 @@ Not Registered
                                                     All_table_obj.tables[20].forEach(element => {
 
 
-                                                        // console.log(element.package_id)
                                                         if(All_table_obj.tables[18][index_2].id == element.package_id)
                                                         {
                                                             package_arr[7][0] += Number(element.qouta);
@@ -1073,11 +1077,6 @@ Not Registered
 
                                                     package_arr[6] = inv_arr;
                                                 }
-
-
-
-                                                // package_arr_status
-
                                                 break;
                                             }
                                         }
@@ -1087,7 +1086,7 @@ Not Registered
                                 }
                             }
 
-                            return_data[index_1] = all_student_package;
+                            return_data[counter_ret] = all_student_package;counter_ret++;
                         }
 
                     }
@@ -1556,6 +1555,9 @@ function createTable_pop_up(All_data_obj , index_st) {
                         "</thead>";
                 // for(var i=0; i<dataArray.length; i++) {
 
+                if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-3][0].length)
+                {
+
                     for(var index = 0 ; index < Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-3][0].length ; index++)
                     {
                         result += "<tr>";
@@ -1597,17 +1599,20 @@ function createTable_pop_up(All_data_obj , index_st) {
                     if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index] && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index] !== undefined && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index].length != 0)
                     {
                         var count_pack = 1;
-                        for(var index_pac = 0 ; index_pac < Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index].length ; index_pac++)
+                        if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index].length)
                         {
-                            if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac] && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac] !== undefined && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac].length != 0){
+                            for(var index_pac = 0 ; index_pac < Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index].length ; index_pac++)
+                            {
+                                if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac] && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac] !== undefined && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac].length != 0){
 
-                                result += `<label style='color:blue'>Package  ${count_pack} </label><br>ID :`+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][0] + `<br>`; 
-                                result += `Name : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][1] + `<br>`; 
-                                result += `Quota : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][2] + `<br>`; 
-                                result += `Fees : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][3] + `<br>`; 
-                                result += `Discount : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][4] + `<br>`; 
-                                result += `Paid As : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][5] + `<br><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" /><br>`; 
-                                count_pack++;
+                                    result += `<label style='color:blue'>Package  ${count_pack} </label><br>ID :`+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][0] + `<br>`; 
+                                    result += `Name : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][1] + `<br>`; 
+                                    result += `Quota : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][2] + `<br>`; 
+                                    result += `Fees : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][3] + `<br>`; 
+                                    result += `Discount : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][4] + `<br>`; 
+                                    result += `Paid As : `+Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][5] + `<br><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" /><br>`; 
+                                    count_pack++;
+                                }
                             }
                         }
                     }
@@ -1633,55 +1638,57 @@ function createTable_pop_up(All_data_obj , index_st) {
                         var Total_ar = 0;
                         var Total_ar_inv = 0;
 
-                        for(var index_pac = 0 ; index_pac < Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index].length ; index_pac++)
+                        if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index].length)
                         {
-                            Total_t +=Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][7][0];
-                            Total_d +=Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][7][1];
-                            Total_w +=Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][7][2];
-                            Total_f +=Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][7][3];
-                            Total_ar +=Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][7][4];
-
-                            
-                            for(var index_inv= 0 ; index_inv < Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6].length ; index_inv++)
+                            for(var index_pac = 0 ; index_pac < Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index].length ; index_pac++)
                             {
 
-                                Total_t_inv++;
+                                    Total_t +=Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][7][0];
+                                    Total_d +=Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][7][1];
+                                    Total_w +=Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][7][2];
+                                    Total_f +=Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][7][3];
+                                    Total_ar +=Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][7][4];
+                                
 
-                                if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'done')
-                                Total_d_inv++;
-                                if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'waiting')
-                                Total_w_inv++;
-                             
-                                if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'refund')
-                                Total_f_inv++;
+                                    for(var index_inv= 0 ; index_inv < Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6].length ; index_inv++)
+                                    {
 
-                                if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'ar-refund')
-                                Total_ar_inv++;
+                                        Total_t_inv++;
+                                        if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'done')
+                                        Total_d_inv++;
+                                        if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'waiting')
+                                        Total_w_inv++;
+                                    
+                                        if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'refund')
+                                        Total_f_inv++;
 
+                                        if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'ar-refund')
+                                        Total_ar_inv++;
+
+                                    }
+                                
                             }
                         }
 
-                        result += `Total-Quota: ${Total_t} | Inv : ${Total_t_inv} <br> `;
-                        result += `Done-Quota: ${Total_d} | Inv : ${Total_d_inv} <br> `;
-                        result += `Waiting-Quota: ${Total_w} | Inv : ${Total_w_inv} <br> `;
-                        result += `Refund-Quota: ${Total_f} | Inv : ${Total_f_inv} <br> `;
-                        result += `AR-Refund-Quota: ${Total_ar} | Inv : ${Total_ar_inv} <br> `;
+                        result += `Total: ${Total_t} | Inv : ${Total_t_inv} <br> `;
+                        result += `Done: ${Total_d} | Inv : ${Total_d_inv} <br> `;
+                        result += `Waiting: ${Total_w} | Inv : ${Total_w_inv} <br> `;
+                        result += `Refund: ${Total_f} | Inv : ${Total_f_inv} <br> `;
+                        result += `AR-Refund: ${Total_ar} | Inv : ${Total_ar_inv} <br> `;
                         result += `<hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`; 
 
 
                         for(var index_pac = 0 ; index_pac < Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index].length ; index_pac++)
                         {
+
                             if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac] && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac] !== undefined && Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac].length != 0){
 
-  
-
-
+                                
                                 for(var index_inv= 0 ; index_inv < Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6].length ; index_inv++)
                                 { 
-
                                         result += `<label style='color:gray'>${index_inv+1}- ID: ${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].id} |
-                                        Due: ${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].due_date}  <br>
-                                        Stu: `
+                                        ${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].due_date}  <br>
+                                        S: `
                                         if(Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status == 'done')
                                         result +=`<label style='color:green'>${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].status} </label> `
                                        
@@ -1696,14 +1703,15 @@ function createTable_pop_up(All_data_obj , index_st) {
  
                                         
                                         result +=` |
-                                        Qt: ${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].qouta}  | 
-                                        P-ID: ${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].package_id}  </label><br>`; 
+                                        Q: ${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].qouta}  | 
+                                        P: ${Object.values(dataArray[index_st])[Object.values(dataArray[index_st]).length-2][8][index][index_pac][6][index_inv].package_id}  </label><br>`; 
 
                                 }
-                                
+                            
                                 result += `<hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`; 
                             }
                         }
+                    
                     }
                     else
                     {
@@ -1733,6 +1741,8 @@ function createTable_pop_up(All_data_obj , index_st) {
                     result += "</tr>";
 
                     }
+                }
+                
                   
             //   }
                  

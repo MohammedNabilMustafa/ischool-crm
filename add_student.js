@@ -923,18 +923,26 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
 
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].free_session_status; counter_col++;
 
+            var check_status = false;
+
+
             if(saved_status_arr && saved_status_arr !== undefined && saved_status_arr.length != 0)
             {
                 for(var index___ = 0 ; index___ < saved_status_arr.length ; index___++)
                 {
                     if(saved_status_arr[index___][0] == All_table_obj.tables[1][index].std_status)
                     {
+                        check_status = true;
                         create_new_tabl_col[counter_col] = saved_status_arr[index___][2];counter_col++;
                         break;
                     }
                 }
             }
 
+            if(check_status == false)
+            {
+                create_new_tabl_col[counter_col] = 'No Status';counter_col++;
+            }
             
             // create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].std_status; counter_col++;
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].age; counter_col++;
@@ -942,23 +950,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
 
             var check_sales = false;
             var check_cs = false;
-            All_table_obj.tables[0].forEach(element_pt => {
-                
-                if(All_table_obj.tables[1][index].parent_id == element_pt.id)
-                {
-                    All_table_obj.tables[10].forEach(element_emp => {
-                        if(element_pt.customer_agent_id == element_emp.id)
-                        {
-                            create_new_tabl_col[counter_col] = element_emp.name;counter_col++;check_cs=true;
-                        }
-                    });
-                }
-            });
-            
-            if(check_cs == false)
-            {
-                create_new_tabl_col[counter_col] = "No Agent";counter_col++ 
-            }
+
 
             All_table_obj.tables[0].forEach(element_pt => {
                 
@@ -978,6 +970,25 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
                 create_new_tabl_col[counter_col] = "No Agent";counter_col++ 
             }
 
+            All_table_obj.tables[0].forEach(element_pt => {
+                
+                if(All_table_obj.tables[1][index].parent_id == element_pt.id)
+                {
+                    All_table_obj.tables[10].forEach(element_emp => {
+                        if(element_pt.customer_agent_id == element_emp.id)
+                        {
+                            create_new_tabl_col[counter_col] = element_emp.name;counter_col++;check_cs=true;
+                        }
+                    });
+                }
+            });
+            
+            if(check_cs == false)
+            {
+                create_new_tabl_col[counter_col] = "No Agent";counter_col++ 
+            }
+
+            
             var count_all= 0;
             var all_created= 0;
             var count_comp= 0;

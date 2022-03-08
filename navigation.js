@@ -1660,7 +1660,6 @@ function student_package()
   Add_Section(All_data_obj);
 }
 
-
 function invoice_status()
 {
   Loading_page_set();

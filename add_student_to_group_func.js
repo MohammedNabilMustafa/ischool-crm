@@ -471,30 +471,40 @@ function return_func(All_table_obj , func  , All_req_obj, arr_data , paper_input
             if(All_table_obj.tables[10][index].student_id == value_elments && All_table_obj.tables[10][index].status == "active" )
             {
 
-                arr_data[10].index_num = All_table_obj.tables[10][index].id;
-                var COL_DATA =  "timestamp='"+ Todate(new Date())[0] +"',status=''";
+                if (confirm("You Sure you want to change group without change sessions ?") == true) {
 
-                arr_data[10].callbackfunc = function(All_data_obj , response)
-                {
-                    // get_paper_tables(All_req_obj ,quary_tables_all_paper_student_groups,create_table_student_group_customized , 5 , 2);
-                    var value_elments = [];
+                    arr_data[10].index_num = All_table_obj.tables[10][index].id;
+                    var COL_DATA =  "timestamp='"+ Todate(new Date())[0] +"',status=''";
 
-                    for(var index = 0 ;index < paper_inputs.length ; index++)
-                    {
-                    value_elments[index] = document.getElementById(paper_inputs[index] ).value;
-                    }
-                    value_elments[paper_inputs.length] = 'active'
-            
                     arr_data[10].callbackfunc = function(All_data_obj , response)
                     {
-                        // alert(response , "success");
-                        ADD_STUDENT_TO_GROUP();
-                    };
-                    add_one_data_from_database(arr_data[10] , value_elments);
-                }
-                update_one_data_from_database(arr_data[10] , COL_DATA);
+                        // get_paper_tables(All_req_obj ,quary_tables_all_paper_student_groups,create_table_student_group_customized , 5 , 2);
+                        var value_elments = [];
 
-                check_active_flag = true;
+                        for(var index = 0 ;index < paper_inputs.length ; index++)
+                        {
+                        value_elments[index] = document.getElementById(paper_inputs[index] ).value;
+                        }
+                        value_elments[paper_inputs.length] = 'active'
+                
+                        arr_data[10].callbackfunc = function(All_data_obj , response)
+                        {
+                            alert(response , "success");
+                            ADD_STUDENT_TO_GROUP();
+
+                        };
+                        add_one_data_from_database(arr_data[10] , value_elments);
+                    }
+                    update_one_data_from_database(arr_data[10] , COL_DATA);
+
+                    check_active_flag = true;
+                }
+                else
+                {
+                    Loading_page_clear();
+                    return;
+                }
+
                 }
             
             }
@@ -779,17 +789,19 @@ function quary_tables_all_status_add_student(All_table_obj , func)
                         {
                             var check_av = false;
 
-                            for(var index = 0 ;index < saved_group_arr.length ; index++)
-                            {
-                                if(saved_group_arr[index][0] != undefined && saved_group_arr[index][2] == age_req)
+                            // for(var index = 0 ;index < saved_group_arr.length ; index++)
+                            // {
+                                if(saved_group_arr[index_][0] != undefined && saved_group_arr[index_][2] == age_req)
                                 {
                                     check_av = true;
                                     $('#group_input').append(`<option value="${seached_cols[0]}"
                                     > ${seached_cols[9]}-${seached_cols[5]}-`+All_table_obj.tables[8][index_].id+` | ${seached_cols[8]}-${seached_cols[2]} | ${seached_cols[7]}-${seached_cols[3]} | `+counter__+`-St | ${counter___ses}-Se</option>`);  
                     
                                     $('#student_number').append(`<option value="${seached_cols[0]}">`+counter__+`  </option>`);  
+
+                                    console.log()
                                 }
-                            }
+                            // }
                             if(check_av == true)
                             {
                                 $('#group_input').append(`<option value="">Waiting List</option>`); 
