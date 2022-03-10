@@ -125,69 +125,36 @@ async function add_one_data_from_database_doAjax(All_data_obj , all_elements_val
 }
 
 
-async function GET_DATA_TABLES(Database_link , Table_name)
+async function add_one_data_from_database_doAjax_for_delete(All_data_obj , all_elements_value )
 {
-    const All_req_obj = {};
-    All_req_obj.Database_link = Database_link;
-    All_req_obj.table_ =  Table_name;
+  var Cols_names = database_col_parse_add_delete(All_data_obj.inputs_col_);
 
-    var result = await get_all_data_from_database_doAjax(All_req_obj);
+  var arr = {};
+  for(var index = 0 ; index < all_elements_value.length; index++)
+  {
+    arr["input"+(index+1)] = all_elements_value[index]
+  }
 
-    return JSON.parse(result);
-
+  let result;
+  try {
+    result = await   $.ajax({
+      url: All_data_obj.Database_link,
+      type: "post",
+      data: {
+              status: 'Add' ,
+              table: All_data_obj.table_ ,
+              cols: Cols_names,
+              cols_data: arr
+                            
+            }
+    });
+      return result;
+    }
+    catch (error)
+    {
+      console.error(error);
+    }
 }
-
-async function GET_DATA_TABLES_ONE_COL(Database_link , Table_name , Col_num)
-{
-
-    const All_req_obj = {};
-    All_req_obj.Database_link = Database_link;
-    All_req_obj.table_ =  Table_name;
-    All_req_obj.index_num = Col_num;
-    var result = await get_one_data_from_database_doAjax(All_req_obj);
-    return JSON.parse(result);
-    
-}
-
-async function UPDATE_DATA_TABLES_ONE_COL(Database_link , Table_name , Col_num , COL_DATA )
-{
-
-    const All_req_obj = {};
-    All_req_obj.Database_link = Database_link;
-    All_req_obj.table_ =  Table_name;
-    All_req_obj.index_num = Col_num;
-    var result = await update_one_data_from_database_doAjax(All_req_obj , COL_DATA);
-
-    return result;
-            
-}
-
-async function DELETE_DATA_TABLES_ONE_COL(Database_link , Table_name , Col_num )
-{
-
-    const All_req_obj = {};
-    All_req_obj.Database_link = Database_link;
-    All_req_obj.table_ =  Table_name;
-    All_req_obj.index_num = Col_num;
-    var result = await delete_one_data_from_database_doAjax(All_req_obj );
-
-    return result;
-            
-}
-
-async function ADD_DATA_TABLES_ONE_COL(Database_link , Table_name , Table_Col , Table_data )
-{
-
-    const All_req_obj = {};
-    All_req_obj.Database_link = Database_link;
-    All_req_obj.table_ =  Table_name;
-    All_req_obj.inputs_col_ = Table_Col;
-    var result = await add_one_data_from_database_doAjax(All_req_obj , Table_data);
-
-    return result;
-            
-}
-
 
 
 

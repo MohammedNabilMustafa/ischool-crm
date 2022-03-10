@@ -226,10 +226,10 @@ async function login_success(user_info)
     }
 
     clear_all_selected();
-    $('#delete_parent').css('background', '#008CBA').css('color','white');
+    $('#calls').css('background', '#008CBA').css('color','white');
 
-    document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Delete Parent</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
-    await DELETE_PARENT();
+    document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Customer Support Calls</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+    ADD_Customer_call();
 
 }
 

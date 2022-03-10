@@ -162,6 +162,19 @@ function database_col_parse_add(database_col)
 
 }
 
+function database_col_parse_add_delete(database_col)
+{
+  var values = "(";
+  for(var index = 0 ; index < database_col.length-1 ; index ++)
+  {
+      values += database_col[index]+",";
+  }
+  values += database_col[database_col.length-1]+")";
+
+  return values;
+
+}
+
 function Search_for_value(Check_Data , searchtext)
 {
    var ar = [];

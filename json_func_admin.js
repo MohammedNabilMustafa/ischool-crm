@@ -60,3 +60,18 @@ async function ADD_DATA_TABLES_ONE_COL(Database_link , Table_name , Table_Col , 
     return result;
             
 }
+
+async function ADD_DATA_TABLES_ONE_COL_FOR_DELETE(Database_link , Table_name , Table_Col , Table_data )
+{
+
+    Table_data[0] = Number(Table_data[0]);
+
+    const All_req_obj = {};
+    All_req_obj.Database_link = Database_link;
+    All_req_obj.table_ =  Table_name;
+    All_req_obj.inputs_col_ = Table_Col;
+    var result = await add_one_data_from_database_doAjax_for_delete(All_req_obj , Table_data);
+
+    return result;
+            
+}

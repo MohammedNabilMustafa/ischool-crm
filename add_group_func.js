@@ -44,7 +44,7 @@ function ADD_NEW_GROUP_FUNC()
                 , "email" 
                 , "zoomlink" 
                 , "username" 
-                , "password" 
+                , "password_value" 
                 , "permission_id" 
                 , "department_id" 
                 , "role_id" 
@@ -272,12 +272,23 @@ function add_new_Groups_func(All_req_obj,paper_inputs)
                     for(var index = 0 ; index < All_table_obj.tables[9].length ; index++)
                     {
 
-                        if(All_table_obj.tables[8][index_].id == All_table_obj.tables[9][index].groups_id)
+                        console.log(All_table_obj.tables[8][index_].id);
+                        console.log(All_table_obj.tables[9][index].groups_id);
+                        console.log('---');
+
+                        if(Number(All_table_obj.tables[8][index_].id)== Number(All_table_obj.tables[9][index].groups_id))
                         {
                             saved_index = index;
                         }
                     }
-                    students_cols[index_] = All_table_obj.tables[9][saved_index].student_id;
+                    if(saved_index == -1)
+                    {
+                        students_cols[index_] = 0;
+                    }
+                    else
+                    {
+                        students_cols[index_] = All_table_obj.tables[9][saved_index].student_id;
+                    }
 
                 }    
             }

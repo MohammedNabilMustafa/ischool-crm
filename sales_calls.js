@@ -1621,6 +1621,7 @@ function create_table_sales_custom(all_tables , check_val , ret_manual , index_s
 {
     Loading_page_clear();
 
+    console.log(all_tables);
     var inputs_names_search = [
         ''
         ,'Time Stamp :'

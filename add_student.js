@@ -1659,7 +1659,7 @@ function createTable_pop_up_students(All_data_obj , All_req_obj  , End_Index) {
     div.innerHTML = result;
     for(var index = 0 ; index < dataArray.length ; index++)
     {
-        $('#send_att_feed'+index).click(function () {  
+        $('#send_att_feed'+index).click(async function () {  
 
             var id = this.id;
             var ret = id.replace('send_att_feed','');
@@ -1668,7 +1668,11 @@ function createTable_pop_up_students(All_data_obj , All_req_obj  , End_Index) {
                 dataArray[ret][3] = document.getElementById('att_id_'+ret).value;
                 dataArray[ret][4] = document.getElementById('feed_id_'+ret).value;
 
-                update_studnet_att_students(dataArray[ret] , dataArray , All_req_obj , ret , End_Index)
+                var COL_DATA =  "attendance='"+dataArray[ret][3]+"' , feedback='"+dataArray[ret][4]+"'";
+
+                var res = await UPDATE_DATA_TABLES_ONE_COL(database_fixed_link , 'att_feed' , dataArray[ret][12]  , COL_DATA);
+                ADD_NEW_STUDENT();
+
             }
             else{
 
@@ -1817,8 +1821,7 @@ function update_studnet_att_students(value_elments , students_arr , All_req_obj 
                     All_req_obj.called_table = called_table
 
 
-                    get_all_data_arr(All_req_obj ,quary_tables_all_status_students_check,'' , time_out , 5);
-                    get_all_data_arr(All_req_obj ,quary_tables_all__student,create_paper_table_parent_students , time_out , 6);
+
 
 
             };

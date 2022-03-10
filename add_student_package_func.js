@@ -49,6 +49,12 @@ function ADD_STUDENT_TO_PACKAGE(response)
     [
         "student_id"
         ,"package_id"
+    ],
+    [
+        "student_id" 
+    ,"session_id" 
+    ,"attendance" 
+    ,"feedback" 
     ]
   ];
 
@@ -56,7 +62,8 @@ var called_table = [
       'students',
       'package',
       'invoice',
-      "student_package"
+      "student_package",
+      "att_feed",
   ];
 
 var paper_inputs = [
@@ -329,10 +336,10 @@ function html_create_lists_add_student_package(paper_inputs , paper_inputs_label
 
     document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
 
-    for(var index = 0 ; index < paper_inputs.length ; index++)
-    {
-        paper_inner_1_package(paper_inputs[index] , paper_inputs_label[index]);
-    }
+
+        paper_inner_1_package(paper_inputs[0] , paper_inputs_label[0]);
+        paper_inner_2_package(paper_inputs[1] , paper_inputs_label[1]);
+    
     document.getElementById(location_).innerHTML +=`<label>Paid Date :</label><input id='paid_date_id' type='date'/>`;
 
     document.getElementById(location_).innerHTML +=`</div></div>`;
@@ -685,6 +692,7 @@ function quary_tables_all_status_add_student_package(All_table_obj , func)
             for(var index_ = 0 ; index_ < All_table_obj.tables[0].length ; index_++)
             {
                 var package_id_search = 'No Package';
+                var package_id_count= 0;
                 if(All_table_obj.tables[3] && All_table_obj.tables[3] !== undefined && All_table_obj.tables[3].length != 0)
                 {
                     for(var index = 0 ; index < All_table_obj.tables[3].length ; index++)
@@ -692,13 +700,63 @@ function quary_tables_all_status_add_student_package(All_table_obj , func)
                         if((All_table_obj.tables[0][index_].id == All_table_obj.tables[3][index].student_id))
                         {
                             package_id_search = All_table_obj.tables[3][index].package_id;
+                            package_id_count++;
                         }
                     }
                 }
 
+                var T = 0;
+                var D = 0;
+                var W = 0;
+                var F = 0;
+                var AF = 0;
+                All_table_obj.tables[2].forEach(element => {
+                    
+                    if(All_table_obj.tables[0][index_].id ==  element.student_id)
+                    {
+                        T+= Number(element.qouta);
+                    }
+                    if(All_table_obj.tables[0][index_].id ==  element.student_id && element.status == 'done')
+                    {
+                        D+= Number(element.qouta);
+                    }
+                    if(All_table_obj.tables[0][index_].id ==  element.student_id && element.status == 'waiting')
+                    {
+                        W+= Number(element.qouta);
+                    }
+                    if(All_table_obj.tables[0][index_].id ==  element.student_id && element.status == 'refund')
+                    {
+                        F+= Number(element.qouta);
+                    }
+                    if(All_table_obj.tables[0][index_].id ==  element.student_id && element.status == 'ar-refund')
+                    {
+                        AF+= Number(element.qouta);
+                    }
+                });
 
+                var TO = 0;
+                var AT = 0;
+                var AB = 0;
+
+                All_table_obj.tables[4].forEach(element => {
+                    
+                    if(All_table_obj.tables[0][index_].id ==  element.student_id)
+                    {
+                        TO+= Number(element.qouta);
+                    }
+                    if(All_table_obj.tables[0][index_].id ==  element.student_id && element.attendance == 'YES')
+                    {
+                        AT+= Number(element.qouta);
+                    }
+                    if(All_table_obj.tables[0][index_].id ==  element.student_id && element.attendance == 'NO')
+                    {
+                        AB+= Number(element.qouta);
+                    }
+
+                });
+                
                 $('#student_input').append(`<option value="${All_table_obj.tables[0][index_].id}"
-                >${All_table_obj.tables[0][index_].id} - ${All_table_obj.tables[0][index_].std_id} - ${All_table_obj.tables[0][index_].name} - ${package_id_search}   </option>`);  
+                >(ID:${All_table_obj.tables[0][index_].id}) - (SID${All_table_obj.tables[0][index_].std_id}) - (NM:${All_table_obj.tables[0][index_].name}) - (PAC:${package_id_search})- (${package_id_count}) - (${T}|${D}|${W}|${F}|${AF})  </option>`);  
             }
         }
 
@@ -728,6 +786,13 @@ function paper_inner_1_package (paper_ , title)
   </select>` ;
 }
 
+function paper_inner_2_package (paper_ , title)
+{
+  document.getElementById("Location_1").innerHTML += `<label for="`+paper_+`">`+title+`:</label>
+  <select class='col-6 select2' name="`+paper_+`" id="`+paper_+`">
+  <option value=""></option>
+  </select>` ;
+}
 /* <select id="select-state" placeholder="Pick a state..."></select> */
 
 

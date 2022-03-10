@@ -791,15 +791,14 @@ function quary_tables_all_status_add_student(All_table_obj , func)
 
                             // for(var index = 0 ;index < saved_group_arr.length ; index++)
                             // {
-                                if(saved_group_arr[index_][0] != undefined && saved_group_arr[index_][2] == age_req)
+
+                                if(saved_groups_arr[index_][0] != undefined && saved_groups_arr[index_][9] == age_req)
                                 {
                                     check_av = true;
                                     $('#group_input').append(`<option value="${seached_cols[0]}"
                                     > ${seached_cols[9]}-${seached_cols[5]}-`+All_table_obj.tables[8][index_].id+` | ${seached_cols[8]}-${seached_cols[2]} | ${seached_cols[7]}-${seached_cols[3]} | `+counter__+`-St | ${counter___ses}-Se</option>`);  
                     
                                     $('#student_number').append(`<option value="${seached_cols[0]}">`+counter__+`  </option>`);  
-
-                                    console.log()
                                 }
                             // }
                             if(check_av == true)

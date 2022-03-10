@@ -1549,7 +1549,6 @@ function createTable_pop_up(All_data_obj , index_st) {
                    result +="<th scope='col'>Packages Info </th>";
                    result +="<th scope='col'>Invoices Info </th>";
                    result +="<th scope='col'>Sessions Info </th>";
-                   result +="<th scope='col'>Calls Info </th>";
 
               result += "</tr>"+
                         "</thead>";

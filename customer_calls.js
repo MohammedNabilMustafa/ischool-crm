@@ -14,7 +14,6 @@ async function ADD_Customer_call()
     var call_type_arr = await GET_DATA_TABLES(database_fixed_link , "call_type" );
     var cat_arr = await GET_DATA_TABLES(database_fixed_link , "cat" );
     var close_arr = await GET_DATA_TABLES(database_fixed_link , "close" );
-    var customer_ser_arr_0 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
     var employee_arr = await GET_DATA_TABLES(database_fixed_link , "employee" );
 
 
@@ -57,6 +56,7 @@ async function ADD_Customer_call()
 
     if(localStorage.permission == 4)
     {
+        parent_arr_select = parent_arr_all;
         parent_arr = parent_arr_all;
     }
     else
@@ -74,20 +74,48 @@ async function ADD_Customer_call()
         )
     }
 
+    document.getElementById("Location_1").innerHTML +=`<div class='col justify-content-start' style='z-index:0;'>
+    <button type="button" id='all_cust' class="btn btn-info">
+    All Customer
+  </button>
+  <button type="button" id='follow_up' class="btn btn-info">
+  Old Customer
+</button>
+  <button type="button" id='ar' class="btn btn-info">
+  AR Customer
+  </button>
+  <button type="button" id='not_called' class="btn btn-info">
+  New Customer
+  </button>
+  </div> `;
 
 
-    add_select_html("Location_1" , "call_parent_input" , "Parent " , parent_arr_select);
-    add_select_html_students("Location_1" , "call_student_input" , "Student " );
+  document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
 
+  document.getElementById("Location_1").innerHTML +=`</div></div>`;
 
-    
+    document.getElementById("Location_1").innerHTML += `<div ><button class='btn btn-success' style='float:right;' id='send_group'>ADD</button></div>`;
+    document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+
+    add_select_html("Location_1" , "call_parent_input" , "Parent " , parent_arr_select , 9);
+
     document.getElementById("Location_1").innerHTML +=`</div></div>`;
     document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
 
-    add_select_html("Location_1" , "call_type_input" , "Type " , call_type_arr);
-    add_select_html("Location_1" , "call_status_input" , "Status " , call_status_arr);
-    add_select_html("Location_1" , "call_cat_input" , "Category " , cat_arr);
-    add_select_html("Location_1" , "call_closing_input" , "Closing " , close_arr);
+    add_select_html_students("Location_1" , "call_student_input" , "Student " );
+    document.getElementById("Location_1").innerHTML +=`</div></div>`;
+    document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+    add_select_html_invoice("Location_1" , "call_invoice_input" , "Invoices " );
+
+    document.getElementById("Location_1").innerHTML +=`</div></div>`;
+
+    document.getElementById("Location_1").innerHTML +=`</div></div>`;
+    document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+
+    add_select_html("Location_1" , "call_type_input" , "Type " , call_type_arr , 2);
+    add_select_html("Location_1" , "call_status_input" , "Status " , call_status_arr, 2);
+    add_select_html("Location_1" , "call_cat_input" , "Category " , cat_arr, 2);
+    add_select_html("Location_1" , "call_closing_input" , "Closing " , close_arr , 2);
     document.getElementById("Location_1").innerHTML +=`</div></div>`;
     document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
     document.getElementById("Location_1").innerHTML +=`<label> Follow Up Date : <label><input type='date' id='follow_up_date_id' />`;
@@ -100,7 +128,6 @@ async function ADD_Customer_call()
     document.getElementById("Location_1").innerHTML +=`<div class="row col-6"><textarea style='float:right' rows="1" cols="1" id='text_area_id'></textarea ></div>`;
     document.getElementById("Location_1").innerHTML +=`</div></div>`;
 
-    document.getElementById("Location_1").innerHTML += `<div ><button class='btn btn-success' style='float:right;' id='send_group'>ADD</button></div>`;
 
 
     document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
@@ -140,6 +167,28 @@ async function ADD_Customer_call()
 All Follow Up
 </button>
 
+<button type="button" id='follow_up_btn_ar' class="btn btn-danger">
+AR Follow Up
+</button>
+
+<button type="button" id='follow_up_btn_prob' class="btn btn-danger">
+Problem Follow Up
+</button>
+
+<button type="button" id='follow_up_btn_new' class="btn btn-danger">
+New Follow Up
+</button>
+
+<label > Counter : </label><input  id='count_id' value='' readonly/>
+</div> `
+
+document.getElementById("Location_1").innerHTML +=`</div></div>`;
+
+
+
+document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+
+document.getElementById("Location_1").innerHTML +=`<div class='col justify-content-start' style='z-index:0;'>
 <label>Date Type :</label>
 <select id='check_follow_type_id' >
 <option value=''></option> 
@@ -151,12 +200,18 @@ All Follow Up
 <button type="button" id='follow_up_btn_date' class="btn btn-danger">
 Follow Up
 </button>
-<label > Counter : </label><input  id='count_id' value='' readonly/>
+<button type="button" id='follow_up_btn_date_ar' class="btn btn-danger">
+AR Follow Up
+</button>
+<button type="button" id='follow_up_btn_date_prob' class="btn btn-danger">
+Problem Follow Up
+</button>
+<button type="button" id='follow_up_btn_date_new' class="btn btn-danger">
+New Follow Up
+</button>
 </div> `
 
 document.getElementById("Location_1").innerHTML +=`</div></div>`;
-
-  document.getElementById("Location_1").innerHTML +=`</div></div>`;
 
 
   document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
@@ -165,830 +220,57 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
 
   $('.select2').select2();
 
-  if(customer_ser_arr_0 && customer_ser_arr_0 !== undefined && customer_ser_arr_0.length != 0){
-
-  var saved_customer_ser_arr_0 = customer_ser_arr_0;
 
   
-  customer_ser_arr_0.forEach(element => {
+  check_cust('#all_cust' , parent_arr_select);
+  check_cust('#follow_up' , parent_arr_select);
+  check_cust('#ar' , parent_arr_select);
+  check_cust('#not_called' , parent_arr_select);
 
-    if(Number(element.call_id) == 0)
-    {
-        call_status_arr.forEach(Data_ => {
-
-            if(element.call_status_id == Data_.id)
-            {
-                element.call_status_id = Data_.name
-            }
-        });
-        
-        call_type_arr.forEach(Data_ => {
-
-            if(element.call_type_id == Data_.id)
-            {
-                element.call_type_id = Data_.name
-            }
-        });
-
-        cat_arr.forEach(Data_ => {
-
-            if(element.cat_id == Data_.id)
-            {
-                element.cat_id = Data_.name
-            }
-        });
-
-        close_arr.forEach(Data_ => {
-
-            if(element.close_id == Data_.id)
-            {
-                                              if(Data_.name == "Call Closed")
-                              {
-                                element.close_id = `<label style='color:green'>Call Closed</label>`;
-                              }
-                              else if (Data_.name == "Call Follow Up")
-                              {
-                                element.close_id = `<label style='color:red'>Call Follow Up</label>`;  
-                              }
-            }
-        });
-        
-        students_arr_0.forEach(Data_ => {
-
-            if(Number(element.student_id) == 0)
-            {
-                element.student_name = "All"
-                
-            }
-            if(element.student_id == Data_.id)
-            {
-                element.student_id = Data_.id
-                if(Data_.name != "")
-                element.student_name = Data_.name
-                else
-                element.student_name = "No Student Name"
-            }
-        });
-
-
-        parent_arr.forEach(Data_ => {
-
-            if(element.parent_id == Data_.id)
-            {
-                if(Data_.name != "")
-                element.parent_name = Data_.name
-                else
-                element.parent_name = "No Parent Name"
-
-
-                employee_arr.forEach(Data_em => {
-                    if(Data_.customer_agent_id == Data_em.id)
-                    {
-                        element.cs_id = Data_em.id
-                        if(Data_.name != "")
-                        element.cs_name = Data_em.name
-                        else
-                        element.cs_name = "No CS-Agent Assigned"
-                    }
-                });
-                employee_arr.forEach(Data_em => {
-                    if(Data_.sales_agent_id == Data_em.id)
-                    {
-                        element.sales_id = Data_em.id
-                        if(Data_.name != "")
-                        element.sales_name = Data_em.name
-                        else
-                        element.sales_name = "No Sales-Agent Assigned"
-                    }
-                });
-                
-
-
-            }
-        });
-
-
-        var Counter_i = 0 ;
-
-        saved_customer_ser_arr_0.forEach(Data__ => {
-
-            if(element.id == Data__.call_id) 
-            {
-                Counter_i++;
-            }
-        })
-
-        element.calls_count = Counter_i;
-
-        element.related_calls = [];
-        Counter_i = 0;
-        saved_customer_ser_arr_0.forEach(Data__ => {
-    
-            if(element.id == Data__.call_id) 
-            {
-
-                    call_status_arr.forEach(Data_ => {
-            
-                        if(Data__.call_status_id == Data_.id)
-                        {
-                            Data__.call_status_id = Data_.name
-                        }
-                    });
-                    
-                    call_type_arr.forEach(Data_ => {
-            
-                        if(Data__.call_type_id == Data_.id)
-                        {
-                            Data__.call_type_id = Data_.name
-                        }
-                    });
-            
-                    cat_arr.forEach(Data_ => {
-            
-                        if(Data__.cat_id == Data_.id)
-                        {
-                            Data__.cat_id = Data_.name
-                        }
-                    });
-            
-                    close_arr.forEach(Data_ => {
-            
-                        if(Data__.close_id == Data_.id)
-                        {
-                            if(Data_.name == "Call Closed")
-                            {
-                                Data__.close_id = `<label style='color:green'>Call Closed</label>`;
-                            }
-                            else if (Data_.name == "Call Follow Up")
-                            {
-                                Data__.close_id = `<label style='color:red'>Call Follow Up</label>`;  
-                            }
-                        }
-                    });
-                    
-                    parent_arr.forEach(Data_ => {
-            
-                        if(Data__.parent_id == Data_.id)
-                        {
-                            Data__.parent_id = Data_.id
-                            if(Data_.name != "")
-                            Data__.parent_name = Data_.name
-                            else
-                            Data__.parent_name = "No Parent Name"
-                        }
-                    });
-            
-                    students_arr_0.forEach(Data_ => {
-            
-                        if(Data__.student_id == Data_.id)
-                        {
-                            Data__.student_id = Data_.id
-                            if(Data_.name != "")
-                            Data__.student_name = Data_.name
-                            else
-                            Data__.student_name = "No Student Name"
-                        }
-                    });
-
-                    element.related_calls[Counter_i] = Data__
-                    element.close_id = Data__.close_id
-                    element.follow_date = Data__.follow_date
-                    Counter_i++;
-            }
-        });
-    }
-
-  });
-
-  customer_ser_arr_0 = customer_ser_arr_0.filter(value => value.call_id == 0);
-}
-
+  var customer_ser_arr_0 = await Search_for_filter(customer_ser_arr_0);
   create_table_customer_custom(customer_ser_arr_0 , null , null);
 
 
 
   $('#search_btn').click(async function (index) {  
-
     Loading_page_set();
-
-    var customer_ser_arr_1 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
-
-    if(customer_ser_arr_1 && customer_ser_arr_1 !== undefined && customer_ser_arr_1.length != 0){
-
-        var saved_customer_ser_arr_1 = customer_ser_arr_1;
-      
-        customer_ser_arr_1.forEach(element => {
-      
-          if(Number(element.call_id) == 0)
-          {
-              call_status_arr.forEach(Data_ => {
-      
-                  if(element.call_status_id == Data_.id)
-                  {
-                      element.call_status_id = Data_.name
-                  }
-              });
-              
-              call_type_arr.forEach(Data_ => {
-      
-                  if(element.call_type_id == Data_.id)
-                  {
-                      element.call_type_id = Data_.name
-                  }
-              });
-      
-              cat_arr.forEach(Data_ => {
-      
-                  if(element.cat_id == Data_.id)
-                  {
-                      element.cat_id = Data_.name
-                  }
-              });
-      
-              close_arr.forEach(Data_ => {
-      
-                  if(element.close_id == Data_.id)
-                  {
-                                                    if(Data_.name == "Call Closed")
-                              {
-                                element.close_id = `<label style='color:green'>Call Closed</label>`;
-                              }
-                              else if (Data_.name == "Call Follow Up")
-                              {
-                                element.close_id = `<label style='color:red'>Call Follow Up</label>`;  
-                              }
-                  }
-              });
-              
-              students_arr_0.forEach(Data_ => {
-      
-                  if(Number(element.student_id) == 0)
-                  {
-                      element.student_name = "All"
-                      
-                  }
-                  if(element.student_id == Data_.id)
-                  {
-                      element.student_id = Data_.id
-                      if(Data_.name != "")
-                      element.student_name = Data_.name
-                      else
-                      element.student_name = "No Student Name"
-                  }
-              });
-      
-      
-              parent_arr.forEach(Data_ => {
-      
-                  if(element.parent_id == Data_.id)
-                  {
-                      if(Data_.name != "")
-                      element.parent_name = Data_.name
-                      else
-                      element.parent_name = "No Parent Name"
-      
-      
-                      employee_arr.forEach(Data_em => {
-                          if(Data_.customer_agent_id == Data_em.id)
-                          {
-                              element.cs_id = Data_em.id
-                              if(Data_.name != "")
-                              element.cs_name = Data_em.name
-                              else
-                              element.cs_name = "No CS-Agent Assigned"
-                          }
-                      });
-                      employee_arr.forEach(Data_em => {
-                          if(Data_.sales_agent_id == Data_em.id)
-                          {
-                              element.sales_id = Data_em.id
-                              if(Data_.name != "")
-                              element.sales_name = Data_em.name
-                              else
-                              element.sales_name = "No Sales-Agent Assigned"
-                          }
-                      });
-                      
-      
-      
-                  }
-              });
-      
-      
-              var Counter_i = 0 ;
-      
-              saved_customer_ser_arr_1.forEach(Data__ => {
-      
-                  if(element.id == Data__.call_id) 
-                  {
-                      Counter_i++;
-                  }
-              })
-      
-              element.calls_count = Counter_i;
-      
-              element.related_calls = [];
-              Counter_i = 0;
-              saved_customer_ser_arr_1.forEach(Data__ => {
-          
-                  if(element.id == Data__.call_id) 
-                  {
-      
-                          call_status_arr.forEach(Data_ => {
-                  
-                              if(Data__.call_status_id == Data_.id)
-                              {
-                                  Data__.call_status_id = Data_.name
-                              }
-                          });
-                          
-                          call_type_arr.forEach(Data_ => {
-                  
-                              if(Data__.call_type_id == Data_.id)
-                              {
-                                  Data__.call_type_id = Data_.name
-                              }
-                          });
-                  
-                          cat_arr.forEach(Data_ => {
-                  
-                              if(Data__.cat_id == Data_.id)
-                              {
-                                  Data__.cat_id = Data_.name
-                              }
-                          });
-                  
-                          close_arr.forEach(Data_ => {
-                  
-                              if(Data__.close_id == Data_.id)
-                              {
-                                                              if(Data_.name == "Call Closed")
-                            {
-                                Data__.close_id = `<label style='color:green'>Call Closed</label>`;
-                            }
-                            else if (Data_.name == "Call Follow Up")
-                            {
-                                Data__.close_id = `<label style='color:red'>Call Follow Up</label>`;  
-                            }
-                              }
-                          });
-                          
-                          parent_arr.forEach(Data_ => {
-                  
-                              if(Data__.parent_id == Data_.id)
-                              {
-                                  Data__.parent_id = Data_.id
-                                  if(Data_.name != "")
-                                  Data__.parent_name = Data_.name
-                                  else
-                                  Data__.parent_name = "No Parent Name"
-                              }
-                          });
-                  
-                          students_arr_0.forEach(Data_ => {
-                  
-                              if(Data__.student_id == Data_.id)
-                              {
-                                  Data__.student_id = Data_.id
-                                  if(Data_.name != "")
-                                  Data__.student_name = Data_.name
-                                  else
-                                  Data__.student_name = "No Student Name"
-                              }
-                          });
-      
-                          element.related_calls[Counter_i] = Data__
-                          element.close_id = Data__.close_id
-                          element.follow_date = Data__.follow_date
-                          Counter_i++;
-                  }
-              });
-          }
-      
-        });
-      
-        customer_ser_arr_1 = customer_ser_arr_1.filter(value => value.call_id == 0);
-      }
-
+    var customer_ser_arr_1 = await Search_for_filter(customer_ser_arr_1);
     create_table_customer_custom(customer_ser_arr_1 , null , null);
-
     });
-
 
     $('#closed_calls_btn').click(async function (index) {  
-
         Loading_page_set();
-
-        var customer_ser_arr_1 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
-
-        if(customer_ser_arr_1 && customer_ser_arr_1 !== undefined && customer_ser_arr_1.length != 0){
-    
-            var saved_customer_ser_arr_1 = customer_ser_arr_1;
-          
-            customer_ser_arr_1.forEach(element => {
-          
-              if(Number(element.call_id) == 0)
-              {
-                  call_status_arr.forEach(Data_ => {
-          
-                      if(element.call_status_id == Data_.id)
-                      {
-                          element.call_status_id = Data_.name
-                      }
-                  });
-                  
-                  call_type_arr.forEach(Data_ => {
-          
-                      if(element.call_type_id == Data_.id)
-                      {
-                          element.call_type_id = Data_.name
-                      }
-                  });
-          
-                  cat_arr.forEach(Data_ => {
-          
-                      if(element.cat_id == Data_.id)
-                      {
-                          element.cat_id = Data_.name
-                      }
-                  });
-          
-                  close_arr.forEach(Data_ => {
-          
-                      if(element.close_id == Data_.id)
-                      {
-                                                        if(Data_.name == "Call Closed")
-                              {
-                                element.close_id = `<label style='color:green'>Call Closed</label>`;
-                              }
-                              else if (Data_.name == "Call Follow Up")
-                              {
-                                element.close_id = `<label style='color:red'>Call Follow Up</label>`;  
-                              }
-                      }
-                  });
-                  
-                  students_arr_0.forEach(Data_ => {
-          
-                      if(Number(element.student_id) == 0)
-                      {
-                          element.student_name = "All"
-                          
-                      }
-                      if(element.student_id == Data_.id)
-                      {
-                          element.student_id = Data_.id
-                          if(Data_.name != "")
-                          element.student_name = Data_.name
-                          else
-                          element.student_name = "No Student Name"
-                      }
-                  });
-          
-          
-                  parent_arr.forEach(Data_ => {
-          
-                      if(element.parent_id == Data_.id)
-                      {
-                          if(Data_.name != "")
-                          element.parent_name = Data_.name
-                          else
-                          element.parent_name = "No Parent Name"
-          
-          
-                          employee_arr.forEach(Data_em => {
-                              if(Data_.customer_agent_id == Data_em.id)
-                              {
-                                  element.cs_id = Data_em.id
-                                  if(Data_.name != "")
-                                  element.cs_name = Data_em.name
-                                  else
-                                  element.cs_name = "No CS-Agent Assigned"
-                              }
-                          });
-                          employee_arr.forEach(Data_em => {
-                              if(Data_.sales_agent_id == Data_em.id)
-                              {
-                                  element.sales_id = Data_em.id
-                                  if(Data_.name != "")
-                                  element.sales_name = Data_em.name
-                                  else
-                                  element.sales_name = "No Sales-Agent Assigned"
-                              }
-                          });
-                          
-          
-          
-                      }
-                  });
-          
-          
-                  var Counter_i = 0 ;
-          
-                  saved_customer_ser_arr_1.forEach(Data__ => {
-          
-                      if(element.id == Data__.call_id) 
-                      {
-                          Counter_i++;
-                      }
-                  })
-          
-                  element.calls_count = Counter_i;
-          
-                  element.related_calls = [];
-                  Counter_i = 0;
-                  saved_customer_ser_arr_1.forEach(Data__ => {
-              
-                      if(element.id == Data__.call_id) 
-                      {
-          
-                              call_status_arr.forEach(Data_ => {
-                      
-                                  if(Data__.call_status_id == Data_.id)
-                                  {
-                                      Data__.call_status_id = Data_.name
-                                  }
-                              });
-                              
-                              call_type_arr.forEach(Data_ => {
-                      
-                                  if(Data__.call_type_id == Data_.id)
-                                  {
-                                      Data__.call_type_id = Data_.name
-                                  }
-                              });
-                      
-                              cat_arr.forEach(Data_ => {
-                      
-                                  if(Data__.cat_id == Data_.id)
-                                  {
-                                      Data__.cat_id = Data_.name
-                                  }
-                              });
-                      
-                              close_arr.forEach(Data_ => {
-                      
-                                  if(Data__.close_id == Data_.id)
-                                  {
-                                                                  if(Data_.name == "Call Closed")
-                            {
-                                Data__.close_id = `<label style='color:green'>Call Closed</label>`;
-                            }
-                            else if (Data_.name == "Call Follow Up")
-                            {
-                                Data__.close_id = `<label style='color:red'>Call Follow Up</label>`;  
-                            }
-                                  }
-                              });
-                              
-                              parent_arr.forEach(Data_ => {
-                      
-                                  if(Data__.parent_id == Data_.id)
-                                  {
-                                      Data__.parent_id = Data_.id
-                                      if(Data_.name != "")
-                                      Data__.parent_name = Data_.name
-                                      else
-                                      Data__.parent_name = "No Parent Name"
-                                  }
-                              });
-                      
-                              students_arr_0.forEach(Data_ => {
-                      
-                                  if(Data__.student_id == Data_.id)
-                                  {
-                                      Data__.student_id = Data_.id
-                                      if(Data_.name != "")
-                                      Data__.student_name = Data_.name
-                                      else
-                                      Data__.student_name = "No Student Name"
-                                  }
-                              });
-          
-                              element.related_calls[Counter_i] = Data__
-                              element.close_id = Data__.close_id
-                              element.follow_date = Data__.follow_date
-                              Counter_i++;
-                      }
-                  });
-              }
-          
-            });
-          
-            customer_ser_arr_1 = customer_ser_arr_1.filter(value => value.call_id == 0);
-          }
-    
-        create_table_customer_custom(customer_ser_arr_1 , `<label style='color:green'>Call Closed</label>` , null);
+        var customer_ser_arr_1 = await Search_for_filter(customer_ser_arr_1);
+        create_table_customer_custom(customer_ser_arr_1 , [`<label style='color:green'>Call Closed</label>`] , null);
     });
 
-        $('#follow_up_btn').click(async function (index) {  
-            Loading_page_set();
-
-            var customer_ser_arr_1 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
-
-            if(customer_ser_arr_1 && customer_ser_arr_1 !== undefined && customer_ser_arr_1.length != 0){
-        
-                var saved_customer_ser_arr_1 = customer_ser_arr_1;
-              
-                customer_ser_arr_1.forEach(element => {
-              
-                  if(Number(element.call_id) == 0)
-                  {
-                      call_status_arr.forEach(Data_ => {
-              
-                          if(element.call_status_id == Data_.id)
-                          {
-                              element.call_status_id = Data_.name
-                          }
-                      });
-                      
-                      call_type_arr.forEach(Data_ => {
-              
-                          if(element.call_type_id == Data_.id)
-                          {
-                              element.call_type_id = Data_.name
-                          }
-                      });
-              
-                      cat_arr.forEach(Data_ => {
-              
-                          if(element.cat_id == Data_.id)
-                          {
-                              element.cat_id = Data_.name
-                          }
-                      });
-              
-                      close_arr.forEach(Data_ => {
-              
-                          if(element.close_id == Data_.id)
-                          {
-
-                              if(Data_.name == "Call Closed")
-                              {
-                                element.close_id = `<label style='color:green'>Call Closed</label>`;
-                              }
-                              else if (Data_.name == "Call Follow Up")
-                              {
-                                element.close_id = `<label style='color:red'>Call Follow Up</label>`;  
-                              }
-
-
-                          }
-                      });
-                      
-                      students_arr_0.forEach(Data_ => {
-              
-                          if(Number(element.student_id) == 0)
-                          {
-                              element.student_name = "All"
-                              
-                          }
-                          if(element.student_id == Data_.id)
-                          {
-                              element.student_id = Data_.id
-                              if(Data_.name != "")
-                              element.student_name = Data_.name
-                              else
-                              element.student_name = "No Student Name"
-                          }
-                      });
-              
-              
-                      parent_arr.forEach(Data_ => {
-              
-                          if(element.parent_id == Data_.id)
-                          {
-                              if(Data_.name != "")
-                              element.parent_name = Data_.name
-                              else
-                              element.parent_name = "No Parent Name"
-              
-              
-                              employee_arr.forEach(Data_em => {
-                                  if(Data_.customer_agent_id == Data_em.id)
-                                  {
-                                      element.cs_id = Data_em.id
-                                      if(Data_.name != "")
-                                      element.cs_name = Data_em.name
-                                      else
-                                      element.cs_name = "No CS-Agent Assigned"
-                                  }
-                              });
-                              employee_arr.forEach(Data_em => {
-                                  if(Data_.sales_agent_id == Data_em.id)
-                                  {
-                                      element.sales_id = Data_em.id
-                                      if(Data_.name != "")
-                                      element.sales_name = Data_em.name
-                                      else
-                                      element.sales_name = "No Sales-Agent Assigned"
-                                  }
-                              });
-                              
-              
-              
-                          }
-                      });
-              
-              
-                      var Counter_i = 0 ;
-              
-                      saved_customer_ser_arr_1.forEach(Data__ => {
-              
-                          if(element.id == Data__.call_id) 
-                          {
-                              Counter_i++;
-                          }
-                      })
-              
-                      element.calls_count = Counter_i;
-              
-                      element.related_calls = [];
-                      Counter_i = 0;
-                      saved_customer_ser_arr_1.forEach(Data__ => {
-                  
-                          if(element.id == Data__.call_id) 
-                          {
-              
-                                  call_status_arr.forEach(Data_ => {
-                          
-                                      if(Data__.call_status_id == Data_.id)
-                                      {
-                                          Data__.call_status_id = Data_.name
-                                      }
-                                  });
-                                  
-                                  call_type_arr.forEach(Data_ => {
-                          
-                                      if(Data__.call_type_id == Data_.id)
-                                      {
-                                          Data__.call_type_id = Data_.name
-                                      }
-                                  });
-                          
-                                  cat_arr.forEach(Data_ => {
-                          
-                                      if(Data__.cat_id == Data_.id)
-                                      {
-                                          Data__.cat_id = Data_.name
-                                      }
-                                  });
-                          
-                                  close_arr.forEach(Data_ => {
-                          
-                                      if(Data__.close_id == Data_.id)
-                                      {
-                                 if(Data_.name == "Call Closed")
-                                {
-                                    Data__.close_id = `<label style='color:green'>Call Closed</label>`;
-                                }
-                                else if (Data_.name == "Call Follow Up")
-                                {
-                                    Data__.close_id = `<label style='color:red'>Call Follow Up</label>`;  
-                                }
-                                      }
-                                  });
-                                  
-                                  parent_arr.forEach(Data_ => {
-                          
-                                      if(Data__.parent_id == Data_.id)
-                                      {
-                                          Data__.parent_id = Data_.id
-                                          if(Data_.name != "")
-                                          Data__.parent_name = Data_.name
-                                          else
-                                          Data__.parent_name = "No Parent Name"
-                                      }
-                                  });
-                          
-                                  students_arr_0.forEach(Data_ => {
-                          
-                                      if(Data__.student_id == Data_.id)
-                                      {
-                                          Data__.student_id = Data_.id
-                                          if(Data_.name != "")
-                                          Data__.student_name = Data_.name
-                                          else
-                                          Data__.student_name = "No Student Name"
-                                      }
-                                  });
-              
-                                  element.related_calls[Counter_i] = Data__
-                                  element.close_id = Data__.close_id
-                                  element.follow_date = Data__.follow_date
-                                  Counter_i++;
-                          }
-                      });
-                  }
-              
-                });
-              
-                customer_ser_arr_1 = customer_ser_arr_1.filter(value => value.call_id == 0);
-              }
-
-
-        create_table_customer_custom(customer_ser_arr_1 , `<label style='color:red'>Call Follow Up</label>` , null);
+    $('#follow_up_btn').click(async function (index) {  
+        Loading_page_set();
+        var customer_ser_arr_1 = await Search_for_filter(customer_ser_arr_1);
+        create_table_customer_custom(customer_ser_arr_1 , [`<label style='color:red'>Call Follow Up</label>`] , null);
     });
+
+    $('#follow_up_btn_ar').click(async function (index) {  
+        Loading_page_set();
+        var customer_ser_arr_1 = await Search_for_filter(customer_ser_arr_1);
+        create_table_customer_custom(customer_ser_arr_1 , [`<label style='color:red'>Call Follow Up</label>` , "AR"] , null);
+    });
+
+    $('#follow_up_btn_prob').click(async function (index) {  
+        Loading_page_set();
+        var customer_ser_arr_1 = await Search_for_filter(customer_ser_arr_1);
+        create_table_customer_custom(customer_ser_arr_1 , [`<label style='color:red'>Call Follow Up</label>` , "Problem"] , null);
+    });
+
+    $('#follow_up_btn_new').click(async function (index) {  
+        Loading_page_set();
+        var customer_ser_arr_1 = await Search_for_filter(customer_ser_arr_1);
+        create_table_customer_custom(customer_ser_arr_1 , [`<label style='color:red'>Call Follow Up</label>` , "New"] , null);
+    });
+
+    
+
+
     $('#check_follow_type_id').change(function (index) { 
  
 
@@ -1021,226 +303,30 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
 
         if( $('#check_follow_type_id').val() == "")
         {
-            alert('Choose Date type');
+            alert('Choose Date type');Loading_page_clear();
             return;
         }
 
         if($('#follow_up_start_date').val() == "" && $('#check_follow_type_id').val() == "eq")
         {
-            alert('Choose Start Date');
+            alert('Choose Start Date');Loading_page_clear();
             return;
         }
 
         if($('#follow_up_start_date').val() == "" && $('#check_follow_type_id').val() == "co")
         {
-            alert('Choose Start Date');
+            alert('Choose Start Date');Loading_page_clear();
             return;
         }
 
         if($('#follow_up_end_date').val() == "" && $('#check_follow_type_id').val() == "co")
         {
-            alert('Choose End Date');
+            alert('Choose End Date');Loading_page_clear();
             return;
         }
         
-        var customer_ser_arr_1 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
+        var customer_ser_arr_1 = await Search_for_filter(customer_ser_arr_1);
 
-        if(customer_ser_arr_1 && customer_ser_arr_1 !== undefined && customer_ser_arr_1.length != 0){
-    
-            var saved_customer_ser_arr_1 = customer_ser_arr_1;
-          
-            customer_ser_arr_1.forEach(element => {
-          
-              if(Number(element.call_id) == 0)
-              {
-                  call_status_arr.forEach(Data_ => {
-          
-                      if(element.call_status_id == Data_.id)
-                      {
-                          element.call_status_id = Data_.name
-                      }
-                  });
-                  
-                  call_type_arr.forEach(Data_ => {
-          
-                      if(element.call_type_id == Data_.id)
-                      {
-                          element.call_type_id = Data_.name
-                      }
-                  });
-          
-                  cat_arr.forEach(Data_ => {
-          
-                      if(element.cat_id == Data_.id)
-                      {
-                          element.cat_id = Data_.name
-                      }
-                  });
-          
-                  close_arr.forEach(Data_ => {
-          
-                      if(element.close_id == Data_.id)
-                      {
-                                                        if(Data_.name == "Call Closed")
-                              {
-                                element.close_id = `<label style='color:green'>Call Closed</label>`;
-                              }
-                              else if (Data_.name == "Call Follow Up")
-                              {
-                                element.close_id = `<label style='color:red'>Call Follow Up</label>`;  
-                              }
-                      }
-                  });
-                  
-                  students_arr_0.forEach(Data_ => {
-          
-                      if(Number(element.student_id) == 0)
-                      {
-                          element.student_name = "All"
-                          
-                      }
-                      if(element.student_id == Data_.id)
-                      {
-                          element.student_id = Data_.id
-                          if(Data_.name != "")
-                          element.student_name = Data_.name
-                          else
-                          element.student_name = "No Student Name"
-                      }
-                  });
-          
-          
-                  parent_arr.forEach(Data_ => {
-          
-                      if(element.parent_id == Data_.id)
-                      {
-                          if(Data_.name != "")
-                          element.parent_name = Data_.name
-                          else
-                          element.parent_name = "No Parent Name"
-          
-          
-                          employee_arr.forEach(Data_em => {
-                              if(Data_.customer_agent_id == Data_em.id)
-                              {
-                                  element.cs_id = Data_em.id
-                                  if(Data_.name != "")
-                                  element.cs_name = Data_em.name
-                                  else
-                                  element.cs_name = "No CS-Agent Assigned"
-                              }
-                          });
-                          employee_arr.forEach(Data_em => {
-                              if(Data_.sales_agent_id == Data_em.id)
-                              {
-                                  element.sales_id = Data_em.id
-                                  if(Data_.name != "")
-                                  element.sales_name = Data_em.name
-                                  else
-                                  element.sales_name = "No Sales-Agent Assigned"
-                              }
-                          });
-                          
-          
-          
-                      }
-                  });
-          
-          
-                  var Counter_i = 0 ;
-          
-                  saved_customer_ser_arr_1.forEach(Data__ => {
-          
-                      if(element.id == Data__.call_id) 
-                      {
-                          Counter_i++;
-                      }
-                  })
-          
-                  element.calls_count = Counter_i;
-          
-                  element.related_calls = [];
-                  Counter_i = 0;
-                  saved_customer_ser_arr_1.forEach(Data__ => {
-              
-                      if(element.id == Data__.call_id) 
-                      {
-          
-                              call_status_arr.forEach(Data_ => {
-                      
-                                  if(Data__.call_status_id == Data_.id)
-                                  {
-                                      Data__.call_status_id = Data_.name
-                                  }
-                              });
-                              
-                              call_type_arr.forEach(Data_ => {
-                      
-                                  if(Data__.call_type_id == Data_.id)
-                                  {
-                                      Data__.call_type_id = Data_.name
-                                  }
-                              });
-                      
-                              cat_arr.forEach(Data_ => {
-                      
-                                  if(Data__.cat_id == Data_.id)
-                                  {
-                                      Data__.cat_id = Data_.name
-                                  }
-                              });
-                      
-                              close_arr.forEach(Data_ => {
-                      
-                                  if(Data__.close_id == Data_.id)
-                                  {
-                                                                  if(Data_.name == "Call Closed")
-                            {
-                                Data__.close_id = `<label style='color:green'>Call Closed</label>`;
-                            }
-                            else if (Data_.name == "Call Follow Up")
-                            {
-                                Data__.close_id = `<label style='color:red'>Call Follow Up</label>`;  
-                            }
-                                  }
-                              });
-                              
-                              parent_arr.forEach(Data_ => {
-                      
-                                  if(Data__.parent_id == Data_.id)
-                                  {
-                                      Data__.parent_id = Data_.id
-                                      if(Data_.name != "")
-                                      Data__.parent_name = Data_.name
-                                      else
-                                      Data__.parent_name = "No Parent Name"
-                                  }
-                              });
-                      
-                              students_arr_0.forEach(Data_ => {
-                      
-                                  if(Data__.student_id == Data_.id)
-                                  {
-                                      Data__.student_id = Data_.id
-                                      if(Data_.name != "")
-                                      Data__.student_name = Data_.name
-                                      else
-                                      Data__.student_name = "No Student Name"
-                                  }
-                              });
-          
-                              element.related_calls[Counter_i] = Data__
-                              element.close_id = Data__.close_id
-                              element.follow_date = Data__.follow_date
-                              Counter_i++;
-                      }
-                  });
-              }
-          
-            });
-          
-            customer_ser_arr_1 = customer_ser_arr_1.filter(value => value.call_id == 0);
-          }
         
         if($('#check_follow_type_id').val() == "eq")
         {
@@ -1252,249 +338,144 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
         }
 
 
-        create_table_customer_custom(customer_ser_arr_1 , `<label style='color:red'>Call Follow Up</label>` , null);
+        create_table_customer_custom(customer_ser_arr_1 , [`<label style='color:red'>Call Follow Up</label>`] , null);
     });
 
-    
+    $('#follow_up_btn_date_ar').click(async function (index) {  
+        Loading_page_set();
+
+        if( $('#check_follow_type_id').val() == "")
+        {
+            alert('Choose Date type');Loading_page_clear();
+            return;
+        }
+
+        if($('#follow_up_start_date').val() == "" && $('#check_follow_type_id').val() == "eq")
+        {
+            alert('Choose Start Date');Loading_page_clear();
+            return;
+        }
+
+        if($('#follow_up_start_date').val() == "" && $('#check_follow_type_id').val() == "co")
+        {
+            alert('Choose Start Date');Loading_page_clear();
+            return;
+        }
+
+        if($('#follow_up_end_date').val() == "" && $('#check_follow_type_id').val() == "co")
+        {
+            alert('Choose End Date');Loading_page_clear();
+            return;
+        }
+        
+        var customer_ser_arr_1 = await Search_for_filter(customer_ser_arr_1);
+
+        
+        if($('#check_follow_type_id').val() == "eq")
+        {
+            customer_ser_arr_1 = customer_ser_arr_1.filter(value => value.follow_date == $('#follow_up_start_date').val() );
+        }
+        if($('#check_follow_type_id').val() == "co")
+        {
+            customer_ser_arr_1 = customer_ser_arr_1.filter(value => new Date(value.follow_date) >= new Date($('#follow_up_start_date').val()) && new Date(value.follow_date) <= new Date($('#follow_up_end_date').val()) );
+        }
+
+
+        create_table_customer_custom(customer_ser_arr_1 , [`<label style='color:red'>Call Follow Up</label>` , "AR"] , null);
+    });
+
+    $('#follow_up_btn_date_prob').click(async function (index) {  
+        Loading_page_set();
+
+        if( $('#check_follow_type_id').val() == "")
+        {
+            alert('Choose Date type');Loading_page_clear();
+            return;
+        }
+
+        if($('#follow_up_start_date').val() == "" && $('#check_follow_type_id').val() == "eq")
+        {
+            alert('Choose Start Date');Loading_page_clear();
+            return;
+        }
+
+        if($('#follow_up_start_date').val() == "" && $('#check_follow_type_id').val() == "co")
+        {
+            alert('Choose Start Date');Loading_page_clear();
+            return;
+        }
+
+        if($('#follow_up_end_date').val() == "" && $('#check_follow_type_id').val() == "co")
+        {
+            alert('Choose End Date');Loading_page_clear();
+            return;
+        }
+        
+        var customer_ser_arr_1 = await Search_for_filter(customer_ser_arr_1);
+
+        
+        if($('#check_follow_type_id').val() == "eq")
+        {
+            customer_ser_arr_1 = customer_ser_arr_1.filter(value => value.follow_date == $('#follow_up_start_date').val() );
+        }
+        if($('#check_follow_type_id').val() == "co")
+        {
+            customer_ser_arr_1 = customer_ser_arr_1.filter(value => new Date(value.follow_date) >= new Date($('#follow_up_start_date').val()) && new Date(value.follow_date) <= new Date($('#follow_up_end_date').val()) );
+        }
+
+
+        create_table_customer_custom(customer_ser_arr_1 , [`<label style='color:red'>Call Follow Up</label>` , "Problem"] , null);
+    });
+
+    $('#follow_up_btn_date_new').click(async function (index) {  
+        Loading_page_set();
+
+        if( $('#check_follow_type_id').val() == "")
+        {
+            alert('Choose Date type');Loading_page_clear();
+            return;
+        }
+
+        if($('#follow_up_start_date').val() == "" && $('#check_follow_type_id').val() == "eq")
+        {
+            alert('Choose Start Date');Loading_page_clear();
+            return;
+        }
+
+        if($('#follow_up_start_date').val() == "" && $('#check_follow_type_id').val() == "co")
+        {
+            alert('Choose Start Date');Loading_page_clear();
+            return;
+        }
+
+        if($('#follow_up_end_date').val() == "" && $('#check_follow_type_id').val() == "co")
+        {
+            alert('Choose End Date');Loading_page_clear();
+            return;
+        }
+        
+        var customer_ser_arr_1 = await Search_for_filter(customer_ser_arr_1);
+
+        
+        if($('#check_follow_type_id').val() == "eq")
+        {
+            customer_ser_arr_1 = customer_ser_arr_1.filter(value => value.follow_date == $('#follow_up_start_date').val() );
+        }
+        if($('#check_follow_type_id').val() == "co")
+        {
+            customer_ser_arr_1 = customer_ser_arr_1.filter(value => new Date(value.follow_date) >= new Date($('#follow_up_start_date').val()) && new Date(value.follow_date) <= new Date($('#follow_up_end_date').val()) );
+        }
+
+
+        create_table_customer_custom(customer_ser_arr_1 , [`<label style='color:red'>Call Follow Up</label>` , "New"] , null);
+    });
 
     $('#all_calls_btn').click(async function (index) {
         Loading_page_set();
-  
-        var customer_ser_arr_1 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
-
-        if(customer_ser_arr_1 && customer_ser_arr_1 !== undefined && customer_ser_arr_1.length != 0){
-    
-            var saved_customer_ser_arr_1 = customer_ser_arr_1;
-          
-            customer_ser_arr_1.forEach(element => {
-          
-              if(Number(element.call_id) == 0)
-              {
-                  call_status_arr.forEach(Data_ => {
-          
-                      if(element.call_status_id == Data_.id)
-                      {
-                          element.call_status_id = Data_.name
-                      }
-                  });
-                  
-                  call_type_arr.forEach(Data_ => {
-          
-                      if(element.call_type_id == Data_.id)
-                      {
-                          element.call_type_id = Data_.name
-                      }
-                  });
-          
-                  cat_arr.forEach(Data_ => {
-          
-                      if(element.cat_id == Data_.id)
-                      {
-                          element.cat_id = Data_.name
-                      }
-                  });
-          
-                  close_arr.forEach(Data_ => {
-          
-                      if(element.close_id == Data_.id)
-                      {
-                                                        if(Data_.name == "Call Closed")
-                              {
-                                element.close_id = `<label style='color:green'>Call Closed</label>`;
-                              }
-                              else if (Data_.name == "Call Follow Up")
-                              {
-                                element.close_id = `<label style='color:red'>Call Follow Up</label>`;  
-                              }
-                      }
-                  });
-                  
-                  students_arr_0.forEach(Data_ => {
-          
-                      if(Number(element.student_id) == 0)
-                      {
-                          element.student_name = "All"
-                          
-                      }
-                      if(element.student_id == Data_.id)
-                      {
-                          element.student_id = Data_.id
-                          if(Data_.name != "")
-                          element.student_name = Data_.name
-                          else
-                          element.student_name = "No Student Name"
-                      }
-                  });
-          
-          
-                  parent_arr.forEach(Data_ => {
-          
-                      if(element.parent_id == Data_.id)
-                      {
-                          if(Data_.name != "")
-                          element.parent_name = Data_.name
-                          else
-                          element.parent_name = "No Parent Name"
-          
-          
-                          employee_arr.forEach(Data_em => {
-                              if(Data_.customer_agent_id == Data_em.id)
-                              {
-                                  element.cs_id = Data_em.id
-                                  if(Data_.name != "")
-                                  element.cs_name = Data_em.name
-                                  else
-                                  element.cs_name = "No CS-Agent Assigned"
-                              }
-                          });
-                          employee_arr.forEach(Data_em => {
-                              if(Data_.sales_agent_id == Data_em.id)
-                              {
-                                  element.sales_id = Data_em.id
-                                  if(Data_.name != "")
-                                  element.sales_name = Data_em.name
-                                  else
-                                  element.sales_name = "No Sales-Agent Assigned"
-                              }
-                          });
-                          
-          
-          
-                      }
-                  });
-          
-          
-                  var Counter_i = 0 ;
-          
-                  saved_customer_ser_arr_1.forEach(Data__ => {
-          
-                      if(element.id == Data__.call_id) 
-                      {
-                          Counter_i++;
-                      }
-                  })
-          
-                  element.calls_count = Counter_i;
-          
-                  element.related_calls = [];
-                  Counter_i = 0;
-                  saved_customer_ser_arr_1.forEach(Data__ => {
-              
-                      if(element.id == Data__.call_id) 
-                      {
-          
-                              call_status_arr.forEach(Data_ => {
-                      
-                                  if(Data__.call_status_id == Data_.id)
-                                  {
-                                      Data__.call_status_id = Data_.name
-                                  }
-                              });
-                              
-                              call_type_arr.forEach(Data_ => {
-                      
-                                  if(Data__.call_type_id == Data_.id)
-                                  {
-                                      Data__.call_type_id = Data_.name
-                                  }
-                              });
-                      
-                              cat_arr.forEach(Data_ => {
-                      
-                                  if(Data__.cat_id == Data_.id)
-                                  {
-                                      Data__.cat_id = Data_.name
-                                  }
-                              });
-                      
-                              close_arr.forEach(Data_ => {
-                      
-                                  if(Data__.close_id == Data_.id)
-                                  {
-                                                                  if(Data_.name == "Call Closed")
-                            {
-                                Data__.close_id = `<label style='color:green'>Call Closed</label>`;
-                            }
-                            else if (Data_.name == "Call Follow Up")
-                            {
-                                Data__.close_id = `<label style='color:red'>Call Follow Up</label>`;  
-                            }
-                                  }
-                              });
-                              
-                              parent_arr.forEach(Data_ => {
-                      
-                                  if(Data__.parent_id == Data_.id)
-                                  {
-                                      Data__.parent_id = Data_.id
-                                      if(Data_.name != "")
-                                      Data__.parent_name = Data_.name
-                                      else
-                                      Data__.parent_name = "No Parent Name"
-                                  }
-                              });
-                      
-                              students_arr_0.forEach(Data_ => {
-                      
-                                  if(Data__.student_id == Data_.id)
-                                  {
-                                      Data__.student_id = Data_.id
-                                      if(Data_.name != "")
-                                      Data__.student_name = Data_.name
-                                      else
-                                      Data__.student_name = "No Student Name"
-                                  }
-                              });
-          
-                              element.related_calls[Counter_i] = Data__
-                              element.close_id = Data__.close_id
-                              element.follow_date = Data__.follow_date
-                              Counter_i++;
-                      }
-                  });
-              }
-          
-            });
-          
-            customer_ser_arr_1 = customer_ser_arr_1.filter(value => value.call_id == 0);
-          }
-
+        var customer_ser_arr_1 = await Search_for_filter(customer_ser_arr_1);
         create_table_customer_custom(customer_ser_arr_1 , null , null);
     });
 
-
-
-    $("#call_parent_input").change(async function()
-    {
-
-        var parent_id_ = $("#call_parent_input").val();
-        var students_arr = await GET_DATA_TABLES(database_fixed_link , "students" );
-
-        $('#call_student_input').empty();
-
-        if($("#call_parent_input").val())
-        {
-            $('#call_student_input').append(`<option value="0">
-            All </option>`); 
-        }
-        else{
-            $('#call_student_input').append(`<option value="">
-            Choose Parent </option>`);   
-        }
-        if(Object.values(students_arr) && Object.values(students_arr) !== undefined && Object.values(students_arr).length != 0){
-
-            for(var index = 0 ; index < Object.values(students_arr).length ; index++)
-            {
-                if(Number(students_arr[index].parent_id) == Number(parent_id_))
-                {
-
-                    $('#call_student_input').append(`<option value="${students_arr[index].id}">
-                    ( ID : ${students_arr[index].id} ) - ( Name : ${students_arr[index].name} )</option>`); 
-                }
-            }
-            $('.select2').select2();
-        }
-    });
 
 
     $("#send_group").click(async function()
@@ -1566,10 +547,10 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
 }
 
 
-function add_select_html (location_, paper_ , title , data_arr)
+function add_select_html (location_, paper_ , title , data_arr , col_w)
 {
   result = `<label for="`+paper_+`">`+title+`:</label>
-  <select class="col-2 select2" name="`+paper_+`" id="`+paper_+`">
+  <select class="col-${col_w} select2" name="`+paper_+`" id="`+paper_+`">
   <option value=""></option>`
   if(data_arr && data_arr !== undefined && data_arr.length != 0){
     for(var index = 0 ; index < Object.values(data_arr).length ; index++)
@@ -1587,8 +568,25 @@ document.getElementById(location_).innerHTML += result
 function add_select_html_students (location_, paper_ , title , data_arr)
 {
   result = `<label for="`+paper_+`">`+title+`:</label>
-  <select class="col-2 select2" name="`+paper_+`" id="`+paper_+`">
+  <select class="col-9 select2" name="`+paper_+`" id="`+paper_+`">
   <option value=""> Choose Parent</option>`
+  if(data_arr && data_arr !== undefined && data_arr.length != 0){
+    for(var index = 0 ; index < Object.values(data_arr).length ; index++)
+    {
+        result +=  `<option value="${data_arr[index].id} "> ( ID : ${data_arr[index].id} ) - ( Name : ${data_arr[index].name} )</option>` 
+    }
+}
+  result+=`</select>` ;
+document.getElementById(location_).innerHTML += result
+
+
+}
+
+function add_select_html_invoice (location_, paper_ , title , data_arr)
+{
+  result = `<label for="`+paper_+`">`+title+`:</label>
+  <select class="col-9 select2" name="`+paper_+`" id="`+paper_+`">
+  <option value=""> Choose Student</option>`
   if(data_arr && data_arr !== undefined && data_arr.length != 0){
     for(var index = 0 ; index < Object.values(data_arr).length ; index++)
     {
@@ -1622,7 +620,6 @@ document.getElementById(location_).innerHTML += result
 function create_table_customer_custom(all_tables , check_val , ret_manual , index_start)
 {
     Loading_page_clear();
-
     var inputs_names_search = [
         ''
         ,'Time Stamp :'
@@ -1675,14 +672,26 @@ function create_table_customer_custom(all_tables , check_val , ret_manual , inde
     All_data_obj.ret_manual = ret_manual ;
     All_data_obj.check_val = null;
 
-    var values_ = '';
+    var values_ = [];
+
+
+
     if(check_val)
     {
-        values_ = check_val;
         All_data_obj.check_val = check_val;
+
+        for(var index = 0 ; index < check_val.length ; index++)
+        {
+
+            values_[index] = check_val[index];
+        }
+
     }
-    else{
-        values_ = document.getElementById("search_all").value;
+
+    if(document.getElementById("search_all").value)
+    {
+        values_[values_.length] = document.getElementById("search_all").value;
+
     }
 
 
@@ -1704,7 +713,25 @@ function create_table_customer_custom(all_tables , check_val , ret_manual , inde
 
    if(all_tables && all_tables !== undefined && all_tables.length != 0)
    {
-    var result = Search_for_value(assigned_agent_parent_page(all_tables), values_)
+    var result = [];
+       for(var index = 0 ; index < values_.length ; index++)
+       {
+           if(index == 0)
+           {
+            result =  Search_for_value(assigned_agent_parent_page(all_tables), values_[index])
+
+           }
+           else
+           {
+            result = Search_for_value(assigned_agent_parent_page(result), values_[index])
+           }
+       }
+
+       if(values_[values_.length])
+       {
+        result = Search_for_value(assigned_agent_parent_page(result), values_[values_.length])
+       }
+
    }
 
     if(all_tables && all_tables !== undefined && all_tables.length != 0)
@@ -1805,10 +832,10 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
             document.getElementById("blob_Location_1").innerHTML +=`</div></div>`;
             document.getElementById("blob_Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
         
-            add_select_html("blob_Location_1" , "call_type_input"+ret , "Type " , call_status_arr_);
-            add_select_html("blob_Location_1" , "call_status_input"+ret , "Status " , call_type_arr_);
-            add_select_html("blob_Location_1" , "call_cat_input"+ret , "Category " , cat_arr_);
-            add_select_html("blob_Location_1" , "call_closing_input"+ret , "Closing " , close_arr_);
+            add_select_html("blob_Location_1" , "call_type_input"+ret , "Type " , call_status_arr_ , 2);
+            add_select_html("blob_Location_1" , "call_status_input"+ret , "Status " , call_type_arr_ , 2);
+            add_select_html("blob_Location_1" , "call_cat_input"+ret , "Category " , cat_arr_ , 2);
+            add_select_html("blob_Location_1" , "call_closing_input"+ret , "Closing " , close_arr_ , 2);
             document.getElementById("blob_Location_1").innerHTML +=`</div></div>`;
             document.getElementById("blob_Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
             document.getElementById("blob_Location_1").innerHTML +=`<label> Follow Up Date : <label><input type='date' id='follow_up_date_id${ret}' />`;
@@ -1972,6 +999,7 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
                                               else
                                               element.cs_name = "No CS-Agent Assigned"
                                           }
+
                                       });
                                       employee_arr.forEach(Data_em => {
                                           if(Data_.sales_agent_id == Data_em.id)
@@ -1982,6 +1010,7 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
                                               else
                                               element.sales_name = "No Sales-Agent Assigned"
                                           }
+
                                       });
                                       
                       
@@ -2099,8 +1128,6 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
                             }
                         })
 
-                        console.log(All_data_obj.check_val);
-
                         $("#send_group"+ret).hide();
                       if(close_arr_test_val != All_data_obj.check_val  && All_data_obj.check_val != null)
                       {ret=null;}
@@ -2193,10 +1220,10 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
                 document.getElementById("blob_Location_1").innerHTML +=`</div></div>`;
                 document.getElementById("blob_Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
             
-                add_select_html("blob_Location_1" , "call_type_input"+ret , "Type " , call_status_arr_);
-                add_select_html("blob_Location_1" , "call_status_input"+ret , "Status " , call_type_arr_);
-                add_select_html("blob_Location_1" , "call_cat_input"+ret , "Category " , cat_arr_);
-                add_select_html("blob_Location_1" , "call_closing_input"+ret , "Closing " , close_arr_);
+                add_select_html("blob_Location_1" , "call_type_input"+ret , "Type " , call_status_arr_ , 2);
+                add_select_html("blob_Location_1" , "call_status_input"+ret , "Status " , call_type_arr_ , 2);
+                add_select_html("blob_Location_1" , "call_cat_input"+ret , "Category " , cat_arr_ , 2 );
+                add_select_html("blob_Location_1" , "call_closing_input"+ret , "Closing " , close_arr_ , 2);
                 document.getElementById("blob_Location_1").innerHTML +=`</div></div>`;
                 document.getElementById("blob_Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
                 document.getElementById("blob_Location_1").innerHTML +=`<label> Follow Up Date : <label><input type='date' id='follow_up_date_id${ret}' />`;
@@ -2439,8 +1466,6 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
                             }
                         })
 
-                        console.log(All_data_obj.check_val);
-
 
                       if(close_arr_test_val != All_data_obj.check_val && All_data_obj.check_val != null)
                       {ret=null;
@@ -2472,7 +1497,6 @@ function createTable_pop_up_customer(All_data_obj ) {
     var dataArray = All_data_obj;
     // var index_st = All_data_obj.saved_index;
 
-    // console.log(dataArray)
   if(dataArray && dataArray !== undefined && dataArray.length != 0){
 
     var result = "<table class='table' id='dtable'>"+
@@ -2530,3 +1554,497 @@ function createTable_pop_up_customer(All_data_obj ) {
   }
 
 }
+
+
+async function Search_for_filter()
+{
+    var parent_arr_all = await GET_DATA_TABLES(database_fixed_link , "parent" );
+    var customer_ser_arr_1 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
+    var call_status_arr = await GET_DATA_TABLES(database_fixed_link , "call_status" );
+    var call_type_arr = await GET_DATA_TABLES(database_fixed_link , "call_type" );
+    var cat_arr = await GET_DATA_TABLES(database_fixed_link , "cat" );
+    var close_arr = await GET_DATA_TABLES(database_fixed_link , "close" );
+    var customer_ser_arr_0 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
+    var employee_arr = await GET_DATA_TABLES(database_fixed_link , "employee" );
+    var students_arr_0 = await GET_DATA_TABLES(database_fixed_link , "students" );
+
+    var parent_arr=[]
+    parent_arr = parent_arr_all;
+
+    if(customer_ser_arr_1 && customer_ser_arr_1 !== undefined && customer_ser_arr_1.length != 0){
+
+        var saved_customer_ser_arr_1 = customer_ser_arr_1;
+      
+        customer_ser_arr_1.forEach(element => {
+      
+          if(Number(element.call_id) == 0)
+          {
+              call_status_arr.forEach(Data_ => {
+      
+                  if(element.call_status_id == Data_.id)
+                  {
+                      element.call_status_id = Data_.name
+                  }
+              });
+              
+              call_type_arr.forEach(Data_ => {
+      
+                  if(element.call_type_id == Data_.id)
+                  {
+                      element.call_type_id = Data_.name
+                  }
+              });
+      
+              cat_arr.forEach(Data_ => {
+      
+                  if(element.cat_id == Data_.id)
+                  {
+                      element.cat_id = Data_.name
+                  }
+              });
+      
+              close_arr.forEach(Data_ => {
+      
+                  if(element.close_id == Data_.id)
+                  {
+                                                    if(Data_.name == "Call Closed")
+                              {
+                                element.close_id = `<label style='color:green'>Call Closed</label>`;
+                              }
+                              else if (Data_.name == "Call Follow Up")
+                              {
+                                element.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                              }
+                  }
+              });
+              
+              students_arr_0.forEach(Data_ => {
+      
+                  if(Number(element.student_id) == 0)
+                  {
+                      element.student_name = "All"
+                      
+                  }
+                  if(element.student_id == Data_.id)
+                  {
+                      element.student_id = Data_.id
+                      if(Data_.name != "")
+                      element.student_name = Data_.name
+                      else
+                      element.student_name = "No Student Name"
+                  }
+              });
+      
+      
+              parent_arr.forEach(Data_ => {
+      
+                  if(element.parent_id == Data_.id)
+                  {
+                      if(Data_.name != "")
+                      element.parent_name = Data_.name
+                      else
+                      element.parent_name = "No Parent Name"
+      
+      
+                      employee_arr.forEach(Data_em => {
+                          if(Data_.customer_agent_id == Data_em.id)
+                          {
+                              element.cs_id = Data_em.id
+                              if(Data_.name != "")
+                              element.cs_name = Data_em.name
+                              else
+                              element.cs_name = "No CS-Agent Assigned"
+                          }
+
+                      });
+                      employee_arr.forEach(Data_em => {
+                          if(Data_.sales_agent_id == Data_em.id)
+                          {
+                              element.sales_id = Data_em.id
+                              if(Data_.name != "")
+                              element.sales_name = Data_em.name
+                              else
+                              element.sales_name = "No Sales-Agent Assigned"
+                          }
+
+                      });
+                      
+      
+      
+                  }
+              });
+      
+      
+              var Counter_i = 0 ;
+      
+              saved_customer_ser_arr_1.forEach(Data__ => {
+      
+                  if(element.id == Data__.call_id) 
+                  {
+                      Counter_i++;
+                  }
+              })
+      
+              element.calls_count = Counter_i;
+      
+              element.related_calls = [];
+              Counter_i = 0;
+              saved_customer_ser_arr_1.forEach(Data__ => {
+          
+                  if(element.id == Data__.call_id) 
+                  {
+      
+                          call_status_arr.forEach(Data_ => {
+                  
+                              if(Data__.call_status_id == Data_.id)
+                              {
+                                  Data__.call_status_id = Data_.name
+                              }
+                          });
+                          
+                          call_type_arr.forEach(Data_ => {
+                  
+                              if(Data__.call_type_id == Data_.id)
+                              {
+                                  Data__.call_type_id = Data_.name
+                              }
+                          });
+                  
+                          cat_arr.forEach(Data_ => {
+                  
+                              if(Data__.cat_id == Data_.id)
+                              {
+                                  Data__.cat_id = Data_.name
+                              }
+                          });
+                  
+                          close_arr.forEach(Data_ => {
+                  
+                              if(Data__.close_id == Data_.id)
+                              {
+                                                              if(Data_.name == "Call Closed")
+                            {
+                                Data__.close_id = `<label style='color:green'>Call Closed</label>`;
+                            }
+                            else if (Data_.name == "Call Follow Up")
+                            {
+                                Data__.close_id = `<label style='color:red'>Call Follow Up</label>`;  
+                            }
+                              }
+                          });
+                          
+                          parent_arr.forEach(Data_ => {
+                  
+                              if(Data__.parent_id == Data_.id)
+                              {
+                                  Data__.parent_id = Data_.id
+                                  if(Data_.name != "")
+                                  Data__.parent_name = Data_.name
+                                  else
+                                  Data__.parent_name = "No Parent Name"
+                              }
+                          });
+                  
+                          students_arr_0.forEach(Data_ => {
+                  
+                              if(Data__.student_id == Data_.id)
+                              {
+                                  Data__.student_id = Data_.id
+                                  if(Data_.name != "")
+                                  Data__.student_name = Data_.name
+                                  else
+                                  Data__.student_name = "No Student Name"
+                              }
+                          });
+      
+                          element.related_calls[Counter_i] = Data__
+                          element.close_id = Data__.close_id
+                          element.follow_date = Data__.follow_date
+                          Counter_i++;
+                  }
+              });
+          }
+      
+        });
+      
+        customer_ser_arr_1 = customer_ser_arr_1.filter(value => value.call_id == 0);
+        return customer_ser_arr_1;
+      }
+      return [];
+}
+
+
+
+function check_cust(id_btn , arr_data){
+
+
+
+    $(id_btn).click(async function () { 
+        Loading_page_set();
+
+        var parent_arr_select = await check_cust_body(id_btn , arr_data);
+
+    });
+
+}
+
+async function check_cust_body(id_btn , arr_data_all)
+{
+    var arr_data = [];
+    var arr_data_count = 0;
+
+    var parent_arr_select = [];
+    var parent_arr_select_count = 0;
+
+    var student_arr_select = [];
+    var student_arr_select_count = 0;
+
+    var invoice_arr_select = [];
+    var invoice_arr_select_count = 0;
+
+    var customer_ser_arr_0 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
+    var customer_inv = await GET_DATA_TABLES(database_fixed_link , "invoice" );
+    var students_arr_0 = await GET_DATA_TABLES(database_fixed_link , "students" );
+
+
+
+    arr_data_all.forEach(element => {
+
+        var check_parent = false; 
+
+        students_arr_0.forEach(element_st => {
+
+            if(element_st.parent_id == element.id )
+            {
+                customer_inv.forEach(element_inv => {
+
+                    if(element_inv.student_id == element_st.id &&( element_inv.status == 'done' || element_inv.status == 'waiting' ))
+                    {
+                        check_parent = true;
+                    }
+                });
+
+            }
+
+        });
+
+        if(check_parent)
+        {
+            arr_data[arr_data_count] = element;arr_data_count++;
+        }
+
+    });
+    
+    $('#call_invoice_input_').empty();
+    $('#call_invoice_input_').append(`<option value="">Choose Student</option>` );   
+
+    $('#call_parent_input').empty();
+    $('#call_parent_input').append(`<option value=""></option>` );   
+
+    $('#call_student_input').empty();
+    $('#call_student_input').append(`<option value="">Choose Parent</option>` );   
+
+    if(id_btn == '#all_cust')
+    {
+        parent_arr_select = arr_data;
+        student_arr_select = students_arr_0;
+        invoice_arr_select = customer_inv;
+
+        arr_data.forEach(element => {
+            $('#call_parent_input').append(`<option value="${element.id} "> ( ID : ${element.id} ) - ( Name : ${element.name} )</option>` );   
+
+        });
+
+        $(id_btn).text(`All Customer (${parent_arr_select.length}) `);
+
+    }
+    else if (id_btn == '#follow_up')
+    {
+        student_arr_select = students_arr_0;
+        invoice_arr_select = customer_inv;
+
+        arr_data.forEach(element => {
+
+            var check_parent = true; 
+            customer_ser_arr_0.forEach(element_call => {
+                
+                if(element_call.parent_id == element.id && (new Date().getDate() - new Date(element_call.timestamp).getDate()) < 7 )
+                {
+                    check_parent = false;
+                }
+
+            });
+    
+            if(check_parent)
+            {
+                $('#call_parent_input').append(`<option value="${element.id} "> ( ID : ${element.id} ) - ( Name : ${element.name} )</option>` );   
+                parent_arr_select[parent_arr_select_count] = element;parent_arr_select_count++;
+            }
+        });
+
+        $(id_btn).text(`Old Customer (${parent_arr_select.length}) `);
+
+    }
+    else if (id_btn == '#ar')
+    {
+        
+        arr_data.forEach(element => {
+
+            var check_parent = false; 
+    
+            students_arr_0.forEach(element_st => {
+    
+                if(element_st.parent_id == element.id )
+                {
+                    check_std = false;
+                    customer_inv.forEach(element_inv => {
+    
+                        if(element_inv.student_id == element_st.id && element_inv.status == 'waiting' && (new Date() >= new Date(element_inv.due_date)))
+                        {
+                            check_parent = true;
+                            check_std = true;
+                            invoice_arr_select[invoice_arr_select_count] = element_inv;invoice_arr_select_count++;
+                        }
+                    });
+
+                    if(check_std)
+                    {
+                        student_arr_select[student_arr_select_count] = element_st;student_arr_select_count++;
+                    }
+                }
+    
+            });
+
+            if(check_parent)
+            {
+                $('#call_parent_input').append(`<option value="${element.id} "> ( ID : ${element.id} ) - ( Name : ${element.name} )</option>` );   
+                parent_arr_select[parent_arr_select_count] = element;parent_arr_select_count++;
+            }
+
+        });
+
+        $(id_btn).text(`AR Customer (${parent_arr_select.length}) `);
+
+    }
+
+    else if (id_btn == '#not_called')
+    {
+        student_arr_select = students_arr_0;
+        invoice_arr_select = customer_inv;
+
+        arr_data.forEach(element => {
+
+            var check_parent = true; 
+            customer_ser_arr_0.forEach(element_call => {
+                
+                if(element_call.parent_id == element.id)
+                {
+                    check_parent = false;
+                }
+
+            });
+    
+            if(check_parent)
+            {
+                $('#call_parent_input').append(`<option value="${element.id} "> ( ID : ${element.id} ) - ( Name : ${element.name} )</option>` );   
+                parent_arr_select[parent_arr_select_count] = element;parent_arr_select_count++;
+            }
+        });
+
+        $(id_btn).text(`New Customer (${parent_arr_select.length}) `);
+
+    }
+
+$("#call_parent_input").change(async function()
+{
+
+    var parent_id_ = $("#call_parent_input").val();
+
+    var students_arr = student_arr_select;
+
+    $('#call_student_input').empty();
+
+    if($("#call_parent_input").val())
+    {
+        $('#call_student_input').append(`<option value="0">
+        All </option>`); 
+    }
+    else{
+        $('#call_student_input').append(`<option value="">
+        Choose Parent </option>`);   
+    }
+    if(Object.values(students_arr) && Object.values(students_arr) !== undefined && Object.values(students_arr).length != 0){
+
+        for(var index = 0 ; index < Object.values(students_arr).length ; index++)
+        {
+            if(Number(students_arr[index].parent_id) == Number(parent_id_))
+            {
+
+
+                $('#call_student_input').append(`<option value="${students_arr[index].id}">
+                ( ID : ${students_arr[index].id} ) - ( Name : ${students_arr[index].name} )</option>`); 
+            }
+        }
+    }
+});
+
+$("#call_student_input").change(async function()
+{
+
+    var st_id_ = $("#call_student_input").val();
+
+    var inv_arr = invoice_arr_select;
+
+    $('#call_invoice_input').empty();
+
+    if(Number($("#call_student_input").val()) == 0)
+    {
+        $('#call_invoice_input').append(`<option value="">Choose Student </option>`);   
+        return;
+    }
+    if($("#call_student_input").val())
+    {
+        $('#call_invoice_input').append(`<option value="0">
+        All </option>`); 
+
+    if(Object.values(inv_arr) && Object.values(inv_arr) !== undefined && Object.values(inv_arr).length != 0){
+
+        var check_reg = false;
+        for(var index = 0 ; index < Object.values(inv_arr).length ; index++)
+        {
+            if(Number(inv_arr[index].student_id) == Number(st_id_))
+            {
+                if(new Date() >= new Date(inv_arr[index].due_date) && inv_arr[index].status == 'waiting')
+                {
+                    inv_arr[index].status = 'dued'
+                }
+                 check_reg = true;
+
+                $('#call_invoice_input').append(`<option value="${inv_arr[index].id}">
+                ( ID : ${inv_arr[index].id} ) - ( Amount : ${inv_arr[index].amount} ) - ( Due : ${inv_arr[index].due_date} ) - ( Status : ${inv_arr[index].status} )</option>`); 
+            }
+           
+        }
+        if(check_reg == false)
+        {
+            $('#call_invoice_input').empty();
+            $('#call_invoice_input').append(`<option value="0">Not Registered </option>`);  
+        }
+
+    }
+
+    }
+
+});
+
+
+
+Loading_page_clear();
+
+
+}
+
+
+
+
+
