@@ -78,15 +78,21 @@ async function ADD_Customer_call()
     <button type="button" id='all_cust' class="btn btn-info">
     All Customer
   </button>
-  <button type="button" id='follow_up' class="btn btn-info">
-  Old Customer
-</button>
-  <button type="button" id='ar' class="btn btn-info">
-  AR Customer
-  </button>
   <button type="button" id='not_called' class="btn btn-info">
   New Customer
   </button>
+  <button type="button" id='follow_up' class="btn btn-info">
+  Late Customer
+</button>
+<button type="button" id='exp' class="btn btn-info">
+Expired Customer
+</button>
+<button type="button" id='ar' class="btn btn-info">
+AR Customer
+</button>
+<button type="button" id='paused' class="btn btn-info">
+PAUSED Customer
+</button>
   </div> `;
 
 
@@ -97,7 +103,7 @@ async function ADD_Customer_call()
     document.getElementById("Location_1").innerHTML += `<div ><button class='btn btn-success' style='float:right;' id='send_group'>ADD</button></div>`;
     document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
 
-    add_select_html("Location_1" , "call_parent_input" , "Parent " , parent_arr_select , 9);
+    add_select_html_parent("Location_1" , "call_parent_input" , "Parent " , ["Choose Sector"] , 9);
 
     document.getElementById("Location_1").innerHTML +=`</div></div>`;
     document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
@@ -221,12 +227,16 @@ document.getElementById("Location_1").innerHTML +=`</div></div>`;
   $('.select2').select2();
 
 
-  
+  check_cust_body_once(parent_arr_select);
   check_cust('#all_cust' , parent_arr_select);
   check_cust('#follow_up' , parent_arr_select);
   check_cust('#ar' , parent_arr_select);
   check_cust('#not_called' , parent_arr_select);
+  check_cust('#exp' , parent_arr_select);
+  check_cust('#paused' , parent_arr_select);
 
+
+  
   var customer_ser_arr_0 = await Search_for_filter(customer_ser_arr_0);
   create_table_customer_custom(customer_ser_arr_0 , null , null);
 
@@ -563,6 +573,20 @@ document.getElementById(location_).innerHTML += result
 
 
 }
+
+
+function add_select_html_parent (location_, paper_ , title , data_arr , col_w)
+{
+  result = `<label for="`+paper_+`">`+title+`:</label>
+  <select class="col-${col_w} select2" name="`+paper_+`" id="`+paper_+`">
+  <option value="">${data_arr[0]}</option>`
+
+  result+=`</select>` ;
+document.getElementById(location_).innerHTML += result
+
+
+}
+
 
 
 function add_select_html_students (location_, paper_ , title , data_arr)
@@ -1805,24 +1829,62 @@ async function check_cust_body(id_btn , arr_data_all)
     var customer_ser_arr_0 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
     var customer_inv = await GET_DATA_TABLES(database_fixed_link , "invoice" );
     var students_arr_0 = await GET_DATA_TABLES(database_fixed_link , "students" );
+    var att_feed = await GET_DATA_TABLES(database_fixed_link , "att_feed" );
 
 
 
     arr_data_all.forEach(element => {
 
         var check_parent = false; 
+        var check_st = false; 
 
         students_arr_0.forEach(element_st => {
 
             if(element_st.parent_id == element.id )
             {
+                var check_att_qouta =0 ;
+                var check_fin_paid_qouta =0 ;
+                var check_fin_tot_qouta =0 ;
+
+                var check_fin_dued =0 ;
+
+                    att_feed.forEach(elemnent =>
+                        {
+                            if(element_st.id == elemnent.student_id && elemnent.attendance != "")
+                            {
+                                check_att_qouta++;
+                            }
+                        });
+
                 customer_inv.forEach(element_inv => {
 
                     if(element_inv.student_id == element_st.id &&( element_inv.status == 'done' || element_inv.status == 'waiting' ))
                     {
                         check_parent = true;
+                        check_fin_tot_qouta += Number(element_inv.qouta);
                     }
+                    if(element_inv.student_id == element_st.id && element_inv.status == 'waiting' && (new Date() >= new Date(element_inv.due_date)))
+                    {
+                        check_fin_dued++;
+                    }
+                    if(element_inv.student_id == element_st.id &&( element_inv.status == 'done' ))
+                    {
+                        check_st = true;
+                        check_fin_paid_qouta += Number(element_inv.qouta);
+                    }
+
                 });
+
+                if(check_st)
+                {
+                    element_st.total_paid_Q = check_fin_paid_qouta;
+                    element_st.total_Q = check_fin_tot_qouta;
+                    element_st.att_Q = check_att_qouta;
+                    element_st.dued = check_fin_dued;
+                    element_st.used = ((Number(check_att_qouta) / Number(check_fin_paid_qouta))*100).toFixed(2);
+                    
+                }
+
 
             }
 
@@ -1835,8 +1897,8 @@ async function check_cust_body(id_btn , arr_data_all)
 
     });
     
-    $('#call_invoice_input_').empty();
-    $('#call_invoice_input_').append(`<option value="">Choose Student</option>` );   
+    $('#call_invoice_input').empty();
+    $('#call_invoice_input').append(`<option value="">Choose Student</option>` );   
 
     $('#call_parent_input').empty();
     $('#call_parent_input').append(`<option value=""></option>` );   
@@ -1882,7 +1944,7 @@ async function check_cust_body(id_btn , arr_data_all)
             }
         });
 
-        $(id_btn).text(`Old Customer (${parent_arr_select.length}) `);
+        $(id_btn).text(`Late Customer (${parent_arr_select.length}) `);
 
     }
     else if (id_btn == '#ar')
@@ -1955,6 +2017,115 @@ async function check_cust_body(id_btn , arr_data_all)
 
     }
 
+    else if (id_btn == '#exp')
+    {
+
+
+        arr_data.forEach(element => {
+
+            var check_parent = false; 
+            var paid_qouta = 0;
+            students_arr_0.forEach(element_st => {
+
+
+                if(element_st.parent_id == element.id )
+                {
+
+
+                    if(Number(element_st.used) >= 100)
+                    {
+                        check_parent = true;
+                        student_arr_select[student_arr_select_count] = element_st;student_arr_select_count++;
+                    }
+
+                }
+    
+            });
+
+            if(check_parent)
+            {
+                $('#call_parent_input').append(`<option value="${element.id} "> ( ID : ${element.id} ) - ( Name : ${element.name} )</option>` );   
+                parent_arr_select[parent_arr_select_count] = element;parent_arr_select_count++;
+            }
+
+        });
+
+        $(id_btn).text(`Expired Customer (${parent_arr_select.length}) `);
+
+
+    }
+
+    else if (id_btn == '#paused')
+    {
+
+
+        var sessions = await GET_DATA_TABLES(database_fixed_link , "sessions" );
+
+        arr_data.forEach(element => {
+
+            var check_parent = false; 
+            var paid_qouta = 0;
+
+            
+            att_feed.forEach(elemnent =>
+                {
+                    sessions.forEach(elemnent_se =>
+                        {
+                            if(elemnent.session_id == elemnent_se.id)
+                            {
+                                elemnent.session_date = elemnent_se.session_date;
+                            }
+                        });
+                });
+
+                console.log(att_feed);
+
+            students_arr_0.forEach(element_st => {
+                var wait_check_parent = false; 
+
+                if(element_st.parent_id == element.id )
+                {
+
+                    att_feed.forEach(elemnent =>
+                        {
+                            if(element_st.id == elemnent.student_id )
+                            {
+                                    if(new Date(elemnent.session_date) > new Date() && elemnent.session_id == 0)
+                                    {
+                                        check_parent = true;
+                                    }
+                                    if(new Date(elemnent.session_date) > new Date() && elemnent.session_id != 0)
+                                    {
+                                        wait_check_parent = true;
+                                    }
+
+                                }
+                        });
+                    
+                }
+
+                if(check_parent && wait_check_parent == false )
+                {
+                    student_arr_select[student_arr_select_count] = element_st;student_arr_select_count++;
+
+                }
+    
+            });
+
+            if(check_parent)
+            {
+                $('#call_parent_input').append(`<option value="${element.id} "> ( ID : ${element.id} ) - ( Name : ${element.name} )</option>` );   
+                parent_arr_select[parent_arr_select_count] = element;parent_arr_select_count++;
+            }
+
+        });
+
+        $(id_btn).text(`PAUSED Customer (${parent_arr_select.length}) `);
+
+
+    }
+    
+
 $("#call_parent_input").change(async function()
 {
 
@@ -1980,7 +2151,6 @@ $("#call_parent_input").change(async function()
             if(Number(students_arr[index].parent_id) == Number(parent_id_))
             {
 
-
                 $('#call_student_input').append(`<option value="${students_arr[index].id}">
                 ( ID : ${students_arr[index].id} ) - ( Name : ${students_arr[index].name} )</option>`); 
             }
@@ -1995,6 +2165,8 @@ $("#call_student_input").change(async function()
 
     var inv_arr = invoice_arr_select;
 
+    var students_arr = student_arr_select;
+
     $('#call_invoice_input').empty();
 
     if(Number($("#call_student_input").val()) == 0)
@@ -2004,8 +2176,45 @@ $("#call_student_input").change(async function()
     }
     if($("#call_student_input").val())
     {
-        $('#call_invoice_input').append(`<option value="0">
-        All </option>`); 
+
+        var check_fin_paid_qouta = 0 ;
+        var check_fin_tot_qouta = 0;
+        var check_att_qouta = 0;
+        var check_dued = 0;
+        var check_used = 0;
+
+        if(Object.values(students_arr) && Object.values(students_arr) !== undefined && Object.values(students_arr).length != 0)
+        {
+            students_arr.forEach(element_st => {
+                if(element_st.id == st_id_)
+                {
+                    check_fin_paid_qouta = element_st.total_paid_Q 
+                    check_fin_tot_qouta =  element_st.total_Q
+                    check_att_qouta = element_st.att_Q ;
+                    check_dued = element_st.dued;
+                    check_used = element_st.used
+                }
+            })
+        }
+        if(check_fin_tot_qouta)
+        {
+            var dued_check = 'No Dued Invoices'
+            if(check_dued)
+            {
+                dued_check = `${check_dued} <label style='color:red'>Dued Invoices </label>`
+            }
+            
+            $('#call_invoice_input').append(`<option value="0">
+           (Total Quota : ${check_fin_tot_qouta}) | (Paid Quota : ${check_fin_paid_qouta}) | (Att Quota : ${check_att_qouta}) | (Used : ${check_used} %) | (Dued : ${dued_check})</option>`); 
+        }
+        else
+        {
+            $('#call_invoice_input').append(`<option value="0">
+            No Quota </option>`); 
+        }
+        
+
+
 
     if(Object.values(inv_arr) && Object.values(inv_arr) !== undefined && Object.values(inv_arr).length != 0){
 
@@ -2041,6 +2250,261 @@ $("#call_student_input").change(async function()
 
 Loading_page_clear();
 
+
+}
+
+
+
+
+
+
+
+async function check_cust_body_once(arr_data_all)
+{
+    var arr_data = [];
+    var arr_data_count = 0;
+
+    var parent_arr_select = [];
+    var parent_arr_select_count = 0;
+
+    var student_arr_select = [];
+    var student_arr_select_count = 0;
+
+    var invoice_arr_select = [];
+    var invoice_arr_select_count = 0;
+
+    var customer_ser_arr_0 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
+    var customer_inv = await GET_DATA_TABLES(database_fixed_link , "invoice" );
+    var students_arr_0 = await GET_DATA_TABLES(database_fixed_link , "students" );
+    var att_feed = await GET_DATA_TABLES(database_fixed_link , "att_feed" );
+
+
+
+    arr_data_all.forEach(element => {
+
+        var check_parent = false; 
+        var check_st = false; 
+
+        students_arr_0.forEach(element_st => {
+
+            if(element_st.parent_id == element.id )
+            {
+                var check_att_qouta =0 ;
+                var check_fin_paid_qouta =0 ;
+                var check_fin_tot_qouta =0 ;
+
+                var check_fin_dued =0 ;
+
+                    att_feed.forEach(elemnent =>
+                        {
+                            if(element_st.id == elemnent.student_id && elemnent.attendance != "")
+                            {
+                                check_att_qouta++;
+                            }
+                        });
+
+                customer_inv.forEach(element_inv => {
+
+                    if(element_inv.student_id == element_st.id &&( element_inv.status == 'done' || element_inv.status == 'waiting' ))
+                    {
+                        check_parent = true;
+                        check_fin_tot_qouta += Number(element_inv.qouta);
+                    }
+                    if(element_inv.student_id == element_st.id && element_inv.status == 'waiting' && (new Date() >= new Date(element_inv.due_date)))
+                    {
+                        check_fin_dued++;
+                    }
+                    if(element_inv.student_id == element_st.id &&( element_inv.status == 'done' ))
+                    {
+                        check_st = true;
+                        check_fin_paid_qouta += Number(element_inv.qouta);
+                    }
+
+                });
+
+                if(check_st)
+                {
+                    element_st.total_paid_Q = check_fin_paid_qouta;
+                    element_st.total_Q = check_fin_tot_qouta;
+                    element_st.att_Q = check_att_qouta;
+                    element_st.dued = check_fin_dued;
+                    element_st.used = ((Number(check_att_qouta) / Number(check_fin_paid_qouta))*100).toFixed(2);
+                    
+                }
+
+
+            }
+
+        });
+
+        if(check_parent)
+        {
+            arr_data[arr_data_count] = element;arr_data_count++;
+        }
+
+    });
+
+
+
+        parent_arr_select = arr_data;
+        $('#all_cust').text(`All Customer (${parent_arr_select.length}) `);
+
+    
+        parent_arr_select = [];
+        parent_arr_select_count = 0;
+
+        arr_data.forEach(element => {
+
+            var check_parent = true; 
+            customer_ser_arr_0.forEach(element_call => {
+                
+                if(element_call.parent_id == element.id && (new Date().getDate() - new Date(element_call.timestamp).getDate()) < 7 )
+                {
+                    check_parent = false;
+                }
+
+            });
+    
+            if(check_parent)
+            {
+                parent_arr_select[parent_arr_select_count] = element;parent_arr_select_count++;
+            }
+        });
+
+
+        $('#follow_up').text(`Late Customer (${parent_arr_select.length}) `);
+
+        parent_arr_select = [];
+        parent_arr_select_count = 0;
+
+        arr_data.forEach(element => {
+
+            var check_parent = false; 
+    
+            students_arr_0.forEach(element_st => {
+    
+                if(element_st.parent_id == element.id )
+                {
+                    customer_inv.forEach(element_inv => {
+    
+                        if(element_inv.student_id == element_st.id && element_inv.status == 'waiting' && (new Date() >= new Date(element_inv.due_date)))
+                        {
+                            check_parent = true;
+                        }
+                    });
+
+                }
+    
+            });
+
+            if(check_parent)
+            {
+                parent_arr_select[parent_arr_select_count] = element;parent_arr_select_count++;
+            }
+
+        });
+
+
+        $('#ar').text(`AR Customer (${parent_arr_select.length}) `);
+
+    
+        parent_arr_select = [];
+        parent_arr_select_count = 0;
+
+        arr_data.forEach(element => {
+
+            var check_parent = true; 
+            customer_ser_arr_0.forEach(element_call => {
+                
+                if(element_call.parent_id == element.id)
+                {
+                    check_parent = false;
+                }
+
+            });
+    
+            if(check_parent)
+            {
+                parent_arr_select[parent_arr_select_count] = element;parent_arr_select_count++;
+            }
+        });
+
+        $('#not_called').text(`New Customer (${parent_arr_select.length}) `);
+
+    
+        parent_arr_select = [];
+        parent_arr_select_count = 0;
+
+
+        arr_data.forEach(element => {
+
+            var check_parent = false; 
+            students_arr_0.forEach(element_st => {
+
+                if(element_st.parent_id == element.id )
+                {
+                    if(Number(element_st.used) >= 100)
+                    {
+                        check_parent = true;
+                    }
+
+                }
+    
+            });
+
+            if(check_parent)
+            {
+                parent_arr_select[parent_arr_select_count] = element;parent_arr_select_count++;
+            }
+
+        });
+
+        $('#exp').text(`Expired Customer (${parent_arr_select.length}) `);
+
+
+        parent_arr_select = [];
+        parent_arr_select_count = 0;
+    
+            var sessions = await GET_DATA_TABLES(database_fixed_link , "sessions" );
+    
+            arr_data.forEach(element => {
+    
+                var check_parent = false; 
+                var wait_check_parent = false; 
+
+                students_arr_0.forEach(element_st => {
+    
+    
+                    if(element_st.parent_id == element.id )
+                    {
+                        att_feed.forEach(elemnent =>
+                            {
+                                sessions.forEach(elemnent_se =>
+                                    {
+                                        if(element_st.id == elemnent.student_id )
+                                        {
+                                            if(new Date(elemnent_se.session_date) > new Date() && Number( elemnent.session_id) == 0)
+                                            {
+                                                check_parent = true;
+                                            }
+
+                                        }
+                                    });                              
+                            });
+                    }
+                });
+
+                if(check_parent)
+                {
+                    parent_arr_select[parent_arr_select_count] = element;parent_arr_select_count++;
+                }
+    
+            });
+    
+            $('#paused').text(`PAUSED Customer (${parent_arr_select.length}) `);
+    
+
+Loading_page_clear();
 
 }
 
