@@ -1223,6 +1223,8 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
 
 function create_view_student(All_data_obj , End_Index)
 {
+
+
     var div = document.getElementById("search-results_1");
     div.innerHTML = '';
     for(var index = All_data_obj.Start_Index-1 ; index < End_Index ; index++)
@@ -1232,6 +1234,8 @@ function create_view_student(All_data_obj , End_Index)
         All_data_obj.saved_index = index;
 
         btn.onclick = function() {
+            Loading_page_set();
+
             var id = this.id;
             var ret = id.replace('view_more_','');
 
@@ -1316,6 +1320,8 @@ function create_view_student(All_data_obj , End_Index)
         }
         createTable_pop_up_students(data_arr , null , End_Index);
     }
+
+    Loading_page_clear();
 
         }
 

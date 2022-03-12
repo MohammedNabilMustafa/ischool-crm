@@ -5,28 +5,169 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="css/global.css"> -->
-    <link rel="stylesheet" href="css/registernewaccount.css">
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="../css/registernewaccount.css">
+    <link rel="stylesheet" href="../css/normalize.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;500;700;900&family=Roboto:wght@100;300;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://kit.fontawesome.com/159acad575.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/dd.css">
-    <link rel="stylesheet" href="css/flags.css">
+    <link rel="stylesheet" href="../css/dd.css">
+    <link rel="stylesheet" href="../css/flags.css">
     <title>Register New Account</title>
+
+    <style>
+        .modal_loading {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 1; /* Sit on top */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal_loading-content {
+background-color: #fefefe00;
+margin: 15% auto; /* 15% from the top and centered */
+padding: 20px;
+border: 1px solid rgba(136, 136, 136, 0);
+width: 80%; /* Could be more or less, depending on screen size */
+}
+
+.loader_1 {
+display: block;
+margin: auto;
+border: 10px solid #ffffff;
+border-radius: 50%;
+border-top: 10px solid #18547c;
+width: 50px;
+height: 50px;
+-webkit-animation: spin 2s linear infinite; /* Safari */
+animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+0% { -webkit-transform: rotate(0deg); }
+100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+body {
+margin: 20px;
+}
+form {
+width: 300px;
+}
+
+.intl-tel-input {
+display: table-cell;
+}
+.intl-tel-input .selected-flag {
+z-index: 4;
+}
+.intl-tel-input .country-list {
+z-index: 5;
+}
+.input-group .intl-tel-input .form-control {
+border-top-left-radius: 4px;
+border-top-right-radius: 0;
+border-bottom-left-radius: 4px;
+border-bottom-right-radius: 0;
+}
+
+
+.lds-ellipsis {
+display: block;
+margin: auto;
+
+position: relative;
+width: 80px;
+height: 80px;
+}
+.lds-ellipsis div {
+position: absolute;
+top: 33px;
+width: 13px;
+height: 13px;
+border-radius: 50%;
+background: #fff;
+animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+left: 8px;
+animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+left: 8px;
+animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+left: 32px;
+animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+left: 56px;
+animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+0% {
+transform: scale(0);
+}
+100% {
+transform: scale(1);
+}
+}
+@keyframes lds-ellipsis3 {
+0% {
+transform: scale(1);
+}
+100% {
+transform: scale(0);
+}
+}
+@keyframes lds-ellipsis2 {
+0% {
+transform: translate(0, 0);
+}
+100% {
+transform: translate(24px, 0);
+}
+}
+
+
+</style>
+
 </head>
 
 <body>
+    <div id="myModal_1" class="modal_loading">
+
+        <!-- Modal content -->
+        <div class="modal_loading-content">
+          <div id="loading_location" ></div>
+
+        </div>
+
+      </div>
     <div class="header">
 
         <div class="row">
-            <div class="col-auto"><img src="img/white-logo.svg" alt=""></div>
+            <div class="col-auto"><img src="../img/white-logo.svg" alt=""></div>
             <div class="col">
                 <nav>
                     <ul>
@@ -52,7 +193,7 @@
     </div>
     <div class="mobile-header">
         <div class="header-optmize">
-            <div class="logo"><img src="img/white-logo.svg" alt=""></div>
+            <div class="logo"><img src="../img/white-logo.svg" alt=""></div>
             <div class="menu"><i class="fa-solid fa-bars"></i></div>
         </div>
 
@@ -76,42 +217,18 @@
                     <h4 style="color: #2c2c2c;">Basic Information</h4>
                     <hr>
 
-                    <div class="row twosides">
+                    <div class="row">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="firstnameInput" placeholder="First name">
-                            <label for="firstnameInput">First Name</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="lastnameInput" placeholder="Last name">
-                            <label for="lastnameInput">Last Name</label>
+                            <label for="firstnameInput">Parent Name</label><span class="error_form" style="color: rgb(184, 0, 0);" id="firstnameInput_error"></span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="usernameInput" placeholder="Username">
-                            <label for="usernameInput">Username</label>
-                        </div>
-                    </div>
-                    <div class="row twosides">
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="passwordInput" placeholder="Password">
-                            <label for="passwordInput">Password</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="conpasswordInput" placeholder="Last name">
-                            <label for="conpasswordInput">Confirm Password</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="emailInput" placeholder="Email Address">
-                            <label for="usernameInput">Email Address</label>
-                        </div>
-                    </div>
+
+
                     <div class="row twosides" style="margin-bottom: 20px;">
                         <div class="form-floating mb-3">
                             <input type="tel" class="form-control" id="phonenumInput" placeholder="Phone Number">
-                            <label for="phonenumInput">Phone Number</label>
+                            <label for="phonenumInput">Phone Number</label><span class="error_form" style="color: rgb(184, 0, 0);" id="phonenumInput_error"></span>
                         </div>
                         <div class="row mb-3 country" style="width: 50%;">
 
@@ -366,18 +483,24 @@
                         </div>
 
                     </div>
+                    <div class="row">
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="emailInput" placeholder="Email Address">
+                            <label for="usernameInput">Email Address</label>
+                        </div>
+                    </div>
                     
                     <h4 style="color: #2c2c2c;">Student Information</h4>
                     <hr>
                     <div class="row twosides">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="studentnameInput" placeholder="Student Name">
-                            <label for="studentnameInput">Student Name</label>
+                            <label for="studentnameInput">Student Name</label><span class="error_form" style="color: rgb(184, 0, 0);" id="studentnameInput_error"></span>
                         </div>
                         <div class="form-floating mb-3">
                             <div class="md-form md-outline input-with-post-icon datepicker">
-                                <input placeholder="Select date" type="date" id="example" style="height: 60px;" class="form-control">
-
+                                <input placeholder="Select date" type="date" id="birthdate" style="height: 60px;" class="form-control">
+                                <span class="error_form" style="color: rgb(184, 0, 0);" id="birthdate_error"></span>
                             </div>
                         </div>
                     </div>
@@ -389,7 +512,7 @@
                         Creating the next
                         <br><b>tech  leaders.</b>
                     </div>
-                    <img src="img/OBJECTS.svg" alt=""></div>
+                    <img src="../img/OBJECTS.svg" alt=""></div>
             </div>
         </div>
         <div class="step02" style="display: none;">
@@ -406,39 +529,54 @@
 
                     <div class="row">
                         <div class="row scheduletablehead ">
-                            <span class="col-auto">Starting date</span>
-                            <span class="col-3">Day</span>
-                            <span class="col-3">Time</span>
-                            <span class="col"></span>
+                            <span class="col-3">Starting date</span>
+                            <span class="col-2">Day</span>
+                            <span class="col-2">Time</span>
+                            <span class="col-2">Language</span>
                         </div>
                         <div class="row scheduletableitem">
-                            <span class="col-auto">22/07/2022</span>
-                            <span class="col-3">Friday</span>
-                            <span class="col-3">4:30 PM</span>
+                            <span class="col-auto" hidden>52</span>
+                            <span class="col-3">22/07/2022</span>
+                            <span class="col-2">Tuesday</span>
+                            <span class="col-2">4:30 PM</span>
+                            <span class="col-2">lan</span>
+
                             <span class="col"><a class="check"></a></span>
                         </div>
                         <div class="row scheduletableitem ">
-                            <span class="col-auto">22/07/2022</span>
-                            <span class="col-3">Wednesday</span>
-                            <span class="col-3">10:30 PM</span>
+                            <span class="col-auto" hidden>52</span>
+                            <span class="col-3">22/07/2022</span>
+                            <span class="col-2">Tuesday</span>
+                            <span class="col-2">4:30 PM</span>
+                            <span class="col-2">lan</span>
+
                             <span class="col"><a class="check"></a></span>
                         </div>
                         <div class="row scheduletableitem ">
-                            <span class="col-auto">22/07/2022</span>
-                            <span class="col-3">Sunday</span>
-                            <span class="col-3">4:30 PM</span>
+                            <span class="col-auto" hidden>52</span>
+                            <span class="col-3">22/07/2022</span>
+                            <span class="col-2">Sunday</span>
+                            <span class="col-2">4:30 PM</span>
+                            <span class="col-2">lan</span>
+
                             <span class="col"><a  class="check"></a></span>
                         </div>
                         <div class="row scheduletableitem ">
-                            <span class="col-auto">22/07/2022</span>
-                            <span class="col-3">Tuesday</span>
-                            <span class="col-3">4:30 PM</span>
+                            <span class="col-auto" hidden>52</span>
+                            <span class="col-3">22/07/2022</span>
+                            <span class="col-2">Tuesday</span>
+                            <span class="col-2">4:30 PM</span>
+                            <span class="col-2">lan</span>
+
                             <span class="col"><a  class="check"></a></span>
                         </div>
                         <div class="row scheduletableitem ">
-                            <span class="col-auto">22/07/2022</span>
-                            <span class="col-3">Friday</span>
-                            <span class="col-3">4:30 PM</span>
+                            <span class="col-auto" hidden>52</span>
+                            <span class="col-3">22/07/2022</span>
+                            <span class="col-2">Tuesday</span>
+                            <span class="col-2">4:30 PM</span>
+                            <span class="col-2">lan</span>
+
                             <span class="col"><a class="check"></a></span>
                         </div>
                     </div>
@@ -453,7 +591,7 @@
                         <b> Tech  leaders</b>
                         <br>started from here.
                     </div>
-                    <img src="img/hero 1.png" alt=""></div>
+                    <img src="../img/hero 1.png" alt=""></div>
             </div>
         </div>
         <div class="step03" style="display: none;">
@@ -467,11 +605,12 @@
                         <div class="student-payment-plans">
                             <div class="payment-plans-container">
                                 <div class="header">Monthly Plan</div>
-                                <div class="price">1,990</div>
+                                <div class="price" id="Pack_1_paid_as">1,990</div>
                                 <hr class="between">
-                                <li>Billed as 1,990 / Month</li>
-                                <li>Consist of 12 payments</li>
-                                <li>Total fees 23.880 EGP</li>
+                                <li id="Pack_1_hours" >Billed as 1,990 / Month</li>
+                                <li id="Pack_1_billing" >Consist of 12 payments</li>
+                                <li id="Pack_1_inst" >Total fees 23.880 EGP</li>
+                                <li id="Pack_1_hour_rate" >Total fees 23.880 EGP</li>
                                 <hr class="between">
                                 <div class="offer-container">
                                     <div class="form-floating">
@@ -480,15 +619,17 @@
                                     </div>
                                     <span>Apply offer</span>
                                 </div>
-                                <button class="btn btn-warning">Pay 1,990 EGP</button>
+                                <button class="btn btn-warning" id="Pack_1_btn">Pay 1,990 EGP</button>
                             </div>
                             <div class="payment-plans-container">
                                 <div class="header">Quarterly Plan</div>
-                                <div class="price">1,790</div>
+                                <div class="price" id="Pack_2_paid_as">1,790</div>
                                 <hr class="between">
-                                <li>Billed as 5,370 / Month</li>
-                                <li>Consist of 4 payments</li>
-                                <li>Total fees 21.480 EGP</li>
+                                <li  id="Pack_2_hours">Billed as 5,370 / Month</li>
+                                <li id="Pack_2_billing">Consist of 4 payments</li>
+                                <li id="Pack_2_inst">Total fees 21.480 EGP</li>
+                                <li id="Pack_2_hour_rate" >Total fees 23.880 EGP</li>
+
                                 <hr class="between">
                                 <div class="offer-container">
                                     <div class="form-floating">
@@ -497,15 +638,17 @@
                                     </div>
                                     <span>Apply offer</span>
                                 </div>
-                                <button class="btn btn-warning">Pay 5,370 EGP</button>
+                                <button class="btn btn-warning" id="Pack_2_btn">Pay 5,370 EGP</button>
                             </div>
                             <div class="payment-plans-container">
                                 <div class="header">Annually Plan</div>
-                                <div class="price">1,590</div>
+                                <div class="price" id="Pack_3_paid_as">1,590</div>
                                 <hr class="between">
-                                <li>Billed as 19,080 / Month</li>
-                                <li>Consist of 1 payment</li>
-                                <li>Total fees 19.080 EGP</li>
+                                <li id="Pack_3_hours">Billed as 19,080 / Month</li>
+                                <li id="Pack_3_billing">Consist of 1 payment</li>
+                                <li id="Pack_3_inst">Total fees 19.080 EGP</li>
+                                <li id="Pack_3_hour_rate" >Total fees 23.880 EGP</li>
+
                                 <hr class="between">
                                 <div class="offer-container">
                                     <div class="form-floating">
@@ -514,7 +657,7 @@
                                     </div>
                                     <span>Apply offer</span>
                                 </div>
-                                <button class="btn btn-warning">Pay 19.080 EGP</button>
+                                <button class="btn btn-warning" id="Pack_3_btn">Pay 19.080 EGP</button>
                             </div>
                         </div>
                     </div>
@@ -620,18 +763,54 @@
 
                 </div>
                 <div class="col picture">
-                    <img style="margin: auto;" src="img/donepayment.svg" alt="">
+                    <img style="margin: auto;" src="../img/donepayment.svg" alt="">
                 </div>
             </div>
         </div>
 
-        <script src="js/jquery.min.js"></script>
+        <script src="../js/jquery.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="../js/bootstrap.bundle.min.js"></script>
 
-        <script src="js/global.js"></script>
-        <script src="js/registernewaccount.js"></script>
-        <script src="js/dd.min.js"></script>
+        <script src="../js/global.js"></script>
+        <script src="../js/registernewaccount.js"></script>
+        <script src="../js/dd.min.js"></script>
+
+        <script   src="../database_functions_v2.js" ></script>
+        <script   src="../add_parent_func.js" ></script>
+        <script   src="../help_functions.js" ></script>
+        <script   src="../Country_codes.js" ></script>
+        <script   src="../json_func_admin.js" ></script>
+
+
+        <script>
+            
+            // var database_fixed_link = "../fetch.php";
+            var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
+            // var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
+            // var database_fixed_link = "https://operation.ischool-edu.com/fetch.php";
+    
+
+
+            go_to_step01_func_reg();
+    
+            function Loading_page_set()
+            {
+                modal_1.style.display = "block";
+                document.getElementById("loading_location").innerHTML = `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`;
+            }
+    
+            function Loading_page_clear()
+            {
+                modal_1.style.display = "none";
+            }
+    
+    
+    
+            </script>
+
+
+
 </body>
 
 </html>

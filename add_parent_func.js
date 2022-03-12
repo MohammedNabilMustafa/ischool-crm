@@ -1863,7 +1863,7 @@ async function ADD_PARENT_SENRIO(paper_inputs)
 
                     if(check_confirm == true)
                     {
-    
+                        check_confirm = false;
                         if(element.value)
                         {
                             data_to_send_arr_parent[11] = element.value;
@@ -1880,7 +1880,7 @@ async function ADD_PARENT_SENRIO(paper_inputs)
                         check_confirm = true;
                     }
                 })
-                if(check_confirm == false)
+                if(check_confirm == true)
                 {
                     data_to_send_arr_parent[11] = document.getElementById('sales_input').options[1].value;
                 }

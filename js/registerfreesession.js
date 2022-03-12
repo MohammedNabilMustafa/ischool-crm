@@ -436,8 +436,10 @@ async function go_to_step03_func_free()
                     if(check_confirm == true)
                     {
     
-                        if(element.id)
+                        check_confirm = false;
+                        if(element.id && element.id != "")
                         {
+                            console.log(element);
                             get_data_elements_parent_table[11] = element.id;
                            
                         }
@@ -452,7 +454,7 @@ async function go_to_step03_func_free()
                         check_confirm = true;
                     }
                 })
-                if(check_confirm == false)
+                if(check_confirm == true)
                 {
                     get_data_elements_parent_table[11] = sales_emp[0].id;
                 }
@@ -480,7 +482,8 @@ async function go_to_step03_func_free()
 
                     if(check_confirm == true)
                     {
-    
+                        check_confirm = false;
+
                         if(element.id)
                         {
                             get_data_elements_parent_table[10] = element.id;
@@ -499,7 +502,7 @@ async function go_to_step03_func_free()
                     }
                 })
 
-                if(check_confirm == false)
+                if(check_confirm == true)
                 {
                     get_data_elements_parent_table[10] = cs_emp[0].id;
                 }
@@ -510,17 +513,22 @@ async function go_to_step03_func_free()
 
     var parent_id = '';
 
-    var check_email = false;
+    var check_email_phone = false;
 
     get_all_parent_table.forEach(element=>{
         if(element.email == $('#emailInput').val())
         {
             parent_id = element.id;
-            check_email = true;
+            check_email_phone = true;
+        }
+        else if(element.phone == $('#phonenumInput').val())
+        {
+            parent_id = element.id;
+            check_email_phone = true;
         }
     })
 
-    if(check_email)
+    if(check_email_phone)
     {
 
     }

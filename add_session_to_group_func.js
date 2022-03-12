@@ -175,158 +175,144 @@ function schedule_create(All_req_obj)
             schedule_data_cols[0] = [employee_arr_sessions[index_][0] ,employee_arr_sessions[index_][1]];
 
 
-        if(session_ids.length)
-        {
-            for(index__ = 0 ; index__ < session_ids.length ; index__++)
+
+            if(session_ids.length)
             {
-                if(session_ids[index__][2] == object_data.start_from)
-                {                        
-                    if(session_ids[index__][16] == employee_arr_sessions[index_][1])
+                for(index__ = 0 ; index__ < session_ids.length ; index__++)
+                {
+                    if(session_ids[index__][2] == object_data.start_from)
+                    {                        
+                        if(session_ids[index__][16] == employee_arr_sessions[index_][1])
+                        {
+
+                            var count_st = 0
+                            var check_att = 0;
+                            var check_feed = 0;
+
+                            for(var ii = 0 ;  ii < student_att_arr.length ; ii++ )
+                            {
+                                
+                                if(student_att_arr[ii][0] == session_ids[index__][0])
+                                {
+                                    count_st++;
+                                }
+
+                                if(student_att_arr[ii][0] == session_ids[index__][0] && student_att_arr[ii][4] == "")
+                                {
+                                    check_att++;
+
+                                }
+                                if(student_att_arr[ii][0] == session_ids[index__][0] && student_att_arr[ii][5] == "")
+                                {
+                                    check_feed++;
+                                }
+                            }
+
+                            if(check_att)
+                            {
+                                check_att = `<label style='color:red'> ${check_att} Attendance Remain </label>`;
+                            }
+                            else
+                            {
+                                check_att = '';
+                            }
+
+                            if(check_feed)
+                            {
+                                check_feed = `<label style='color:red'> ${check_feed} Feeback Remain </label>`;
+                            }
+                            else
+                            {
+                                check_feed = '';
+                            }
+
+                            if(check_att == "" && check_feed =="")
+                            {
+                                check_att = `<label style='color:Green'>Materials Up To Date </label>`;
+                            }
+
+                            var Button_view = '';
+                            var today_date = new Date();
+                            var compared_date = new Date(session_ids[index__][2]);
+                            
+                            if(today_date >=  compared_date)
+                            {
+                                Button_view = `<button  type="button" id='view_more_${index__}' class="btn btn-light" style='float:right'><i class="fa-solid fa-eye"></i></button>` ;
+                            }
+                            else
+                            {
+                                Button_view = '';
+                                check_att = '';
+                                check_feed = '';
+                            }
+
+                            var data_for_all = ['Group ID : '+session_ids[index__][5] , 'Session ID : '+session_ids[index__][0] , "Session Num : "+session_ids[index__][3] , "Lang : "+session_ids[index__][9] , "Type : "+session_ids[index__][13] , "Level : "+session_ids[index__][11] , count_st+" Students" 
+                            ,check_att 
+                            ,check_feed
+                            ,Button_view ];
+
+                            if(session_ids[index__][7] == 'Slot 1' && schedule_data_cols[1] == undefined )
+                            {
+                                schedule_data_cols[1] = data_for_all;
+                                schedule_data_cols[2] = '-'}
+
+                            if(session_ids[index__][7] == 'Slot 2' && schedule_data_cols[3] == undefined)
+                            {   
+                                schedule_data_cols[3] = data_for_all;
+                                schedule_data_cols[4] = '-'}
+                                            
+                            if(session_ids[index__][7] == 'Slot 3' && schedule_data_cols[5] == undefined)
+                            {
+                                schedule_data_cols[5] = data_for_all;
+                                schedule_data_cols[6] = '-'}
+
+                            if(session_ids[index__][7] == 'Slot 4' && schedule_data_cols[1] == undefined)
+                            {schedule_data_cols[1] = data_for_all;}
+
+                                if(session_ids[index__][7] == 'Slot 5' && schedule_data_cols[2] == undefined)
+                                {schedule_data_cols[2] =  data_for_all;}
+
+                                if(session_ids[index__][7] == 'Slot 6' && schedule_data_cols[3] == undefined)
+                                {schedule_data_cols[3] = data_for_all;}
+
+                                if(session_ids[index__][7] == 'Slot 7' && schedule_data_cols[4] == undefined)
+                                {schedule_data_cols[4] = data_for_all;}
+
+                                if(session_ids[index__][7] == 'Slot 8' && schedule_data_cols[5] == undefined)
+                                {schedule_data_cols[5] = data_for_all;}
+
+                                if(session_ids[index__][7] == 'Slot 9' && schedule_data_cols[6] == undefined)
+                                {schedule_data_cols[6] = data_for_all;}
+
+
+
+                            }
+                            else
+                            {
+
+
+                            }
+
+                    }
+                    else
                     {
 
-                        var count_st = 0
-                        var check_att = 0;
-                        var check_feed = 0;
-
-                        for(var ii = 0 ;  ii < student_att_arr.length ; ii++ )
-                        {
-                            
-                            if(student_att_arr[ii][0] == session_ids[index__][0])
-                            {
-                                count_st++;
-                            }
-
-                            if(student_att_arr[ii][0] == session_ids[index__][0] && student_att_arr[ii][4] == "")
-                            {
-                                check_att++;
-
-                            }
-                            if(student_att_arr[ii][0] == session_ids[index__][0] && student_att_arr[ii][5] == "")
-                            {
-                                check_feed++;
-                            }
-                        }
-
-                        if(check_att)
-                        {
-                            check_att = `<label style='color:red'> ${check_att} Attendance Remain </label>`;
-                        }
-                        else
-                        {
-                            check_att = '';
-                        }
-
-                        if(check_feed)
-                        {
-                            check_feed = `<label style='color:red'> ${check_feed} Feeback Remain </label>`;
-                        }
-                        else
-                        {
-                            check_feed = '';
-                        }
-
-                        if(check_att == "" && check_feed =="")
-                        {
-                            check_att = `<label style='color:Green'>Materials Up To Date </label>`;
-                        }
-
-                        var Button_view = '';
-                        var today_date = new Date();
-                        var compared_date = new Date(session_ids[index__][2]);
-                        
-                        if(today_date >=  compared_date)
-                        {
-                            Button_view = `<button  type="button" id='view_more_${index__}' class="btn btn-light" style='float:right'><i class="fa-solid fa-eye"></i></button>` ;
-                        }
-                        else
-                        {
-                            Button_view = '';
-                            check_att = '';
-                            check_feed = '';
-                        }
-
-                        var data_for_all = ['Group ID : '+session_ids[index__][5] , 'Session ID : '+session_ids[index__][0] , "Session Num : "+session_ids[index__][3] , "Lang : "+session_ids[index__][9] , "Type : "+session_ids[index__][13] , "Level : "+session_ids[index__][11] , count_st+" Students" 
-                        ,check_att 
-                        ,check_feed
-                        ,Button_view ];
-
-                        if(session_ids[index__][7] == 'Slot 1' && schedule_data_cols[1] == undefined )
-                        {
-                            schedule_data_cols[1] = data_for_all;
-                            schedule_data_cols[2] = '-'}
-                            // else{schedule_data_cols[1] = ['empty','2' , employee_arr_sessions[index_][0] ,object_data.start_from ]; schedule_data_cols[2] = ['empty','3' , employee_arr_sessions[index_][0] ,object_data.start_from ];}
-
-                        if(session_ids[index__][7] == 'Slot 2' && schedule_data_cols[3] == undefined)
-                        {   
-                            schedule_data_cols[3] = data_for_all;
-                            schedule_data_cols[4] = '-'}
-                            // else{schedule_data_cols[3] = ['empty','5' , employee_arr_sessions[index_][0] ,object_data.start_from ]; schedule_data_cols[4] = ['empty','6' , employee_arr_sessions[index_][0] ,object_data.start_from ];}
-                                        
-                        if(session_ids[index__][7] == 'Slot 3' && schedule_data_cols[5] == undefined)
-                        {
-                            schedule_data_cols[5] = data_for_all;
-                            schedule_data_cols[6] = '-'}
-                            // else{schedule_data_cols[5] = ['empty','8' , employee_arr_sessions[index_][0] ,object_data.start_from ]; schedule_data_cols[6] = ['empty','9' , employee_arr_sessions[index_][0] ,object_data.start_from ];}
-
-                        if(session_ids[index__][7] == 'Slot 4' && schedule_data_cols[1] == undefined)
-                        {schedule_data_cols[1] = data_for_all;}
-                        //  if( session_ids[index__][7] != 'Slot 4' && session_ids[index__][7] != 'Slot 1')
-                        // {schedule_data_cols[1] = ['empty','2' , employee_arr_sessions[index_][0] ,object_data.start_from ]}
-
-                            if(session_ids[index__][7] == 'Slot 5' && schedule_data_cols[2] == undefined)
-                            {schedule_data_cols[2] =  data_for_all;}
-                            //  if( session_ids[index__][7] != 'Slot 5' && session_ids[index__][7] != 'Slot 1')
-                            // {schedule_data_cols[2] = ['empty','3' , employee_arr_sessions[index_][0] ,object_data.start_from ]}
-
-                            if(session_ids[index__][7] == 'Slot 6' && schedule_data_cols[3] == undefined)
-                            {schedule_data_cols[3] = data_for_all;}
-                            //  if( session_ids[index__][7] != 'Slot 6' && session_ids[index__][7] != 'Slot 2')
-                            // {schedule_data_cols[3] =['empty','5' , employee_arr_sessions[index_][0] ,object_data.start_from ]}
-
-                            if(session_ids[index__][7] == 'Slot 7' && schedule_data_cols[4] == undefined)
-                            {schedule_data_cols[4] = data_for_all;}
-                            //  if( session_ids[index__][7] != 'Slot 7' && session_ids[index__][7] != 'Slot 2')
-                            // {schedule_data_cols[4] =['empty','6' , employee_arr_sessions[index_][0] ,object_data.start_from ]}
-
-                            if(session_ids[index__][7] == 'Slot 8' && schedule_data_cols[5] == undefined)
-                            {schedule_data_cols[5] = data_for_all;}
-                            //  if( session_ids[index__][7] != 'Slot 8' && session_ids[index__][7] != 'Slot 3')
-                            // {schedule_data_cols[5] =['empty','8' , employee_arr_sessions[index_][0] ,object_data.start_from ]}
-
-                            if(session_ids[index__][7] == 'Slot 9' && schedule_data_cols[6] == undefined)
-                            {schedule_data_cols[6] = data_for_all;}
-                            //  if( session_ids[index__][7] != 'Slot 9' && session_ids[index__][7] != 'Slot 3')
-                            // {schedule_data_cols[6] = ['empty','9' , employee_arr_sessions[index_][0] ,object_data.start_from ]}
-
-
-
-                        }
-                        else
-                        {
-
-
-                        }
-
-                }
-                else
-                {
-
-                }
+                    }
             }
 
-        }
-        else
-        {
-            schedule_data_cols[1] = ['empty','2' , employee_arr_sessions[index_][0] ,object_data.start_from ]
-            schedule_data_cols[2] = ['empty','3' , employee_arr_sessions[index_][0] ,object_data.start_from  ]
-            schedule_data_cols[3] = ['empty','5' , employee_arr_sessions[index_][0] ,object_data.start_from ]
-            schedule_data_cols[4] = ['empty','6' , employee_arr_sessions[index_][0] ,object_data.start_from ]
-            schedule_data_cols[5] = ['empty','8' , employee_arr_sessions[index_][0] ,object_data.start_from ]
-            schedule_data_cols[6] = ['empty','9' , employee_arr_sessions[index_][0] ,object_data.start_from ]
-        }
+            }
+            else
+            {
+                schedule_data_cols[1] = ['empty','2' , employee_arr_sessions[index_][0] ,object_data.start_from ]
+                schedule_data_cols[2] = ['empty','3' , employee_arr_sessions[index_][0] ,object_data.start_from  ]
+                schedule_data_cols[3] = ['empty','5' , employee_arr_sessions[index_][0] ,object_data.start_from ]
+                schedule_data_cols[4] = ['empty','6' , employee_arr_sessions[index_][0] ,object_data.start_from ]
+                schedule_data_cols[5] = ['empty','8' , employee_arr_sessions[index_][0] ,object_data.start_from ]
+                schedule_data_cols[6] = ['empty','9' , employee_arr_sessions[index_][0] ,object_data.start_from ]
+            }
 
 
-        schedule_data_rows[index_] = schedule_data_cols;
+            schedule_data_rows[index_] = schedule_data_cols;
 
         }
 
@@ -540,22 +526,23 @@ function schedule_create(All_req_obj)
                             return_data_res_cols[1]  = search_for_data_index(Time_slots , 'Slot 9' , 2 , 3)[0];
                             return_data_res_rows[0] = return_data_res_cols;
                         }
-
-                        result += `<div style='display:flex;justify-content:left;'><button id='e${object_data_.table_count}_${return_data}_${return_data_1}' class='btn btn-light'  > <i class="fa-solid fa-angles-down"></i> </button></div>`;
-
-
-                        result += `<div style='display:flex;justify-content:left;'><button style='visibility:hidden' id='back_${object_data_.table_count}_${return_data}_${return_data_1}' class='btn btn-light'  > <i class="fa-solid fa-angles-up"></i> </button></div>`;
-                        result += paper_inner_session_return(`time_${object_data_.table_count}_${return_data}_${return_data_1}` , "Time Slot" , return_data_res_rows , 0 , 1);
-                        result += `<br>`+ paper_inner_session_return(`lan_${object_data_.table_count}_${return_data}_${return_data_1}` , "Language" , lang_slots , 0 , 2);
-                        result += `<br>`+ paper_inner_session_return(`lvl_${object_data_.table_count}_${return_data}_${return_data_1}` , "Level" , Lvl_slots , 0 , 2);
+                        if(localStorage.permission == 4)
+                        {
+                            result += `<div style='display:flex;justify-content:left;'><button id='e${object_data_.table_count}_${return_data}_${return_data_1}' class='btn btn-light'  > <i class="fa-solid fa-angles-down"></i> </button></div>`;
+                            result += `<div style='display:flex;justify-content:left;'><button style='visibility:hidden' id='back_${object_data_.table_count}_${return_data}_${return_data_1}' class='btn btn-light'  > <i class="fa-solid fa-angles-up"></i> </button></div>`;
+                        }
+                        result += paper_inner_session_return(`time_${object_data_.table_count}_${return_data}_${return_data_1}` , "Slot" , return_data_res_rows , 0 , 1);
+                        result += `<br>`+ paper_inner_session_return(`lan_${object_data_.table_count}_${return_data}_${return_data_1}` , "Lang" , lang_slots , 0 , 2);
+                        result += `<br>`+ paper_inner_session_return(`lvl_${object_data_.table_count}_${return_data}_${return_data_1}` , "Lvl" , Lvl_slots , 0 , 2);
                         result += `<br>`+ paper_inner_session_return(`type_${object_data_.table_count}_${return_data}_${return_data_1}` , "Type" , Type_slots , 0 , 2);
                         result += `<br>`+ paper_inner_session_return(`age_${object_data_.table_count}_${return_data}_${return_data_1}` , "Age" , Age_slots , 0 , 2);
-                        result += `<br><label id='Lnum_${object_data_.table_count}_${return_data}_${return_data_1}' style='visibility:hidden'># of Sessions : </label><input class='col-3' id='num_${object_data_.table_count}_${return_data}_${return_data_1}' type='number' style='visibility:hidden'>`
+                        result += `<br><label id='Lnum_${object_data_.table_count}_${return_data}_${return_data_1}' style='visibility:hidden'># of Se : </label><input class='col-3' id='num_${object_data_.table_count}_${return_data}_${return_data_1}' type='number' style='visibility:hidden'>`
                         result += `<input id='inst_${object_data_.table_count}_${return_data}_${return_data_1}'  value='${object_data_.schedule_data_rows[return_data][return_data_1][2]}' hidden>`
                         result += `<input id='date_${object_data_.table_count}_${return_data}_${return_data_1}'  value='${object_data_.schedule_data_rows[return_data][return_data_1][3]}' hidden>`
-
-                        result += `<div style='display:flex;justify-content:right;'><button id='${object_data_.table_count}_${return_data}_${return_data_1}' class='btn btn-light'  style='visibility:hidden'> <i class="fa-solid fa-circle-arrow-right"></i> </button></div>`;
-
+                        if(localStorage.permission == 4)
+                        {
+                            result += `<div style='display:flex;justify-content:right;'><button id='${object_data_.table_count}_${return_data}_${return_data_1}' class='btn btn-light'  style='visibility:hidden'> <i class="fa-solid fa-circle-arrow-right"></i> </button></div>`;
+                        }
                     }
 
                     return result;
@@ -793,11 +780,27 @@ if(All_table_obj.tables[10] && All_table_obj.tables[10] !== undefined && All_tab
     {
         if(All_table_obj.tables[10][index].permission_id == 1)
         {
-            var employee_arr_sessions_rows = [];
-            employee_arr_sessions_rows[0] =  All_table_obj.tables[10][index].id;
-            employee_arr_sessions_rows[1] =  All_table_obj.tables[10][index].name
-            employee_arr_sessions_rows[2] =  All_table_obj.tables[10][index].zoomlink
-            employee_arr_sessions[counter_index++] =  employee_arr_sessions_rows;
+            if(localStorage.permission == 1)
+            {
+                if(localStorage.username == All_table_obj.tables[10][index].name)
+                {
+                    var employee_arr_sessions_rows = [];
+                    employee_arr_sessions_rows[0] =  All_table_obj.tables[10][index].id;
+                    employee_arr_sessions_rows[1] =  All_table_obj.tables[10][index].name
+                    employee_arr_sessions_rows[2] =  All_table_obj.tables[10][index].zoomlink
+                    employee_arr_sessions[counter_index++] =  employee_arr_sessions_rows;
+                }
+
+            }
+            else
+            {
+                var employee_arr_sessions_rows = [];
+                employee_arr_sessions_rows[0] =  All_table_obj.tables[10][index].id;
+                employee_arr_sessions_rows[1] =  All_table_obj.tables[10][index].name
+                employee_arr_sessions_rows[2] =  All_table_obj.tables[10][index].zoomlink
+                employee_arr_sessions[counter_index++] =  employee_arr_sessions_rows;
+            }
+  
         }
 
     }

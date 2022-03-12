@@ -142,14 +142,8 @@ async function login_page_check()
 async function login_page_check_auto(user , pass)
 {
 
-    // Show_Element(login_page);
-    // Hide_Element(all_countainer);
 
-
-    
     var value_emp = await  GET_DATA_TABLES( database_fixed_link, 'employee');
-
-    
 
         if(user == "")
         {
@@ -224,12 +218,17 @@ async function login_success(user_info)
     {
         CS_permission();
     }
+    else if(user_info.permission_id == 1)
+    {
+        Instructor_permission();
+    }
+
 
     clear_all_selected();
-    $('#calls').css('background', '#008CBA').css('color','white');
+    // $('#calls').css('background', '#008CBA').css('color','white');
 
-    document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Customer Support Calls</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
-    ADD_Customer_call();
+    // document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Customer Support Calls</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+    // ADD_Customer_call();
 
 }
 
@@ -305,6 +304,29 @@ function CS_permission()
     Hide_Element(arr_system[14]);
 }
 
+
+function Instructor_permission()
+{
+    Hide_Element(login_page);
+    Show_Element(all_countainer);
+    Hide_Element(arr_admin_fin[0]);
+    Hide_Element(arr_admin_students[0]);
+    Hide_Element(arr_admin_group[0]);
+    Hide_Element(del_arr_system);
+    Hide_Element(arr_admin_parent[0]);
+    Hide_Element(arr_system[1]);
+    Hide_Element(arr_system[3]);
+    Hide_Element(arr_system[4]);
+    Hide_Element(arr_system[6]);
+    Hide_Element(arr_system[7]);
+    Hide_Element(arr_system[8]);
+    Hide_Element(arr_system[9]);
+    Hide_Element(arr_system[10]);
+    Hide_Element(arr_system[11]);
+    Hide_Element(arr_system[12]);
+    Hide_Element(arr_system[13]);
+    Hide_Element(arr_system[14]);
+}
 function Sales_permission()
 {
     del_arr_system
