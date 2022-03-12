@@ -56,6 +56,26 @@ function ADD_STUDENT_TO_PACKAGE(response)
     ,"attendance" 
     ,"feedback" 
     ]
+    ,
+    ["std_id"
+    ,"parent_id"
+    ,"free_session_status"
+    ,"std_status"
+    ,"name"
+    ,"age"
+    ,"birthdate"
+  ],
+  [
+    "name"
+  ,"phone"
+  ,"email"
+  ,"zoomlink"
+  ,"username"
+  ,"password_value"
+  ,"permission_id"
+  ,"department_id"
+  ,"role_id"
+]
   ];
 
 var called_table = [
@@ -64,6 +84,8 @@ var called_table = [
       'invoice',
       "student_package",
       "att_feed",
+      "parent",
+      "employee"
   ];
 
 var paper_inputs = [
@@ -102,7 +124,6 @@ function quary_tables_all_paper_student_package(All_table_obj , func)
     var row_count_1 = 0;
     var student_count;
 
-    // console.log(All_table_obj.tables);
    if(All_table_obj.tables[8] && All_table_obj.tables[8] !== undefined && All_table_obj.tables[8].length != 0){
    
     if(All_table_obj.tables[10] && All_table_obj.tables[10] !== undefined && All_table_obj.tables[10].length != 0)
@@ -685,8 +706,58 @@ async function add_new_student_package(All_req_obj,paper_inputs)
 function quary_tables_all_status_add_student_package(All_table_obj , func)
 {
     var seached_rows = [];
+
+    var filered_parent = [];
+    var filered_parent_count = 0;
     
-                                            
+    if(localStorage.permission != 4)
+    {
+        if(All_table_obj.tables[5] && All_table_obj.tables[5] !== undefined && All_table_obj.tables[5].length != 0){
+
+            All_table_obj.tables[5].forEach(element =>{
+
+                if(localStorage.userid == element.customer_agent_id)
+                {
+                    filered_parent[filered_parent_count] = element;filered_parent_count++;
+                }
+                else if (localStorage.userid == element.sales_agent_id)
+                {
+                    filered_parent[filered_parent_count] = element;filered_parent_count++;
+                }
+
+            })
+
+            filered_parent.forEach(element =>{
+
+            if(All_table_obj.tables[0] && All_table_obj.tables[0] !== undefined && All_table_obj.tables[0].length != 0){
+
+                All_table_obj.tables[0].forEach(element_st =>{
+                    if(element.id == element_st.parent_id)
+                    {
+                        element_st.accepted = true;
+                    }
+                    if(element_st.accepted != true)
+                    {
+                        element_st.accepted = false;
+                    }
+                }
+                )
+            }
+            })
+        }
+    }
+    else
+    {
+        if(All_table_obj.tables[0] && All_table_obj.tables[0] !== undefined && All_table_obj.tables[0].length != 0){
+
+            All_table_obj.tables[0].forEach(element_st =>{
+            
+                element_st.accepted = true;
+            }
+            )
+        }
+    }
+                                        
         if(All_table_obj.tables[0] && All_table_obj.tables[0] !== undefined && All_table_obj.tables[0].length != 0){
 
             for(var index_ = 0 ; index_ < All_table_obj.tables[0].length ; index_++)
@@ -754,9 +825,12 @@ function quary_tables_all_status_add_student_package(All_table_obj , func)
                     }
 
                 });
-                
-                $('#student_input').append(`<option value="${All_table_obj.tables[0][index_].id}"
-                >(ID:${All_table_obj.tables[0][index_].id}) - (SID${All_table_obj.tables[0][index_].std_id}) - (NM:${All_table_obj.tables[0][index_].name}) - (PAC:${package_id_search})- (${package_id_count}) - (${T}|${D}|${W}|${F}|${AF})  </option>`);  
+                if(All_table_obj.tables[0][index_].accepted == true)
+                {
+                    $('#student_input').append(`<option value="${All_table_obj.tables[0][index_].id}"
+                    >(ID:${All_table_obj.tables[0][index_].id}) - (SID${All_table_obj.tables[0][index_].std_id}) - (NM:${All_table_obj.tables[0][index_].name}) - (PAC:${package_id_search})- (${package_id_count}) - (${T}|${D}|${W}|${F}|${AF})  </option>`);  
+
+                }
             }
         }
 

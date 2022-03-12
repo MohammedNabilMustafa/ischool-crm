@@ -299,8 +299,6 @@ function CS_permission()
     Hide_Element(arr_system[5]);
     Hide_Element(arr_system[6]);
     Hide_Element(arr_system[7]);
-    Hide_Element(arr_system[8]);
-    Hide_Element(arr_system[9]);
     Hide_Element(arr_system[10]);
     Hide_Element(arr_system[12]);
     Hide_Element(arr_system[13]);

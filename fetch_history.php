@@ -14,13 +14,7 @@ $dbname = "history";
 // $servername = "localhost";
 // $username = "ischool4_admin";
 // $password = "123456";
-// $dbname = "ischool4_operation";
-
-
-
-
-
-
+// $dbname = "ischool4_history";
 
 
 if (isset($_POST["status"])){

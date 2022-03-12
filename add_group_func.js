@@ -272,9 +272,6 @@ function add_new_Groups_func(All_req_obj,paper_inputs)
                     for(var index = 0 ; index < All_table_obj.tables[9].length ; index++)
                     {
 
-                        console.log(All_table_obj.tables[8][index_].id);
-                        console.log(All_table_obj.tables[9][index].groups_id);
-                        console.log('---');
 
                         if(Number(All_table_obj.tables[8][index_].id)== Number(All_table_obj.tables[9][index].groups_id))
                         {
@@ -432,7 +429,6 @@ function add_new_Groups_func(All_req_obj,paper_inputs)
  function quary_tables_all_status_groups(All_table_obj , func)
  {
 
-    // console.log(All_table_obj);
 
     if(All_table_obj.tables[6] && All_table_obj.tables[6] !== undefined && All_table_obj.tables[6].length != 0){
         

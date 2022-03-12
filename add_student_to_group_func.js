@@ -63,6 +63,20 @@ function ADD_STUDENT_TO_GROUP()
   ,"attendance" 
   ,"feedback" 
 ]
+,
+["name"
+,"phone"
+,"email"
+,"name_2"
+,"phone_2"
+,"email_2"
+,"address"
+,"location"
+,"job"
+,"reg_status"
+,"customer_agent_id"
+,"sales_agent_id"
+]
   ];
 
 var called_table = [
@@ -78,7 +92,8 @@ var called_table = [
       'students',
       'student_groups',
       'sessions',
-      'att_feed'
+      'att_feed',
+      'parent'
       
   ];
 
@@ -845,6 +860,58 @@ function quary_tables_all_status_add_student_once(All_table_obj , func)
 {
     var seached_rows = [];
     saved_age_arr = [];
+    var filered_parent = [];
+    var filered_parent_count = 0;
+
+    if(localStorage.permission != 4)
+    {
+        if(All_table_obj.tables[13] && All_table_obj.tables[13] !== undefined && All_table_obj.tables[13].length != 0){
+
+            All_table_obj.tables[13].forEach(element =>{
+
+                if(localStorage.userid == element.customer_agent_id)
+                {
+                    filered_parent[filered_parent_count] = element;filered_parent_count++;
+                }
+                else if (localStorage.userid == element.sales_agent_id)
+                {
+                    filered_parent[filered_parent_count] = element;filered_parent_count++;
+                }
+
+            })
+
+            filered_parent.forEach(element =>{
+
+            if(All_table_obj.tables[9] && All_table_obj.tables[9] !== undefined && All_table_obj.tables[9].length != 0){
+
+                All_table_obj.tables[9].forEach(element_st =>{
+                    if(element.id == element_st.parent_id)
+                    {
+                        element_st.accepted = true;
+                    }
+                    if(element_st.accepted != true)
+                    {
+                        element_st.accepted = false;
+                    }
+                }
+                )
+            }
+            })
+        }
+    }
+    else
+    {
+        if(All_table_obj.tables[0] && All_table_obj.tables[0] !== undefined && All_table_obj.tables[0].length != 0){
+
+            All_table_obj.tables[0].forEach(element_st =>{
+            
+                element_st.accepted = true;
+            }
+            )
+        }
+    }
+
+
     if(All_table_obj.tables[7] && All_table_obj.tables[7] !== undefined && All_table_obj.tables[7].length != 0){
 
     saved_age_arr = All_table_obj.tables[7]
@@ -868,9 +935,11 @@ function quary_tables_all_status_add_student_once(All_table_obj , func)
                 }
             }
 
-
-            $('#student_input').append(`<option value="${All_table_obj.tables[9][index_].id}"
-            >ID : ${All_table_obj.tables[9][index_].id} | ISID :${All_table_obj.tables[9][index_].std_id} | Name : ${All_table_obj.tables[9][index_].name} | GPID : ${group_id_search}   </option>`);  
+                if(All_table_obj.tables[9][index_].accepted == true)
+                {
+                    $('#student_input').append(`<option value="${All_table_obj.tables[9][index_].id}"
+                    >ID : ${All_table_obj.tables[9][index_].id} | ISID :${All_table_obj.tables[9][index_].std_id} | Name : ${All_table_obj.tables[9][index_].name} | GPID : ${group_id_search}   </option>`);  
+                }
         }
     }
 

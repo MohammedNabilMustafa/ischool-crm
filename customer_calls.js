@@ -782,6 +782,7 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
         
        
         btn.onclick = async function() {
+            Loading_page_set();
 
             var id = this.id;
             var ret = '';
@@ -811,32 +812,32 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
             ,'Parent Name :'
             ,'Student Name :'
         
-        ];
+            ];
         
-        const All_data_obj_ = {};
-        All_data_obj_.Start_Index = All_data_obj.Start_Index;
-        All_data_obj_.next_btn = '#btn2_';
-        All_data_obj_.prev_btn = '#btn1_';
-        All_data_obj_.ind_btn = '#page_index_';
-        All_data_obj_.location_index = "Location_44";
-        All_data_obj_.table_div = 'search-results_1';
-        All_data_obj_.all_names = inputs_names_search;
-        All_data_obj_.location_next = "Location_33";
-        All_data_obj_.Location_2 = "Location_22";
-        All_data_obj_.location_1 = "Location_11";
-        All_data_obj_.btn_index = 'btn_index__';
-        All_data_obj_.edit_index = [];
-        All_data_obj_.delete_index = [];
-        All_data_obj_.view_index = [];
-        All_data_obj_.index_num_value = [];
-        All_data_obj_.obj;
-        All_data_obj_.obj_data = [];
-        All_data_obj_.saved_index ;
+            const All_data_obj_ = {};
+            All_data_obj_.Start_Index = All_data_obj.Start_Index;
+            All_data_obj_.next_btn = '#btn2_';
+            All_data_obj_.prev_btn = '#btn1_';
+            All_data_obj_.ind_btn = '#page_index_';
+            All_data_obj_.location_index = "Location_44";
+            All_data_obj_.table_div = 'search-results_1';
+            All_data_obj_.all_names = inputs_names_search;
+            All_data_obj_.location_next = "Location_33";
+            All_data_obj_.Location_2 = "Location_22";
+            All_data_obj_.location_1 = "Location_11";
+            All_data_obj_.btn_index = 'btn_index__';
+            All_data_obj_.edit_index = [];
+            All_data_obj_.delete_index = [];
+            All_data_obj_.view_index = [];
+            All_data_obj_.index_num_value = [];
+            All_data_obj_.obj;
+            All_data_obj_.obj_data = [];
+            All_data_obj_.saved_index ;
         
-        var call_status_arr_ = await GET_DATA_TABLES(database_fixed_link , "call_status" );
-        var call_type_arr_ = await GET_DATA_TABLES(database_fixed_link , "call_type" );
-        var cat_arr_ = await GET_DATA_TABLES(database_fixed_link , "cat" );
-        var close_arr_ = await GET_DATA_TABLES(database_fixed_link , "close" );
+            var call_status_arr_ = await GET_DATA_TABLES(database_fixed_link , "call_status" );
+            var call_type_arr_ = await GET_DATA_TABLES(database_fixed_link , "call_type" );
+            var cat_arr_ = await GET_DATA_TABLES(database_fixed_link , "cat" );
+            var close_arr_ = await GET_DATA_TABLES(database_fixed_link , "close" );
 
           
             document.getElementById("blob_Location_1").innerHTML = "";
@@ -885,9 +886,12 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
 
             $('.select2').select2();
 
+            Loading_page_clear();
 
             $("#send_group"+ret).click(async function()
                 {
+                    Loading_page_set();
+
                     if( $("#call_type_input"+ret).val() == ""){ alert("Choose Type"); return;}
                     if( $("#call_status_input"+ret).val()== ""){ alert("Choose Status"); return;}
                     if( $("#call_cat_input"+ret).val()== ""){ alert("Choose Category"); return;}
@@ -1158,6 +1162,7 @@ async function create_view_customer(All_data_obj , End_Index , ret_manual)
                       
 
                     create_table_customer_custom(customer_ser_arr_1 , All_data_obj.check_val , ret , All_data_obj.Start_Index);
+                    Loading_page_clear();
 
                 }
             )
@@ -1928,14 +1933,17 @@ async function check_cust_body(id_btn , arr_data_all)
         arr_data.forEach(element => {
 
             var check_parent = true; 
-            customer_ser_arr_0.forEach(element_call => {
-                
-                if(element_call.parent_id == element.id && (new Date().getDate() - new Date(element_call.timestamp).getDate()) < 7 )
-                {
-                    check_parent = false;
-                }
+            if(customer_ser_arr_0)
+            {
+                customer_ser_arr_0.forEach(element_call => {
+                    
+                    if(element_call.parent_id == element.id && (new Date().getDate() - new Date(element_call.timestamp).getDate()) < 7 )
+                    {
+                        check_parent = false;
+                    }
 
-            });
+                });
+            }
     
             if(check_parent)
             {
@@ -1997,14 +2005,17 @@ async function check_cust_body(id_btn , arr_data_all)
         arr_data.forEach(element => {
 
             var check_parent = true; 
-            customer_ser_arr_0.forEach(element_call => {
-                
-                if(element_call.parent_id == element.id)
-                {
-                    check_parent = false;
-                }
+            if(customer_ser_arr_0)
+            {
+                customer_ser_arr_0.forEach(element_call => {
+                    
+                    if(element_call.parent_id == element.id)
+                    {
+                        check_parent = false;
+                    }
 
-            });
+                });
+            }
     
             if(check_parent)
             {
@@ -2356,14 +2367,17 @@ async function check_cust_body_once(arr_data_all)
         arr_data.forEach(element => {
 
             var check_parent = true; 
-            customer_ser_arr_0.forEach(element_call => {
-                
-                if(element_call.parent_id == element.id && (new Date().getDate() - new Date(element_call.timestamp).getDate()) < 7 )
-                {
-                    check_parent = false;
-                }
+            if(customer_ser_arr_0)
+            {
+                customer_ser_arr_0.forEach(element_call => {
+                    
+                    if(element_call.parent_id == element.id && (new Date().getDate() - new Date(element_call.timestamp).getDate()) < 7 )
+                    {
+                        check_parent = false;
+                    }
 
-            });
+                });
+            }
     
             if(check_parent)
             {
@@ -2414,14 +2428,17 @@ async function check_cust_body_once(arr_data_all)
         arr_data.forEach(element => {
 
             var check_parent = true; 
-            customer_ser_arr_0.forEach(element_call => {
-                
-                if(element_call.parent_id == element.id)
-                {
-                    check_parent = false;
-                }
+            if(customer_ser_arr_0)
+            {
+                customer_ser_arr_0.forEach(element_call => {
+                    
+                    if(element_call.parent_id == element.id)
+                    {
+                        check_parent = false;
+                    }
 
-            });
+                });
+            }
     
             if(check_parent)
             {

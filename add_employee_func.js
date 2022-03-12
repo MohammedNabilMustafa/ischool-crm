@@ -261,7 +261,6 @@ function add_new_empolyee(All_req_obj,paper_inputs)
 
  function quary_tables_all_status_employee(All_table_obj , func)
  {
-    //  console.log(All_table_obj.tables);
     if(All_table_obj.tables[0] && All_table_obj.tables[0] !== undefined && All_table_obj.tables[0].length != 0){
         if(All_table_obj.tables[1] && All_table_obj.tables[1] !== undefined && All_table_obj.tables[1].length != 0){
             if(All_table_obj.tables[2] && All_table_obj.tables[2] !== undefined && All_table_obj.tables[2].length != 0){
