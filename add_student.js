@@ -988,9 +988,10 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
                 create_new_tabl_col[counter_col] = "No Agent";counter_col++ 
             }
 
-            
+       
             var count_all= 0;
             var all_created= 0;
+            var count_comp= 0;
             var count_comp= 0;
             var Att= 0;
             var Abs= 0;
@@ -1014,6 +1015,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
                         }
                     }
 
+
                     if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id && new Date(session_date_check) < new Date()  )
                     {
                         students_sessions[count_comp] = All_table_obj.tables[9][index_9];
@@ -1022,6 +1024,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
 
                     if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id )
                     {
+                        students_sessions[all_created] = All_table_obj.tables[9][index_9];
                         all_created++;
                     }
                 
@@ -1093,6 +1096,14 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
                             {
                                 create_new_tabl_col[counter_col] = element_se.session_date; 
                                 create_new_tabl_col[counter_col+1] = element_se.session_num; 
+
+                                All_table_obj.tables[10].forEach(element_em => {
+                                    if(element_se.employee_id == element_em.id )
+                                    {
+                                        create_new_tabl_col[counter_col+2] = element_em.name;
+                                    }
+                                });
+
                                 check_lock = true;
                             }
     
@@ -1105,7 +1116,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
 
         })
 
-            counter_col +=2;
+            counter_col +=3;
             
 
 
@@ -1148,6 +1159,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
     , ""
     , "Next Session Date : "
     , "Next Session Num : "
+    , "Next Session Inst : "
 
 
 
@@ -1200,6 +1212,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
     
 
 
+
     var values_ = document.getElementById("search_all").value;
 
     if(values_ == "")
@@ -1245,7 +1258,7 @@ function create_view_student(All_data_obj , End_Index)
 
         var data_arr = [];
 
-        var index_ret = 22
+        var index_ret = 23
 
         if(All_data_obj.obj_data[ret][index_ret] && All_data_obj.obj_data[ret][index_ret] !== undefined && All_data_obj.obj_data[ret][index_ret].length != 0)
     {
@@ -1318,6 +1331,7 @@ function create_view_student(All_data_obj , End_Index)
 
             data_arr[index] = inner_arr;
         }
+
         createTable_pop_up_students(data_arr , null , End_Index);
     }
 
@@ -1592,9 +1606,9 @@ function createTable_pop_up_students(All_data_obj , All_req_obj  , End_Index) {
                    "<tr>";                               //Change table headings to match witht he Google Sheet     
                    result +="<th scope='col'>Session ID </th>";
                    result +="<th scope='col'>Student ID </th>";
-                   result +="<th scope='col'>Student Name </th>";
                    result +="<th scope='col'>Attendance </th>";
                    result +="<th scope='col'>Feeback </th>";
+                   result +="<th scope='col'>Send button </th>";
 
               result += "</tr>"+
                         "</thead>";
@@ -1605,7 +1619,22 @@ function createTable_pop_up_students(All_data_obj , All_req_obj  , End_Index) {
                         result += "<td style='white-space:wrap' >";
                         result += `Session ID : ${dataArray[index][0]}` 
                         result += `<br>Group ID : ${dataArray[index][5]}` 
-                        result += `<br>Session Date : ${dataArray[index][8]}` 
+                        if(new Date() > new Date(dataArray[index][8]))
+                        {
+                            result += `<br>Session Date : <label style='color:green'> ${dataArray[index][8]} </label>` 
+                            result += `<br>Session Status : <label style='color:green'> ENDED </label>` 
+                        }
+                        else if(new Date() < new Date(dataArray[index][8]))
+                        {
+                            result += `<br>Session Date : <label style='color:red'> ${dataArray[index][8]} </label>` 
+                            result += `<br>Session Status : <label style='color:red'> UPCOMING </label>`       
+                        }
+                        else
+                        {
+                            result += `<br>Session Date : <label style='color:blue'> ${dataArray[index][8]} </label>` 
+                            result += `<br>Session Status : <label style='color:blue'> running today </label>`       
+                        }
+
                         result += `<br>Session Num : ${dataArray[index][9]}` 
                         result +="</td>"
                         result += "<td style='white-space:wrap' >";
@@ -1615,44 +1644,69 @@ function createTable_pop_up_students(All_data_obj , All_req_obj  , End_Index) {
                         result += `<br>Instructor Name : ${dataArray[index][11]}`   
                         result +="</td>"
                         result += "<td style='white-space:wrap' >";   
-                                          
-                        result += `Attendance : <select id='att_id_${index}' > `
-
-                        if(dataArray[index][3] == "YES")
+                        if(new Date() < new Date(dataArray[index][8]))
                         {
-                            result += `<option>YES</option> `
-                            result += `<option>NO</option> `
-                            result += `<option></option> `
 
-                        }
-                        else if(dataArray[index][3] == "NO")
-                        {
-                            result += `<option>NO</option> `
-                            result += `<option>YES</option> `
-                            result += `<option></option> `
 
+                            result += `<label style='color:red'>UPCOMING ATTENDANCE</label>`
                         }
                         else
                         {
-                            result += `<option></option> `
-                            result += `<option>YES</option> `
-                            result += `<option>NO</option> `       
-                        }
+                            result += `Attendance : <select id='att_id_${index}' > `
 
-                        result += `</select> `
+                            if(dataArray[index][3] == "YES")
+                            {
+                                result += `<option>YES</option> `
+                                result += `<option>NO</option> `
+                                result += `<option></option> `
+
+                            }
+                            else if(dataArray[index][3] == "NO")
+                            {
+                                result += `<option>NO</option> `
+                                result += `<option>YES</option> `
+                                result += `<option></option> `
+
+                            }
+                            else
+                            {
+                                result += `<option></option> `
+                                result += `<option>YES</option> `
+                                result += `<option>NO</option> `       
+                            }
+
+                            result += `</select> `
+
+                        }
 
                         result +="</td>"
-                        result += "<td style='white-space:wrap' >";       
-                        if(dataArray[index][4] != "")
-                        result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="30"> ${dataArray[index][4]} </textarea> `;
+                        result += "<td style='white-space:wrap' >";  
+                        if(new Date() < new Date(dataArray[index][8]))
+                        {     
+                            result += `<label style='color:red'>UPCOMING FEEDBACK</label>`
+                        }
                         else
-                        result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="30"></textarea> `;
+                        {
+                            
+                            if(dataArray[index][4] != "")
+                            result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="30"> ${dataArray[index][4]} </textarea> `;
+                            else
+                            result += `Feeback : <textarea id='feed_id_${index}' style='float:right' rows="4" cols="30"></textarea> `;
+                        }
 
+                        
 
                         result +="</td>"
                         result += "<td style='white-space:wrap' >";     
                                 //  Tiger
-                        result += `<button  type="button" id='send_att_feed${index}' class="btn btn-light" style='float:right'><i class="fa-solid fa-circle-arrow-right"></i></button>`               
+                                if(new Date() < new Date(dataArray[index][8]))
+                                {     
+                                }
+                                else
+                                {
+                                    result += `<button  type="button" id='send_att_feed${index}' class="btn btn-light" style='float:right'><i class="fa-solid fa-circle-arrow-right"></i></button>`               
+
+                                }
                         result +="</td>"
                         result += "</tr>";
 

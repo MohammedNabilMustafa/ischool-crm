@@ -967,6 +967,8 @@ function parent()
     ,"reg_status"
     ,"customer_agent_id"
     ,"sales_agent_id"
+    ,"username"
+    ,"password"
   ];
 
     var inputs_names_inputs = 
@@ -982,6 +984,8 @@ function parent()
     ,"Registration Status"
     ,"Customer Support Agent"
     ,"Sales Agent"
+    ,"Username"
+    ,"Password"
   ];
 
     var inputs_names_search = 
@@ -999,6 +1003,8 @@ function parent()
     ,"Registration Status"
     ,"Customer Support Agent"
     ,"Sales Agent"
+    ,"Username"
+    ,"Password"
     ,"Edit" 
     ,"Delete"
   ];

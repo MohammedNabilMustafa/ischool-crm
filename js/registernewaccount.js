@@ -124,7 +124,13 @@ async function go_to_step01_func_reg()
 
     //     }
     // })
+
     
+
+    // countrycodeInput
+    
+    // console.log(country_code);
+
     var get_parent_arr = await GET_DATA_TABLES(database_fixed_link ,'parent');    
     var saved_age_arr  = await GET_DATA_TABLES(database_fixed_link ,'age');    
     var saved_slot_arr  = await GET_DATA_TABLES(database_fixed_link ,'slots');    
@@ -265,6 +271,11 @@ async function go_to_step02_func_reg()
     var  student_grp_arr = await GET_DATA_TABLES(database_fixed_link ,'student_groups');    
     var  saved_lan_arr = await GET_DATA_TABLES(database_fixed_link ,'lan');    
 
+
+
+
+
+
     var saved_group_arr =[];
     var saved_group_arr_counter = 0;
 
@@ -370,7 +381,36 @@ async function go_to_step02_func_reg()
 
 
 
+        var check_email = false;
+        var check_phone = false;
+    
+        get_parent_arr.forEach(element=>{
 
+            if(element.phone == $('#phonenumInput').val())
+            {
+                parent_id = element.id;
+                check_phone = true;
+            }
+            else if(element.email == $('#emailInput').val())
+            {
+                parent_id = element.id;
+                check_email = true;
+            }
+        })
+    
+
+        if(check_phone)
+        {
+            alert("This Phone is already exist");
+            return;   
+        }
+
+        if(check_email)
+        {
+            alert("This Email is already exist");
+            return;
+        }
+        
 function isEmail(email) {
     var EmailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return EmailRegex.test(email);
@@ -596,7 +636,7 @@ async function go_to_step04_func_reg()
                             
                         }
                     }
-                    if(element.id == check_agent && check_confirm == false)
+                    if((element.id == check_agent || Number(check_agent) == 0) && check_confirm == false)
                     {    
                         check_confirm = true;
                     }
@@ -641,7 +681,7 @@ async function go_to_step04_func_reg()
                             
                         }
                     }
-                    if(element.id == check_agent && check_confirm == false)
+                    if((element.id == check_agent || Number(check_agent) == 0)  && check_confirm == false)
                     {
 
                         check_confirm = true;
@@ -656,6 +696,11 @@ async function go_to_step04_func_reg()
 
         }
     }
+
+
+    get_data_elements_parent_table[12] = $('#emailInput').val()
+    get_data_elements_parent_table[13] = $('#phonenumInput').val()
+
 
     var parent_id = '';
 
@@ -692,6 +737,8 @@ async function go_to_step04_func_reg()
         ,"reg_status"
         ,"customer_agent_id"
         ,"sales_agent_id"
+        ,"username"
+        ,"password"
         ],
         get_data_elements_parent_table
         );

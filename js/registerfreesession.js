@@ -290,6 +290,9 @@ async function go_to_step01_func_free()
 
     //     }
     // })
+
+
+    // console.log(country_code);
     
     var get_parent_arr = await GET_DATA_TABLES(database_fixed_link ,'parent');    
     var saved_age_arr  = await GET_DATA_TABLES(database_fixed_link ,'age');    
@@ -439,7 +442,6 @@ async function go_to_step03_func_free()
                         check_confirm = false;
                         if(element.id && element.id != "")
                         {
-                            console.log(element);
                             get_data_elements_parent_table[11] = element.id;
                            
                         }
@@ -449,7 +451,7 @@ async function go_to_step03_func_free()
                             
                         }
                     }
-                    if(element.id == check_agent && check_confirm == false)
+                    if((element.id == check_agent || Number(check_agent) == 0)  && check_confirm == false)
                     {    
                         check_confirm = true;
                     }
@@ -495,7 +497,7 @@ async function go_to_step03_func_free()
                             
                         }
                     }
-                    if(element.id == check_agent && check_confirm == false)
+                    if((element.id == check_agent || Number(check_agent) == 0)  && check_confirm == false)
                     {
 
                         check_confirm = true;
@@ -510,6 +512,9 @@ async function go_to_step03_func_free()
 
         }
     }
+
+    get_data_elements_parent_table[12] = $('#emailInput').val()
+    get_data_elements_parent_table[13] = $('#phonenumInput').val()
 
     var parent_id = '';
 
@@ -546,6 +551,8 @@ async function go_to_step03_func_free()
         ,"reg_status"
         ,"customer_agent_id"
         ,"sales_agent_id"
+        ,"username"
+        ,"password"
         ],
         get_data_elements_parent_table
         );

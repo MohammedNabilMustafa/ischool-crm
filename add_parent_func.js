@@ -751,7 +751,6 @@ Not Registered
             else if(reg_status == false)
             {
                 create_new_tabl_cols[counter] = "<label style='color:red'>Not Registered</label>";counter++;
-
             }
 
             // create_new_tabl_cols[counter] = package_arr_status[0][0];counter++;
@@ -761,7 +760,10 @@ Not Registered
             // create_new_tabl_cols[counter] = package_arr_status[0][3];counter++;
 
 
+            
             var return_data = search_two_tables(All_table_obj.tables[4][index] , All_table_obj.tables[3] , 12 , 0 , 2)
+            console.log(All_table_obj.tables[4][index]);
+
             if(return_data.length == 0)
             {
                 create_new_tabl_cols[counter] = "C-None";counter++;
@@ -1875,7 +1877,7 @@ async function ADD_PARENT_SENRIO(paper_inputs)
                             
                         }
                     }
-                    if(element.value == check_agent && check_confirm == false)
+                    if((element.value == check_agent ||  Number(check_agent) == 0) && check_confirm == false)
                     {    
                         check_confirm = true;
                     }
@@ -1908,7 +1910,8 @@ async function ADD_PARENT_SENRIO(paper_inputs)
 
                     if(check_confirm == true)
                     {
-    
+                        check_confirm = false;
+
                         if(element.value)
                         {
                             data_to_send_arr_parent[10] = element.value;
@@ -1920,14 +1923,14 @@ async function ADD_PARENT_SENRIO(paper_inputs)
                             
                         }
                     }
-                    if(element.value == check_agent && check_confirm == false)
+                    if((element.value == check_agent||  Number(check_agent) == 0) && check_confirm == false)
                     {
 
                         check_confirm = true;
                     }
                 })
 
-                if(check_confirm == false)
+                if(check_confirm == true)
                 {
                     data_to_send_arr_parent[10] = document.getElementById('customer_input').options[1].value;
                 }
@@ -1946,6 +1949,9 @@ async function ADD_PARENT_SENRIO(paper_inputs)
         data_to_send_arr_parent[10] = localStorage.userid
     }
 
+    data_to_send_arr_parent[12] = document.getElementById('email_input').value;
+
+    data_to_send_arr_parent[13] = document.getElementById('phone_input').value;
 
     if(st_ids == 0)
     {   
@@ -1982,6 +1988,8 @@ async function ADD_PARENT_SENRIO(paper_inputs)
     , "reg_status" 
     , "customer_agent_id" 
     , "sales_agent_id" 
+    , "username" 
+    , "password" 
      ]
       , data_to_send_arr_parent);
 
