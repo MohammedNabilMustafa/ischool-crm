@@ -46,7 +46,7 @@ function ADD_NEW_STUDENT()
          , "address" 
          , "location" 
          , "job" 
-         , "reg_status" 
+         , "marketing_id" 
          , "customer_agent_id" 
          , "sales_agent_id" 
           ]
@@ -1791,7 +1791,7 @@ function update_studnet_att_students(value_elments , students_arr , All_req_obj 
                      , "address" 
                      , "location" 
                      , "job" 
-                     , "reg_status" 
+                     , "marketing_id" 
                      , "customer_agent_id" 
                      , "sales_agent_id" 
                       ]

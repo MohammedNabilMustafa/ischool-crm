@@ -448,10 +448,11 @@ a{
                   </li>
                   <li class="mb-1" id="admin_student_id">
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Students-collapse" aria-expanded="false">
-                      Admin Students
+                      Admin Students/Parents
                     </button>
                     <div class="collapse" id="Students-collapse">
                       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" id="parent_loc" class="link-dark rounded">Parent</a></li>
                         <li><a href="#" id="students" class="link-dark rounded">Students</a></li>
                         <li><a href="#" id="student_groups" class="link-dark rounded">Student Groups</a></li>
                         <li><a href="#" id="student_status" class="link-dark rounded">Student Status</a></li>
@@ -479,17 +480,53 @@ a{
 
                   <li class="mb-1" id="admin_parent_id">
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Parents-collapse" aria-expanded="false">
-                      Admin Parents
+                      Admin calls
                     </button> 
                     <div class="collapse" id="Parents-collapse">
                       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="#" id="parent_loc" class="link-dark rounded">Parent</a></li>
                         <li><a href="#" id="cs_calls" class="link-dark rounded">CS Calls</a></li>
+                        <li><a href="#" id="cat" class="link-dark rounded">CS Category</a></li>
+                        <li><a href="#" id="close" class="link-dark rounded">CS Closing</a></li>
+                        <li><a href="#" id="call_type" class="link-dark rounded">CS Call Type</a></li>
+                        <li><a href="#" id="call_status" class="link-dark rounded">CS Call Status</a></li>
+
                         <li><a href="#" id="sales_calls" class="link-dark rounded">Sales Calls</a></li>
-                        <li><a href="#" id="cat" class="link-dark rounded">Category</a></li>
-                        <li><a href="#" id="close" class="link-dark rounded">Closing</a></li>
-                        <li><a href="#" id="call_type" class="link-dark rounded">Call Type</a></li>
-                        <li><a href="#" id="call_status" class="link-dark rounded">Call Status</a></li>
+                        <li><a href="#" id="cat_sales" class="link-dark rounded">Sales Category</a></li>
+                        <li><a href="#" id="close_sales" class="link-dark rounded">Sales Closing</a></li>
+                        <li><a href="#" id="call_type_sales" class="link-dark rounded">Sales Call Type</a></li>
+                        <li><a href="#" id="call_status_sales" class="link-dark rounded">Sales Call Status</a></li>
+                      </ul>
+                    </div>
+                  </li>
+
+                  <li class="mb-1" id="admin_marketing_id">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Marketing-collapse" aria-expanded="false">
+                      Admin Marketing
+                    </button> 
+                    <div class="collapse" id="Marketing-collapse">
+                      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" id="marketing" class="link-dark rounded">Marketing</a></li>
+                        <li><a href="#" id="mrkt_type" class="link-dark rounded">Marketing Type</a></li>
+                        <li><a href="#" id="mrkt_conv_type" class="link-dark rounded">Marketing Convertion Type</a></li>
+                        <li><a href="#" id="mrkt_source" class="link-dark rounded">Marketing Source</a></li>
+                        <li><a href="#" id="mrkt_others" class="link-dark rounded">Marketing Others</a></li>
+
+
+                      </ul>
+                    </div>
+                  </li>
+
+
+                  <li class="mb-1" id="admin_content_id">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Content-collapse" aria-expanded="false">
+                      Admin Content
+                    </button> 
+                    <div class="collapse" id="Content-collapse">
+                      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" id="material" class="link-dark rounded">Material</a></li>
+                        <li><a href="#" id="tasks" class="link-dark rounded">Student Tasks</a></li>
+                        <li><a href="#" id="certifications" class="link-dark rounded">Certifications</a></li>
+
 
                       </ul>
                     </div>
@@ -617,13 +654,13 @@ a{
       <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
       <script>
 
-var database_fixed_link = "fetch.php";
+// var database_fixed_link = "fetch.php";
 // var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
-// var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
+var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
 
-var database_fixed_link_history = "fetch_history.php";
+// var database_fixed_link_history = "fetch_history.php";
 // var database_fixed_link_history = "http://localhost/ischool/ischool-crm/fetch_history.php";
-// var database_fixed_link_history = "http://localhost/ischool-crm/fetch_history.php";
+var database_fixed_link_history = "http://localhost/ischool-crm/fetch_history.php";
 
 
 
@@ -925,6 +962,7 @@ var  passInput = document.getElementById("password");
         document.getElementById("page_name").innerHTML = "<h1>Calls</h1>"
         sales_calls();
       }); 
+      
 
       $('#cat').click(function () {
         clear_all_selected();
@@ -933,6 +971,7 @@ var  passInput = document.getElementById("password");
         document.getElementById("page_name").innerHTML = "<h1>Calls Category</h1>"
         cat();
       }); 
+
 
       $('#close').click(function () {
         clear_all_selected();
@@ -956,7 +995,41 @@ var  passInput = document.getElementById("password");
 
         document.getElementById("page_name").innerHTML = "<h1>Calls Status</h1>"
         call_status();
+      });
+      
+      $('#cat_sales').click(function () {
+        clear_all_selected();
+        $('#cat_sales').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = "<h1>Calls Category</h1>"
+        cat_sales();
       }); 
+
+      $('#close_sales').click(function () {
+        clear_all_selected();
+        $('#close_sales').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = "<h1>Calls Category</h1>"
+        close_sales();
+      }); 
+
+      $('#call_type_sales').click(function () {
+        clear_all_selected();
+        $('#call_type_sales').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = "<h1>Calls Category</h1>"
+        call_type_sales();
+      }); 
+
+      $('#call_status_sales').click(function () {
+        clear_all_selected();
+        $('#call_status_sales').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = "<h1>Calls Category</h1>"
+        call_status_sales();
+      }); 
+
+
 
       $('#calls').click(function () {
         clear_all_selected();
@@ -1000,6 +1073,71 @@ var  passInput = document.getElementById("password");
         DELETE_PARENT();
       }); 
 
+
+      $('#marketing').click(function () {
+        clear_all_selected();
+        $('#marketing').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Marketing</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        marketing();
+      }); 
+
+      $('#mrkt_type').click(function () {
+        clear_all_selected();
+        $('#mrkt_type').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Marketing Type</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        mrkt_type();
+      }); 
+
+      $('#mrkt_conv_type').click(function () {
+        clear_all_selected();
+        $('#mrkt_conv_type').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Marketing Conv Type</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        mrkt_conv_type();
+      }); 
+
+      $('#mrkt_source').click(function () {
+        clear_all_selected();
+        $('#mrkt_source').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Marketing Source</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        mrkt_source();
+      }); 
+
+      $('#mrkt_others').click(function () {
+        clear_all_selected();
+        $('#mrkt_others').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Marketing Others</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        mrkt_others();
+      }); 
+
+      $('#material').click(function () {
+        clear_all_selected();
+        $('#material').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Marketing Others</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        material();
+      }); 
+
+      $('#tasks').click(function () {
+        clear_all_selected();
+        $('#tasks').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Marketing Others</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        tasks();
+      }); 
+
+      $('#certifications').click(function () {
+        clear_all_selected();
+        $('#certifications').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Marketing Others</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        certifications();
+      }); 
+
       
       
     }); 
@@ -1008,6 +1146,20 @@ var  passInput = document.getElementById("password");
     function clear_all_selected()
       {    
 
+
+
+        $('#material').css('background', 'white').css('color','#008CBA');
+        $('#tasks').css('background', 'white').css('color','#008CBA');
+        $('#certifications').css('background', 'white').css('color','#008CBA');
+        $('#marketing').css('background', 'white').css('color','#008CBA');
+        $('#mrkt_type').css('background', 'white').css('color','#008CBA');
+        $('#mrkt_conv_type').css('background', 'white').css('color','#008CBA');
+        $('#mrkt_source').css('background', 'white').css('color','#008CBA');
+        $('#mrkt_others').css('background', 'white').css('color','#008CBA');
+        $('#cat_sales').css('background', 'white').css('color','#008CBA');
+        $('#close_sales').css('background', 'white').css('color','#008CBA');
+        $('#call_type_sales').css('background', 'white').css('color','#008CBA');
+        $('#call_status_sales').css('background', 'white').css('color','#008CBA');
         $('#calls_sales').css('background', 'white').css('color','#008CBA');
         $('#del_arr_system').css('background', 'white').css('color','#008CBA');
         $('#calls_assign_sales').css('background', 'white').css('color','#008CBA');

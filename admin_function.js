@@ -354,6 +354,7 @@ Loading_page_clear();
 
 
 function Nodata_func(All_data_obj) {
+  Loading_page_clear();
 
 
   clear(All_data_obj.location_next);
@@ -376,6 +377,8 @@ result += "</tr>"+
     result += "</table>";
     var div = document.getElementById(All_data_obj.table_div);
     div.innerHTML = result;
+
+
   }
 
 
@@ -480,6 +483,8 @@ function Fetch_all_data( All_data_obj)
     }
     else{
         Nodata_func(All_data_obj);
+        Loading_page_clear();
+
     }
   
   };

@@ -45,6 +45,7 @@ var arr_admin_group = [
 
 var arr_admin_students = [
     "admin_student_id",
+    "parent_loc",
     "students",
     "student_groups",
     "student_status"
@@ -65,15 +66,51 @@ var arr_admin_fin = [
 
 var arr_admin_parent= [
     "admin_parent_id",
-    "parent_loc",
     "cs_calls",
     "cat",
     "close",
     "call_type",
     "call_status",
+    "sales_calls",
+    "cat_sales",
+    "close_sales",
+    "call_type_sales",
+    "call_status_sales",
+]
+
+
+var arr_admin_marketing= [
+    "marketing",
+    "mrkt_type",
+    "mrkt_conv_type",
+    "mrkt_source",
+    "mrkt_others",
 
 ]
 
+
+var arr_admin_content= [
+    "admin_content_id",
+    "material",
+    "tasks",
+    "certifications"
+
+]
+
+{/* <li class="mb-1" id="admin_content_id">
+<button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Content-collapse" aria-expanded="false">
+  Admin Content
+</button> 
+<div class="collapse" id="Content-collapse">
+  <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+    <li><a href="#" id="material" class="link-dark rounded">Material</a></li>
+    <li><a href="#" id="tasks" class="link-dark rounded">Student Tasks</a></li>
+    <li><a href="#" id="certifications" class="link-dark rounded">Certifications</a></li>
+
+
+  </ul>
+</div>
+</li> */}
 
 
 async function login_page_check()
@@ -250,6 +287,9 @@ function Operation_permission()
     Hide_Element(arr_admin_students[0]);
     Hide_Element(arr_admin_group[0]);
     Hide_Element(arr_admin_parent[0]);
+    Hide_Element(arr_admin_marketing[0]);
+    Hide_Element(arr_admin_content[0]);
+
 }
 
 function Show_all()
@@ -282,6 +322,17 @@ function Show_all()
         Show_Element(arr_system[index]);
     }
 
+    for(var index = 0 ; index < arr_admin_marketing.length ; index++)
+    {
+        Show_Element(arr_admin_marketing[index]);
+    }
+
+    for(var index = 0 ; index < arr_admin_content.length ; index++)
+    {
+        Show_Element(arr_admin_content[index]);
+    }
+
+
 }
 
 function CS_permission()
@@ -293,6 +344,9 @@ function CS_permission()
     Hide_Element(arr_admin_group[0]);
     Hide_Element(del_arr_system);
     Hide_Element(arr_admin_parent[0]);
+    Hide_Element(arr_admin_marketing[0]);
+    Hide_Element(arr_admin_content[0]);
+    
     Hide_Element(arr_system[3]);
     Hide_Element(arr_system[4]);
     Hide_Element(arr_system[5]);
@@ -314,6 +368,9 @@ function Instructor_permission()
     Hide_Element(arr_admin_group[0]);
     Hide_Element(del_arr_system);
     Hide_Element(arr_admin_parent[0]);
+    Hide_Element(arr_admin_marketing[0]);
+    Hide_Element(arr_admin_content[0]);
+
     Hide_Element(arr_system[1]);
     Hide_Element(arr_system[3]);
     Hide_Element(arr_system[4]);
@@ -329,7 +386,6 @@ function Instructor_permission()
 }
 function Sales_permission()
 {
-    del_arr_system
     Hide_Element(login_page);
     Hide_Element(del_arr_system);
     Show_Element(all_countainer);
@@ -337,6 +393,9 @@ function Sales_permission()
     Hide_Element(arr_admin_students[0]);
     Hide_Element(arr_admin_group[0]);
     Hide_Element(arr_admin_parent[0]);
+    Hide_Element(arr_admin_marketing[0]);
+    Hide_Element(arr_admin_content[0]);
+
     Hide_Element(arr_system[3]);
     Hide_Element(arr_system[4]);
     Hide_Element(arr_system[5]);
@@ -358,5 +417,13 @@ function Admin_permission()
 
 function Finance_permission()
 {
-    
+    Hide_Element(login_page);
+    Hide_Element(del_arr_system);
+    Show_Element(all_countainer);
+    Hide_Element(arr_admin_fin[0]);
+    Hide_Element(arr_admin_students[0]);
+    Hide_Element(arr_admin_group[0]);
+    Hide_Element(arr_admin_parent[0]);
+    Hide_Element(arr_admin_marketing[0]);
+    Hide_Element(arr_admin_content[0]);
 }

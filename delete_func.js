@@ -12,9 +12,11 @@ var parent_col_arr =
     ,"address"
     ,"location"
     ,"job"
-    ,"reg_status"
+    ,"marketing_id"
     ,"customer_agent_id"
     ,"sales_agent_id"
+    ,"username"
+    ,"password"
 ]
 
 var student_col_arr = 

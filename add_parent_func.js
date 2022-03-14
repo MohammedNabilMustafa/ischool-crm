@@ -166,9 +166,12 @@ async function ADD_NEW_PARENT()
          , "address" 
          , "location" 
          , "job" 
-         , "reg_status" 
+         , "marketing_id" 
          , "customer_agent_id" 
          , "sales_agent_id" 
+
+         , "username" 
+         , "password" 
           ]
           ,
          ["std_id" 
@@ -270,7 +273,7 @@ var paper_inputs = [
           'address_input',
           'location_input',
           'job_input',
-          'reg_status',
+          'marketing_id',
           'customer_input',
           'sales_input',
 
@@ -288,7 +291,7 @@ var paper_inputs_label = [
           'Address : ',
           'Location : ',
           'Job : ',
-          'reg_status',
+          'marketing_id',
           'Customer Agent ',
           'Sales Agent '
 
@@ -1985,7 +1988,7 @@ async function ADD_PARENT_SENRIO(paper_inputs)
     , "address" 
     , "location" 
     , "job" 
-    , "reg_status" 
+    , "marketing_id" 
     , "customer_agent_id" 
     , "sales_agent_id" 
     , "username" 

@@ -73,7 +73,7 @@ function ADD_STUDENT_TO_GROUP()
 ,"address"
 ,"location"
 ,"job"
-,"reg_status"
+,"marketing_id"
 ,"customer_agent_id"
 ,"sales_agent_id"
 ]
