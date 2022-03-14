@@ -33,15 +33,20 @@ function isEmail(email) {
 
   $(".btn.signup").click(async function() {
 
-   var check = await go_to_step02_func_free();
+   var check = await go_to_step02_func_mrkt();
    Loading_page_clear();
-   choosen_group = '';
 
    if(check == true)
    {
-    $(".step01").hide("drop", { direction: "right" }, 300);
+    $('#firstnameInput').val('')
+    $('#phonenumInput').val('')
+    $('#birthdate').val('')
+    $('#countries').val('')
+    $('#emailInput').val('')
+
+    alert('send success');
     setTimeout(function() {
-        $(".step02").show("drop", { direction: "left" }, 300);
+        $(".step01").show("drop", { direction: "left" }, 300);
     }, 400)
    }
 
@@ -56,7 +61,7 @@ $(".scheduletableitem").click(function() {
 })
 $(".btn.next").click(async function() {
 
-    var check_return = await go_to_step03_func_free();
+    var check_return = false;
 
     if(check_return)
     {        
@@ -96,7 +101,7 @@ $(".step03 .back").click(function() {
 
 
 
-async function go_to_step02_func_free()
+async function go_to_step02_func_mrkt()
 {    
     Loading_page_set();
   
@@ -224,33 +229,7 @@ async function go_to_step02_func_free()
 
                 if(age_req)
                 {
-                    var check_av = false;
-                    var saved_index = 1;
-                    for(var index = 0 ;index < saved_group_arr.length ; index++)
-                    {
-                        saved_index = index+2;
-                    
 
-                        if( saved_group_arr[index].age_id == age_req)
-                        {
-                            check_av = true;
-                            $( `.scheduletableitem:nth-child(${saved_index})` + " span:nth-child(1)").html(saved_group_arr[index].id);
-                            $( `.scheduletableitem:nth-child(${saved_index})` + " span:nth-child(2)").html(saved_group_arr[index].start_date);
-                            $( `.scheduletableitem:nth-child(${saved_index})` + " span:nth-child(3)").html(saved_group_arr[index].days_id);
-                            $( `.scheduletableitem:nth-child(${saved_index})` + " span:nth-child(4)").html(saved_group_arr[index].slot_id);
-                            $( `.scheduletableitem:nth-child(${saved_index})` + " span:nth-child(5)").html(saved_group_arr[index].lan_id);
-                            $( ".scheduletableitem:nth-child("+saved_index+")").show();
-                            if(index == 4) break;
-                        }
-
-                    }
-                    saved_index++;
-
-                    if(check_av == false)
-                    {
-                        alert("Sorry all groups are occupied, new groups will open soon")
-                        return false;
-                    }
                 }
                 else
                 {
@@ -264,127 +243,7 @@ async function go_to_step02_func_free()
             }
 
 
-    return true;
-}
-
-async function go_to_step01_func_free()
-{    
-    Loading_page_set();
-    // var country_code = null;
-    
-    // var get_data = await $.getJSON('http://ipinfo.io/' + userip);
-    
-    // allTimeZone.forEach(elment =>
-    // {
-    //     if(elment.Code == get_data.country)
-    //     {
-    //         country_code = elment.MobileCode
-
-    //         $("#countries option").each(function()
-    //         {
-    //             if($(this).attr("data-title") == elment.Name)
-    //             {
-    //                 $("#countries option[value='"+$(this).attr("value")+"']").attr("selected",true)
-    //             }
-    //         });
-
-    //     }
-    // })
-
-
-    // console.log(country_code);
-    
-    var get_parent_arr = await GET_DATA_TABLES(database_fixed_link ,'parent');    
-    var saved_age_arr  = await GET_DATA_TABLES(database_fixed_link ,'age');    
-    var saved_slot_arr  = await GET_DATA_TABLES(database_fixed_link ,'slots');    
-    var saved_days_arr  = await GET_DATA_TABLES(database_fixed_link ,'days');    
-    var  filtered_group_id = await GET_DATA_TABLES(database_fixed_link ,'groups');    
-    var  student_grp_arr = await GET_DATA_TABLES(database_fixed_link ,'student_groups');    
-    var  saved_lan_arr = await GET_DATA_TABLES(database_fixed_link ,'lan');    
-
-    var saved_group_arr =[];
-    var saved_group_arr_counter = 0;
-
-    if(filtered_group_id && filtered_group_id !== undefined && filtered_group_id.length != 0)
-    {
-        filtered_group_id.forEach(Element_gp=>{
-        var counter_group_cap = 0;
-
-        saved_age_arr.forEach(Element=>{
-
-                if(Element.id == Element_gp.age_id)
-                {
-                    Element_gp.age_id = Element.name;
-                }
-        })
-        saved_slot_arr.forEach(Element=>{
-
-                if(Element.id == Element_gp.slot_id)
-                {
-                    Element_gp.slot_id = Element.live_slot;
-                }
-        })
-        saved_lan_arr.forEach(Element=>{
-
-                if(Element.id == Element_gp.lan_id)
-                {
-                    Element_gp.lan_id = Element.name;
-                }
-        })  
-
-        
-        saved_days_arr.forEach(Element=>{
-
-                if(Element.id == Element_gp.days_id)
-                {
-                    Element_gp.days_id = Element.name;
-                }
-        })
-
-        student_grp_arr.forEach(Element_st_gp=>{
-
-            if(Element_st_gp.groups_id == Element_gp.id)
-                {
-                    counter_group_cap++;
-                }
-        })
-
-        if(counter_group_cap < 6 && Number(Element_gp.type_id) == 2 && (new Date()) < new Date(Element_gp.start_date))
-        {
-
-            saved_group_arr[saved_group_arr_counter] = Element_gp ;saved_group_arr_counter++;
-        }
-
-    })
-    }
-    check_groups_free();
-    Loading_page_clear();
-}
-
-var choosen_group = '';
-var choosen_date = '';
-var choosen_day = '';
-var choosen_time = '';
-var choosen_lan = '';
-var choosen_group_index = '';
-
-async function go_to_step03_func_free()
-{
-    Loading_page_set();
-    
-    if(choosen_group == '')
-    {
-        alert("Choose Group");
-        Loading_page_clear();
-        return false;
-    }
-    if(document.getElementById('flexCheckDefault').checked == false)
-    {
-        Loading_page_clear();
-        $('#flexCheckDefault_label').css("color", "red");
-        return false;
-    }
-
+            
     var saved_emp_arr  = await GET_DATA_TABLES(database_fixed_link ,'employee');    
     var cs_emp = []
     var cs_emp_count = 0
@@ -403,6 +262,7 @@ async function go_to_step03_func_free()
         }
     })
   
+
     let url = window.location.href;
     let params = (new URL(url)).searchParams;
     var get_element = '';
@@ -418,7 +278,7 @@ async function go_to_step03_func_free()
     get_data_elements_parent_table[6] = ''
     get_data_elements_parent_table[7] = $('#countries').val()
     get_data_elements_parent_table[8] = ''
-    get_data_elements_parent_table[9] = get_element;
+    get_data_elements_parent_table[9] = get_element
     get_data_elements_parent_table[10] = ''
     get_data_elements_parent_table[11] = ''
 
@@ -564,6 +424,7 @@ async function go_to_step03_func_free()
 
         parent_id = get_parent_arr_return[get_parent_arr_return.length-1].id;
 
+
     }
 
 
@@ -605,110 +466,95 @@ async function go_to_step03_func_free()
     get_data_elements_student_table
     );
 
-    var get_student_arr_return = await GET_DATA_TABLES(database_fixed_link , 'students');
-
-    var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'student_groups' , 
-    ["groups_id"
-    ,"student_id"
-    ,"status"
-  ],
-    [
-        choosen_group,
-        get_student_arr_return[get_student_arr_return.length-1].id,
-        'active'
-    ]
-    );
-
-    var get_sessions_arr_return = await GET_DATA_TABLES(database_fixed_link , 'sessions');
-    var get_required_sessions_arr = [];
-    var get_required_sessions_arr_count = 0;
-    get_sessions_arr_return.forEach(element => {
-
-        if(element.groups_id == choosen_group)
-        {
-            get_required_sessions_arr[get_required_sessions_arr_count] = element;get_required_sessions_arr_count++;
-        }
-    })
-
-    for(var index = 0 ; index < get_required_sessions_arr.length ; index++ )
-    {
-        var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'att_feed' , 
-        ["student_id" 
-        ,"session_id" 
-        ,"attendance" 
-        ,"feedback" 
-      ],
-        
-      [
-        get_student_arr_return[get_student_arr_return.length-1].id,
-        get_required_sessions_arr[index].id,
-        '',
-          ''
-      ]
-        );
-
-    }
 
 
-    Loading_page_clear();
-
-
-
-    $("#done_name").text($('#firstnameInput').val());
-    $("#done_date").text(choosen_date);
-    $("#done_day").text(choosen_day);
-    $("#done_time").text(choosen_time);
-    $("#done_lan").text(choosen_lan);
 
     return true;
-
 }
 
-function check_groups_free()
-{
-    $(".scheduletableitem").click(function()
+async function go_to_step01_func_mrkt()
+{    
+    Loading_page_set();
+    // var country_code = null;
+    
+    // var get_data = await $.getJSON('http://ipinfo.io/' + userip);
+    
+    // allTimeZone.forEach(elment =>
+    // {
+    //     if(elment.Code == get_data.country)
+    //     {
+    //         country_code = elment.MobileCode
+
+    //         $("#countries option").each(function()
+    //         {
+    //             if($(this).attr("data-title") == elment.Name)
+    //             {
+    //                 $("#countries option[value='"+$(this).attr("value")+"']").attr("selected",true)
+    //             }
+    //         });
+
+    //     }
+    // })
+
+
+    
+    var get_parent_arr = await GET_DATA_TABLES(database_fixed_link ,'parent');    
+    var saved_age_arr  = await GET_DATA_TABLES(database_fixed_link ,'age');    
+    var saved_slot_arr  = await GET_DATA_TABLES(database_fixed_link ,'slots');    
+    var saved_days_arr  = await GET_DATA_TABLES(database_fixed_link ,'days');    
+    var  filtered_group_id = await GET_DATA_TABLES(database_fixed_link ,'groups');    
+    var  student_grp_arr = await GET_DATA_TABLES(database_fixed_link ,'student_groups');    
+    var  saved_lan_arr = await GET_DATA_TABLES(database_fixed_link ,'lan');    
+
+    var saved_group_arr =[];
+    var saved_group_arr_counter = 0;
+
+    if(filtered_group_id && filtered_group_id !== undefined && filtered_group_id.length != 0)
     {
+        filtered_group_id.forEach(Element_gp=>{
+        var counter_group_cap = 0;
 
-        var index = ($(this).index() )+1 ;
-        choosen_group_index = index;
+        saved_age_arr.forEach(Element=>{
 
-        if(index == "2")
-        {
-            choosen_group = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html();
-            choosen_date = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(2)").html();
-            choosen_day = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(3)").html();
-            choosen_time = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(4)").html();
-            choosen_lan = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(5)").html();
-        }
-        else if(index == "3")
-        {
-            choosen_group = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html();
-            choosen_date = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(2)").html();
-            choosen_day = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(3)").html();
-            choosen_time = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(4)").html();
-            choosen_lan = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(5)").html();        }
-        else if(index == "4")
-        {
-            choosen_group = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html();
-            choosen_date = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(2)").html();
-            choosen_day = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(3)").html();
-            choosen_time = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(4)").html();
-            choosen_lan = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(5)").html();        }
-        else if(index == "5")
-        {
-            choosen_group = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html();
-            choosen_date = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(2)").html();
-            choosen_day = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(3)").html();
-            choosen_time = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(4)").html();
-            choosen_lan = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(5)").html();        }
-        else if(index == "6")
-        {
-            choosen_group = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html();
-            choosen_date = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(2)").html();
-            choosen_day = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(3)").html();
-            choosen_time = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(4)").html();
-            choosen_lan = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(5)").html();        }
+                if(Element.id == Element_gp.age_id)
+                {
+                    Element_gp.age_id = Element.name;
+                }
+        })
+        saved_slot_arr.forEach(Element=>{
 
+                if(Element.id == Element_gp.slot_id)
+                {
+                    Element_gp.slot_id = Element.live_slot;
+                }
+        })
+        saved_lan_arr.forEach(Element=>{
+
+                if(Element.id == Element_gp.lan_id)
+                {
+                    Element_gp.lan_id = Element.name;
+                }
+        })  
+
+        
+        saved_days_arr.forEach(Element=>{
+
+                if(Element.id == Element_gp.days_id)
+                {
+                    Element_gp.days_id = Element.name;
+                }
+        })
+
+        student_grp_arr.forEach(Element_st_gp=>{
+
+            if(Element_st_gp.groups_id == Element_gp.id)
+                {
+                    counter_group_cap++;
+                }
+        })
+
+
+    })
     }
-    );
+    Loading_page_clear();
 }

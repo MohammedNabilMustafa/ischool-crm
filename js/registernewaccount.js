@@ -589,6 +589,10 @@ async function go_to_step04_func_reg()
         }
     })
   
+    let url = window.location.href;
+    let params = (new URL(url)).searchParams;
+    var get_element = '';
+    get_element = params.get('camp_id');
 
     var get_data_elements_parent_table = [];
     get_data_elements_parent_table[0] = $('#firstnameInput').val()
@@ -600,7 +604,7 @@ async function go_to_step04_func_reg()
     get_data_elements_parent_table[6] = ''
     get_data_elements_parent_table[7] = $('#countries').val()
     get_data_elements_parent_table[8] = ''
-    get_data_elements_parent_table[9] = ''
+    get_data_elements_parent_table[9] = get_element;
     get_data_elements_parent_table[10] = ''
     get_data_elements_parent_table[11] = ''
 
@@ -734,7 +738,7 @@ async function go_to_step04_func_reg()
         ,"address"
         ,"location"
         ,"job"
-        ,"reg_status"
+        ,"marketing_id"
         ,"customer_agent_id"
         ,"sales_agent_id"
         ,"username"

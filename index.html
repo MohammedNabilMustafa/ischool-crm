@@ -406,9 +406,13 @@ a{
                         <li><a href="#" id="add_student_group" class="link-dark rounded">Add Student To Group</a></li>
                         <li><a href="#" id="add_student_package" class="link-dark rounded">Add Student To Packages</a></li>
                         <li><a href="#" id="add_student_session" class="link-dark rounded">Add Student To Sessions</a></li>
+                        <li><a href="#" id="marketing_dashboard" class="link-dark rounded">Marketing Dashboard</a></li>
+                        <li><a href="#" id="material_dashboard" class="link-dark rounded">Material Dashboard</a></li>
+                        <li><a href="#" id="certification_dashboard" class="link-dark rounded">Certifications Dashboard</a></li>
+                        <li><a href="#" id="tasks_dashboard" class="link-dark rounded">Tasks Dashboard</a></li>
 
                       </ul>
-                    </div>
+                    </div>  
                     
                   </li>
 
@@ -640,6 +644,10 @@ a{
       <script   src="sales_calls.js" ></script>
       <script   src="assign_sales.js" ></script>
       <script   src="delete_func.js" ></script>
+      <script   src="marketing_func.js" ></script>
+      <script   src="material_func.js" ></script>
+      <script   src="cert_func.js" ></script>
+      <script   src="tasks_func.js" ></script>
 
       <script src="js/dd.min.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
@@ -655,12 +663,12 @@ a{
       <script>
 
 // var database_fixed_link = "fetch.php";
-// var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
-var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
+var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
+// var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
 
 // var database_fixed_link_history = "fetch_history.php";
-// var database_fixed_link_history = "http://localhost/ischool/ischool-crm/fetch_history.php";
-var database_fixed_link_history = "http://localhost/ischool-crm/fetch_history.php";
+var database_fixed_link_history = "http://localhost/ischool/ischool-crm/fetch_history.php";
+// var database_fixed_link_history = "http://localhost/ischool-crm/fetch_history.php";
 
 
 
@@ -688,7 +696,37 @@ var  passInput = document.getElementById("password");
         login_page_check();
 
       }); 
+  
+
       
+      $('#tasks_dashboard').click(function () {
+        clear_all_selected();
+        $('#tasks_dashboard').css('background', '#008CBA').css('color','white');
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Material Dashboard</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        TASKS_DASHBOARD();
+      }); 
+
+
+      $('#certification_dashboard').click(function () {
+        clear_all_selected();
+        $('#certification_dashboard').css('background', '#008CBA').css('color','white');
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Material Dashboard</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        CERTIFICATION_DASHBOARD();
+      }); 
+
+      $('#material_dashboard').click(function () {
+        clear_all_selected();
+        $('#material_dashboard').css('background', '#008CBA').css('color','white');
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Material Dashboard</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        MATERIAL_DASHBOARD();
+      }); 
+
+      $('#marketing_dashboard').click(function () {
+        clear_all_selected();
+        $('#marketing_dashboard').css('background', '#008CBA').css('color','white');
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Marketing Dashboard</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        MARKETING_DASHBOARD();
+      }); 
 
       $('#groups').click(function () {
         clear_all_selected();
@@ -1146,8 +1184,11 @@ var  passInput = document.getElementById("password");
     function clear_all_selected()
       {    
 
-
-
+        
+        $('#tasks_dashboard').css('background', 'white').css('color','#008CBA');
+        $('#certification_dashboard').css('background', 'white').css('color','#008CBA');
+        $('#material_dashboard').css('background', 'white').css('color','#008CBA');
+        $('#marketing_dashboard').css('background', 'white').css('color','#008CBA');
         $('#material').css('background', 'white').css('color','#008CBA');
         $('#tasks').css('background', 'white').css('color','#008CBA');
         $('#certifications').css('background', 'white').css('color','#008CBA');
@@ -1208,14 +1249,6 @@ var  passInput = document.getElementById("password");
         $('#add_parent').css('background', 'white').css('color','#008CBA');
         $('#add_student').css('background', 'white').css('color','#008CBA');
       }
-
-    // <li><a href="#" id="cs_calls" class="link-dark rounded">CS Calls</a></li>
-    //                     <li><a href="#" id="cat" class="link-dark rounded">Category</a></li>
-    //                     <li><a href="#" id="close" class="link-dark rounded">Closing</a></li>
-    //                     <li><a href="#" id="call_type" class="link-dark rounded">Call Type</a></li>
-    //                     <li><a href="#" id="call_status" class="link-dark rounded">Call Status</a></li>
-
-
 
 
     waiting_login();

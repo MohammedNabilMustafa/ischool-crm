@@ -17,7 +17,9 @@ var arr_system = [
     "calls",  //12
     "calls_assign", //13
     "calls_sales", //14
-    "calls_assign_sales" //15
+    "calls_assign_sales", //15
+    "marketing_dashboard", //16
+    "material_dashboard" //16
     
 ]
 
@@ -259,6 +261,10 @@ async function login_success(user_info)
     {
         Instructor_permission();
     }
+    else if(user_info.permission_id == 7)
+    {
+        Marketing_permission();
+    }
 
 
     clear_all_selected();
@@ -356,6 +362,9 @@ function CS_permission()
     Hide_Element(arr_system[12]);
     Hide_Element(arr_system[13]);
     Hide_Element(arr_system[14]);
+    Hide_Element(arr_system[15]);
+    Hide_Element(arr_system[16]);
+
 }
 
 
@@ -383,6 +392,37 @@ function Instructor_permission()
     Hide_Element(arr_system[12]);
     Hide_Element(arr_system[13]);
     Hide_Element(arr_system[14]);
+    Hide_Element(arr_system[15]);
+    Hide_Element(arr_system[16]);
+
+}
+
+function Marketing_permission()
+{
+    Hide_Element(login_page);
+    Show_Element(all_countainer);
+    Hide_Element(arr_admin_fin[0]);
+    Hide_Element(arr_admin_students[0]);
+    Hide_Element(arr_admin_group[0]);
+    Hide_Element(del_arr_system);
+    Hide_Element(arr_admin_parent[0]);
+    Hide_Element(arr_admin_content[0]);
+
+    // Hide_Element(arr_system[1]);
+    Hide_Element(arr_system[2]);
+    Hide_Element(arr_system[3]);
+    Hide_Element(arr_system[4]);
+    Hide_Element(arr_system[5]);
+    Hide_Element(arr_system[6]);
+    Hide_Element(arr_system[7]);
+    Hide_Element(arr_system[8]);
+    Hide_Element(arr_system[9]);
+    Hide_Element(arr_system[10]);
+    Hide_Element(arr_system[11]);
+    Hide_Element(arr_system[12]);
+    Hide_Element(arr_system[13]);
+    Hide_Element(arr_system[14]);
+
 }
 function Sales_permission()
 {
@@ -407,6 +447,9 @@ function Sales_permission()
     Hide_Element(arr_system[11]);
     Hide_Element(arr_system[12]);
     Hide_Element(arr_system[14]);
+    Hide_Element(arr_system[15]);
+    Hide_Element(arr_system[16]);
+
 
 }
 function Admin_permission()

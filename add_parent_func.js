@@ -237,6 +237,17 @@ async function ADD_NEW_PARENT()
             ,"qouta"
             ,"remain"
         ]
+        ,
+        [
+            "name",
+            "disc",
+            "mrkt_type_id",
+            "mrkt_conv_type_id",
+            "mrkt_source_id",
+            "mrkt_others_id",
+            "url_camp"
+            
+        ]
       ];
 
 var called_table = [
@@ -260,7 +271,8 @@ var called_table = [
           'age',
           'student_package',
           'package',
-          'invoice'
+          'invoice',
+          'marketing'
       ];
 
 var paper_inputs = [
@@ -273,7 +285,7 @@ var paper_inputs = [
           'address_input',
           'location_input',
           'job_input',
-          'marketing_id',
+          'marketing_input',
           'customer_input',
           'sales_input',
 
@@ -291,10 +303,9 @@ var paper_inputs_label = [
           'Address : ',
           'Location : ',
           'Job : ',
-          'marketing_id',
+          'Marketing ID',
           'Customer Agent ',
           'Sales Agent '
-
 
       ];
 
@@ -522,13 +533,18 @@ async function html_create_lists_parent(paper_inputs , paper_inputs_label  , loc
     {
         document.getElementById(location_).innerHTML += `<label>`+paper_inputs_label[index]+` </label><input type='text' id='`+paper_inputs[index]+`'>`;
     }
-    document.getElementById(location_).innerHTML += `<label hidden>`+paper_inputs_label[9]+` </label><input type='text' value='-' id='`+paper_inputs[9]+`' hidden/>`;
+    // document.getElementById(location_).innerHTML += `<label hidden>`+paper_inputs_label[9]+` </label><input type='text' value='-' id='`+paper_inputs[9]+`' hidden/>`;
 
     document.getElementById(location_).innerHTML +=`</div></div>`;
 
     document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
 
     document.getElementById(location_).innerHTML +=`<div id='assign_section_id' style='display:none'>`;
+
+
+    
+    paper_inner_parent__('marketing_input' , 'Marketing ID ');
+
 
     if(localStorage.permission == 4)
     {
@@ -610,6 +626,19 @@ Not Registered
 
     var create_new_tabl_rows_emp = []
 
+    if(All_table_obj.tables[21] && All_table_obj.tables[21] !== undefined && All_table_obj.tables[21].length != 0){
+
+        All_table_obj.tables[21].forEach(element => {
+
+            console.log(element);
+
+            $('#marketing_input').append(`<option value="${element.id}"
+            >${element.id} - ${element.name} </option>`); 
+
+        })
+        
+    }
+
     if(All_table_obj.tables[3] && All_table_obj.tables[3] !== undefined && All_table_obj.tables[3].length != 0){
     
     for(var index = 0 ; index < All_table_obj.tables[3].length ; index++)
@@ -678,6 +707,7 @@ Not Registered
             create_new_tabl_cols[counter] = All_table_obj.tables[4][index].address;counter++;
             create_new_tabl_cols[counter] = All_table_obj.tables[4][index].location;counter++;
             create_new_tabl_cols[counter] = All_table_obj.tables[4][index].job;counter++;
+            create_new_tabl_cols[counter] = All_table_obj.tables[4][index].marketing_id;counter++;
 
 
             var reg_status = false;
@@ -1214,6 +1244,7 @@ Not Registered
     , "Address :"
     , "Location :"
     , "Job :"
+    , "Marketing ID :"
     , "Reg Status :"
     , "CS Agent :"
     , "Sales Agent :"
@@ -2209,7 +2240,7 @@ function assigned_agent_parent_page(arr_data )
 {
 
     var search_for = '';
-    if(localStorage.permission == 4)
+    if(localStorage.permission == 4 || localStorage.permission == 7)
     {
         search_for = $("#assign_select_search").val();
         if(search_for == '' || search_for == undefined)

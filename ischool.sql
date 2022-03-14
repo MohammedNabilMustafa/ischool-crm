@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2022 at 05:46 AM
+-- Generation Time: Mar 14, 2022 at 05:33 PM
 -- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.1
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -86,24 +86,14 @@ CREATE TABLE `att_feed` (
 --
 
 INSERT INTO `att_feed` (`id`, `timestamp`, `student_id`, `session_id`, `attendance`, `feedback`) VALUES
-(180, '2022-03-10', 218, 48, 'YES', 'dfgdfg'),
-(181, '2022-03-10', 218, 0, '', ''),
-(182, '2022-03-10', 218, 0, '', ''),
-(183, '2022-03-10', 218, 0, '', ''),
-(184, '2022-03-10', 218, 0, '', ''),
-(185, '2022-03-10', 218, 0, '', ''),
-(186, '2022-03-10', 218, 0, '', ''),
-(187, '2022-03-10', 218, 0, '', ''),
-(188, '2022-03-10', 218, 0, '', ''),
-(189, '2022-03-10', 218, 0, '', ''),
-(190, '2022-03-10', 218, 0, '', ''),
-(191, '2022-03-10', 218, 0, '', ''),
-(204, '2022-03-10', 220, 63, '', ''),
 (213, '2022-03-10', 223, 35, '', ''),
 (214, '2022-03-10', 223, 36, '', ''),
 (215, '2022-03-10', 223, 37, '', ''),
 (216, '2022-03-10', 223, 38, '', ''),
-(217, '2022-03-10', 224, 62, '', '');
+(217, '2022-03-10', 224, 62, '', ''),
+(218, '2022-03-14', 232, 64, '', ''),
+(219, '2022-03-14', 233, 64, '', ''),
+(220, '2022-03-14', 234, 64, '', '');
 
 -- --------------------------------------------------------
 
@@ -242,9 +232,17 @@ CREATE TABLE `certifications` (
   `lan_id` int(11) NOT NULL,
   `session_type_id` int(11) NOT NULL,
   `track_id` int(11) NOT NULL,
-  `cert_link` int(11) NOT NULL,
-  `type` int(11) NOT NULL
+  `cert_link` text NOT NULL,
+  `type` text NOT NULL,
+  `session_num` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `certifications`
+--
+
+INSERT INTO `certifications` (`id`, `timestamp`, `level_id`, `lan_id`, `session_type_id`, `track_id`, `cert_link`, `type`, `session_num`) VALUES
+(3, '2022-03-14', 2, 1, 1, 1, 'https://www.google.com/', 'attend', 5);
 
 -- --------------------------------------------------------
 
@@ -311,13 +309,11 @@ CREATE TABLE `cs_calls` (
 --
 
 INSERT INTO `cs_calls` (`id`, `timestamp`, `call_type_id`, `call_status_id`, `cat_id`, `close_id`, `follow_date`, `note`, `call_id`, `student_id`, `parent_id`) VALUES
-(91, '2022-03-01', 1, 1, 1, 1, '2022-03-10', 'dfgdfg', 0, 218, 133),
-(92, '2022-03-01', 1, 1, 1, 1, '2022-03-10', 'dfgdfg', 0, 0, 133),
-(93, '2022-03-01', 1, 1, 1, 1, '2022-03-10', 'vccdfvbc dfg ', 91, 218, 133),
 (94, '2022-03-10', 1, 1, 6, 1, '2022-03-10', 'asdasd asd ', 0, 223, 137),
 (95, '2022-03-10', 1, 1, 6, 2, '2022-03-10', 'asd asd ', 94, 223, 137),
 (96, '2022-03-10', 1, 1, 6, 1, '2022-03-12', 'sdfsdf sdf ', 94, 223, 137),
-(97, '2022-03-10', 1, 1, 1, 1, '2022-03-10', 'asdasd', 0, 0, 133);
+(98, '2022-03-14', 1, 1, 5, 1, '2022-03-14', 'sad asd asd', 0, 224, 137),
+(99, '2022-03-14', 1, 1, 5, 1, '2022-03-14', 'asdas dasd ', 98, 224, 137);
 
 -- --------------------------------------------------------
 
@@ -400,7 +396,8 @@ INSERT INTO `employee` (`id`, `timestamp`, `name`, `phone`, `email`, `zoomlink`,
 (12, '2022-02-06', 'Nada', 123123, 'asdasd', 'asdasd', 'asdasd', '123123', 1, 1, 1),
 (13, '2022-03-03', 'Mohammed Nabil', 241545, 'mohammed.nabil.mustafa@gmail.c', '-', 'Tiger', '0630', 4, 3, 2),
 (14, '2022-03-02', 'Nour El-Dahan', 145234523, 'dsfgdsfg', '-', 'Nour', '1234', 3, 3, 3),
-(15, '2022-03-06', 'Rehab El-Hagar', 123123, 'asdasd', '-', 'Rehab', '1234', 2, 2, 2);
+(15, '2022-03-06', 'Rehab El-Hagar', 123123, 'asdasd', '-', 'Rehab', '1234', 2, 2, 2),
+(16, '2022-03-14', 'Nouran', 123123, 'asd', '-', 'Nouran', '1234', 7, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -440,7 +437,8 @@ INSERT INTO `groups` (`id`, `timestamp`, `slot_id`, `lan_id`, `att_id`, `level_i
 (61, '2022-03-07', 5, 1, 1, 2, 1, 2, 1, 1, '', '2022-03-13', '2022-03-13'),
 (62, '2022-03-07', 9, 1, 1, 2, 1, 2, 1, 2, '', '2022-03-13', '2022-03-13'),
 (63, '2022-03-07', 9, 1, 1, 2, 1, 2, 1, 3, '', '2022-02-13', '2022-02-13'),
-(64, '2022-03-08', 5, 1, 1, 2, 1, 2, 2, 2, '', '2022-03-14', '2022-03-14');
+(64, '2022-03-08', 5, 1, 1, 2, 1, 2, 2, 2, '', '2022-03-14', '2022-03-14'),
+(65, '2022-03-14', 5, 1, 1, 2, 1, 2, 2, 2, '', '2022-03-21', '2022-03-21');
 
 -- --------------------------------------------------------
 
@@ -469,12 +467,8 @@ CREATE TABLE `invoice` (
 --
 
 INSERT INTO `invoice` (`id`, `timestamp`, `student_id`, `fees`, `amount`, `status`, `due_date`, `paid_date`, `discount`, `attach`, `package_id`, `qouta`, `remain`) VALUES
-(481, '2022-03-10', 218, 21480, 5370, 'done', '2022-03-01', '2022-03-10', 0, '', 168, 12, 0),
-(482, '2022-03-10', 218, 21480, 5370, 'waiting', '2022-03-08', '0000-00-00', 0, '', 168, 12, 0),
-(483, '2022-03-10', 218, 21480, 5370, 'waiting', '2022-05-09', '0000-00-00', 0, '', 168, 12, 0),
-(484, '2022-03-10', 218, 21480, 5370, 'waiting', '2022-06-08', '0000-00-00', 0, '', 168, 12, 0),
 (499, '2022-03-10', 224, 23880, 1990, 'done', '2022-03-10', '2022-03-10', 0, '', 172, 4, 0),
-(500, '2022-03-10', 224, 23880, 1990, 'waiting', '2022-04-09', '0000-00-00', 0, '', 172, 4, 0),
+(500, '2022-03-14', 224, 23880, 1990, 'waiting', '2022-03-11', '0000-00-00', 0, '', 172, 4, 0),
 (501, '2022-03-10', 224, 23880, 1990, 'waiting', '2022-05-09', '0000-00-00', 0, '', 172, 4, 0),
 (502, '2022-03-10', 224, 23880, 1990, 'waiting', '2022-06-08', '0000-00-00', 0, '', 172, 4, 0),
 (503, '2022-03-10', 224, 23880, 1990, 'waiting', '2022-07-08', '0000-00-00', 0, '', 172, 4, 0),
@@ -563,8 +557,16 @@ CREATE TABLE `marketing` (
   `mrkt_conv_type_id` int(11) NOT NULL,
   `mrkt_source_id` int(11) NOT NULL,
   `mrkt_others_id` int(11) NOT NULL,
-  `url_camp` int(11) NOT NULL
+  `url_camp` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `marketing`
+--
+
+INSERT INTO `marketing` (`id`, `timestamp`, `name`, `disc`, `mrkt_type_id`, `mrkt_conv_type_id`, `mrkt_source_id`, `mrkt_others_id`, `url_camp`) VALUES
+(3, '2022-03-14', 'Mohamed', 'asd', 1, 1, 1, 1, 'file:///C:/xampp/htdocs/ischool/ischool-crm/free/index.html'),
+(4, '2022-03-14', 'aasd', 'asd', 2, 1, 1, 1, 'file:///C:/xampp/htdocs/ischool/ischool-crm/free/index.html');
 
 -- --------------------------------------------------------
 
@@ -579,9 +581,17 @@ CREATE TABLE `material` (
   `lan_id` int(11) NOT NULL,
   `session_type_id` int(11) NOT NULL,
   `track_id` int(11) NOT NULL,
-  `video_link` int(11) NOT NULL,
-  `slide` int(11) NOT NULL
+  `video_link` text NOT NULL,
+  `slide` text NOT NULL,
+  `session_num` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `material`
+--
+
+INSERT INTO `material` (`id`, `timestamp`, `level_id`, `lan_id`, `session_type_id`, `track_id`, `video_link`, `slide`, `session_num`) VALUES
+(1, '2022-03-14', 2, 1, 1, 1, 'https://www.google.com/', '', 1);
 
 -- --------------------------------------------------------
 
@@ -746,8 +756,13 @@ CREATE TABLE `parent` (
 --
 
 INSERT INTO `parent` (`id`, `timestamp`, `name`, `phone`, `email`, `name_2`, `phone_2`, `email_2`, `address`, `location`, `job`, `marketing_id`, `customer_agent_id`, `sales_agent_id`, `username`, `password`) VALUES
-(133, '2022-03-10', 'Mohamed Ali', '123123', 'mohammed.nabil.mustafa@gmail.com', 'Mohammed Nabil', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 'aseq', 'asd', 'asd', 0, 14, 15, '', ''),
-(137, '2022-03-10', 'Ahmed', '01242544', 'asdasd', 'Mohammed Nabil', '01027713442', 'asd', 'aseq', 'asd', 'asd', 0, 11, 9, '', '');
+(137, '2022-03-10', 'Ahmed', '01242544', 'asdasd', 'Mohammed Nabil', '01027713442', 'asd', 'aseq', 'asd', 'asd', 0, 11, 9, '', ''),
+(138, '2022-03-14', 'Gawish', 'asd', 'asd', 'Mohammed Nabil', 'asd', 'asd', 'asd', 'we', ' qweasd', 3, 14, 15, 'asd', 'asd'),
+(139, '2022-03-14', 'asdasd', '1444', 'eqq2qe@gmail.com', '', '', '', '', 'eg', '', 3, 11, 9, 'eqq2qe@gmail.com', '1444'),
+(140, '2022-03-14', 'asdasd', '1123', 'eqqaaqe@gmail.com', '', '', '', '', 'eg', '', 0, 14, 15, 'eqqaaqe@gmail.com', '1123'),
+(141, '2022-03-14', 'aras', '5487547', 'asdasdww@gmail.com', '', '', '', '', 'eg', '', 0, 11, 9, 'asdasdww@gmail.com', '5487547'),
+(142, '2022-03-14', 'Mohamed Nabil Mustafa', '45622', 'asdasdeee@gmail.com', '', '', '', '', 'eg', '', 0, 14, 15, 'asdasdeee@gmail.com', '45622'),
+(143, '2022-03-14', 'asdasd', '5487511', 'asdasdqq@gmail.com', '', '', '', '', 'eg', '', 4, 11, 9, 'asdasdqq@gmail.com', '5487511');
 
 -- --------------------------------------------------------
 
@@ -872,7 +887,8 @@ INSERT INTO `sessions` (`id`, `timestamp`, `groups_id`, `employee_id`, `zoomlink
 (60, '2022-03-07', 61, 12, '', '2022-03-13', 1, ''),
 (61, '2022-03-07', 62, 12, '', '2022-03-13', 1, ''),
 (62, '2022-03-07', 63, 12, '', '2022-02-13', 1, ''),
-(63, '2022-03-08', 64, 12, '', '2022-03-14', 1, '');
+(63, '2022-03-08', 64, 12, '', '2022-03-14', 1, ''),
+(64, '2022-03-14', 65, 12, '', '2022-03-21', 1, '');
 
 -- --------------------------------------------------------
 
@@ -950,7 +966,16 @@ INSERT INTO `students` (`id`, `timestamp`, `std_id`, `parent_id`, `free_session_
 (218, '2022-03-10', '1012', 133, 'no', 0, 'Eyad', 'C', '2012-02-02'),
 (220, '2022-03-10', '', 133, 'yes', 0, 'Mohamed Nabil Mustafa', 'C', '2012-02-02'),
 (223, '2022-03-10', '1542', 137, 'no', 0, 'asd', 'B', '2015-02-02'),
-(224, '2022-03-10', '1547', 137, 'no', 0, 'dasd', 'D', '2008-02-02');
+(224, '2022-03-10', '1547', 137, 'no', 0, 'dasd', 'D', '2008-02-02'),
+(225, '2022-03-14', '124', 138, 'no', 0, 'asd', 'C', '2012-02-02'),
+(226, '2022-03-14', '', 138, 'yes', 0, 'Mohamed Nabil Mustafa', 'C', '2012-02-02'),
+(227, '2022-03-14', '', 138, 'yes', 0, 'Mohamed Nabil Mustafa', 'C', '2012-02-02'),
+(228, '2022-03-14', '', 139, 'yes', 0, 'asdasd', 'C', '2012-02-02'),
+(229, '2022-03-14', '', 140, 'yes', 0, 'asdasd', 'C', '2012-02-02'),
+(230, '2022-03-14', '', 133, 'yes', 0, 'Mohamed Nabil Mustafa', 'T', '2022-03-14'),
+(232, '2022-03-14', '', 141, 'yes', 0, 'aras', 'C', '2012-01-01'),
+(233, '2022-03-14', '', 142, 'yes', 0, 'Mohamed Nabil Mustafa', 'C', '2012-02-02'),
+(234, '2022-03-14', '', 143, 'yes', 0, 'asdasd', 'C', '2012-02-02');
 
 -- --------------------------------------------------------
 
@@ -971,10 +996,11 @@ CREATE TABLE `student_groups` (
 --
 
 INSERT INTO `student_groups` (`id`, `timestamp`, `groups_id`, `student_id`, `status`) VALUES
-(897, '2022-03-10', 60, 218, 'active'),
-(899, '2022-03-10', 64, 220, 'active'),
 (902, '2022-03-10', 54, 223, 'active'),
-(903, '2022-03-10', 63, 224, 'active');
+(903, '2022-03-10', 63, 224, 'active'),
+(904, '2022-03-14', 65, 232, 'active'),
+(905, '2022-03-14', 65, 233, 'active'),
+(906, '2022-03-14', 65, 234, 'active');
 
 -- --------------------------------------------------------
 
@@ -996,7 +1022,6 @@ CREATE TABLE `student_package` (
 INSERT INTO `student_package` (`id`, `timestamp`, `student_id`, `package_id`) VALUES
 (66, '2022-02-26', 158, 3),
 (67, '2022-02-26', 159, 2),
-(168, '2022-03-10', 218, 2),
 (172, '2022-03-10', 224, 3);
 
 -- --------------------------------------------------------
@@ -1013,13 +1038,20 @@ CREATE TABLE `tasks` (
   `session_type_id` int(11) NOT NULL,
   `track_id` int(11) NOT NULL,
   `session_num` int(11) NOT NULL,
-  `type` int(11) NOT NULL,
+  `type` text NOT NULL,
   `option1` text NOT NULL,
   `option2` text NOT NULL,
   `option3` text NOT NULL,
   `correct` text NOT NULL,
   `points` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tasks`
+--
+
+INSERT INTO `tasks` (`id`, `timestamp`, `level_id`, `lan_id`, `session_type_id`, `track_id`, `session_num`, `type`, `option1`, `option2`, `option3`, `correct`, `points`) VALUES
+(2, '2022-03-14', 2, 1, 1, 1, 10, 'multi', 'asdasd', 'asdasd', 'asdasd', 'option1', 10);
 
 -- --------------------------------------------------------
 
@@ -1313,7 +1345,7 @@ ALTER TABLE `attend`
 -- AUTO_INCREMENT for table `att_feed`
 --
 ALTER TABLE `att_feed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=221;
 
 --
 -- AUTO_INCREMENT for table `call_status`
@@ -1355,7 +1387,7 @@ ALTER TABLE `cat_sales`
 -- AUTO_INCREMENT for table `certifications`
 --
 ALTER TABLE `certifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `close`
@@ -1373,7 +1405,7 @@ ALTER TABLE `close_sales`
 -- AUTO_INCREMENT for table `cs_calls`
 --
 ALTER TABLE `cs_calls`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `days`
@@ -1391,13 +1423,13 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `invoice`
@@ -1427,13 +1459,13 @@ ALTER TABLE `level`
 -- AUTO_INCREMENT for table `marketing`
 --
 ALTER TABLE `marketing`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `mrkt_conv_type`
@@ -1475,7 +1507,7 @@ ALTER TABLE `package`
 -- AUTO_INCREMENT for table `parent`
 --
 ALTER TABLE `parent`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
 
 --
 -- AUTO_INCREMENT for table `permission`
@@ -1499,7 +1531,7 @@ ALTER TABLE `sales_calls`
 -- AUTO_INCREMENT for table `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `session_type`
@@ -1517,13 +1549,13 @@ ALTER TABLE `slots`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=225;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
 
 --
 -- AUTO_INCREMENT for table `student_groups`
 --
 ALTER TABLE `student_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=904;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=907;
 
 --
 -- AUTO_INCREMENT for table `student_package`
@@ -1535,7 +1567,7 @@ ALTER TABLE `student_package`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `track`

@@ -2835,7 +2835,8 @@ function material()
       "session_type_id",
       "track_id",
       "video_link",
-      "slide"
+      "slide",
+      "session_num"
       
   ];
 
@@ -2846,7 +2847,8 @@ function material()
       "Session Type ID",
       "Track ID",
       "Video Link",
-      "Slide"
+      "Slide",
+      "Session Number"
   ];
 
     var inputs_names_search = 
@@ -2857,7 +2859,9 @@ function material()
     "Session Type ID",
     "Track ID",
     "Video Link",
-    "Slide"
+    "Slide",
+    "Session Number"
+
     ,"Edit" 
     ,"Delete"
   ];
@@ -3016,7 +3020,8 @@ function certifications()
       "session_type_id",
       "track_id",
       "cert_link",
-      "type"
+      "type",
+      "session_num"
 
       
   ];
@@ -3029,6 +3034,7 @@ function certifications()
       "Track ID",
       "Certification Link",
       "Type",
+      "Certifications"
 
   ];
 
@@ -3040,7 +3046,8 @@ function certifications()
     "Session Type ID",
     "Track ID",
     "Certification Link",
-    "Type"
+    "Type",
+    "Certifications"
     ,"Edit" 
     ,"Delete"
   ];
