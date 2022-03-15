@@ -87,7 +87,7 @@ function ADD_SESSION_TO_GROUP()
         ,"name"
         ,"age"
         ,"birthdate"
-      ]
+      ],
       [
         "level_id",
         "lan_id",
@@ -1424,6 +1424,7 @@ function createTable_pop_up_tasks(All_data_obj , students_arr  ) {
               result += "</tr>"+
                         "</thead>";
 
+                        
                     for(var index = 0 ; index <Object.values(dataArray).length ; index++)
                     {
                         result += "<tr>";
