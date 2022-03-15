@@ -113,6 +113,7 @@ function sessions()
     ,"session_date" 
     ,"session_num" 
     ,"open_by"
+    ,"material_id"
   ];
 
     var inputs_names_inputs = 
@@ -122,6 +123,7 @@ function sessions()
     ,"Session Date" 
     ,"Session Num" 
     ,"Opened by"
+    ,"Material ID"
 
   ];
 
@@ -134,6 +136,7 @@ function sessions()
     ,"Session Date" 
     ,"Session Num" 
     ,"Opened by"
+    ,"Material ID"
     ,"Edit" 
     ,"Delete"
   ];
@@ -181,6 +184,82 @@ function sessions()
   Fetch_all_data(All_data_obj);
   Add_Section(All_data_obj);
 }
+
+
+
+
+function session_tasks()
+{
+  Loading_page_set();
+
+    var Saved_data = [];
+    var Database_link = database_fixed_link
+
+    var inputs_col = 
+    [
+      "session_id" 
+      ,"task_id" 
+    ];
+
+    var inputs_names_inputs = 
+    [
+      "Session ID" 
+    ,"Task ID" 
+
+  ];
+
+    var inputs_names_search = 
+    ["ID"
+    ,"Timestamp"
+    ,"Session ID" 
+    ,"Task ID" 
+    ,"Edit" 
+    ,"Delete"
+  ];
+    
+    var inputs_check = 
+    ["Session missing" 
+  ];
+
+    var search_ids = 
+    ["Search1" 
+    , "Search2" 
+    , "Search3" 
+  ];
+
+    var called_table = 'session_tasks';
+
+  const All_data_obj = {};
+  All_data_obj.Start_Index = 1;
+  All_data_obj.next_btn = '#btn2';
+  All_data_obj.prev_btn = '#btn1';
+  All_data_obj.ind_btn = '#page_index';
+  All_data_obj.location_index = "Location_4";
+  All_data_obj.table_div = 'search-results';
+  All_data_obj.all_names = inputs_names_search;
+  All_data_obj.location_next = "Location_3";
+  All_data_obj.Location_2 = "Location_2";
+  All_data_obj.location_1 = "Location_1";
+  All_data_obj.search_data = search_ids;
+  All_data_obj.btn_index = 'btn_index';
+  All_data_obj.table_ = called_table;
+  All_data_obj.btn_index = 'btn_index';
+  All_data_obj.edit_index = [];
+  All_data_obj.delete_index = [];
+  All_data_obj.index_num_value = [];
+  All_data_obj.inputs_col_ = inputs_col;
+  All_data_obj.inputs_names_inputs_ = inputs_names_inputs;
+  All_data_obj.inputs_check_ = inputs_check;
+  All_data_obj.Database_link = Database_link;
+  All_data_obj.page_name = "Clients";
+  All_data_obj.page_name_id = "page_name";
+  All_data_obj.callbackfunc;
+  All_data_obj.obj;
+
+  Fetch_all_data(All_data_obj);
+  Add_Section(All_data_obj);
+}
+
 
 function att_feed()
 {
@@ -1071,6 +1150,7 @@ function employee()
     ,"permission_id"
     ,"department_id"
     ,"role_id"
+    ,"zoom_free"
   ];
 
     var inputs_names_inputs = 
@@ -1083,6 +1163,7 @@ function employee()
     ,"Permission"
     ,"Department"
     ,"Role"
+    ,"Free Zoom"
 
   ];
 
@@ -1098,6 +1179,7 @@ function employee()
     ,"Permission"
     ,"Department"
     ,"Role"
+    ,"Free Zoom"
     ,"Edit" 
     ,"Delete"
   ];
@@ -2836,7 +2918,8 @@ function material()
       "track_id",
       "video_link",
       "slide",
-      "session_num"
+      "session_num",
+      "age_id"
       
   ];
 
@@ -2848,7 +2931,9 @@ function material()
       "Track ID",
       "Video Link",
       "Slide",
-      "Session Number"
+      "Session Number",
+      "Age ID"
+
   ];
 
     var inputs_names_search = 
@@ -2860,8 +2945,8 @@ function material()
     "Track ID",
     "Video Link",
     "Slide",
-    "Session Number"
-
+    "Session Number",
+    "Age ID"
     ,"Edit" 
     ,"Delete"
   ];
@@ -2927,7 +3012,9 @@ function tasks()
       "option2",
       "option3",
       "correct",
-      "points"
+      "points",
+      "question",
+      "age_id"
       
   ];
 
@@ -2943,7 +3030,10 @@ function tasks()
       "Option 2",
       "Option 3",
       "Correct Answer",
-      "Points"
+      "Points",
+      "Question",
+      "Age ID"
+
   ];
 
     var inputs_names_search = 
@@ -2959,7 +3049,9 @@ function tasks()
     "Option 2",
     "Option 3",
     "Correct Answer",
-    "Points"
+    "Points",
+    "Question",
+    "Age ID"
     ,"Edit" 
     ,"Delete"
   ];
@@ -3021,7 +3113,8 @@ function certifications()
       "track_id",
       "cert_link",
       "type",
-      "session_num"
+      "session_num",
+      "age_id"
 
       
   ];
@@ -3034,7 +3127,8 @@ function certifications()
       "Track ID",
       "Certification Link",
       "Type",
-      "Certifications"
+      "Session Number",
+      "Age ID"
 
   ];
 
@@ -3047,7 +3141,8 @@ function certifications()
     "Track ID",
     "Certification Link",
     "Type",
-    "Certifications"
+    "Session Number",
+    "Age ID"
     ,"Edit" 
     ,"Delete"
   ];

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2022 at 05:33 PM
+-- Generation Time: Mar 15, 2022 at 11:38 AM
 -- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- PHP Version: 8.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -234,15 +234,17 @@ CREATE TABLE `certifications` (
   `track_id` int(11) NOT NULL,
   `cert_link` text NOT NULL,
   `type` text NOT NULL,
-  `session_num` int(11) NOT NULL
+  `session_num` int(11) NOT NULL,
+  `age_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `certifications`
 --
 
-INSERT INTO `certifications` (`id`, `timestamp`, `level_id`, `lan_id`, `session_type_id`, `track_id`, `cert_link`, `type`, `session_num`) VALUES
-(3, '2022-03-14', 2, 1, 1, 1, 'https://www.google.com/', 'attend', 5);
+INSERT INTO `certifications` (`id`, `timestamp`, `level_id`, `lan_id`, `session_type_id`, `track_id`, `cert_link`, `type`, `session_num`, `age_id`) VALUES
+(3, '2022-03-14', 2, 1, 1, 1, 'https://www.google.com/', 'attend', 5, 0),
+(4, '2022-03-15', 2, 1, 2, 1, 'https://www.google.com/', 'attend', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -383,21 +385,23 @@ CREATE TABLE `employee` (
   `password_value` text NOT NULL,
   `permission_id` int(11) NOT NULL,
   `department_id` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL
+  `role_id` int(11) NOT NULL,
+  `zoom_free` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`id`, `timestamp`, `name`, `phone`, `email`, `zoomlink`, `username`, `password_value`, `permission_id`, `department_id`, `role_id`) VALUES
-(9, '2022-03-03', 'Alaa Refaie', 154547, 'asdasd@asdsd.com', 'asdasdasd', 'Alaa', '1234', 2, 2, 3),
-(11, '2022-03-10', 'Maged Hassan', 123123, 'asdasd', 'asdasd', 'Maged', '1234', 3, 1, 1),
-(12, '2022-02-06', 'Nada', 123123, 'asdasd', 'asdasd', 'asdasd', '123123', 1, 1, 1),
-(13, '2022-03-03', 'Mohammed Nabil', 241545, 'mohammed.nabil.mustafa@gmail.c', '-', 'Tiger', '0630', 4, 3, 2),
-(14, '2022-03-02', 'Nour El-Dahan', 145234523, 'dsfgdsfg', '-', 'Nour', '1234', 3, 3, 3),
-(15, '2022-03-06', 'Rehab El-Hagar', 123123, 'asdasd', '-', 'Rehab', '1234', 2, 2, 2),
-(16, '2022-03-14', 'Nouran', 123123, 'asd', '-', 'Nouran', '1234', 7, 4, 1);
+INSERT INTO `employee` (`id`, `timestamp`, `name`, `phone`, `email`, `zoomlink`, `username`, `password_value`, `permission_id`, `department_id`, `role_id`, `zoom_free`) VALUES
+(9, '2022-03-03', 'Alaa Refaie', 154547, 'asdasd@asdsd.com', 'asdasdasd', 'Alaa', '1234', 2, 2, 3, ''),
+(11, '2022-03-10', 'Maged Hassan', 123123, 'asdasd', 'asdasd', 'Maged', '1234', 3, 1, 1, ''),
+(12, '2022-03-15', 'Nada', 123123, 'asdasd', 'https://www.google.com/', 'Nada', '1234', 1, 1, 1, 'https://www.youtube.com/'),
+(13, '2022-03-03', 'Mohammed Nabil', 241545, 'mohammed.nabil.mustafa@gmail.c', '-', 'Tiger', '0630', 4, 3, 2, ''),
+(14, '2022-03-02', 'Nour El-Dahan', 145234523, 'dsfgdsfg', '-', 'Nour', '1234', 3, 3, 3, ''),
+(15, '2022-03-06', 'Rehab El-Hagar', 123123, 'asdasd', '-', 'Rehab', '1234', 2, 2, 2, ''),
+(16, '2022-03-14', 'Nouran', 123123, 'asd', '-', 'Nouran', '1234', 7, 4, 1, ''),
+(17, '2022-03-15', 'Aya El-Nagar', 123123, 'asdasd', 'https://www.google.com/', 'Aya', '1234', 1, 1, 1, 'https://www.youtube.com/');
 
 -- --------------------------------------------------------
 
@@ -438,7 +442,12 @@ INSERT INTO `groups` (`id`, `timestamp`, `slot_id`, `lan_id`, `att_id`, `level_i
 (62, '2022-03-07', 9, 1, 1, 2, 1, 2, 1, 2, '', '2022-03-13', '2022-03-13'),
 (63, '2022-03-07', 9, 1, 1, 2, 1, 2, 1, 3, '', '2022-02-13', '2022-02-13'),
 (64, '2022-03-08', 5, 1, 1, 2, 1, 2, 2, 2, '', '2022-03-14', '2022-03-14'),
-(65, '2022-03-14', 5, 1, 1, 2, 1, 2, 2, 2, '', '2022-03-21', '2022-03-21');
+(65, '2022-03-14', 5, 1, 1, 2, 1, 2, 2, 2, '', '2022-03-21', '2022-03-21'),
+(66, '2022-03-15', 2, 1, 1, 2, 1, 2, 1, 2, '', '2022-03-20', '2022-03-20'),
+(67, '2022-03-15', 2, 1, 1, 2, 1, 1, 1, 1, '', '2022-03-20', '2022-03-20'),
+(68, '2022-03-15', 2, 1, 1, 2, 1, 2, 1, 1, '', '2022-03-20', '2022-03-20'),
+(69, '2022-03-15', 5, 1, 1, 2, 1, 2, 1, 1, '', '2022-03-20', '2022-03-20'),
+(70, '2022-03-15', 5, 1, 1, 2, 1, 2, 1, 2, '', '2022-03-20', '2022-03-20');
 
 -- --------------------------------------------------------
 
@@ -583,15 +592,17 @@ CREATE TABLE `material` (
   `track_id` int(11) NOT NULL,
   `video_link` text NOT NULL,
   `slide` text NOT NULL,
-  `session_num` int(11) NOT NULL
+  `session_num` int(11) NOT NULL,
+  `age_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `material`
 --
 
-INSERT INTO `material` (`id`, `timestamp`, `level_id`, `lan_id`, `session_type_id`, `track_id`, `video_link`, `slide`, `session_num`) VALUES
-(1, '2022-03-14', 2, 1, 1, 1, 'https://www.google.com/', '', 1);
+INSERT INTO `material` (`id`, `timestamp`, `level_id`, `lan_id`, `session_type_id`, `track_id`, `video_link`, `slide`, `session_num`, `age_id`) VALUES
+(1, '2022-03-14', 2, 1, 1, 1, 'https://www.google.com/', '', 1, 0),
+(2, '2022-03-15', 2, 1, 2, 1, 'https://www.google.com/', '', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -847,48 +858,70 @@ CREATE TABLE `sessions` (
   `zoomlink` text NOT NULL,
   `session_date` date NOT NULL,
   `session_num` int(11) NOT NULL,
-  `open_by` text NOT NULL
+  `open_by` text NOT NULL,
+  `material_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `sessions`
 --
 
-INSERT INTO `sessions` (`id`, `timestamp`, `groups_id`, `employee_id`, `zoomlink`, `session_date`, `session_num`, `open_by`) VALUES
-(31, '2022-02-18', 53, 11, '', '2022-02-20', 1, ''),
-(32, '2022-02-18', 53, 11, '', '2022-02-27', 2, ''),
-(33, '2022-02-18', 53, 11, '', '2022-03-06', 3, ''),
-(34, '2022-02-18', 53, 11, '', '2022-03-13', 4, ''),
-(35, '2022-02-26', 54, 11, '', '2022-02-27', 1, ''),
-(36, '2022-02-26', 54, 11, '', '2022-03-06', 2, ''),
-(37, '2022-02-26', 54, 11, '', '2022-03-13', 3, ''),
-(38, '2022-02-26', 54, 11, '', '2022-03-20', 4, ''),
-(39, '2022-02-26', 55, 12, '', '2022-02-27', 1, ''),
-(40, '2022-02-26', 55, 12, '', '2022-03-13', 3, ''),
-(41, '2022-02-26', 55, 12, '', '2022-03-06', 2, ''),
-(42, '2022-02-26', 55, 12, '', '2022-03-20', 4, ''),
-(43, '2022-02-26', 56, 12, '', '2022-02-27', 1, ''),
-(44, '2022-02-26', 57, 11, '', '2022-02-28', 1, ''),
-(45, '2022-02-26', 58, 11, '', '2022-02-27', 1, ''),
-(46, '2022-02-26', 59, 11, '', '2022-02-28', 1, ''),
-(47, '2022-02-26', 59, 11, '', '2022-03-07', 2, ''),
-(48, '2022-03-06', 60, 12, '', '2022-03-06', 1, ''),
-(49, '2022-03-06', 60, 12, '', '2022-03-13', 2, ''),
-(50, '2022-03-06', 60, 12, '', '2022-03-27', 4, ''),
-(51, '2022-03-06', 60, 12, '', '2022-04-03', 5, ''),
-(52, '2022-03-06', 60, 12, '', '2022-04-10', 6, ''),
-(53, '2022-03-06', 60, 12, '', '2022-04-17', 7, ''),
-(54, '2022-03-06', 60, 12, '', '2022-04-24', 8, ''),
-(55, '2022-03-06', 60, 12, '', '2022-05-01', 9, ''),
-(56, '2022-03-06', 60, 12, '', '2022-05-08', 10, ''),
-(57, '2022-03-06', 60, 12, '', '2022-05-15', 11, ''),
-(58, '2022-03-06', 60, 12, '', '2022-05-22', 12, ''),
-(59, '2022-03-06', 60, 12, '', '2022-03-20', 3, ''),
-(60, '2022-03-07', 61, 12, '', '2022-03-13', 1, ''),
-(61, '2022-03-07', 62, 12, '', '2022-03-13', 1, ''),
-(62, '2022-03-07', 63, 12, '', '2022-02-13', 1, ''),
-(63, '2022-03-08', 64, 12, '', '2022-03-14', 1, ''),
-(64, '2022-03-14', 65, 12, '', '2022-03-21', 1, '');
+INSERT INTO `sessions` (`id`, `timestamp`, `groups_id`, `employee_id`, `zoomlink`, `session_date`, `session_num`, `open_by`, `material_id`) VALUES
+(31, '2022-02-18', 53, 11, '', '2022-02-20', 1, '', 0),
+(32, '2022-02-18', 53, 11, '', '2022-02-27', 2, '', 0),
+(33, '2022-02-18', 53, 11, '', '2022-03-06', 3, '', 0),
+(34, '2022-02-18', 53, 11, '', '2022-03-13', 4, '', 0),
+(35, '2022-02-26', 54, 11, '', '2022-02-27', 1, '', 0),
+(36, '2022-02-26', 54, 11, '', '2022-03-06', 2, '', 0),
+(37, '2022-02-26', 54, 11, '', '2022-03-13', 3, '', 0),
+(38, '2022-02-26', 54, 11, '', '2022-03-20', 4, '', 0),
+(39, '2022-02-26', 55, 12, '', '2022-02-27', 1, '', 0),
+(40, '2022-02-26', 55, 12, '', '2022-03-13', 3, '', 0),
+(41, '2022-02-26', 55, 12, '', '2022-03-06', 2, '', 0),
+(42, '2022-02-26', 55, 12, '', '2022-03-20', 4, '', 0),
+(43, '2022-02-26', 56, 12, '', '2022-02-27', 1, '', 0),
+(44, '2022-02-26', 57, 11, '', '2022-02-28', 1, '', 0),
+(45, '2022-02-26', 58, 11, '', '2022-02-27', 1, '', 0),
+(46, '2022-02-26', 59, 11, '', '2022-02-28', 1, '', 0),
+(47, '2022-02-26', 59, 11, '', '2022-03-07', 2, '', 0),
+(48, '2022-03-06', 60, 12, '', '2022-03-06', 1, '', 0),
+(49, '2022-03-06', 60, 12, '', '2022-03-13', 2, '', 0),
+(50, '2022-03-06', 60, 12, '', '2022-03-27', 4, '', 0),
+(51, '2022-03-06', 60, 12, '', '2022-04-03', 5, '', 0),
+(52, '2022-03-06', 60, 12, '', '2022-04-10', 6, '', 0),
+(53, '2022-03-06', 60, 12, '', '2022-04-17', 7, '', 0),
+(54, '2022-03-06', 60, 12, '', '2022-04-24', 8, '', 0),
+(55, '2022-03-06', 60, 12, '', '2022-05-01', 9, '', 0),
+(56, '2022-03-06', 60, 12, '', '2022-05-08', 10, '', 0),
+(57, '2022-03-06', 60, 12, '', '2022-05-15', 11, '', 0),
+(58, '2022-03-06', 60, 12, '', '2022-05-22', 12, '', 0),
+(59, '2022-03-06', 60, 12, '', '2022-03-20', 3, '', 0),
+(60, '2022-03-07', 61, 12, '', '2022-03-13', 1, '', 0),
+(61, '2022-03-07', 62, 12, '', '2022-03-13', 1, '', 0),
+(62, '2022-03-07', 63, 12, '', '2022-02-13', 1, '', 0),
+(63, '2022-03-08', 64, 12, '', '2022-03-14', 1, '', 0),
+(64, '2022-03-15', 65, 12, '', '2022-03-07', 1, '', 2),
+(66, '2022-03-15', 70, 12, '', '2022-03-20', 1, '', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `session_tasks`
+--
+
+CREATE TABLE `session_tasks` (
+  `id` int(11) NOT NULL,
+  `timestamp` date NOT NULL,
+  `session_id` int(11) NOT NULL,
+  `task_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `session_tasks`
+--
+
+INSERT INTO `session_tasks` (`id`, `timestamp`, `session_id`, `task_id`) VALUES
+(1, '2022-03-15', 64, 7);
 
 -- --------------------------------------------------------
 
@@ -1043,15 +1076,17 @@ CREATE TABLE `tasks` (
   `option2` text NOT NULL,
   `option3` text NOT NULL,
   `correct` text NOT NULL,
-  `points` int(11) NOT NULL
+  `points` int(11) NOT NULL,
+  `question` text NOT NULL,
+  `age_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tasks`
 --
 
-INSERT INTO `tasks` (`id`, `timestamp`, `level_id`, `lan_id`, `session_type_id`, `track_id`, `session_num`, `type`, `option1`, `option2`, `option3`, `correct`, `points`) VALUES
-(2, '2022-03-14', 2, 1, 1, 1, 10, 'multi', 'asdasd', 'asdasd', 'asdasd', 'option1', 10);
+INSERT INTO `tasks` (`id`, `timestamp`, `level_id`, `lan_id`, `session_type_id`, `track_id`, `session_num`, `type`, `option1`, `option2`, `option3`, `correct`, `points`, `question`, `age_id`) VALUES
+(7, '2022-03-15', 2, 1, 2, 1, 1, 'multi', 'good', 'well', 'asd', 'option1', 10, 'how are you', 2);
 
 -- --------------------------------------------------------
 
@@ -1284,6 +1319,12 @@ ALTER TABLE `sessions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `session_tasks`
+--
+ALTER TABLE `session_tasks`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `session_type`
 --
 ALTER TABLE `session_type`
@@ -1387,7 +1428,7 @@ ALTER TABLE `cat_sales`
 -- AUTO_INCREMENT for table `certifications`
 --
 ALTER TABLE `certifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `close`
@@ -1423,13 +1464,13 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `invoice`
@@ -1465,7 +1506,7 @@ ALTER TABLE `marketing`
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `mrkt_conv_type`
@@ -1531,7 +1572,13 @@ ALTER TABLE `sales_calls`
 -- AUTO_INCREMENT for table `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
+--
+-- AUTO_INCREMENT for table `session_tasks`
+--
+ALTER TABLE `session_tasks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `session_type`
@@ -1567,7 +1614,7 @@ ALTER TABLE `student_package`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `track`

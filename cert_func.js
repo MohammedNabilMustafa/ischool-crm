@@ -11,6 +11,7 @@ async function CERTIFICATION_DASHBOARD()
     document.getElementById("search-results").innerHTML = "";
 
     var get_lvl_arr = await GET_DATA_TABLES(database_fixed_link , 'level' );
+    var get_age_arr = await GET_DATA_TABLES(database_fixed_link , 'age' );
     var get_lan_arr = await GET_DATA_TABLES(database_fixed_link , 'lan' );
     var get_session_type_arr = await GET_DATA_TABLES(database_fixed_link , 'session_type' );
     var get_track_arr = await GET_DATA_TABLES(database_fixed_link , 'track' );
@@ -23,6 +24,10 @@ async function CERTIFICATION_DASHBOARD()
     document.getElementById("Location_1").innerHTML +=`</div></div>`;
 
     document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+
+    document.getElementById("Location_1").innerHTML += `<label for="age_input">Age:</label>
+    <select class="col-1 select2" name="age_input" id="age_input">
+    <option value=""></option></select>`
 
     document.getElementById("Location_1").innerHTML += `<label for="type_input">Level:</label>
     <select class="col-1 select2" name="type_input" id="type_input">
@@ -78,7 +83,10 @@ async function CERTIFICATION_DASHBOARD()
     {
         $('#other_input').append(`<option value="${get_track_arr[index].id}">${get_track_arr[index].name} </option>`); 
     }
-
+    for(var index = 0 ; index < Object.values(get_age_arr).length ; index++)
+    {
+        $('#age_input').append(`<option value="${get_age_arr[index].id}">${get_age_arr[index].name} </option>`); 
+    }
 
     document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
     document.getElementById("Location_1").innerHTML += `<div class='col justify-content-start'><button class='btn btn-success' style='float:right;' id='send_group'>ADD</button></div>`;
@@ -119,10 +127,11 @@ async function CERTIFICATION_DASHBOARD()
         input_send_data[input_send_data_count] = $("#recorded_url_input").val();input_send_data_count++;
         input_send_data[input_send_data_count] = $("#get_input").val();input_send_data_count++;
         input_send_data[input_send_data_count] = $("#se_num_input").val();input_send_data_count++;
-        
+        input_send_data[input_send_data_count] = $("#age_input").val();input_send_data_count++;
+
 
         
-
+        if(input_send_data[7] == ""){alert("Please Choose Age");Loading_page_clear();return;}
         if(input_send_data[0] == ""){alert("Please Choose Level");Loading_page_clear();return;}
         if(input_send_data[1] == ""){alert("Please Choose Language");Loading_page_clear();return;}
         if(input_send_data[2] == ""){alert("Please Choose Type");Loading_page_clear();return;}
@@ -139,7 +148,8 @@ async function CERTIFICATION_DASHBOARD()
             "track_id",
             "cert_link",
             "type",
-            "session_num"
+            "session_num",
+            "age_id"
         ]
         ,
         input_send_data);
@@ -165,6 +175,7 @@ async function CERTIFICATION_DASHBOARD()
     var get_lan_arr = await GET_DATA_TABLES(database_fixed_link , 'lan' );
     var get_session_type_arr = await GET_DATA_TABLES(database_fixed_link , 'session_type' );
     var get_track_arr = await GET_DATA_TABLES(database_fixed_link , 'track' );
+    var get_age_arr = await GET_DATA_TABLES(database_fixed_link , 'age' );
 
 
     if(data_table && data_table !== undefined && data_table.length != 0){
@@ -202,6 +213,13 @@ async function CERTIFICATION_DASHBOARD()
                 if(Number(element_oth.id) == Number(element.track_id))
                 {
                     element.track_id = element_oth.name
+                }
+            })
+
+            get_age_arr.forEach(element_age => {
+                if(Number(element_age.id) == Number(element.age_id))
+                {
+                    element.age_id = element_age.name
                 }
             })
         });
@@ -322,6 +340,7 @@ function createTable_cert(dataArray ,All_data_obj ) {
                 result += "<tr>";
                 result += "<td>";
                 result += `ID : ${dataArray[index].id}<br>`;
+                result += `Age : ${dataArray[index].age_id}<br>`;
                 result += `Level : ${dataArray[index].level_id}<br>`;
                 result += `Language : ${dataArray[index].lan_id}<br>`;
                 result += `Type : ${dataArray[index].session_type_id}<br>`;

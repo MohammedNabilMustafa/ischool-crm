@@ -88,8 +88,19 @@ function ADD_SESSION_TO_GROUP()
         ,"age"
         ,"birthdate"
       ]
+      [
+        "level_id",
+        "lan_id",
+        "session_type_id",
+        "track_id",
+        "video_link",
+        "slide",
+        "session_num",
+        "age_id"
+        
+    ],
 
-    
+
   ];
 
 var called_table = [
@@ -106,7 +117,8 @@ var called_table = [
       'employee',
       'sessions',
       'att_feed',
-      'students'
+      'students',
+      'material'
   ];
 
 var paper_inputs = [
@@ -142,7 +154,7 @@ var paper_inputs_label = [
 }
 
 
-function schedule_create(All_req_obj)
+async function schedule_create(All_req_obj)
 {
     var div = document.getElementById("search-results");
     div.innerHTML = '';
@@ -226,18 +238,25 @@ function schedule_create(All_req_obj)
                                 check_feed = '';
                             }
 
-                            if(check_att == "" && check_feed =="")
+                            if(check_att == "" && check_feed =="" && count_st)
                             {
                                 check_att = `<label style='color:Green'>Materials Up To Date </label>`;
                             }
+
 
                             var Button_view = '';
                             var today_date = new Date();
                             var compared_date = new Date(session_ids[index__][2]);
                             
-                            if(today_date >=  compared_date)
+                            if((today_date >=  compared_date) && count_st)
                             {
-                                Button_view = `<button  type="button" id='view_more_${index__}' class="btn btn-light" style='float:right'><i class="fa-solid fa-eye"></i></button>` ;
+                                if(session_ids[index__][21] != "" && session_ids[index__][21] != null)
+                                {
+                                    Button_view = `<button  type="button" id='task_view_more_${index__}' class="btn btn-light" style='float:left;color:blue'><i class="fa-solid fa-list-check"></i></i></button>` ;
+                                }
+
+                                Button_view += `<button  type="button" id='view_more_${index__}' class="btn btn-light" style='float:right' ><i class="fa-solid fa-eye"></i></button>` ;
+
                             }
                             else
                             {
@@ -246,10 +265,40 @@ function schedule_create(All_req_obj)
                                 check_feed = '';
                             }
 
+                            var Recored_check = '<label style="color:gray">No Recored</label>';
+                            var Slide_check = '<label style="color:gray">No Slide</label>';
+                            var ZoomLink = '<label style="color:gray">No Host</label>';
+                            var tasks = '<label style="color:gray">No Tasks</label>';
+
+
+
+                            if(session_ids[index__][19] != "" && session_ids[index__][19] != null)
+                            Recored_check = `<a href="${session_ids[index__][19]}" target="_blank">Recorded link</a> `
+
+                            if(session_ids[index__][20] != ""  && session_ids[index__][20] != null)
+                            Recored_check = `<a href="${session_ids[index__][20]}" target="_blank">Slide link</a> `
+
+                            if(session_ids[index__][13] == "Free")
+                            {
+                                if(session_ids[index__][18] != "" && session_ids[index__][18] != null)
+                                ZoomLink = `<a href="${session_ids[index__][18]}" target="_blank">Open Free Session</a> `
+                            }
+                            else
+                            {
+                                if(session_ids[index__][17] != "" && session_ids[index__][17] != null)
+                                ZoomLink = `<a href="${session_ids[index__][17]}" target="_blank">Open Reg Session</a> `
+                            }
+                            
+                            // var get_session_arr = await GET_DATA_TABLES(database_fixed_link , 'sessions');
+
+
                             var data_for_all = ['Group ID : '+session_ids[index__][5] , 'Session ID : '+session_ids[index__][0] , "Session Num : "+session_ids[index__][3] , "Lang : "+session_ids[index__][9] , "Type : "+session_ids[index__][13] , "Level : "+session_ids[index__][11] , count_st+" Students" 
+                            ,ZoomLink
+                            ,Recored_check
+                            ,Slide_check
                             ,check_att 
                             ,check_feed
-                            ,Button_view ];
+                            ,Button_view  ];
 
                             if(session_ids[index__][7] == 'Slot 1' && schedule_data_cols[1] == undefined )
                             {
@@ -425,11 +474,11 @@ function schedule_create(All_req_obj)
                             return_data_res_cols[1]  = search_for_data_index(Time_slots , 'Slot 9' , 2 , 3)[0];
                             return_data_res_rows[0] = return_data_res_cols;
                         }
-
+                        if(localStorage.permission == 4)
+                        {
                         result += `<div style='display:flex;justify-content:left;'><button id='e${object_data_.table_count}_${return_data}_${return_data_1}' class='btn btn-light'  > <i class="fa-solid fa-angles-down"></i> </button></div>`;
-
-
                         result += `<div style='display:flex;justify-content:left;'><button style='visibility:hidden' id='back_${object_data_.table_count}_${return_data}_${return_data_1}' class='btn btn-light'  > <i class="fa-solid fa-angles-up"></i> </button></div>`;
+                        }
                         result += paper_inner_session_return(`time_${object_data_.table_count}_${return_data}_${return_data_1}` , "Time Slot" , return_data_res_rows , 0 , 1);
                         result += `<br>`+ paper_inner_session_return(`lan_${object_data_.table_count}_${return_data}_${return_data_1}` , "Language" , lang_slots , 0 , 2);
                         result += `<br>`+ paper_inner_session_return(`lvl_${object_data_.table_count}_${return_data}_${return_data_1}` , "Level" , Lvl_slots , 0 , 2);
@@ -438,9 +487,10 @@ function schedule_create(All_req_obj)
                         result += `<br><label id='Lnum_${object_data_.table_count}_${return_data}_${return_data_1}' style='visibility:hidden'># of Sessions : </label><input class='col-5' id='num_${object_data_.table_count}_${return_data}_${return_data_1}' type='number' style='visibility:hidden'>`
                         result += `<input id='inst_${object_data_.table_count}_${return_data}_${return_data_1}'  value='${object_data_.schedule_data_rows[return_data][return_data_1][2]}' hidden>`
                         result += `<input id='date_${object_data_.table_count}_${return_data}_${return_data_1}'  value='${object_data_.schedule_data_rows[return_data][return_data_1][3]}' hidden>`
-
+                        if(localStorage.permission == 4)
+                        {
                         result += `<div style='display:flex;justify-content:right;'><button id='${object_data_.table_count}_${return_data}_${return_data_1}' class='btn btn-light'  style='visibility:hidden'> <i class="fa-solid fa-circle-arrow-right"></i> </button></div>`;
-
+                        }
                     }
 
                     return result;
@@ -573,6 +623,9 @@ $('.select2').select2();
 for(var index_se = 0 ; index_se < session_ids.length ; index_se++)
 {
     $('#view_more_'+index_se).click(function () {
+        Loading_page_set();
+
+        
         var id = this.id;
         var ret = id.replace('view_more_','');
         modal.style.display = "block";
@@ -599,9 +652,65 @@ for(var index_se = 0 ; index_se < session_ids.length ; index_se++)
         }
 
         createTable_pop_up_schedule(students_arr , All_req_obj);
+        Loading_page_clear();
 
 
     });
+
+    $('#task_view_more_'+index_se).click(async function () {
+        Loading_page_set();
+
+        var id = this.id;
+        var ret = id.replace('task_view_more_','');
+        modal.style.display = "block";
+
+        var save_tasks = [];
+        var save_tasks_count = 0;
+
+        var students_arr = [];
+        var students_arr_count = 0;
+
+        var get_arr_se_ta_arr = await GET_DATA_TABLES( database_fixed_link , 'session_tasks' );
+        var get_tasks_arr = await GET_DATA_TABLES( database_fixed_link , 'tasks' );
+        var get_att_feed_arr = await GET_DATA_TABLES( database_fixed_link , 'att_feed' );
+        var get_st_arr = await GET_DATA_TABLES( database_fixed_link , 'students' );
+
+
+        get_att_feed_arr.forEach(elment => {
+            if(Number(elment.session_id) == Number(session_ids[ret][0]))
+            {
+                get_st_arr.forEach(elment_st => {
+
+                    if(Number(elment.student_id) == Number(elment_st.id))
+                    {
+                        elment.name = elment_st.name;
+                    }
+                })
+
+                students_arr[students_arr_count] = elment;students_arr_count++;
+            }
+        })
+
+
+        get_arr_se_ta_arr.forEach(elment => {
+            if(Number(session_ids[ret][0]) == Number(elment.session_id))
+            {
+                get_tasks_arr.forEach(elment_ts => {
+                    if(Number(elment.task_id) == Number(elment_ts.id)  )
+                    {
+                        save_tasks[save_tasks_count] = elment_ts;save_tasks_count++; 
+                    }
+                });
+            }
+        })
+
+        createTable_pop_up_tasks(save_tasks , students_arr);
+        Loading_page_clear();
+
+
+    });
+
+
 }
 
 
@@ -752,10 +861,13 @@ function paper_inner_session_group (paper_ , title)
 }
 
 
-function quary_tables_all_status_add_session_to_parent(All_table_obj , func , All_req_obj)
+async function quary_tables_all_status_add_session_to_parent(All_table_obj , func , All_req_obj)
 {
     var seached_rows = [];
     var count__ = 0;
+
+   
+
 
 
 if(All_table_obj.tables[6] && All_table_obj.tables[6] !== undefined && All_table_obj.tables[6].length != 0){
@@ -788,6 +900,7 @@ if(All_table_obj.tables[10] && All_table_obj.tables[10] !== undefined && All_tab
                     employee_arr_sessions_rows[0] =  All_table_obj.tables[10][index].id;
                     employee_arr_sessions_rows[1] =  All_table_obj.tables[10][index].name
                     employee_arr_sessions_rows[2] =  All_table_obj.tables[10][index].zoomlink
+                    employee_arr_sessions_rows[3] =  All_table_obj.tables[10][index].zoom_free
                     employee_arr_sessions[counter_index++] =  employee_arr_sessions_rows;
                 }
 
@@ -798,6 +911,7 @@ if(All_table_obj.tables[10] && All_table_obj.tables[10] !== undefined && All_tab
                 employee_arr_sessions_rows[0] =  All_table_obj.tables[10][index].id;
                 employee_arr_sessions_rows[1] =  All_table_obj.tables[10][index].name
                 employee_arr_sessions_rows[2] =  All_table_obj.tables[10][index].zoomlink
+                employee_arr_sessions_rows[3] =  All_table_obj.tables[10][index].zoom_free;
                 employee_arr_sessions[counter_index++] =  employee_arr_sessions_rows;
             }
   
@@ -913,9 +1027,50 @@ if(All_table_obj.tables[11] && All_table_obj.tables[11] !== undefined && All_tab
                 if(get_employee_id == employee_arr_sessions[i][0])
                 {
                     session_ids_rows[counter]  = employee_arr_sessions[i][1];counter++;
-                    session_ids_rows[counter]  = employee_arr_sessions[i][2];counter++;
+                    if(All_table_obj.tables[11][index].zoomlink == '')
+                    {
+                        session_ids_rows[counter]  = employee_arr_sessions[i][2];counter++;
+                        session_ids_rows[counter]  = employee_arr_sessions[i][3];counter++;
+                    }
+                    else
+                    {
+                        session_ids_rows[counter]  = All_table_obj.tables[11][index].zoomlink;counter++;
+                        session_ids_rows[counter]  = All_table_obj.tables[11][index].zoomlink;counter++;
+                    }
+
                     break;
                 }
+            }
+
+            session_ids_rows[counter]  = "";counter++;
+            session_ids_rows[counter]  = "";counter++;
+
+
+            if(All_table_obj.tables[14] && All_table_obj.tables[14] !== undefined && All_table_obj.tables[14].length != 0)
+            {
+                All_table_obj.tables[14].forEach(element => {
+                    if(All_table_obj.tables[11][index].material_id == element.id)
+                    {
+                        session_ids_rows[counter-1]  = element.video_link;
+                        session_ids_rows[counter]  = element.slide;
+                    }
+                })
+            }
+
+            session_ids_rows[counter]  = "";
+
+
+            var sessions_tasks_arr = await GET_DATA_TABLES(database_fixed_link , "session_tasks");
+
+            if(sessions_tasks_arr && sessions_tasks_arr !== undefined && sessions_tasks_arr.length != 0)
+            {
+                sessions_tasks_arr.forEach(element_s_t =>{
+                    if(Number(All_table_obj.tables[11][index].id) == Number(element_s_t.session_id))
+                    {
+                        session_ids_rows[counter] ='tasks'
+                    }
+
+                })
             }
 
             session_ids[counter_index++] =  session_ids_rows;
@@ -1140,42 +1295,33 @@ function add_new_group_schedule(object_group , All_req_obj)
         
 }
 
-function add_new_session_schedule(object_group , group_id_in , All_req_obj)
+async function add_new_session_schedule(object_group , group_id_in , All_req_obj)
 {
-    
-    var Database_link = database_fixed_link
-    var inputs_col = 
-    ["groups_id" 
-    , "employee_id" 
-    , "zoomlink" 
-    , "session_date" 
-    , "session_num" 
-    , "open_by" 
 
-];
-    var inputs_check = [
-        "Slot missing"
-        ,"Lan missing"
-        ,"Att missing"
-        ,"Lvl missing"
-        ,"Track missing"
-        ,"Type missing"
-        ,"Day missing"
-        ,"Age missing"
-        ,"Strt missing"
-    ];
+    Loading_page_set();
+
+        var get_group_arr = await GET_DATA_TABLES(database_fixed_link , 'groups');
+        var get_material_arr = await GET_DATA_TABLES(database_fixed_link , 'material');
+        var get_task_arr = await GET_DATA_TABLES(database_fixed_link , 'tasks');
+
+        var age_id = 0;
+        var level_id = 0;
+        var lan_id = 0;
+        var se_type_id = 0;
+        var track_id = 0;
+        var se_num = 0;
 
 
-    var called_table = 'sessions';
-    var arr_data = []
-
-        const All_data_obj = {};
-        All_data_obj.table_ = called_table;
-        All_data_obj.inputs_col_ = inputs_col;
-        All_data_obj.inputs_check_ = inputs_check;
-        All_data_obj.Database_link = Database_link;
-        All_data_obj.callbackfunc;
-        All_data_obj.obj;
+        get_group_arr.forEach(element => {
+            if(element.id == group_id_in)
+            {
+                age_id = element.age_id
+                level_id = element.level_id
+                lan_id = element.lan_id
+                se_type_id = element.type_id
+                track_id = element.track_id
+            }
+        });
 
 
         var Date_inc = Number(Todate_schedule_sessions(object_group.date)[1]);
@@ -1189,12 +1335,15 @@ function add_new_session_schedule(object_group , group_id_in , All_req_obj)
             {
                 var value_elments = [];
 
+                se_num = Number(index+1)
+                 
                     value_elments[0] = group_id_in;
                     value_elments[1] = object_group.inst;
                     value_elments[2] = '';
                     value_elments[3] = newDate;
                     value_elments[4] = (index+1);
                     value_elments[5] = object_group.opend_by;
+                    value_elments[6] = 0;
                                     
                 Date_inc = Number(Todate_schedule_sessions(newDate)[1])+7;
                 Month_inc = Number(Todate_schedule_sessions(newDate)[2]);
@@ -1202,20 +1351,127 @@ function add_new_session_schedule(object_group , group_id_in , All_req_obj)
 
                 newDate  = Todate_schedule_sessions(null  , Date_inc ,  Month_inc , Year_inc)[0];
 
+                get_material_arr.forEach(element => {
+                    if(Number(element.level_id) == Number(level_id) && Number(element.session_type_id) == Number(se_type_id) && Number(element.track_id) == Number(track_id) && se_num == Number(element.session_num) && Number(element.age_id) == age_id )
+                    {
+                        value_elments[6] = Number(element.id);
+                    }
+                });
+
 
                 
-                All_data_obj.callbackfunc = function(All_data_obj , response)
-                {
-                    alert(response);
-                    if(All_req_obj)
-                    get_all_data_arr(All_req_obj ,quary_tables_all_status_add_session_to_parent , schedule_create , time_out  , 3);
+                var res = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'sessions' , 
+                
+                ["groups_id" 
+                , "employee_id" 
+                , "zoomlink" 
+                , "session_date" 
+                , "session_num" 
+                , "open_by" 
+                , "material_id" 
+            
+                ]
+                ,
+                value_elments );
 
-                };
-                add_one_data_from_database(All_data_obj , value_elments);
+                var get_session_arr = await GET_DATA_TABLES(database_fixed_link , 'sessions');
+                var last_se_id = get_session_arr[get_session_arr.length-1].id;
+
+
+                get_task_arr.forEach(async (element) => {
+                    if(Number(element.level_id) == Number(level_id) && Number(element.session_type_id) == Number(se_type_id) && Number(element.track_id) == Number(track_id) && se_num == Number(element.session_num) && Number(element.age_id) == age_id )
+                    {
+                        var res = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'session_tasks' , 
+                
+                        [  
+                        "session_id" 
+                        , "task_id" 
+                        ]
+                        ,
+                        [
+                            last_se_id,
+                            element.id
+                        ] );
+
+                    }
+                });
         
+                Loading_page_clear();
+
+                if(All_req_obj)
+                get_all_data_arr(All_req_obj ,quary_tables_all_status_add_session_to_parent , schedule_create , time_out  , 3);
+
             }
         
         
+}
+
+
+function createTable_pop_up_tasks(All_data_obj , students_arr  ) {
+
+    var dataArray = All_data_obj;
+
+
+  if(dataArray && dataArray !== undefined && dataArray.length != 0){
+
+    var result = "<table class='table' id='dtable'>"+
+                 "<thead   >"+
+                   "<tr>";                               //Change table headings to match witht he Google Sheet     
+                   result +="<th scope='col'>ID </th>";
+                   result +="<th scope='col'>Student ID </th>";
+                   result +="<th scope='col'>Student Name </th>";
+
+              result += "</tr>"+
+                        "</thead>";
+
+                    for(var index = 0 ; index <Object.values(dataArray).length ; index++)
+                    {
+                        result += "<tr>";
+
+                        result += "<td  >";
+                        result += `Task ID : ${dataArray[index].id}` 
+
+                        result += `Question : ${dataArray[index].question} <br>` 
+                        result += `Option 1 : ${dataArray[index].option1} <br>` 
+                        result += `Option 2 : ${dataArray[index].option2} <br>` 
+                        result += `Option 3 : ${dataArray[index].option3} ` 
+                        result +="</td>"
+
+                        result += "<td>";
+                        result += `Answer : ${dataArray[index].correct} <br>` 
+                        result += `Points : ${dataArray[index].points} ` 
+                        result +="</td>"
+
+                        result += "<td>";
+                        if(students_arr && students_arr !== undefined && students_arr.length != 0){
+
+                            for(var i = 0 ; i < students_arr.length ; i++)
+                            {
+                                result += `Student : ${students_arr[i].name}  |  Retry : 1<br>` 
+                            }
+                        }
+                        else
+                        {
+                            result += `No Students<br>` 
+
+                        }
+
+                        result +="</td>"
+
+                        result += "</tr>";
+
+                    }
+                  
+            //   }
+                 
+    result += "</table>";
+    var div = document.getElementById("search-results_1");
+    div.innerHTML = result;
+
+  }else{
+    var div = document.getElementById("search-results_1");
+    div.innerHTML = "Data not found!";
+  }
 }
 
 

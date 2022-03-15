@@ -10,6 +10,7 @@ async function TASKS_DASHBOARD()
     document.getElementById("Location_3").innerHTML = "";
     document.getElementById("search-results").innerHTML = "";
 
+    var get_age_arr = await GET_DATA_TABLES(database_fixed_link , 'age' );
     var get_lvl_arr = await GET_DATA_TABLES(database_fixed_link , 'level' );
     var get_lan_arr = await GET_DATA_TABLES(database_fixed_link , 'lan' );
     var get_session_type_arr = await GET_DATA_TABLES(database_fixed_link , 'session_type' );
@@ -23,6 +24,11 @@ async function TASKS_DASHBOARD()
     document.getElementById("Location_1").innerHTML +=`</div></div>`;
 
     document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+
+
+    document.getElementById("Location_1").innerHTML += `<label for="age_input">Age:</label>
+    <select class="col-1 select2" name="age_input" id="age_input">
+    <option value=""></option></select>`
 
     document.getElementById("Location_1").innerHTML += `<label for="type_input">Level:</label>
     <select class="col-1 select2" name="type_input" id="type_input">
@@ -52,6 +58,10 @@ async function TASKS_DASHBOARD()
 
     document.getElementById("Location_1").innerHTML +=`</div></div>`;
 
+    document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+
+    document.getElementById("Location_1").innerHTML +=`<label> Question : </label><input class='col-9' id='question_id' type='text'/>`;
+    document.getElementById("Location_1").innerHTML +=`</div></div>`;
     document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
 
     document.getElementById("Location_1").innerHTML +=`<label> Option 1: </label><input class='col-9' id='option1_id' type='text'/>`;
@@ -96,7 +106,10 @@ async function TASKS_DASHBOARD()
     {
         $('#other_input').append(`<option value="${get_track_arr[index].id}">${get_track_arr[index].name} </option>`); 
     }
-
+    for(var index = 0 ; index < Object.values(get_age_arr).length ; index++)
+    {
+        $('#age_input').append(`<option value="${get_age_arr[index].id}">${get_age_arr[index].name} </option>`); 
+    }
 
     document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
     document.getElementById("Location_1").innerHTML += `<div class='col justify-content-start'><button class='btn btn-success' style='float:right;' id='send_group'>ADD</button></div>`;
@@ -121,7 +134,7 @@ async function TASKS_DASHBOARD()
     $('.select2').select2();
 
 
-    create_table_cer_func(get_material_arr);
+    create_table_task_func(get_material_arr);
 
     $("#option1_id").prop('disabled', true);
     $("#option2_id").prop('disabled', true);
@@ -183,15 +196,20 @@ async function TASKS_DASHBOARD()
         input_send_data[input_send_data_count] = $("#option3_id").val();input_send_data_count++;
         input_send_data[input_send_data_count] = $("#correct_id").val();input_send_data_count++;
         input_send_data[input_send_data_count] = $("#points_id").val();input_send_data_count++;
+        input_send_data[input_send_data_count] = $("#question_id").val();input_send_data_count++;
+        input_send_data[input_send_data_count] = $("#age_input").val();input_send_data_count++;
         
 
         
+
+        if(input_send_data[12] == ""){alert("Please Choose Age");Loading_page_clear();return;}
         if(input_send_data[0] == ""){alert("Please Choose Level");Loading_page_clear();return;}
         if(input_send_data[1] == ""){alert("Please Choose Language");Loading_page_clear();return;}
         if(input_send_data[2] == ""){alert("Please Choose Type");Loading_page_clear();return;}
         if(input_send_data[3] == ""){alert("Please Choose Track");Loading_page_clear();return;}
         if(input_send_data[4] == ""){alert("Set Session Number");Loading_page_clear();return;}
         if(input_send_data[5] == ""){alert("Please Choose Category");Loading_page_clear();return;}
+        if(input_send_data[11] == ""){alert("Please type question");Loading_page_clear();return;}
         if($("#get_input").val() == 'multi')
         {
             if(input_send_data[6] == ""){alert("Set Option 1");Loading_page_clear();return;}
@@ -220,7 +238,9 @@ async function TASKS_DASHBOARD()
             "option2",
             "option3",
             "correct",
-            "points"
+            "points",
+            "question",
+            "age_id"
             
         ]
         ,
@@ -235,18 +255,19 @@ async function TASKS_DASHBOARD()
         Loading_page_set();
 
         var get_marketing_arr_search = await GET_DATA_TABLES(database_fixed_link , 'tasks' );
-        create_table_cer_func(get_marketing_arr_search);
+        create_table_task_func(get_marketing_arr_search);
 
         });
 
 }
 
- async function create_table_cer_func(data_table)
+ async function create_table_task_func(data_table)
  {
     var get_lvl_arr = await GET_DATA_TABLES(database_fixed_link , 'level' );
     var get_lan_arr = await GET_DATA_TABLES(database_fixed_link , 'lan' );
     var get_session_type_arr = await GET_DATA_TABLES(database_fixed_link , 'session_type' );
     var get_track_arr = await GET_DATA_TABLES(database_fixed_link , 'track' );
+    var get_age_arr = await GET_DATA_TABLES(database_fixed_link , 'age' );
 
 
     if(data_table && data_table !== undefined && data_table.length != 0){
@@ -281,6 +302,14 @@ async function TASKS_DASHBOARD()
                     element.track_id = element_oth.name
                 }
             })
+
+            get_age_arr.forEach(element_age => {
+                if(Number(element_age.id) == Number(element.age_id))
+                {
+                    element.age_id = element_age.name
+                }
+            })
+
         });
     }
 
@@ -334,7 +363,7 @@ async function TASKS_DASHBOARD()
         $('#counter_id').val(data_table.length)
        }
 
-       createTable_cert( data_table ,All_data_obj ); ;
+       createTable_task( data_table ,All_data_obj ); ;
        return;
     }
     var result = [];
@@ -344,11 +373,11 @@ async function TASKS_DASHBOARD()
 
         $('#counter_id').val(result.length)
      }
-     createTable_cert(result ,All_data_obj , 'clear'); 
+     createTable_task(result ,All_data_obj , 'clear'); 
 
 }
 
-function createTable_cert(dataArray ,All_data_obj ) {
+function createTable_task(dataArray ,All_data_obj ) {
 
     var end_of_arr = 0;
  
@@ -400,6 +429,7 @@ function createTable_cert(dataArray ,All_data_obj ) {
                 result += "<tr>";
                 result += "<td>";
                 result += `ID : ${dataArray[index].id}<br>`;
+                result += `Age : ${dataArray[index].age_id}<br>`;
                 result += `Level : ${dataArray[index].level_id}<br>`;
                 result += `Language : ${dataArray[index].lan_id}<br>`;
                 result += `Type : ${dataArray[index].session_type_id}<br>`;
@@ -414,6 +444,9 @@ function createTable_cert(dataArray ,All_data_obj ) {
                 result += "</td>";
 
                 result += "<td>";
+
+                result += `Q : ${dataArray[index].question}<br>`;
+
                 if(dataArray[index].type == 'multi')
                 {
                     result += `Option 1 : ${dataArray[index].option1}<br>`;

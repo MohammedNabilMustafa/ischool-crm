@@ -19,9 +19,16 @@ var arr_system = [
     "calls_sales", //14
     "calls_assign_sales", //15
     "marketing_dashboard", //16
-    "material_dashboard" //16
+    "material_dashboard", //17
+    "certification_dashboard", //18
+    "tasks_dashboard" //19
     
 ]
+
+
+{/* <li><a href="#" id="material_dashboard" class="link-dark rounded">Material Dashboard</a></li>
+<li><a href="#" id="certification_dashboard" class="link-dark rounded">Certifications Dashboard</a></li>
+<li><a href="#" id="tasks_dashboard" class="link-dark rounded">Tasks Dashboard</a></li> */}
 
 var del_arr_system = [
     'del_system_id', //1
@@ -82,6 +89,7 @@ var arr_admin_parent= [
 
 
 var arr_admin_marketing= [
+    "admin_marketing_id",
     "marketing",
     "mrkt_type",
     "mrkt_conv_type",
@@ -364,6 +372,8 @@ function CS_permission()
     Hide_Element(arr_system[14]);
     Hide_Element(arr_system[15]);
     Hide_Element(arr_system[16]);
+    Hide_Element(arr_system[17]);
+    Hide_Element(arr_system[18]);
 
 }
 
@@ -394,6 +404,8 @@ function Instructor_permission()
     Hide_Element(arr_system[14]);
     Hide_Element(arr_system[15]);
     Hide_Element(arr_system[16]);
+    Hide_Element(arr_system[17]);
+    Hide_Element(arr_system[18]);
 
 }
 
@@ -422,6 +434,8 @@ function Marketing_permission()
     Hide_Element(arr_system[12]);
     Hide_Element(arr_system[13]);
     Hide_Element(arr_system[14]);
+    Hide_Element(arr_system[17]);
+    Hide_Element(arr_system[18]);
 
 }
 function Sales_permission()
@@ -449,6 +463,8 @@ function Sales_permission()
     Hide_Element(arr_system[14]);
     Hide_Element(arr_system[15]);
     Hide_Element(arr_system[16]);
+    Hide_Element(arr_system[17]);
+    Hide_Element(arr_system[18]);
 
 
 }

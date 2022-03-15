@@ -24,6 +24,7 @@ function ADD_NEW_EMPLOYEE()
                       , "permission_id" 
                       , "department_id" 
                       , "role_id" 
+                      ,"zoom_free"
                        ]
                     ];
 
@@ -48,7 +49,8 @@ function ADD_NEW_EMPLOYEE()
         'password_input',
         'permission_input',
         'department_input',
-        'role_input'
+        'role_input',
+        'free_input'
     ];
 
 
@@ -63,6 +65,7 @@ var paper_inputs_label = [
         'Permission  ',
         'Department  ',
         'Role  ',
+        'Free Zoom  '
 
     ];
     html_create_lists_employee(paper_inputs , paper_inputs_label , "Location_1" );
@@ -100,6 +103,8 @@ function html_create_lists_employee(paper_inputs , paper_inputs_label  , locatio
     document.getElementById(location_).innerHTML +=`</div></div>`;
 
     document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+
+    document.getElementById(location_).innerHTML += `<label>`+paper_inputs_label[9]+` </label><input type='text' id='`+paper_inputs[9]+`'>`;
 
     for(var index = 3 ; index < 6 ; index++)
     {
@@ -154,6 +159,7 @@ function add_new_empolyee(All_req_obj,paper_inputs)
     , "permission_id" 
     , "department_id" 
     , "role_id" 
+    , "zoom_free" 
 
 ];
     
@@ -224,6 +230,7 @@ function add_new_empolyee(All_req_obj,paper_inputs)
         create_new_table_cols[counter] = All_table_obj.tables[3][index].name;counter++;
         create_new_table_cols[counter] = All_table_obj.tables[3][index].phone;counter++;
         create_new_table_cols[counter] = All_table_obj.tables[3][index].email;counter++;
+        create_new_table_cols[counter] = All_table_obj.tables[3][index].zoom_free;counter++;
         create_new_table_cols[counter] = All_table_obj.tables[3][index].zoomlink;counter++;
         create_new_table_cols[counter] = All_table_obj.tables[3][index].username;counter++;
         create_new_table_cols[counter] = All_table_obj.tables[3][index].password_value;counter++;
@@ -303,9 +310,10 @@ function add_new_empolyee(All_req_obj,paper_inputs)
     ,"Name :" 
     , "Phone :" 
     , "Email :" 
+    , "Free Zoom Link :"
     , "Zoom Link :"
     , "User Name :"
-    , "password_value :"
+    , "Password :"
     , "Permission :"
     , "Department :"
     , "Role :"
@@ -330,7 +338,7 @@ function add_new_empolyee(All_req_obj,paper_inputs)
     All_data_obj.index_num_value = [];
     All_data_obj.obj;
 
-    createTable(all_tables ,All_data_obj , 'clear' , 2 , 6); 
+    createTable(all_tables ,All_data_obj , 'clear' , 3 , 5); 
 }
 
 function create_paper_table_customized_employee(all_tables)
@@ -342,10 +350,11 @@ function create_paper_table_customized_employee(all_tables)
         "ID :"
         ,"Name :" 
         , "Phone :" 
-        , "Lang :" 
         , "Email :" 
+        , "Free Zoom Link :"
         , "Zoom Link :"
         , "User Name :"
+        , "Password :"
         , "Permission :"
         , "Department :"
         , "Role :"
@@ -376,13 +385,13 @@ function create_paper_table_customized_employee(all_tables)
    if(values_ == "")
    {
       All_data_obj.Start_Index = 1;
-      createTable(all_tables ,All_data_obj , 'clear' , 2 , 6);
+      createTable(all_tables ,All_data_obj , 'clear' , 3 , 5);
       return;
    }
 
     var result = Search_for_value(all_tables , values_)
         
-   createTable(result ,All_data_obj , 'clear' , 2 , 6 ); 
+   createTable(result ,All_data_obj , 'clear' , 3 , 5 ); 
 }
 
 function paper_inner_employee (paper_ , title)
