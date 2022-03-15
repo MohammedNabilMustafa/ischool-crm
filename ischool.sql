@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2022 at 11:38 AM
+-- Generation Time: Mar 15, 2022 at 07:22 PM
 -- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.1
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,9 +42,7 @@ CREATE TABLE `age` (
 INSERT INTO `age` (`id`, `timestamp`, `name`, `from_age`, `to_age`) VALUES
 (1, '2022-02-06', 'B', 6, 8.9),
 (2, '2022-02-06', 'C', 9, 12.9),
-(3, '2022-02-06', 'D', 13, 18),
-(23, '2022-02-25', 'T', 0, 0),
-(24, '2022-02-25', 'T', 0, 0);
+(3, '2022-02-06', 'D', 13, 18);
 
 -- --------------------------------------------------------
 
@@ -1013,6 +1011,21 @@ INSERT INTO `students` (`id`, `timestamp`, `std_id`, `parent_id`, `free_session_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `students_ans`
+--
+
+CREATE TABLE `students_ans` (
+  `id` int(11) NOT NULL,
+  `timestamp` date NOT NULL,
+  `att_feed_id` int(11) NOT NULL,
+  `tasks_id` int(11) NOT NULL,
+  `answer` text NOT NULL,
+  `correct` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `student_groups`
 --
 
@@ -1343,6 +1356,12 @@ ALTER TABLE `students`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `students_ans`
+--
+ALTER TABLE `students_ans`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `student_groups`
 --
 ALTER TABLE `student_groups`
@@ -1597,6 +1616,12 @@ ALTER TABLE `slots`
 --
 ALTER TABLE `students`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
+
+--
+-- AUTO_INCREMENT for table `students_ans`
+--
+ALTER TABLE `students_ans`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `student_groups`
