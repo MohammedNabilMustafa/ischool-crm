@@ -439,6 +439,7 @@ a{
                         <li><a href="#" id="sessions" class="link-dark rounded">All Sessions</a></li>
                         <li><a href="#" id="att_feed" class="link-dark rounded">Attendance / feedback</a></li>
                         <li><a href="#" id="session_tasks" class="link-dark rounded">Sessions / tasks</a></li>
+                        <li><a href="#" id="students_ans" class="link-dark rounded">Student / answer</a></li>
                         <li><a href="#" id="slots" class="link-dark rounded">Slots</a></li>
                         <li><a href="#" id="lan" class="link-dark rounded">Language</a></li>
                         <li><a href="#" id="attend" class="link-dark rounded">Attend</a></li>
@@ -664,12 +665,12 @@ a{
       <script>
 
 // var database_fixed_link = "fetch.php";
-// var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
-var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
+var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
+// var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
 
 // var database_fixed_link_history = "fetch_history.php";
-// var database_fixed_link_history = "http://localhost/ischool/ischool-crm/fetch_history.php";
-var database_fixed_link_history = "http://localhost/ischool-crm/fetch_history.php";
+var database_fixed_link_history = "http://localhost/ischool/ischool-crm/fetch_history.php";
+// var database_fixed_link_history = "http://localhost/ischool-crm/fetch_history.php";
 
 
 
@@ -751,6 +752,14 @@ var  passInput = document.getElementById("password");
         packages();
       });
 
+      $('#students_ans').click(function () {
+        clear_all_selected();
+        $('#students_ans').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = "<h1>Packges</h1>"
+        students_ans();
+      });
+      
       $('#invoice_status').click(function () {
         clear_all_selected();
         $('#invoice_status').css('background', '#008CBA').css('color','white');
@@ -1253,6 +1262,7 @@ var  passInput = document.getElementById("password");
         $('#sessions').css('background', 'white').css('color','#008CBA');
         $('#invoice').css('background', 'white').css('color','#008CBA');
         $('#invoice_status').css('background', 'white').css('color','#008CBA');
+        $('#students_ans').css('background', 'white').css('color','#008CBA');
         $('#package').css('background', 'white').css('color','#008CBA');
         $('#add_student_session').css('background', 'white').css('color','#008CBA');
         $('#groups').css('background', 'white').css('color','#008CBA');

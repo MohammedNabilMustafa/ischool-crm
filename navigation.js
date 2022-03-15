@@ -2903,6 +2903,83 @@ function mrkt_type()
   Add_Section(All_data_obj);
 }
 
+
+function students_ans()
+{
+  Loading_page_set();
+
+    var Saved_data = [];
+    var Database_link = database_fixed_link
+
+    var inputs_col = 
+    [
+      "att_feed_id",
+      "tasks_id",
+      "answer",
+      "correct"
+  ];
+
+    var inputs_names_inputs = 
+    [
+      "Att Feed ID",
+      "Task ID",
+      "Answer",
+      "Correct"
+  ];
+
+    var inputs_names_search = 
+    ["ID",
+    "Timestamp",
+    "Att Feed ID",
+    "Task ID",
+    "Answer",
+    "Correct"
+    ,"Edit" 
+    ,"Delete"
+  ];
+    
+    var inputs_check = 
+    ["Name missing" 
+  ];
+
+    var search_ids = 
+    ["Search1" 
+
+  ];
+
+    var called_table = 'students_ans';
+
+  const All_data_obj = {};
+  All_data_obj.Start_Index = 1;
+  All_data_obj.next_btn = '#btn2';
+  All_data_obj.prev_btn = '#btn1';
+  All_data_obj.ind_btn = '#page_index';
+  All_data_obj.location_index = "Location_4";
+  All_data_obj.table_div = 'search-results';
+  All_data_obj.all_names = inputs_names_search;
+  All_data_obj.location_next = "Location_3";
+  All_data_obj.Location_2 = "Location_2";
+  All_data_obj.location_1 = "Location_1";
+  All_data_obj.search_data = search_ids;
+  All_data_obj.btn_index = 'btn_index';
+  All_data_obj.table_ = called_table;
+  All_data_obj.btn_index = 'btn_index';
+  All_data_obj.edit_index = [];
+  All_data_obj.delete_index = [];
+  All_data_obj.index_num_value = [];
+  All_data_obj.inputs_col_ = inputs_col;
+  All_data_obj.inputs_names_inputs_ = inputs_names_inputs;
+  All_data_obj.inputs_check_ = inputs_check;
+  All_data_obj.Database_link = Database_link;
+  All_data_obj.page_name = "Clients";
+  All_data_obj.page_name_id = "page_name";
+  All_data_obj.callbackfunc;
+  All_data_obj.obj;
+
+  Fetch_all_data(All_data_obj);
+  Add_Section(All_data_obj);
+}
+
 function material()
 {
   Loading_page_set();

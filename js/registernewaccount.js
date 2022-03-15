@@ -48,21 +48,29 @@ $(".scheduletableitem").click(function() {
 
 $("#Pack_1_btn").click(function() {
     choosen_package_reg = $("#Pack_1_btn").val()
-    console.log(choosen_package_reg);
+    var ret = $("#Pack_1_btn").text().replace('Pay ','') ;
+    choosen_pay_as = Number(ret)
+    checkout();
+
 })
 
 $("#Pack_2_btn").click(function() {
     choosen_package_reg = $("#Pack_2_btn").val()
-    console.log(choosen_package_reg);
+    var ret = $("#Pack_2_btn").text().replace('Pay ','') ;
+    choosen_pay_as = Number(ret)
+    checkout();
+
 })
 
 $("#Pack_3_btn").click(function() {
     choosen_package_reg = $("#Pack_3_btn").val()
-    console.log(choosen_package_reg);
+    var ret = ($("#Pack_3_btn").text()).replace('Pay ','') ;
+    choosen_pay_as = Number(ret)
+    checkout();
 })
 
-$(".btn.next").click(function() {
-    var check_return = go_to_step03_func_reg();
+$(".btn.next").click(async function() {
+    var check_return = await go_to_step03_func_reg();
 
     if(check_return)
     {    
@@ -74,17 +82,18 @@ $(".btn.next").click(function() {
 })
 $(".payment-plans-container button").click(async function() {
 
-    
-    var check = await go_to_step04_func_reg();
 
-    if(check)
-    {
-    $(".step03").hide("drop", { direction: "right" }, 300);
-    setTimeout(function() {
-        $(".step04").show("drop", { direction: "left" }, 300);
-    }, 400)
-    }
+    // var check = await go_to_step04_func_reg();
 
+    // if(check)
+    // {
+    //     // checkout();
+    //     // choosen_pay_as
+    //     // $(".step03").hide("drop", { direction: "right" }, 300);
+    //     // setTimeout(function() {
+    //     //     $(".step04").show("drop", { direction: "left" }, 300);
+    //     // }, 400)
+    // }
 
 })
 $(".step02 .back").click(function() {
@@ -205,6 +214,8 @@ var choosen_time_reg = '';
 var choosen_lan_reg = '';
 var choosen_group_index_reg = '';
 var choosen_package_reg = '';
+var choosen_pay_as = '';
+
 
 
 
@@ -331,53 +342,53 @@ async function go_to_step02_func_reg()
     })
     }
 
-        if( $('#firstnameInput').val() == "" ) {
-        $('#firstnameInput_error').text('Please Set Name');return false;
-        }
-        else
-        {
-            $('#firstnameInput_error').text('');    
-        }
+        // if( $('#firstnameInput').val() == "" ) {
+        // $('#firstnameInput_error').text('Please Set Name');return false;
+        // }
+        // else
+        // {
+        //     $('#firstnameInput_error').text('');    
+        // }
 
-        if( $('#phonenumInput').val() == "" ) {
-            $('#phonenumInput_error').text('Please Set Phone Number');return false;
-        }
-        else
-        {
+        // if( $('#phonenumInput').val() == "" ) {
+        //     $('#phonenumInput_error').text('Please Set Phone Number');return false;
+        // }
+        // else
+        // {
 
-            $('#phonenumInput_error').text('');    
-        }
+        //     $('#phonenumInput_error').text('');    
+        // }
 
-        if( $('#emailInput').val() == "" ) {
-            $('#emailInput_error').text('Please Set Email');return false;
-        }
-        else
-        {
-            if(isEmail($('#emailInput').val()) == false)
-            {
-                $('#emailInput_error').text('Please Set Valid Email');return false;
-            }
-            else
-            {
-                $('#emailInput_error').text('');    
-            }
-        }
+        // if( $('#emailInput').val() == "" ) {
+        //     $('#emailInput_error').text('Please Set Email');return false;
+        // }
+        // else
+        // {
+        //     if(isEmail($('#emailInput').val()) == false)
+        //     {
+        //         $('#emailInput_error').text('Please Set Valid Email');return false;
+        //     }
+        //     else
+        //     {
+        //         $('#emailInput_error').text('');    
+        //     }
+        // }
 
-        if( $('#studentnameInput').val() == "" ) {
-            $('#studentnameInput_error').text('Please Set Student Name');return false;
-        }
-        else
-        {
-            $('#studentnameInput_error').text('');    
-        }
+        // if( $('#studentnameInput').val() == "" ) {
+        //     $('#studentnameInput_error').text('Please Set Student Name');return false;
+        // }
+        // else
+        // {
+        //     $('#studentnameInput_error').text('');    
+        // }
 
-        if( $('#birthdate').val() == "" ) {
-            $('#birthdate_error').text('Please Select Birthdate');return false;
-        }
-        else
-        {
-            $('#birthdate_error').text('');    
-        }
+        // if( $('#birthdate').val() == "" ) {
+        //     $('#birthdate_error').text('Please Select Birthdate');return false;
+        // }
+        // else
+        // {
+        //     $('#birthdate_error').text('');    
+        // }
 
 
 
@@ -465,7 +476,6 @@ function isEmail(email) {
                     }
                     saved_index++;
 
-                    console.log(saved_index);
 
                         $( `.scheduletableitem:nth-child(${saved_index})` + " span:nth-child(1)").html('0');
                         $( `.scheduletableitem:nth-child(${saved_index})` + " span:nth-child(2)").html('Choose Date Later');
@@ -816,7 +826,6 @@ async function go_to_step04_func_reg()
 
         var counter_check = Number(package_selected[0].installments);
 
-        console.log(counter_check);
 
         var saved_date = getFormattedDate(new Date());
 
@@ -930,14 +939,6 @@ async function go_to_step04_func_reg()
 
 
     Loading_page_clear();
-
-
-
-    // $("#done_name").text($('#firstnameInput').val());
-    // $("#done_date").text(choosen_date);
-    // $("#done_day").text(choosen_day);
-    // $("#done_time").text(choosen_time);
-    // $("#done_lan").text(choosen_lan);
 
     return true;
 

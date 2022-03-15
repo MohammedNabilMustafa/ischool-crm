@@ -19,6 +19,18 @@
     <script src="https://kit.fontawesome.com/159acad575.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/dd.css">
     <link rel="stylesheet" href="../css/flags.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- Import FawryPay CSS Library-->
+    <link rel="stylesheet" href="https://atfawry.fawrystaging.com/atfawry/plugin/assets/payments/css/fawrypay-payments.css">
+    <!-- Import FawryPay Staging JavaScript Library-->
+    <script src="https://cdn.jsdelivr.net/gh/emn178/js-sha256/build/sha256.min.js"></script>
+    <script type="text/javascript" src="https://atfawry.fawrystaging.com/atfawry/plugin/assets/payments/js/fawrypay-payments.js"></script>
+
+
     <title>Register New Account</title>
 
     <style>
@@ -783,6 +795,7 @@ transform: translate(24px, 0);
         <script   src="../json_func_admin.js" ></script>
 
 
+
         <script>
             
             // var database_fixed_link = "../fetch.php";
@@ -806,6 +819,57 @@ transform: translate(24px, 0);
             }
     
     
+
+function checkout() {
+        const configuration = {
+        locale : "en",  //default en
+            mode: DISPLAY_MODE.POPUP,  //required, allowed values [POPUP, INSIDE_PAGE, SIDE_PAGE]
+    };
+
+    FawryPay.checkout(buildChargeRequest(), configuration);
+}
+function buildChargeRequest() {
+        var chargeRequest = {
+            merchantCode: 'siYxylRjSPwQs0gHngum7Q==',
+            merchantRefNum: Math.floor((Math.random() * 10000) + 1),
+            customerMobile: $("#phonenumInput").val(),
+            customerEmail: $("#emailInput").val() ,
+            customerProfileId :'1111',
+            customerName: $("#firstnameInput").val(),
+            chargeItems: [
+                    {
+                        itemId: '6b5f',
+                        description: 'Product Description',
+                        price: choosen_pay_as,
+                        quantity: 1
+                    }
+                    ],
+                        returnUrl: 'file:///C:/xampp/htdocs/ischool/ischool-crm/Reg/index.html',
+                        authCaptureModePayment: false,
+                    };
+						
+	chargeRequest.signature  = signRequest(chargeRequest);
+						
+   return chargeRequest;
+}
+
+function signRequest(chargeRequest){
+	var signString = chargeRequest['merchantCode']+chargeRequest.merchantRefNum;
+    signString += chargeRequest.customerProfileId!=null?chargeRequest.customerProfileId:'';
+    signString += chargeRequest.returnUrl!=null?chargeRequest.returnUrl:'';
+	var items = chargeRequest.chargeItems.sort(function (x, y) {
+    let a = x.itemId.toUpperCase(),
+        b = y.itemId.toUpperCase();
+    return a == b ? 0 : a > b ? 1 : -1;});
+	
+	items.forEach((item) => {
+        signString += item.itemId+''+item.quantity+''+item.price.toFixed(2);
+	});
+	signString += "d05552a3-be4b-4b66-8a4f-e059f9b9b4cb";
+
+    return  sha256(signString);
+}
+
     
             </script>
 
