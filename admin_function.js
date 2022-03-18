@@ -163,6 +163,10 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
                     All_data_obj.view_index[i] = 'view_more_'+i;
                     All_data_obj.obj_data[i] = Object.values(dataArray[i]);                                  
                   }
+                  else if (Create_btn == "open 2")
+                  {
+
+                  }
                   result += "</tr>";
   
                   All_data_obj.index_num_value[i] =  Object.values(dataArray[i])[0];
@@ -231,6 +235,15 @@ function createTable(dataArray ,All_data_obj , Clear_btn , table_rows , table_co
 
 
               
+                }
+                else if(Create_btn == "open 2")
+                {
+
+                  result += `<td><button id='view_more_`+i+`' class='btn btn-danger' > <i class="fa-solid fa-eye"></i> </button> `;  
+                  result += `  <button id='view_more_2`+i+`' class='btn btn-danger' style='display:none' > <i class="fa-solid fa-list-check"></i> </button></td>`;  
+                  All_data_obj.view_index[i] = 'view_more_'+i;  
+                  All_data_obj.obj_data[i] = Object.values(dataArray[i]);
+
                 }
                 result += "</tr>";
 

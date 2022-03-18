@@ -393,6 +393,7 @@ a{
                         <li><a href="#" id="add_parent" class="link-dark rounded">Parents</a></li>
                         <li><a href="#" id="add_student" class="link-dark rounded">Students</a></li>
                         <li><a href="#" id="add_group" class="link-dark rounded">Groups</a></li>
+                        <li><a href="#" id="add_sessions" class="link-dark rounded">Sessions</a></li>
                         <li><a href="#" id="add_student_invoice" class="link-dark rounded">Invoices</a></li>
                         <li><a href="#" id="add_session_group" class="link-dark rounded">Schedule</a></li>
                         <li><a href="#" id="add_employee" class="link-dark rounded">Employee</a></li>
@@ -462,6 +463,7 @@ a{
                         <li><a href="#" id="students" class="link-dark rounded">Students</a></li>
                         <li><a href="#" id="student_groups" class="link-dark rounded">Student Groups</a></li>
                         <li><a href="#" id="student_status" class="link-dark rounded">Student Status</a></li>
+                        <li><a href="#" id="registeration" class="link-dark rounded">Registeration Portal</a></li>
                       </ul>
                     </div>
                   </li>
@@ -650,6 +652,7 @@ a{
       <script   src="material_func.js" ></script>
       <script   src="cert_func.js" ></script>
       <script   src="tasks_func.js" ></script>
+      <script   src="session.js" ></script>
 
       <script src="js/dd.min.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
@@ -665,12 +668,12 @@ a{
       <script>
 
 // var database_fixed_link = "fetch.php";
-var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
-// var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
+// var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
+var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
 
 // var database_fixed_link_history = "fetch_history.php";
-var database_fixed_link_history = "http://localhost/ischool/ischool-crm/fetch_history.php";
-// var database_fixed_link_history = "http://localhost/ischool-crm/fetch_history.php";
+// var database_fixed_link_history = "http://localhost/ischool/ischool-crm/fetch_history.php";
+var database_fixed_link_history = "http://localhost/ischool-crm/fetch_history.php";
 
 
 
@@ -708,6 +711,12 @@ var  passInput = document.getElementById("password");
         TASKS_DASHBOARD();
       }); 
 
+      $('#registeration').click(function () {
+        clear_all_selected();
+        $('#registeration').css('background', '#008CBA').css('color','white');
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Material Dashboard</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        registeration();
+      }); 
 
       $('#certification_dashboard').click(function () {
         clear_all_selected();
@@ -930,6 +939,15 @@ var  passInput = document.getElementById("password");
         document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Groups </h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
         ADD_NEW_GROUP_FUNC();
       }); 
+
+      $('#add_sessions').click(function () {
+        clear_all_selected();
+        $('#add_sessions').css('background', '#008CBA').css('color','white');
+
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Groups </h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        SESSIONS_FUNC();
+      }); 
+      
 
       $('#add_student_group').click(function () {
         clear_all_selected();
@@ -1204,7 +1222,9 @@ var  passInput = document.getElementById("password");
       {    
 
         
+        
         $('#tasks_dashboard').css('background', 'white').css('color','#008CBA');
+        $('#registeration').css('background', 'white').css('color','#008CBA');
         $('#certification_dashboard').css('background', 'white').css('color','#008CBA');
         $('#material_dashboard').css('background', 'white').css('color','#008CBA');
         $('#marketing_dashboard').css('background', 'white').css('color','#008CBA');
@@ -1241,6 +1261,7 @@ var  passInput = document.getElementById("password");
         $('#add_employee').css('background', 'white').css('color','#008CBA');
         $('#add_student_group').css('background', 'white').css('color','#008CBA');
         $('#add_group').css('background', 'white').css('color','#008CBA');
+        $('#add_sessions').css('background', 'white').css('color','#008CBA');
         $('#student_groups').css('background', 'white').css('color','#008CBA');
         $('#role').css('background', 'white').css('color','#008CBA');
         $('#student_status').css('background', 'white').css('color','#008CBA');

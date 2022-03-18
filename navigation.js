@@ -407,6 +407,102 @@ function slots()
   Add_Section(All_data_obj);
 }
 
+function registeration()
+{
+  Loading_page_set();
+
+    var Saved_data = [];
+    var Database_link = database_fixed_link
+
+    var inputs_col = 
+    ["parent_name" 
+    ,"student_name" 
+    ,"phone" 
+    ,"email" 
+    ,"camp_id" 
+    ,"country" 
+    ,"birthdate" 
+    ,"group_id" 
+    ,"package_id" 
+    ,"status" 
+    ,"type" 
+  ];
+
+    var inputs_names_inputs = 
+    [
+      "Parent Name" 
+    ,"Student Name" 
+    ,"Phone" 
+    ,"Email" 
+    ,"Camp ID" 
+    ,"Country" 
+    ,"Birthdate" 
+    ,"Group ID" 
+    ,"Package ID" 
+    ,"Status" 
+    ,"Type" 
+  ];
+
+    var inputs_names_search = 
+    ["ID"
+    ,"Timestamp"
+    ,"Parent Name" 
+    ,"Student Name" 
+    ,"Phone" 
+    ,"Email" 
+    ,"Camp ID" 
+    ,"Country" 
+    ,"Birthdate" 
+    ,"Group ID" 
+    ,"Package ID" 
+    ,"Status" 
+    ,"Type"
+    ,"Edit" 
+    ,"Delete"
+  ];
+    
+    var inputs_check = 
+    ["Slot missing" 
+  ];
+
+    var search_ids = 
+    ["Search1" 
+
+  ];
+
+    var called_table = 'registeration';
+
+  const All_data_obj = {};
+  All_data_obj.Start_Index = 1;
+  All_data_obj.next_btn = '#btn2';
+  All_data_obj.prev_btn = '#btn1';
+  All_data_obj.ind_btn = '#page_index';
+  All_data_obj.location_index = "Location_4";
+  All_data_obj.table_div = 'search-results';
+  All_data_obj.all_names = inputs_names_search;
+  All_data_obj.location_next = "Location_3";
+  All_data_obj.Location_2 = "Location_2";
+  All_data_obj.location_1 = "Location_1";
+  All_data_obj.search_data = search_ids;
+  All_data_obj.btn_index = 'btn_index';
+  All_data_obj.table_ = called_table;
+  All_data_obj.btn_index = 'btn_index';
+  All_data_obj.edit_index = [];
+  All_data_obj.delete_index = [];
+  All_data_obj.index_num_value = [];
+  All_data_obj.inputs_col_ = inputs_col;
+  All_data_obj.inputs_names_inputs_ = inputs_names_inputs;
+  All_data_obj.inputs_check_ = inputs_check;
+  All_data_obj.Database_link = Database_link;
+  All_data_obj.page_name = "Clients";
+  All_data_obj.page_name_id = "page_name";
+  All_data_obj.callbackfunc;
+  All_data_obj.obj;
+
+  Fetch_all_data(All_data_obj);
+  Add_Section(All_data_obj);
+}
+
 function lan()
 {
   Loading_page_set();

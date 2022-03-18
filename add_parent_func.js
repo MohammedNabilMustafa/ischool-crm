@@ -630,7 +630,6 @@ Not Registered
 
         All_table_obj.tables[21].forEach(element => {
 
-            console.log(element);
 
             $('#marketing_input').append(`<option value="${element.id}"
             >${element.id} - ${element.name} </option>`); 
@@ -795,7 +794,6 @@ Not Registered
 
             
             var return_data = search_two_tables(All_table_obj.tables[4][index] , All_table_obj.tables[3] , 12 , 0 , 2)
-            console.log(All_table_obj.tables[4][index]);
 
             if(return_data.length == 0)
             {

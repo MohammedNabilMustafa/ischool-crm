@@ -190,6 +190,22 @@ function Search_for_value(Check_Data , searchtext)
 }
 
 
+function Search_for_value_same(Check_Data , searchtext)
+{
+   var ar = [];
+   Check_Data.forEach(function(f) {
+      var m = f;
+       f = Object.values(f);
+       if (~f.indexOf(searchtext)) {
+
+       ar.push(m);
+       }
+
+   });
+   return ar;
+}
+
+
 
 
 function search_two_tables(table_for , table_from , index_for , index_from , index_return)

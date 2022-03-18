@@ -1082,6 +1082,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
 
             create_new_tabl_col[counter_col] = 'No Date'; 
             create_new_tabl_col[counter_col+1] = 'No Sessions'; 
+            create_new_tabl_col[counter_col+2] = 'No Instructor'; 
             var check_lock = false;
 
 
@@ -1133,9 +1134,108 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
     func(create_new_tabl_rows);
 }
 
- function create_paper_table_parent_students(all_tables)
+ async function create_paper_table_parent_students(all_tables)
  {
     Loading_page_clear();
+
+
+            var get_tasks_arr = await GET_DATA_TABLES(database_fixed_link , 'tasks'); 
+            var get_se_task_arr = await GET_DATA_TABLES(database_fixed_link , 'session_tasks'); 
+            var get_ans_arr = await GET_DATA_TABLES(database_fixed_link , 'students_ans'); 
+
+
+            for(var ret = 0 ; ret < all_tables.length ; ret++ )
+            {
+
+                all_tables[ret][26] = [];
+            
+                all_tables[ret][26] = all_tables[ret][23];
+
+                all_tables[ret][23] = "0 Task/s"
+                all_tables[ret][24] = 0
+                all_tables[ret][25] = 0
+
+
+                all_tables[ret][27] = {};
+
+                all_tables[ret][27].tasks = []
+                all_tables[ret][27].tasks_count = 0
+                for(var i = 0 ; i < all_tables[ret][26].length ; i++)
+                {
+    
+                    if(get_se_task_arr)
+                    {
+                        get_se_task_arr.forEach(element => {
+                            if(Number(all_tables[ret][26][i].session_id) == Number(element.session_id) )
+                            {
+                                
+                                get_tasks_arr.forEach(element_task => {
+                                    if(Number(element_task.id)== Number(element.task_id) )
+                                    {
+    
+                                        element_task.session_id = element.session_id;
+                                        element_task.att_id = all_tables[ret][26][i].id;
+                                        element_task.st_answer = '';
+                                        element_task.st_ans_cor = '';
+    
+                                        if(get_ans_arr)
+                                        {
+                                            get_ans_arr.forEach(element_ts_att => {
+                                                if(Number(all_tables[ret][26][i].id) == Number(element_ts_att.att_feed_id) && Number(element_task.id) ==  Number(element_ts_att.tasks_id))
+                                                {
+                                                    element_task.st_answer = element_ts_att.answer;
+                                                    element_task.st_ans_cor = element_ts_att.correct;
+
+
+                                                    if(element_task.st_ans_cor = element_ts_att.correct == 'Right')
+                                                    {
+                                                        all_tables[ret][24]++;
+                                                    }
+                                                    else if(element_task.st_ans_cor = element_ts_att.correct == 'Wrong')
+                                                    {
+                                                        all_tables[ret][25]++;
+
+                                                    }
+                                                }
+                                            }
+                                            )
+                                        }
+                                        
+                                        all_tables[ret][27].tasks[all_tables[ret][27].tasks_count] = element_task;
+                                        all_tables[ret][27].tasks_count++;
+                                        all_tables[ret][23] = all_tables[ret][27].tasks_count + ` Task/s`;
+    
+                                    }
+                                }
+                                )
+    
+    
+                            }
+                        }
+                        )
+                    }
+    
+                }
+                var saved_res = all_tables[ret][24] + all_tables[ret][25];
+
+                if(saved_res)
+                {
+                    var saved_per = Number(all_tables[ret][24])/ saved_res;
+                    all_tables[ret][25] = (saved_per * 100).toFixed(2) + "%";
+                }
+                else
+                {
+                    all_tables[ret][25] = "0 %";
+
+                }
+                all_tables[ret][24] = saved_res + " Completed";
+
+                
+            }
+
+
+
+        
     var inputs_names_search = [
         "ID :"
     ,"Student ID :"
@@ -1207,11 +1307,9 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
 
     if(all_tables_arr && all_tables_arr !== undefined && all_tables_arr.length != 0)
     {
-        limit_count  = all_tables_arr[0].length-1
+        limit_count  = all_tables_arr[0].length-2
     }
     
-
-
 
     var values_ = document.getElementById("search_all").value;
 
@@ -1220,7 +1318,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
        All_data_obj.Start_Index = 1;
        $('#counter_id').val(all_tables_arr.length)
 
-       createTable(all_tables_arr ,All_data_obj , 'clear' , 8 , 5 , "open" , create_view_student , limit_count); 
+       createTable(all_tables_arr ,All_data_obj , 'clear' , 9 , 5 , "open 2" , create_view_student , limit_count); 
  
        return;
     }
@@ -1229,7 +1327,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
          
      $('#counter_id').val(result.length)
 
-    createTable(result ,All_data_obj , 'clear' , 8 , 5 , "open" , create_view_student , result[0].length-1); 
+    createTable(result ,All_data_obj , 'clear' , 9 , 5 , "open 2" , create_view_student , result[0].length-2); 
 
 }
 
@@ -1242,6 +1340,31 @@ function create_view_student(All_data_obj , End_Index)
     div.innerHTML = '';
     for(var index = All_data_obj.Start_Index-1 ; index < End_Index ; index++)
     {
+
+       if(All_data_obj.obj_data[index][27].tasks_count) 
+       {
+            $("#view_more_2"+index).show();
+       }
+
+        $("#view_more_2"+index).click(async function() {
+
+            Loading_page_set();
+
+
+            var id = this.id;
+            var ret = id.replace('view_more_2','');
+            var div = document.getElementById("search-results_1");
+            div.innerHTML = '';
+            modal.style.display = "block";
+
+            createTable_pop_up_tasks_st(All_data_obj.obj_data[ret][27] , All_data_obj.obj_data[ret]);
+
+
+            Loading_page_clear();
+
+        }
+        )
+
         var btn = document.getElementById(All_data_obj.view_index[index]);
 
         All_data_obj.saved_index = index;
@@ -1258,7 +1381,7 @@ function create_view_student(All_data_obj , End_Index)
 
         var data_arr = [];
 
-        var index_ret = 23
+        var index_ret = 26
 
         if(All_data_obj.obj_data[ret][index_ret] && All_data_obj.obj_data[ret][index_ret] !== undefined && All_data_obj.obj_data[ret][index_ret].length != 0)
     {
@@ -1591,6 +1714,187 @@ function quary_tables_all_status_students_check(All_table_obj , func)
     saved_group_arr = create_new_tabl_rows;
 
 }
+
+
+
+function createTable_pop_up_tasks_st(All_data_obj , All_data_obj_tasks  ) {
+
+    var dataArray = All_data_obj;
+
+if(Object.values(dataArray) && Object.values(dataArray) !== undefined && Object.values(dataArray).length != 0){
+
+  if(dataArray.tasks_count){
+
+    var result = "<table class='table' id='dtable'>"+
+                 "<thead   style='white-space:wrap' >"+
+                   "<tr>";                               //Change table headings to match witht he Google Sheet     
+                   result +="<th scope='col'>Session </th>";
+                   result +="<th scope='col'>Questions </th>";
+                   result +="<th scope='col'>Action </th>";
+              result += "</tr>"+
+                        "</thead>";
+
+                    for(var index = 0 ; index < dataArray.tasks.length ; index++)
+                    {
+                      
+                        
+                        result += "<tr>";
+
+                        result += "<td >";     
+
+                        result += `ID : ${dataArray.tasks[index].session_id} <br>`;     
+                        result += `Session : ${dataArray.tasks[index].session_num} <br>`;     
+                        result += `Age : ${dataArray.tasks[index].age_id} <br>`;     
+                        result += `Level : ${dataArray.tasks[index].level_id} <br>`;     
+                        result += `Type : ${dataArray.tasks[index].session_type_id} <br>`;     
+
+                        result +="</td>"
+
+                        result += "<td >";     
+
+                        result += `Question : ${dataArray.tasks[index].question}`;
+
+                        console.log(dataArray.tasks[index]);
+                        if(dataArray.tasks[index].st_answer == "")
+                        {
+
+                            if( dataArray.tasks[index].type  == "multi")
+                            {
+                                result += ` <br><br>
+                                <input type="radio" id="option1_id${index}" name="option_id${index}" value="${dataArray.tasks[index].option1}">
+                                <label for="${dataArray.tasks[index].option1}">${dataArray.tasks[index].option1}</label><br>
+                                <input type="radio" id="option2_id${index}" name="option_id${index}" value="${dataArray.tasks[index].option2}">
+                                <label for="${dataArray.tasks[index].option2}">${dataArray.tasks[index].option2}</label><br>
+                                <input type="radio" id="option3_id${index}" name="option_id${index}" value="${dataArray.tasks[index].option3}">
+                                <label for="${dataArray.tasks[index].option3}">${dataArray.tasks[index].option3}</label>
+                                `;     
+                            }
+                            else if(dataArray.tasks[index].type  == "tf")
+                            {
+                                result += ` <br><br>
+                                <input type="radio" id="option1_id${index}" name="option_id${index}" value="${dataArray.tasks[index].option1}">
+                                <label for="${dataArray.tasks[index].option1}">${dataArray.tasks[index].option1}</label><br>
+                                <input type="radio" id="option2_id${index}" name="option_id${index}" value="${dataArray.tasks[index].option2}">
+                                <label for="${dataArray.tasks[index].option2}">${dataArray.tasks[index].option2}</label><br>
+                                `;     
+                            }     
+
+                        }
+                        else
+                        {
+                            result += `<br>Right Answer :<label style='color:green' > ${dataArray.tasks[index][dataArray.tasks[index].correct]} </label> <br>`;
+                            
+                            result += "</td >";     
+
+                            result += "<td >";     
+
+                            result += `Student Choice :<label style='color:gray' > ${dataArray.tasks[index].st_answer} </label> <br>`;
+                            if(dataArray.tasks[index][dataArray.tasks[index].correct] == dataArray.tasks[index].st_answer)
+                            {
+                                result += `Answer Status :<label style='color:green' > Right</label>`;
+                            }
+                            else if(dataArray.tasks[index][dataArray.tasks[index].correct] != dataArray.tasks[index].st_answer)
+                            {
+                                result += `Answer Status :<label style='color:red' > Wrong</label> <br><br>`;
+                            }
+
+                        }
+
+
+                        
+                        result +="</td>"
+
+                        if(dataArray.tasks[index].st_answer == "")
+                        {
+                            result += "<td >";     
+                        }
+                        result += `<button  type="button" id='send_att_feed${index}' class="btn btn-light" style='float:center;display:none'><i class="fa-solid fa-circle-arrow-right"></i></button>`               
+                        if(dataArray.tasks[index].st_answer == "")
+                        {
+                            result +="</td>"
+                        }
+
+                        result += "</tr>";
+
+                    }
+                  
+            //   }
+                 
+    result += "</table>";
+    var div = document.getElementById("search-results_1");
+    div.innerHTML = result;
+    for(var index = 0 ; index < dataArray.tasks.length ; index++)
+    {
+
+        if(dataArray.tasks[index].st_answer == '')
+        {
+            $('#send_att_feed'+index).show();
+        }
+
+        $('#send_att_feed'+index).click(async function () {  
+
+
+            Loading_page_set();
+            var id = this.id;
+            var ret = id.replace('send_att_feed','');
+
+            if (confirm("Updated task ?") == true) {
+
+                if( $('input[name="option_id'+ret+'"]:checked').val() == undefined)
+                {
+                    alert("Please Select Value")
+                    Loading_page_clear();
+
+                    return;
+                }
+
+                var result_ans = 'Wrong'
+                if($('input[name="option_id'+ret+'"]:checked').val() == All_data_obj_tasks[27].tasks[ret][All_data_obj_tasks[27].tasks[ret].correct])
+                {
+                    result_ans = 'Right'
+                }
+
+                await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'students_ans' , 
+                [
+                    'att_feed_id',
+                    'tasks_id',
+                    'answer',
+                    'correct'
+                ]
+                ,
+                [
+                    All_data_obj_tasks[27].tasks[ret].att_id,
+                    All_data_obj_tasks[27].tasks[ret].id,
+                    $('input[name="option_id'+ret+'"]:checked').val(),
+                    result_ans
+                ]
+                );
+
+                $('#send_att_feed'+ret).hide();
+                Loading_page_clear();
+                ADD_NEW_STUDENT();
+  
+
+            }
+            else{
+                Loading_page_clear();
+
+            }
+
+        });
+    }
+
+  }else{
+    var div = document.getElementById("search-results_1");
+    div.innerHTML = "<h3 style='text-align:center;color:red;'>No Tasks<h3>";
+  }
+    }else{
+        var div = document.getElementById("search-results_1");
+        div.innerHTML = "<h3 style='text-align:center;color:green;'>No Tasks<h3>";
+    }
+
+}
+
 
 
 

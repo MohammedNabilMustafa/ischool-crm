@@ -281,7 +281,7 @@ async function CERTIFICATION_DASHBOARD()
     var result = [];
     if(data_table)
     {
-     result = Search_for_value(data_table , values_);
+     result = Search_for_value_same(data_table , values_);
 
         $('#counter_id').val(result.length)
      }
@@ -335,7 +335,7 @@ function createTable_cert(dataArray ,All_data_obj ) {
                           "</thead>";
                   var counter = 0;
            
-               for(var index = 0 ; index < Object.values(dataArray).length; index ++)
+               for(var index = (All_data_obj.Start_Index-1) ; index < End_Index; index ++)
                {
                 result += "<tr>";
                 result += "<td>";

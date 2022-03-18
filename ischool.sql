@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2022 at 07:22 PM
+-- Generation Time: Mar 18, 2022 at 09:42 AM
 -- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- PHP Version: 8.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -89,9 +89,23 @@ INSERT INTO `att_feed` (`id`, `timestamp`, `student_id`, `session_id`, `attendan
 (215, '2022-03-10', 223, 37, '', ''),
 (216, '2022-03-10', 223, 38, '', ''),
 (217, '2022-03-10', 224, 62, '', ''),
-(218, '2022-03-14', 232, 64, '', ''),
+(218, '2022-03-14', 232, 64, 'YES', 'fgdg'),
 (219, '2022-03-14', 233, 64, '', ''),
-(220, '2022-03-14', 234, 64, '', '');
+(220, '2022-03-14', 234, 64, '', ''),
+(245, '2022-03-16', 239, 67, '', ''),
+(246, '2022-03-16', 239, 68, '', ''),
+(247, '2022-03-16', 239, 69, '', ''),
+(248, '2022-03-16', 239, 70, '', ''),
+(249, '2022-03-16', 239, 71, '', ''),
+(250, '2022-03-16', 239, 72, '', ''),
+(251, '2022-03-16', 239, 73, '', ''),
+(252, '2022-03-16', 239, 74, '', ''),
+(253, '2022-03-16', 239, 75, '', ''),
+(254, '2022-03-16', 239, 76, '', ''),
+(255, '2022-03-16', 239, 77, '', ''),
+(256, '2022-03-16', 239, 78, '', ''),
+(257, '2022-03-17', 240, 79, '', ''),
+(258, '2022-03-17', 240, 80, '', '');
 
 -- --------------------------------------------------------
 
@@ -445,7 +459,9 @@ INSERT INTO `groups` (`id`, `timestamp`, `slot_id`, `lan_id`, `att_id`, `level_i
 (67, '2022-03-15', 2, 1, 1, 2, 1, 1, 1, 1, '', '2022-03-20', '2022-03-20'),
 (68, '2022-03-15', 2, 1, 1, 2, 1, 2, 1, 1, '', '2022-03-20', '2022-03-20'),
 (69, '2022-03-15', 5, 1, 1, 2, 1, 2, 1, 1, '', '2022-03-20', '2022-03-20'),
-(70, '2022-03-15', 5, 1, 1, 2, 1, 2, 1, 2, '', '2022-03-20', '2022-03-20');
+(70, '2022-03-15', 5, 1, 1, 2, 1, 2, 1, 2, '', '2022-03-20', '2022-03-20'),
+(71, '2022-03-16', 4, 1, 1, 2, 1, 1, 1, 2, '', '2022-03-20', '2022-03-20'),
+(72, '2022-03-17', 2, 1, 1, 2, 1, 1, 1, 2, '', '2022-03-20', '2022-03-20');
 
 -- --------------------------------------------------------
 
@@ -485,7 +501,24 @@ INSERT INTO `invoice` (`id`, `timestamp`, `student_id`, `fees`, `amount`, `statu
 (507, '2022-03-10', 224, 23880, 1990, 'waiting', '2022-11-05', '0000-00-00', 0, '', 172, 4, 0),
 (508, '2022-03-10', 224, 23880, 1990, 'waiting', '2022-12-05', '0000-00-00', 0, '', 172, 4, 0),
 (509, '2022-03-10', 224, 23880, 1990, 'waiting', '2023-01-04', '0000-00-00', 0, '', 172, 4, 0),
-(510, '2022-03-10', 224, 23880, 1990, 'waiting', '2023-02-03', '0000-00-00', 0, '', 172, 4, 0);
+(510, '2022-03-10', 224, 23880, 1990, 'waiting', '2023-02-03', '0000-00-00', 0, '', 172, 4, 0),
+(512, '2022-03-16', 236, 19080, 19080, 'done', '2022-03-16', '2022-03-16', 0, '', 174, 48, 0),
+(529, '2022-03-16', 239, 21480, 5370, 'done', '2022-03-16', '2022-03-16', 0, '', 177, 12, 0),
+(530, '2022-03-16', 239, 21480, 5370, 'waiting', '2022-04-01', '0000-00-00', 0, '', 177, 12, 0),
+(531, '2022-03-16', 239, 21480, 5370, 'waiting', '2022-05-01', '0000-00-00', 0, '', 177, 12, 0),
+(532, '2022-03-16', 239, 21480, 5370, 'waiting', '2022-06-01', '0000-00-00', 0, '', 177, 12, 0),
+(533, '2022-03-17', 240, 23880, 1990, 'done', '2022-03-17', '2022-03-17', 0, '', 178, 4, 0),
+(534, '2022-03-17', 240, 23880, 1990, 'waiting', '2022-04-01', '0000-00-00', 0, '', 178, 4, 0),
+(535, '2022-03-17', 240, 23880, 1990, 'waiting', '2022-05-01', '0000-00-00', 0, '', 178, 4, 0),
+(536, '2022-03-17', 240, 23880, 1990, 'waiting', '2022-06-01', '0000-00-00', 0, '', 178, 4, 0),
+(537, '2022-03-17', 240, 23880, 1990, 'waiting', '2022-07-01', '0000-00-00', 0, '', 178, 4, 0),
+(538, '2022-03-17', 240, 23880, 1990, 'waiting', '2022-08-01', '0000-00-00', 0, '', 178, 4, 0),
+(539, '2022-03-17', 240, 23880, 1990, 'waiting', '2022-09-01', '0000-00-00', 0, '', 178, 4, 0),
+(540, '2022-03-17', 240, 23880, 1990, 'waiting', '2022-10-01', '0000-00-00', 0, '', 178, 4, 0),
+(541, '2022-03-17', 240, 23880, 1990, 'waiting', '2022-11-01', '0000-00-00', 0, '', 178, 4, 0),
+(542, '2022-03-17', 240, 23880, 1990, 'waiting', '2022-12-01', '0000-00-00', 0, '', 178, 4, 0),
+(543, '2022-03-17', 240, 23880, 1990, 'waiting', '2023-01-01', '0000-00-00', 0, '', 178, 4, 0),
+(544, '2022-03-17', 240, 23880, 1990, 'waiting', '2023-02-01', '0000-00-00', 0, '', 178, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -771,7 +804,10 @@ INSERT INTO `parent` (`id`, `timestamp`, `name`, `phone`, `email`, `name_2`, `ph
 (140, '2022-03-14', 'asdasd', '1123', 'eqqaaqe@gmail.com', '', '', '', '', 'eg', '', 0, 14, 15, 'eqqaaqe@gmail.com', '1123'),
 (141, '2022-03-14', 'aras', '5487547', 'asdasdww@gmail.com', '', '', '', '', 'eg', '', 0, 11, 9, 'asdasdww@gmail.com', '5487547'),
 (142, '2022-03-14', 'Mohamed Nabil Mustafa', '45622', 'asdasdeee@gmail.com', '', '', '', '', 'eg', '', 0, 14, 15, 'asdasdeee@gmail.com', '45622'),
-(143, '2022-03-14', 'asdasd', '5487511', 'asdasdqq@gmail.com', '', '', '', '', 'eg', '', 4, 11, 9, 'asdasdqq@gmail.com', '5487511');
+(143, '2022-03-14', 'asdasd', '5487511', 'asdasdqq@gmail.com', '', '', '', '', 'eg', '', 4, 11, 9, 'asdasdqq@gmail.com', '5487511'),
+(145, '2022-03-16', 'Mohamed Nabil Mustafa', '01027713443', 'mohammedd.nabil.mustafa@gmail.com', '', '', '', '', 'ad', '', 0, 11, 9, 'mohammedd.nabil.mustafa@gmail.com', '01027713443'),
+(148, '2022-03-16', 'Mohamed Nabil Mustafa', '01027713442', 'mohammed.nabil.mustafa@gmail.com', '', '', '', '', 'ad', '', 0, 14, 15, 'mohammed.nabil.mustafa@gmail.com', '01027713442'),
+(149, '2022-03-17', 'Mohamed Nabil Mustafa', '01027713472', 'mohammed.nabil.mutafa@gmail.com', '', '', '', '', 'ad', '', 0, 11, 9, 'mohammed.nabil.mutafa@gmail.com', '01027713472');
 
 -- --------------------------------------------------------
 
@@ -798,6 +834,40 @@ INSERT INTO `permission` (`id`, `timestamp`, `name`) VALUES
 (6, '2022-02-27', 'Finance'),
 (7, '2022-02-27', 'Marketing'),
 (8, '2022-02-27', 'R&D');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `registeration`
+--
+
+CREATE TABLE `registeration` (
+  `id` int(11) NOT NULL,
+  `timestamp` date NOT NULL,
+  `parent_name` text NOT NULL,
+  `student_name` text NOT NULL,
+  `phone` text NOT NULL,
+  `email` text NOT NULL,
+  `camp_id` int(11) NOT NULL,
+  `country` text NOT NULL,
+  `birthdate` date NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `package_id` int(11) NOT NULL,
+  `status` text NOT NULL,
+  `type` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `registeration`
+--
+
+INSERT INTO `registeration` (`id`, `timestamp`, `parent_name`, `student_name`, `phone`, `email`, `camp_id`, `country`, `birthdate`, `group_id`, `package_id`, `status`, `type`) VALUES
+(17, '2022-03-16', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'ad', '2012-02-02', 71, 3, 'UNPAID', 'PayAtFawry'),
+(18, '2022-03-16', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'ad', '2012-02-02', 71, 3, 'pending', ''),
+(19, '2022-03-16', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'ad', '2012-02-02', 71, 3, 'UNPAID', 'PayAtFawry'),
+(20, '2022-03-16', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'ad', '2012-02-01', 71, 2, 'PAID', 'PayUsingCC'),
+(23, '2022-03-17', 'Mohamed Nabil Mustafa', 'ahmed', '01027713742', 'mohammed.nabil.mstafa@gmail.com', 0, 'ad', '2012-02-02', 72, 3, 'pending', ''),
+(24, '2022-03-17', 'Mohamed Nabil Mustafa', 'ahmed', '01027713472', 'mohammed.nabil.mutafa@gmail.com', 0, 'ad', '2012-02-02', 72, 3, 'PAID', 'PayUsingCC');
 
 -- --------------------------------------------------------
 
@@ -899,7 +969,21 @@ INSERT INTO `sessions` (`id`, `timestamp`, `groups_id`, `employee_id`, `zoomlink
 (62, '2022-03-07', 63, 12, '', '2022-02-13', 1, '', 0),
 (63, '2022-03-08', 64, 12, '', '2022-03-14', 1, '', 0),
 (64, '2022-03-15', 65, 12, '', '2022-03-07', 1, '', 2),
-(66, '2022-03-15', 70, 12, '', '2022-03-20', 1, '', 2);
+(66, '2022-03-15', 70, 12, '', '2022-03-20', 1, '', 2),
+(67, '2022-03-16', 71, 12, '', '2022-03-20', 1, '', 0),
+(68, '2022-03-16', 71, 12, '', '2022-03-27', 2, '', 0),
+(69, '2022-03-16', 71, 12, '', '2022-04-03', 3, '', 0),
+(70, '2022-03-16', 71, 12, '', '2022-04-10', 4, '', 0),
+(71, '2022-03-16', 71, 12, '', '2022-04-17', 5, '', 0),
+(72, '2022-03-16', 71, 12, '', '2022-04-24', 6, '', 0),
+(73, '2022-03-16', 71, 12, '', '2022-05-01', 7, '', 0),
+(74, '2022-03-16', 71, 12, '', '2022-05-08', 8, '', 0),
+(75, '2022-03-16', 71, 12, '', '2022-05-15', 9, '', 0),
+(76, '2022-03-16', 71, 12, '', '2022-05-22', 10, '', 0),
+(77, '2022-03-16', 71, 12, '', '2022-05-29', 11, '', 0),
+(78, '2022-03-16', 71, 12, '', '2022-06-05', 12, '', 0),
+(79, '2022-03-17', 72, 17, '', '2022-03-20', 1, '', 0),
+(80, '2022-03-17', 72, 17, '', '2022-03-27', 2, '', 0);
 
 -- --------------------------------------------------------
 
@@ -919,7 +1003,10 @@ CREATE TABLE `session_tasks` (
 --
 
 INSERT INTO `session_tasks` (`id`, `timestamp`, `session_id`, `task_id`) VALUES
-(1, '2022-03-15', 64, 7);
+(1, '2022-03-15', 64, 7),
+(2, '2022-03-17', 79, 8),
+(3, '2022-03-17', 79, 9),
+(4, '2022-03-17', 80, 10);
 
 -- --------------------------------------------------------
 
@@ -1006,7 +1093,10 @@ INSERT INTO `students` (`id`, `timestamp`, `std_id`, `parent_id`, `free_session_
 (230, '2022-03-14', '', 133, 'yes', 0, 'Mohamed Nabil Mustafa', 'T', '2022-03-14'),
 (232, '2022-03-14', '', 141, 'yes', 0, 'aras', 'C', '2012-01-01'),
 (233, '2022-03-14', '', 142, 'yes', 0, 'Mohamed Nabil Mustafa', 'C', '2012-02-02'),
-(234, '2022-03-14', '', 143, 'yes', 0, 'asdasd', 'C', '2012-02-02');
+(234, '2022-03-14', '', 143, 'yes', 0, 'asdasd', 'C', '2012-02-02'),
+(236, '2022-03-16', '', 145, 'yes', 0, 'ali', '', '2012-02-02'),
+(239, '2022-03-16', '', 148, 'yes', 0, 'ahmed', '', '2012-02-01'),
+(240, '2022-03-17', '', 149, 'yes', 0, 'ahmed', '', '2012-02-02');
 
 -- --------------------------------------------------------
 
@@ -1022,6 +1112,18 @@ CREATE TABLE `students_ans` (
   `answer` text NOT NULL,
   `correct` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `students_ans`
+--
+
+INSERT INTO `students_ans` (`id`, `timestamp`, `att_feed_id`, `tasks_id`, `answer`, `correct`) VALUES
+(1, '2022-03-17', 218, 7, 'well', ''),
+(2, '2022-03-17', 218, 7, 'good', ''),
+(3, '2022-03-17', 257, 8, 'good', 'Right'),
+(4, '2022-03-17', 257, 9, '', ''),
+(5, '2022-03-17', 258, 10, 'asdasd', 'Right'),
+(6, '2022-03-17', 257, 9, 'asd', 'Right');
 
 -- --------------------------------------------------------
 
@@ -1046,7 +1148,9 @@ INSERT INTO `student_groups` (`id`, `timestamp`, `groups_id`, `student_id`, `sta
 (903, '2022-03-10', 63, 224, 'active'),
 (904, '2022-03-14', 65, 232, 'active'),
 (905, '2022-03-14', 65, 233, 'active'),
-(906, '2022-03-14', 65, 234, 'active');
+(906, '2022-03-14', 65, 234, 'active'),
+(909, '2022-03-16', 71, 239, 'active'),
+(910, '2022-03-17', 72, 240, 'active');
 
 -- --------------------------------------------------------
 
@@ -1068,7 +1172,10 @@ CREATE TABLE `student_package` (
 INSERT INTO `student_package` (`id`, `timestamp`, `student_id`, `package_id`) VALUES
 (66, '2022-02-26', 158, 3),
 (67, '2022-02-26', 159, 2),
-(172, '2022-03-10', 224, 3);
+(172, '2022-03-10', 224, 3),
+(174, '2022-03-16', 236, 1),
+(177, '2022-03-16', 239, 2),
+(178, '2022-03-17', 240, 3);
 
 -- --------------------------------------------------------
 
@@ -1099,7 +1206,10 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`id`, `timestamp`, `level_id`, `lan_id`, `session_type_id`, `track_id`, `session_num`, `type`, `option1`, `option2`, `option3`, `correct`, `points`, `question`, `age_id`) VALUES
-(7, '2022-03-15', 2, 1, 2, 1, 1, 'multi', 'good', 'well', 'asd', 'option1', 10, 'how are you', 2);
+(7, '2022-03-15', 2, 1, 2, 1, 1, 'multi', 'good', 'well', 'asd', 'option1', 10, 'how are you', 2),
+(8, '2022-03-17', 2, 1, 1, 1, 1, 'multi', 'good', 'well', 'bad', 'option1', 10, 'how are you', 2),
+(9, '2022-03-17', 2, 1, 1, 1, 1, 'tf', 'asd', 'asdasd', '', 'option1', 10, 'how are you', 2),
+(10, '2022-03-17', 2, 1, 1, 1, 2, 'multi', 'asd', 'asdasd', 'asdasd', 'option2', 10, 'how are you', 2);
 
 -- --------------------------------------------------------
 
@@ -1314,6 +1424,12 @@ ALTER TABLE `permission`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `registeration`
+--
+ALTER TABLE `registeration`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `role`
 --
 ALTER TABLE `role`
@@ -1405,7 +1521,7 @@ ALTER TABLE `attend`
 -- AUTO_INCREMENT for table `att_feed`
 --
 ALTER TABLE `att_feed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=221;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=259;
 
 --
 -- AUTO_INCREMENT for table `call_status`
@@ -1489,13 +1605,13 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=511;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=545;
 
 --
 -- AUTO_INCREMENT for table `invoice_status`
@@ -1567,13 +1683,19 @@ ALTER TABLE `package`
 -- AUTO_INCREMENT for table `parent`
 --
 ALTER TABLE `parent`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
 -- AUTO_INCREMENT for table `permission`
 --
 ALTER TABLE `permission`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `registeration`
+--
+ALTER TABLE `registeration`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -1591,13 +1713,13 @@ ALTER TABLE `sales_calls`
 -- AUTO_INCREMENT for table `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `session_tasks`
 --
 ALTER TABLE `session_tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `session_type`
@@ -1615,31 +1737,31 @@ ALTER TABLE `slots`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
 
 --
 -- AUTO_INCREMENT for table `students_ans`
 --
 ALTER TABLE `students_ans`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `student_groups`
 --
 ALTER TABLE `student_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=907;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=911;
 
 --
 -- AUTO_INCREMENT for table `student_package`
 --
 ALTER TABLE `student_package`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
 
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `track`

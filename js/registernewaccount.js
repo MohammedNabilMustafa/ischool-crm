@@ -31,9 +31,9 @@ $(".btn.signup").click(async function() {
     {
 
 
-    $(".step01").hide("drop", { direction: "right" }, 300);
+    $(".step01").hide("drop", { direction: "left" }, 300);
     setTimeout(function() {
-        $(".step02").show("drop", { direction: "left" }, 300);
+        $(".step02").show("drop", { direction: "right" }, 300);
     }, 400)
     }
 })
@@ -46,27 +46,44 @@ $(".scheduletableitem").click(function() {
     $(".scheduletableitem:nth-child(" + (Num + 1) + ") .check").addClass("active")
 })
 
-$("#Pack_1_btn").click(function() {
+$("#Pack_1_btn").click(async function() {
     choosen_package_reg = $("#Pack_1_btn").val()
     var ret = $("#Pack_1_btn").text().replace('Pay ','') ;
     choosen_pay_as = Number(ret)
-    checkout();
+
+    var check = await go_to_step04_func_reg();
+
+    if(check)
+    {
+        checkout();
+    }
+
+
 
 })
 
-$("#Pack_2_btn").click(function() {
+$("#Pack_2_btn").click(async function() {
     choosen_package_reg = $("#Pack_2_btn").val()
     var ret = $("#Pack_2_btn").text().replace('Pay ','') ;
     choosen_pay_as = Number(ret)
-    checkout();
+    var check = await go_to_step04_func_reg();
 
+    if(check)
+    {
+        checkout();
+    }
 })
 
-$("#Pack_3_btn").click(function() {
+$("#Pack_3_btn").click(async function() {
     choosen_package_reg = $("#Pack_3_btn").val()
     var ret = ($("#Pack_3_btn").text()).replace('Pay ','') ;
     choosen_pay_as = Number(ret)
-    checkout();
+    var check = await go_to_step04_func_reg();
+
+    if(check)
+    {
+        checkout();
+    }
 })
 
 $(".btn.next").click(async function() {
@@ -74,40 +91,41 @@ $(".btn.next").click(async function() {
 
     if(check_return)
     {    
-        $(".step02").hide("drop", { direction: "right" }, 300);
+        $(".step02").hide("drop", { direction: "left" }, 300);
         setTimeout(function() {
-            $(".step03").show("drop", { direction: "left" }, 300);
+            $(".step03").show("drop", { direction: "right " }, 300);
         }, 400)
     }
 })
-$(".payment-plans-container button").click(async function() {
+// $(".payment-plans-container button").click(async function() {
 
 
-    // var check = await go_to_step04_func_reg();
+//     var check = await go_to_step04_func_reg();
 
-    // if(check)
-    // {
-    //     // checkout();
-    //     // choosen_pay_as
-    //     // $(".step03").hide("drop", { direction: "right" }, 300);
-    //     // setTimeout(function() {
-    //     //     $(".step04").show("drop", { direction: "left" }, 300);
-    //     // }, 400)
-    // }
+//     // if(check)
+//     // {
+//     //     // checkout();
+//     //     // choosen_pay_as
+//     //     // $(".step03").hide("drop", { direction: "right" }, 300);
+//     //     // setTimeout(function() {
+//     //     //     $(".step04").show("drop", { direction: "left" }, 300);
+//     //     // }, 400)
+//     // }
 
-})
+// })
 $(".step02 .back").click(function() {
-    $(".step02").hide("drop", { direction: "left" }, 300);
+    $(".step02").hide("drop", { direction: "right" }, 300);
     setTimeout(function() {
-        $(".step01").show("drop", { direction: "right" }, 300);
+        $(".step01").show("drop", { direction: "left" }, 300);
     }, 400)
 })
 $(".step03 .back").click(function() {
-    $(".step03").hide("drop", { direction: "left" }, 300);
+    $(".step03").hide("drop", { direction: "right" }, 300);
     setTimeout(function() {
-        $(".step02").show("drop", { direction: "right" }, 300);
+        $(".step02").show("drop", { direction: "left" }, 300);
     }, 400)
 })
+
 
 
 async function go_to_step01_func_reg()
@@ -215,6 +233,7 @@ var choosen_lan_reg = '';
 var choosen_group_index_reg = '';
 var choosen_package_reg = '';
 var choosen_pay_as = '';
+var choosen_ref = '';
 
 
 
@@ -278,13 +297,9 @@ async function go_to_step02_func_reg()
     var saved_age_arr  = await GET_DATA_TABLES(database_fixed_link ,'age');    
     var saved_slot_arr  = await GET_DATA_TABLES(database_fixed_link ,'slots');    
     var saved_days_arr  = await GET_DATA_TABLES(database_fixed_link ,'days');    
-    var  filtered_group_id = await GET_DATA_TABLES(database_fixed_link ,'groups');    
-    var  student_grp_arr = await GET_DATA_TABLES(database_fixed_link ,'student_groups');    
-    var  saved_lan_arr = await GET_DATA_TABLES(database_fixed_link ,'lan');    
-
-
-
-
+    var filtered_group_id = await GET_DATA_TABLES(database_fixed_link ,'groups');    
+    var student_grp_arr = await GET_DATA_TABLES(database_fixed_link ,'student_groups');    
+    var saved_lan_arr = await GET_DATA_TABLES(database_fixed_link ,'lan');    
 
 
     var saved_group_arr =[];
@@ -342,53 +357,53 @@ async function go_to_step02_func_reg()
     })
     }
 
-        // if( $('#firstnameInput').val() == "" ) {
-        // $('#firstnameInput_error').text('Please Set Name');return false;
-        // }
-        // else
-        // {
-        //     $('#firstnameInput_error').text('');    
-        // }
+        if( $('#firstnameInput').val() == "" ) {
+        $('#firstnameInput_error').text('Please Set Name');return false;
+        }
+        else
+        {
+            $('#firstnameInput_error').text('');    
+        }
 
-        // if( $('#phonenumInput').val() == "" ) {
-        //     $('#phonenumInput_error').text('Please Set Phone Number');return false;
-        // }
-        // else
-        // {
+        if( $('#phonenumInput').val() == "" ) {
+            $('#phonenumInput_error').text('Please Set Phone Number');return false;
+        }
+        else
+        {
 
-        //     $('#phonenumInput_error').text('');    
-        // }
+            $('#phonenumInput_error').text('');    
+        }
 
-        // if( $('#emailInput').val() == "" ) {
-        //     $('#emailInput_error').text('Please Set Email');return false;
-        // }
-        // else
-        // {
-        //     if(isEmail($('#emailInput').val()) == false)
-        //     {
-        //         $('#emailInput_error').text('Please Set Valid Email');return false;
-        //     }
-        //     else
-        //     {
-        //         $('#emailInput_error').text('');    
-        //     }
-        // }
+        if( $('#emailInput').val() == "" ) {
+            $('#emailInput_error').text('Please Set Email');return false;
+        }
+        else
+        {
+            if(isEmail($('#emailInput').val()) == false)
+            {
+                $('#emailInput_error').text('Please Set Valid Email');return false;
+            }
+            else
+            {
+                $('#emailInput_error').text('');    
+            }
+        }
 
-        // if( $('#studentnameInput').val() == "" ) {
-        //     $('#studentnameInput_error').text('Please Set Student Name');return false;
-        // }
-        // else
-        // {
-        //     $('#studentnameInput_error').text('');    
-        // }
+        if( $('#studentnameInput').val() == "" ) {
+            $('#studentnameInput_error').text('Please Set Student Name');return false;
+        }
+        else
+        {
+            $('#studentnameInput_error').text('');    
+        }
 
-        // if( $('#birthdate').val() == "" ) {
-        //     $('#birthdate_error').text('Please Select Birthdate');return false;
-        // }
-        // else
-        // {
-        //     $('#birthdate_error').text('');    
-        // }
+        if( $('#birthdate').val() == "" ) {
+            $('#birthdate_error').text('Please Select Birthdate');return false;
+        }
+        else
+        {
+            $('#birthdate_error').text('');    
+        }
 
 
 
@@ -413,13 +428,13 @@ async function go_to_step02_func_reg()
         if(check_phone)
         {
             alert("This Phone is already exist");
-            return;   
+            return false;   
         }
 
         if(check_email)
         {
             alert("This Email is already exist");
-            return;
+            return false;
         }
         
 function isEmail(email) {
@@ -574,13 +589,60 @@ async function go_to_step03_func_reg()
 }
 
 
-
 async function go_to_step04_func_reg()
 {
     Loading_page_set();
+    var saved_data_reg = [];
     
+    let url = window.location.href;
+    let params = (new URL(url)).searchParams;
+    var get_element = '';
+    get_element = params.get('camp_id');
 
- 
+
+    saved_data_reg[0] = $('#firstnameInput').val();
+    saved_data_reg[1] = $('#studentnameInput').val();
+    saved_data_reg[2] = $('#phonenumInput').val();
+    saved_data_reg[3] = $('#emailInput').val();
+    saved_data_reg[4] = get_element;
+    saved_data_reg[5] = $('#countries').val();
+    saved_data_reg[6] = $("#birthdate").val();
+    saved_data_reg[7] = choosen_group_reg;
+    saved_data_reg[8] = choosen_package_reg;
+    saved_data_reg[9] = 'pending';
+    saved_data_reg[10] = '';
+    
+    
+    var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'registeration' , 
+    ["parent_name"
+    ,"student_name"
+    ,"phone"
+    ,"email"
+    ,"camp_id"
+    ,"country"
+    ,"birthdate"
+    ,"group_id"
+    ,"package_id"
+    ,"status"
+    ,"type"
+
+    ],
+    saved_data_reg
+    );
+
+    var returncheck = await GET_DATA_TABLES(database_fixed_link , 'registeration' )
+
+    choosen_ref = returncheck[returncheck.length-1].id;
+    Loading_page_clear();
+
+    return true;
+    
+}
+
+async function go_to_step05_func_reg(data_arr)
+{
+
+    
     var saved_emp_arr  = await GET_DATA_TABLES(database_fixed_link ,'employee');    
     var cs_emp = []
     var cs_emp_count = 0
@@ -599,22 +661,17 @@ async function go_to_step04_func_reg()
         }
     })
   
-    let url = window.location.href;
-    let params = (new URL(url)).searchParams;
-    var get_element = '';
-    get_element = params.get('camp_id');
-
     var get_data_elements_parent_table = [];
-    get_data_elements_parent_table[0] = $('#firstnameInput').val()
-    get_data_elements_parent_table[1] = $('#phonenumInput').val()
-    get_data_elements_parent_table[2] = $('#emailInput').val()
+    get_data_elements_parent_table[0] = data_arr.parent_name
+    get_data_elements_parent_table[1] = data_arr.phone
+    get_data_elements_parent_table[2] = data_arr.email
     get_data_elements_parent_table[3] = ''
     get_data_elements_parent_table[4] = ''
     get_data_elements_parent_table[5] = ''
     get_data_elements_parent_table[6] = ''
-    get_data_elements_parent_table[7] = $('#countries').val()
+    get_data_elements_parent_table[7] = data_arr.country
     get_data_elements_parent_table[8] = ''
-    get_data_elements_parent_table[9] = get_element;
+    get_data_elements_parent_table[9] = data_arr.camp_id;
     get_data_elements_parent_table[10] = ''
     get_data_elements_parent_table[11] = ''
 
@@ -712,8 +769,8 @@ async function go_to_step04_func_reg()
     }
 
 
-    get_data_elements_parent_table[12] = $('#emailInput').val()
-    get_data_elements_parent_table[13] = $('#phonenumInput').val()
+    get_data_elements_parent_table[12] = data_arr.email
+    get_data_elements_parent_table[13] = data_arr.phone
 
 
     var parent_id = '';
@@ -721,12 +778,12 @@ async function go_to_step04_func_reg()
     var check_email_phone = false;
 
     get_all_parent_table.forEach(element=>{
-        if(element.email == $('#emailInput').val())
+        if(element.email == data_arr.email)
         {
             parent_id = element.id;
             check_email_phone = true;
         }
-        else if(element.phone == $('#phonenumInput').val())
+        else if(element.phone == data_arr.phone)
         {
             parent_id = element.id;
             check_email_phone = true;
@@ -782,9 +839,9 @@ async function go_to_step04_func_reg()
     get_data_elements_student_table[1] = parent_id;
     get_data_elements_student_table[2] = 'yes';
     get_data_elements_student_table[3] = 'active';
-    get_data_elements_student_table[4] = $('#firstnameInput').val();
+    get_data_elements_student_table[4] = data_arr.student_name;
     get_data_elements_student_table[5] = age_req;
-    get_data_elements_student_table[6] = $('#birthdate').val();
+    get_data_elements_student_table[6] = data_arr.birthdate;
 
     var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'students' , 
     ["std_id"
@@ -805,7 +862,7 @@ async function go_to_step04_func_reg()
     var package_selected = [];
 
     package.forEach(element =>{
-        if(element.id == choosen_package_reg)
+        if(Number(element.id) == Number(data_arr.package_id))
         {
             package_selected[0] =  element;
         }
@@ -817,7 +874,7 @@ async function go_to_step04_func_reg()
     ],
         [
             get_student_arr_return[get_student_arr_return.length-1].id,
-            choosen_package_reg
+            data_arr.package_id
         ]
         );
 
@@ -892,7 +949,7 @@ async function go_to_step04_func_reg()
 
 
 
-    if(choosen_group_reg && Number(choosen_group_reg) != 0)
+    if(data_arr.group_id && Number(data_arr.group_id) != 0)
     {
         var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'student_groups' , 
         ["groups_id"
@@ -900,7 +957,7 @@ async function go_to_step04_func_reg()
         ,"status"
     ],
         [
-            choosen_group_reg,
+            data_arr.group_id,
             get_student_arr_return[get_student_arr_return.length-1].id,
             'active'
         ]
@@ -911,7 +968,7 @@ async function go_to_step04_func_reg()
         var get_required_sessions_arr_count = 0;
         get_sessions_arr_return.forEach(element => {
 
-            if(element.groups_id == choosen_group_reg)
+            if(Number(element.groups_id) == Number(data_arr.group_id))
             {
                 get_required_sessions_arr[get_required_sessions_arr_count] = element;get_required_sessions_arr_count++;
             }
@@ -939,7 +996,61 @@ async function go_to_step04_func_reg()
 
 
     Loading_page_clear();
+    $(".step04").show("drop", { direction: "left" }, 300);
 
     return true;
 
 }
+
+
+
+function checkout() {
+    const configuration = {
+    locale : "en",  //default en
+        mode: DISPLAY_MODE.POPUP,  //required, allowed values [POPUP, INSIDE_PAGE, SIDE_PAGE]
+};
+
+FawryPay.checkout(buildChargeRequest(), configuration);
+}
+function buildChargeRequest() {
+    var chargeRequest = {
+        merchantCode: 'siYxylRjSPwQs0gHngum7Q==',
+        merchantRefNum: choosen_ref,
+        customerMobile: $("#phonenumInput").val(),
+        customerEmail: $("#emailInput").val() ,
+        customerProfileId :'1111',
+        customerName: $("#firstnameInput").val(),
+        chargeItems: [
+                {
+                    itemId: '6b5f',
+                    description: 'Product Description',
+                    price: choosen_pay_as,
+                    quantity: 1
+                }
+                ],
+                    returnUrl: return_page,
+                    authCaptureModePayment: false,
+                };
+                    
+chargeRequest.signature  = signRequest(chargeRequest);
+                    
+return chargeRequest;
+}
+
+function signRequest(chargeRequest){
+var signString = chargeRequest['merchantCode']+chargeRequest.merchantRefNum;
+signString += chargeRequest.customerProfileId!=null?chargeRequest.customerProfileId:'';
+signString += chargeRequest.returnUrl!=null?chargeRequest.returnUrl:'';
+var items = chargeRequest.chargeItems.sort(function (x, y) {
+let a = x.itemId.toUpperCase(),
+    b = y.itemId.toUpperCase();
+return a == b ? 0 : a > b ? 1 : -1;});
+
+items.forEach((item) => {
+    signString += item.itemId+''+item.quantity+''+item.price.toFixed(2);
+});
+signString += "d05552a3-be4b-4b66-8a4f-e059f9b9b4cb";
+
+return  sha256(signString);
+}
+
