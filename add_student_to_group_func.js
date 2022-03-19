@@ -901,9 +901,16 @@ function quary_tables_all_status_add_student_once(All_table_obj , func)
     }
     else
     {
+
         if(All_table_obj.tables[0] && All_table_obj.tables[0] !== undefined && All_table_obj.tables[0].length != 0){
 
-            All_table_obj.tables[0].forEach(element_st =>{
+            // if(localStorage.permission == 4)
+            // {
+            //     element_st.accepted = true;
+    
+            // }
+
+            All_table_obj.tables[9].forEach(element_st =>{
             
                 element_st.accepted = true;
             }

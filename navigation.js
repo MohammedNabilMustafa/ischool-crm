@@ -347,12 +347,16 @@ function slots()
     ["name" 
     ,"slot" 
     ,"live_slot" 
+    ,"from_value" 
+    ,"to_value" 
   ];
 
     var inputs_names_inputs = 
     ["Name" 
     ,"Slot" 
     ,"Live Slot" 
+    ,"From" 
+    ,"TO" 
   ];
 
     var inputs_names_search = 
@@ -361,6 +365,8 @@ function slots()
     ,"Name" 
     ,"Slot"
     ,"Live Slot" 
+    ,"From" 
+    ,"TO" 
     ,"Edit" 
     ,"Delete"
   ];

@@ -209,18 +209,24 @@ function add_new_student_session(All_req_obj,paper_inputs)
             if(student_sessions_arr[session_index] == undefined)
             {
                 alert('Choose Session ID');
+                    Loading_page_clear();
+
                 return;
             }
 
             if(student__arr[student_index] == undefined)
             {
                 alert('Choose Student ID');
+                Loading_page_clear();
+
                 return;
             }
 
             if(student__arr[student_index][3] == 'No Group')
             {
                 alert('No Group for this Studnet');
+                Loading_page_clear();
+
                 return;
             }
 
@@ -242,6 +248,8 @@ function add_new_student_session(All_req_obj,paper_inputs)
                             if((All_data_obj.obj[index].session_id == value_elments[1]) && (All_data_obj.obj[index].student_id == value_elments[0]))
                             {
                                 alert('Student Already in this session');
+                                Loading_page_clear();
+
                                 return;
                             }
                         }
