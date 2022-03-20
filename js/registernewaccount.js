@@ -97,22 +97,7 @@ $(".btn.next").click(async function() {
         }, 400)
     }
 })
-// $(".payment-plans-container button").click(async function() {
 
-
-//     var check = await go_to_step04_func_reg();
-
-//     // if(check)
-//     // {
-//     //     // checkout();
-//     //     // choosen_pay_as
-//     //     // $(".step03").hide("drop", { direction: "right" }, 300);
-//     //     // setTimeout(function() {
-//     //     //     $(".step04").show("drop", { direction: "left" }, 300);
-//     //     // }, 400)
-//     // }
-
-// })
 $(".step02 .back").click(function() {
     $(".step02").hide("drop", { direction: "right" }, 300);
     setTimeout(function() {
@@ -643,6 +628,9 @@ async function go_to_step05_func_reg(data_arr)
 {
 
     
+    localStorage.username_client = '';
+    localStorage.password_client = '';
+
     var saved_emp_arr  = await GET_DATA_TABLES(database_fixed_link ,'employee');    
     var cs_emp = []
     var cs_emp_count = 0
@@ -782,11 +770,18 @@ async function go_to_step05_func_reg(data_arr)
         {
             parent_id = element.id;
             check_email_phone = true;
+
+            localStorage.username_client = element.username;
+            localStorage.password_client = element.password;
         }
         else if(element.phone == data_arr.phone)
         {
             parent_id = element.id;
             check_email_phone = true;
+
+            localStorage.username_client = element.username;
+            localStorage.password_client = element.password;
+
         }
     })
 
@@ -816,6 +811,9 @@ async function go_to_step05_func_reg(data_arr)
         var get_parent_arr_return = await GET_DATA_TABLES(database_fixed_link , 'parent');
 
         parent_id = get_parent_arr_return[get_parent_arr_return.length-1].id;
+
+        localStorage.username_client = get_parent_arr_return[get_parent_arr_return.length-1].username;
+        localStorage.password_client = get_parent_arr_return[get_parent_arr_return.length-1].password;
 
     }
 
@@ -1005,13 +1003,17 @@ async function go_to_step05_func_reg(data_arr)
 
 
 function checkout() {
-    const configuration = {
-    locale : "en",  //default en
-        mode: DISPLAY_MODE.POPUP,  //required, allowed values [POPUP, INSIDE_PAGE, SIDE_PAGE]
-};
+//     const configuration = {
+//     locale : "en",  //default en
+//     mode: DISPLAY_MODE.POPUP,  //required, allowed values [POPUP, INSIDE_PAGE, SIDE_PAGE]
+// };
 
-FawryPay.checkout(buildChargeRequest(), configuration);
+// FawryPay.checkout(buildChargeRequest(), configuration);
+
+console.log('here');
+location.href = return_page+ "?orderStatus=PAID&statusCode=200&paymentMethod=PayUsingCC&merchantRefNumber="+choosen_ref
 }
+
 function buildChargeRequest() {
     var chargeRequest = {
         merchantCode: 'siYxylRjSPwQs0gHngum7Q==',
@@ -1025,7 +1027,9 @@ function buildChargeRequest() {
                     itemId: '6b5f',
                     description: 'Product Description',
                     price: choosen_pay_as,
-                    quantity: 1
+                    quantity: 1,
+                    imageUrl: 'https://your-site-link.com/photos/45566.jpg',
+
                 }
                 ],
                     returnUrl: return_page,

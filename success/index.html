@@ -195,13 +195,13 @@ transform: translate(24px, 0);
             <div class="col-auto right-align">
                 <nav>
                     <ul>
-                        <!-- <li class="nav-item"><b onclick="location.href = 'file:///C:/xampp/htdocs/ischool-crm/reg/index.html';">Enroll</b></li>
-                        <li class="nav-item" onclick="location.href = 'file:///C:/xampp/htdocs/ischool-crm/dashboard/index.html';">Login</li>
-                        <button class="btn btn-warning" onclick="location.href = 'file:///C:/xampp/htdocs/ischool-crm/free/index.html';" >Book a Free Session</button> -->
-            
-                        <li class="nav-item"><b onclick="location.href = 'file:///C:/xampp/htdocs/ischool/ischool-crm/reg/index.html';">Enroll</b></li>
+                        <li class="nav-item"><b onclick="location.href = 'http://localhost/ischool-crm/reg/';">Enroll</b></li>
+                        <li class="nav-item" onclick="location.href = 'http://localhost/ischool-crm/dashboard/';">Login</li>
+                        <button class="btn btn-warning" onclick="location.href = 'http://localhost/ischool-crm/free/';" >Book a Free Session</button>
+  
+                        <!-- <li class="nav-item"><b onclick="location.href = 'file:///C:/xampp/htdocs/ischool/ischool-crm/reg/index.html';">Enroll</b></li>
                         <li class="nav-item" onclick="location.href = 'file:///C:/xampp/htdocs/ischool/ischool-crm/dashboard/index.html';">Login</li>
-                        <button class="btn btn-warning" onclick="location.href = 'file:///C:/xampp/htdocs/ischool/ischool-crm/free/index.html';" >Book a Free Session</button>
+                        <button class="btn btn-warning" onclick="location.href = 'file:///C:/xampp/htdocs/ischool/ischool-crm/free/index.html';" >Book a Free Session</button> -->
 
                         
                         <!-- <li class="nav-item"><b onclick="location.href = 'https://operation.ischool-edu.com/reg/';">Enroll</b></li>
@@ -729,7 +729,7 @@ transform: translate(24px, 0);
                         </div>
                     </div>
                     <div id="group_info_id">
-                        <div class="row mb-3">
+                        <!-- <div class="row mb-3">
 
                             <div class="col">
                                 Starting Date : <a id="starting_date_id">22/07/2022</a>
@@ -746,7 +746,14 @@ transform: translate(24px, 0);
                                 Time : <a id="time_id">4:30 PM</a>
                             </div>
 
+                        </div> -->
+
+                        <br><br>
+                        <div class="row headding">
+                            <p style="color: #023bf5;" onclick="location.href = 'http://localhost/ischool-crm/dashboard/';" >LOGIN NOW</p>
                         </div>
+
+
                     </div>
 
                 </div>
@@ -775,8 +782,8 @@ transform: translate(24px, 0);
         <script>
             
             // var database_fixed_link = "../fetch.php";
-            var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
-            // var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
+            // var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
+            var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
             // var database_fixed_link = "https://operation.ischool-edu.com/fetch.php";
 
 
@@ -789,7 +796,6 @@ transform: translate(24px, 0);
             get_element_statusCode = params.get('statusCode');
             get_element_method = params.get('paymentMethod');
             
-            console.log(get_element_method);
             if(get_element_orderStatus == 'PAID' && get_element_method == 'PayUsingCC' && Number(get_element_statusCode) == 200)
             {
                 $("#all_form_id").show();
@@ -858,7 +864,6 @@ transform: translate(24px, 0);
                         saved_data = element;
                     }
                 });
-                console.log(saved_data);
 
                 if(saved_data.status == 'pending' || saved_data.status == 'UNPAID')
                 {
@@ -871,12 +876,10 @@ transform: translate(24px, 0);
 
                     if(check_validation)
                     {
-                        console.log(true);
                         getchecked_data(saved_data);
                         go_to_step05_func_reg(saved_data , check_validation);
                     }
                     else{
-                        console.log(false);
                         getchecked_data(saved_data);
                         $(".step04").show("drop", { direction: "left" }, 300);
                         Loading_page_clear();
@@ -914,7 +917,6 @@ transform: translate(24px, 0);
                 pack_arr.forEach(elment=>{
                     if(Number(elment.id) == Number(saved_data_arr.package_id))
                     {
-                        console.log();
                         saved_data_arr.ann = elment.name;
                         saved_data_arr.fees = elment.fees;
                         saved_data_arr.paid_as = elment.paid_as;
@@ -928,7 +930,6 @@ transform: translate(24px, 0);
 
                 }
 
-                console.log(saved_data_arr);
                 $("#st_name_id").text(saved_data_arr.student_name);
                 $("#starting_date_id").text(saved_data_arr.student_name);
                 $("#day_id").text(saved_data_arr.student_name);

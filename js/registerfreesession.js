@@ -524,16 +524,27 @@ async function go_to_step03_func_free()
 
     var check_email_phone = false;
 
+
+
+
+
     get_all_parent_table.forEach(element=>{
         if(element.email == $('#emailInput').val())
         {
             parent_id = element.id;
             check_email_phone = true;
+
+            localStorage.username_client = element.username;
+            localStorage.password_client = element.password;
+            
         }
         else if(element.phone == $('#phonenumInput').val())
         {
             parent_id = element.id;
             check_email_phone = true;
+
+            localStorage.username_client = element.username;
+            localStorage.password_client = element.password;
         }
     })
 
@@ -563,7 +574,8 @@ async function go_to_step03_func_free()
         var get_parent_arr_return = await GET_DATA_TABLES(database_fixed_link , 'parent');
 
         parent_id = get_parent_arr_return[get_parent_arr_return.length-1].id;
-
+        localStorage.username_client = get_parent_arr_return[get_parent_arr_return.length-1].username;
+        localStorage.password_client = get_parent_arr_return[get_parent_arr_return.length-1].password;
     }
 
 

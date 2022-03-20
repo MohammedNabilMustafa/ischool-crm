@@ -9,10 +9,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <!-- Import FawryPay CSS Library-->
-    <link rel="stylesheet" href="../css/fawrypay-payments.css">
     <!-- Import FawryPay Staging JavaScript Library-->
     <script src="https://cdn.jsdelivr.net/gh/emn178/js-sha256/build/sha256.min.js"></script>
-    <script type="text/javascript" src="../js/fawrypay-payments.js"></script>
+    <link rel="stylesheet" href="https://atfawry.fawrystaging.com/atfawry/plugin/assets/payments/css/fawrypay-payments.css">
+
+    <script type="text/javascript" src="https://atfawry.fawrystaging.com/atfawry/plugin/assets/payments/js/fawrypay-payments.js"></script>
 
 
     <title>Register New Account</title>
@@ -195,13 +196,13 @@ transform: translate(24px, 0);
             <div class="col-auto right-align">
                 <nav>
                     <ul>
-                        <!-- <li class="nav-item"><b onclick="location.href = 'file:///C:/xampp/htdocs/ischool-crm/reg/index.html';">Enroll</b></li>
-                        <li class="nav-item" onclick="location.href = 'file:///C:/xampp/htdocs/ischool-crm/dashboard/index.html';">Login</li>
-                        <button class="btn btn-warning" onclick="location.href = 'file:///C:/xampp/htdocs/ischool-crm/free/index.html';" >Book a Free Session</button> -->
+                        <li class="nav-item"><b onclick="location.href = 'http://localhost/ischool-crm/reg/';">Enroll</b></li>
+                        <li class="nav-item" onclick="location.href = 'http://localhost/ischool-crm/dashboard/';">Login</li>
+                        <button class="btn btn-warning" onclick="location.href = 'http://localhost/ischool-crm/free/';" >Book a Free Session</button>
   
-                        <li class="nav-item"><b onclick="location.href = 'file:///C:/xampp/htdocs/ischool/ischool-crm/reg/index.html';">Enroll</b></li>
+                        <!-- <li class="nav-item"><b onclick="location.href = 'file:///C:/xampp/htdocs/ischool/ischool-crm/reg/index.html';">Enroll</b></li>
                         <li class="nav-item" onclick="location.href = 'file:///C:/xampp/htdocs/ischool/ischool-crm/dashboard/index.html';">Login</li>
-                        <button class="btn btn-warning" onclick="location.href = 'file:///C:/xampp/htdocs/ischool/ischool-crm/free/index.html';" >Book a Free Session</button>
+                        <button class="btn btn-warning" onclick="location.href = 'file:///C:/xampp/htdocs/ischool/ischool-crm/free/index.html';" >Book a Free Session</button> -->
 
                         <!-- <li class="nav-item"><b onclick="location.href = 'https://operation.ischool-edu.com/reg/';">Enroll</b></li>
                         <li class="nav-item" onclick="location.href = 'https://operation.ischool-edu.com/';">Login</li>
@@ -234,7 +235,7 @@ transform: translate(24px, 0);
         <div class="step01">
             <div class="row headding">
                 <h1>Register a New Account</h1>
-                <p>Already registered?</p>
+                <p  onclick="location.href = 'http://localhost/ischool-crm/dashboard/';" >Already registered?</p>
             </div>
             <div class="row body">
                 <div class="col form">
@@ -811,11 +812,11 @@ transform: translate(24px, 0);
         <script>
             
             // var database_fixed_link = "../fetch.php";
-            var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
-            // var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
+            // var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
+            var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
             // var database_fixed_link = "https://operation.ischool-edu.com/fetch.php";
 
-            var return_page = "file:///C:/xampp/htdocs/ischool-crm/success/index.html";
+            var return_page = "http://localhost/ischool-crm/success/index.html";
             // var return_page = 'https://operation.ischool-edu.com/success/';
 
 
