@@ -1,4 +1,6 @@
 
+
+let x = '';
 // --------------------------------------------- Session CountDown -------------------------------
 // ----------------------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------
@@ -175,8 +177,6 @@ async function login_page_check()
                     {
                         check_user = true;
 
-                        console.log(value_emp[index].password == $('#password').val())
-
                             if(value_emp[index].password == $('#password').val())
                             {
                                 check_pass = true;
@@ -270,6 +270,7 @@ async function login_success(user_info)
 
         user_info.choosen_student = user_info.students[ret];
 
+
         await student_choosen(user_info);
 
       }
@@ -312,7 +313,6 @@ async function login_success(user_info)
 
 async function student_choosen(parent)
 {
-  console.log(parent)
 
   var get_student_pacakges = await GET_DATA_TABLES( database_fixed_link, 'student_package');
   var get_student_inv = await GET_DATA_TABLES( database_fixed_link, 'invoice');
@@ -332,7 +332,6 @@ async function student_choosen(parent)
 
   $("#student_sector").hide();
   $("#navg_bar").hide();
-  // $("#select_id_student").
 
   parent.choosen_student.sessions = [];
   parent.choosen_student.sessions_count = 0;
@@ -408,18 +407,29 @@ async function student_choosen(parent)
 
   })
 
-
-  var next_time_session_start = '';
-  var next_time_session_end = '';
+  var next_time_session_start_free = '';
+  var next_time_session_end_free = '';
+  var next_time_session_start_reg = '';
+  var next_time_session_end_reg = '';
   var session_zoom_link = '';
   var instructor_name = '';
 
-
   parent.choosen_student.sessions.forEach(element => {
-    if(new Date(`${element.session_date} ${element.session_time_end}` ) > new Date() && check_date == false)
+
+    get_groups.forEach(element_grp => {
+
+      if(element.groups_id == element_grp.id)
+      {
+        element.session_type = element_grp.type_id
+      }
+
+    })
+
+
+    if(new Date(`${element.session_date} ${element.session_time_end}` ) > new Date() && check_date == false && Number(element.session_type) == 2)
     {
-      next_time_session_start = `${element.session_date} ${element.session_time_start}`
-      next_time_session_end = `${element.session_date} ${element.session_time_end}`
+      next_time_session_start_free = `${element.session_date} ${element.session_time_start}`
+      next_time_session_end_free = `${element.session_date} ${element.session_time_end}`
       check_date = true ;
     }
 
@@ -434,124 +444,151 @@ async function student_choosen(parent)
     
   })
 
+  let countDownBox = document.querySelector(".allTime");
+  let daysBox = document.querySelector(".days");
+  let hrsBox = document.querySelector(".hrs");
+  let minBox = document.querySelector(".min");
+  let secBox = document.querySelector(".sec");
+
+  daysBox.innerHTML = "";
+  hrsBox.innerHTML =  "";
+  minBox.innerHTML =  "";
+  secBox.innerHTML =  "";
+
+  clearInterval(x);
+
+  if(next_time_session_end_free != '')
+  {
+    // --------------------------------------------- Free Session CountDown -------------------------------
+    // ----------------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------------
+
+    let countDownBox = document.querySelector(".allTime");
+    let daysBox = document.querySelector(".days");
+    let hrsBox = document.querySelector(".hrs");
+    let minBox = document.querySelector(".min");
+    let secBox = document.querySelector(".sec");
+
+    let countDownDate = new Date(next_time_session_start_free).getTime();
+    let countDownDate_end = new Date(next_time_session_end_free).getTime();
+
+    let old_now = new Date().getTime();
+
+    let distance_old = countDownDate - old_now;
+
+    if(distance_old <= 0)
+    {
+
+      $(".confirmation p").text('Session Running Now');
+      $(".joinnow-btn").removeClass('disabled');
+
+        $(".joinnow-btn").prop('href' , session_zoom_link)
 
 
-  // --------------------------------------------- Free Session CountDown -------------------------------
-// ----------------------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------
-let countDownBox = document.querySelector(".allTime");
-let daysBox = document.querySelector(".days");
-let hrsBox = document.querySelector(".hrs");
-let minBox = document.querySelector(".min");
-let secBox = document.querySelector(".sec");
-let countDownDate = new Date(next_time_session_start).getTime();
-let countDownDate_end = new Date(next_time_session_end).getTime();
+      x = setInterval(function () {
+        // GET DATE
+        let now = new Date().getTime();
 
-let old_now = new Date().getTime();
+        // TIME BETWEEN NOW AND DATE
+        let distance = countDownDate_end - now;
 
-let distance_old = countDownDate - old_now;
+        // CALCULATION TIME
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 
-if(distance_old <= 0)
-{
-  console.log(instructor_name);
-  console.log(session_zoom_link);
+      if(distance < 0)
+      {
 
-  $(".confirmation p").hide();
-  $(".joinnow-btn").removeClass('disabled');
+        student_choosen(parent);
+      
 
-    $(".joinnow-btn").prop('href' , session_zoom_link)
+        // $(".confirmation p").hide();
+        $(".confirmation p").text('Session Running Now');
+        $(".joinnow-btn").removeClass('disabled');
+
+        clearInterval(x);
+
+        // href="https://www.google.com" target="_blank"
+      }
+
+      }, 1000);
+
+    }
+    else
+    {
+
+      $(".joinnow-btn").addClass('disabled').text('Session Not Started').removeClass("btn-warning").addClass("btn-primary");
+
+    // COUNT DOWN FUNCTION
+      x = setInterval(function () {
+        // GET DATE
+        let now = new Date().getTime();
+
+        // TIME BETWEEN NOW AND DATE
+        let distance = countDownDate - now;
+
+        // CALCULATION TIME
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        daysBox.innerHTML = days + "<span>Days</span>";
+        hrsBox.innerHTML = hours + "<span>Hours</span>";
+        minBox.innerHTML = minutes + "<span>Minutes</span>";
+        secBox.innerHTML = seconds + "<span>Seconds</span>";
+
+      if(distance < 0)
+      {
+
+        daysBox.innerHTML = "";
+        hrsBox.innerHTML = "";
+        minBox.innerHTML = "";
+        secBox.innerHTML = "";
+
+        student_choosen(parent);
+
+        $(".confirmation p").hide();
+        $(".joinnow-btn").prop('disabled', false);
+        $(".joinnow-btn").prop('href' , '')
+        clearInterval(x);
+
+        // href="https://www.google.com" target="_blank"
+      }
+
+      }, 1000);
+
+    }
 
 
-  let x = setInterval(function () {
-    // GET DATE
-    let now = new Date().getTime();
-
-    // TIME BETWEEN NOW AND DATE
-    let distance = countDownDate_end - now;
-
-    // CALCULATION TIME
-    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    // daysBox.innerHTML = days + "<span>Days</span>";
-    // hrsBox.innerHTML = hours + "<span>Hours</span>";
-    // minBox.innerHTML = minutes + "<span>Minutes</span>";
-    // secBox.innerHTML = seconds + "<span>Seconds</span>";
-
-  if(distance < 0)
+  }
+  else
   {
 
-    // daysBox.innerHTML = "";
-    // hrsBox.innerHTML = "";
-    // minBox.innerHTML = "";
-    // secBox.innerHTML = "";
-
-    student_choosen(parent);
-   
-
     $(".confirmation p").hide();
-    $(".joinnow-btn").removeClass('disabled');
+    $(".joinnow-btn").addClass('disabled').text('Session Expired').removeClass("btn-warning").addClass("btn-primary");
 
-    clearInterval(x);
-
-    // href="https://www.google.com" target="_blank"
   }
 
-  }, 1000);
 
-}
-else
-{
+  parent.choosen_student.packages = [];
+  parent.choosen_student.packagescount = 0;
+  
+  get_student_groups.forEach(element => {
+    
+    if(element.student_id == parent.choosen_student.id)
+    {
+      parent.choosen_student.packages[parent.choosen_student.packagescount] = element;parent.choosen_student.packagescount++;
+    }
 
-  $(".joinnow-btn").addClass('disabled');
+    
+  });
 
-// COUNT DOWN FUNCTION
-  let x = setInterval(function () {
-    // GET DATE
-    let now = new Date().getTime();
-
-    // TIME BETWEEN NOW AND DATE
-    let distance = countDownDate - now;
-
-    // CALCULATION TIME
-    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    daysBox.innerHTML = days + "<span>Days</span>";
-    hrsBox.innerHTML = hours + "<span>Hours</span>";
-    minBox.innerHTML = minutes + "<span>Minutes</span>";
-    secBox.innerHTML = seconds + "<span>Seconds</span>";
-
-  if(distance < 0)
-  {
-
-    daysBox.innerHTML = "";
-    hrsBox.innerHTML = "";
-    minBox.innerHTML = "";
-    secBox.innerHTML = "";
-
-    student_choosen(parent);
-
-    $(".confirmation p").hide();
-    $(".joinnow-btn").prop('disabled', false);
-    $(".joinnow-btn").prop('href' , '')
-    clearInterval(x);
-
-    // href="https://www.google.com" target="_blank"
-  }
-
-  }, 1000);
-
-}
-
-
-
+  console.log(parent.choosen_student.id)
 
 
   $("#student_sector").hide();

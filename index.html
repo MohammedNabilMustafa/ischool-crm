@@ -407,6 +407,8 @@ a{
                         <li><a href="#" id="add_student_group" class="link-dark rounded">Add Student To Group</a></li>
                         <li><a href="#" id="add_student_package" class="link-dark rounded">Add Student To Packages</a></li>
                         <li><a href="#" id="add_student_session" class="link-dark rounded">Add Student To Sessions</a></li>
+                        <li><a href="#" id="replace_student" class="link-dark rounded">Replace Student / Sessions</a></li>
+                        
                         <li><a href="#" id="marketing_dashboard" class="link-dark rounded">Marketing Dashboard</a></li>
                         <li><a href="#" id="material_dashboard" class="link-dark rounded">Material Dashboard</a></li>
                         <li><a href="#" id="certification_dashboard" class="link-dark rounded">Certifications Dashboard</a></li>
@@ -653,6 +655,7 @@ a{
       <script   src="cert_func.js" ></script>
       <script   src="tasks_func.js" ></script>
       <script   src="session.js" ></script>
+      <script   src="replace_student.js" ></script>
 
       <script src="js/dd.min.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
@@ -745,6 +748,17 @@ var  passInput = document.getElementById("password");
         document.getElementById("page_name").innerHTML = "<h1>All Groups</h1>"
         groups();
       }); 
+
+
+      
+
+      $('#replace_student').click(function () {
+        clear_all_selected();
+        $('#replace_student').css('background', '#008CBA').css('color','white');
+        document.getElementById("page_name").innerHTML = `<h1 style='font-style: oblique;color:rgb(72, 112, 245)'>Replace Student / Session</h1><hr class="hr-primary" style="width:100%;text-align:left;margin-left:0" />`
+        REPLACE_STUDENT();
+      }); 
+
 
       $('#add_student_session').click(function () {
         clear_all_selected();
@@ -1223,6 +1237,7 @@ var  passInput = document.getElementById("password");
 
         
         
+        $('#replace_student').css('background', 'white').css('color','#008CBA');
         $('#tasks_dashboard').css('background', 'white').css('color','#008CBA');
         $('#registeration').css('background', 'white').css('color','#008CBA');
         $('#certification_dashboard').css('background', 'white').css('color','#008CBA');
