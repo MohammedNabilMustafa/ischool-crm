@@ -20,6 +20,12 @@
     <!-- Custom styles for this template-->
     <link href="css/style.css" rel="stylesheet">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hurricane&display=swap" rel="stylesheet">
+
+    <script type="text/javascript" src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+
 </head>
 
 <body>
@@ -162,7 +168,7 @@
             <li class="nav-item dropdown no-arrow">
 
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Client Name</span>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="clientname">Client Name</span>
                     <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                 </a>
                 <!-- Dropdown - User Information -->
@@ -209,49 +215,57 @@
                 <!-- Divider -->
                 <hr class="sidebar-divider my-0">
 
+                <li class="nav-item leftside " id="overviewTap_id">
+                    <a class="nav-link " data-id="#overviewTap">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Overview</span></a>
+                </li>
+
+                <li class="nav-item leftside" id="feedbackTap_id">
+                    <a class="nav-link" data-id="#feedbackTap">
+                        <i class="fa-solid fa-star"></i>
+                        <span>Sessions</span></a>
+                </li>
+
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item leftside active">
+                <li class="nav-item leftside active" id="sessioninfoTap_id">
                     <a class="nav-link" data-id="#sessioninfoTap">
                         <i class="fa-solid fa-circle-info"></i>
-                        <span>Session Info</span></a>
+                        <span>Trial Session</span></a>
                 </li>
 
 
 
                 <!-- Nav Item - Charts -->
-                <li class="nav-item leftside">
+                <li class="nav-item leftside" id="sessioninfoTap_id">
                     <a class="nav-link" data-id="#certificationTap">
                         <i class="fa-solid fa-certificate"></i>
                         <span>Certification</span></a>
                 </li>
 
                 <!-- Nav Item - Tables -->
-                <li class="nav-item leftside">
+                <li class="nav-item leftside" id="roadmapTap_id">
                     <a class="nav-link" data-id="#roadmapTap">
                         <i class="fa-solid fa-map-location-dot"></i>
                         <span>Roadmap</span></a>
                 </li>
-                <li class="nav-item leftside">
-                    <a class="nav-link" data-id="#packagesTap">
-                        <i class="fa-solid fa-shapes"></i>
-                        <span>Packages</span></a>
-                </li>
-                <li class="nav-item leftside ">
-                    <a class="nav-link " data-id="#overviewTap">
-                        <i class="fa-solid fa-house"></i>
-                        <span>Overview</span></a>
-                </li>
 
-                <li class="nav-item leftside">
-                    <a class="nav-link" data-id="#feedbackTap">
-                        <i class="fa-solid fa-star"></i>
-                        <span>Feedback</span></a>
-                </li>
-                <li class="nav-item leftside">
+                <li class="nav-item leftside" id="financeTap_id">
                     <a class="nav-link" data-id="#financeTap">
                         <i class="fa-solid fa-coins"></i>
                         <span>Finance</span></a>
                 </li>
+
+                
+                <li class="nav-item leftside" id="packagesTap_id">
+                    <a class="nav-link" data-id="#packagesTap">
+                        <i class="fa-solid fa-shapes"></i>
+                        <span>Packages</span></a>
+                </li>
+
+
+
+
 
 
                 <!-- Divider -->
@@ -280,7 +294,9 @@
                         </div>
 
 
-
+                        <Label id="reg_status">
+                            Registered 
+                        </Label>
 
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto align-items-center" >
@@ -299,7 +315,7 @@
 
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Client Name</span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="clientname_2">Client Name</span>
                                     <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                                 </a>
                                 <!-- Dropdown - User Information -->
@@ -629,9 +645,9 @@
                                             <h6 class="m-0 font-weight-bold text-primary">Basic Information</h6>
                                         </div>
                                         <div class="card-body">
-                                            <li> Student Name <a>Alaa Nabil Mostafa Mohamed</a> </li>
-                                            <li> Group ID : <a>B-FO-1518</a> </li>
-                                            <li> Support Agent : <a>Hala Adel Mohamed</a></li>
+                                            <li> Student Name <a id="student_name_over">Alaa Nabil Mostafa Mohamed</a> </li>
+                                            <li> Group ID : <a id="student_grop_over">B-FO-1518</a> </li>
+                                            <li> Support Agent : <a id="student_cs_over">Hala Adel Mohamed</a></li>
                                         </div>
                                         <div class="card border-left-warning shadow py-2 session-remain">
                                             <div class="card-body">
@@ -913,13 +929,14 @@
                                 <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
                             </div>
                             <div class="modal-body">
-                                <div class="cert-container">
-                                    <img src="img/hour of code.jpg" alt="">
+                                <div class="cert-container" id="element-to-print">
+                                    <img id="imgincert" src=""  alt="">
+                                    <div class="student-name" id="student_cer_name">Mohammed Nabil</div>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Download</button>
+                                <button type="button" class="btn btn-primary" id="download_pdf" >Download</button>
                             </div>
                         </div>
                     </div>
@@ -999,6 +1016,8 @@ Loading_page_set();
 // var database_fixed_link = "fetch.php";
 var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
 // var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
+
+// var database_fixed_link = "../fetch.php";
 
 const rmCheck = document.getElementById("rememberMe");
 var  nameInput = document.getElementById("Username");

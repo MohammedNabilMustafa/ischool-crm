@@ -11995,6 +11995,18 @@ table th {
   display: none;
 }
 
+.student-name {
+  font-family: 'Hurricane', cursive;
+  position: absolute;
+  z-index: 1;
+  top: 37%;
+  left: 50%;
+  text-align: center;
+  transform: translateX(-50%);
+  font-size: 3vw;
+  color: #fd7d00;
+}
+
 @media screen and (max-width: 768px) {
   .navbar-nav {
     flex-direction: row;
@@ -12037,6 +12049,9 @@ table th {
     border-bottom: 1px solid #2c2c2c10 !important;
     height: 35px;
   }
+  #certView{
+    position: relative;
+  }
   table.feedbacktable td::before {
     content: attr(data-label);
     float: left;
@@ -12058,6 +12073,10 @@ table th {
     margin-block-start: 0em;
     margin-block-end: 0em;
     padding-inline-start: 0px;
+    overflow-x: auto;
+  }
+  .registerd{
+    justify-content: left;
   }
   .sidebar .sidebar-brand {
     display: none !important;

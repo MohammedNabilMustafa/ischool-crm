@@ -73,13 +73,11 @@ function tapsReset() {
   $("#financeTap").hide();
 }
 
-
-
-var sector_login_id = 'loginSector'
-var sector_forget_id = 'forgetpasswordSector'
-
-var sector_forget_id = 'dashboardSector'
-
+function PDF_PRINT (name , sessions)
+{
+  var element = document.getElementById('element-to-print');
+  html2pdf().from(element).save(name + " Session "+sessions);
+}
 
 
 async function login_page_check_auto(user , pass)
@@ -211,6 +209,9 @@ async function login_page_check()
 async function login_success(user_info)
 {
 
+  $('#clientname').text(user_info.name);
+  $('#clientname_2').text(user_info.name);
+
   user_info.students = [];
   user_info.students_count = 0;
   
@@ -314,9 +315,10 @@ async function login_success(user_info)
 async function student_choosen(parent)
 {
 
+
   var get_student_pacakges = await GET_DATA_TABLES( database_fixed_link, 'student_package');
   var get_student_inv = await GET_DATA_TABLES( database_fixed_link, 'invoice');
-  var get_student_inv = await GET_DATA_TABLES( database_fixed_link, 'package');
+  var get_pac = await GET_DATA_TABLES( database_fixed_link, 'package');
 
   var get_student_groups = await GET_DATA_TABLES( database_fixed_link, 'student_groups');
   var get_groups = await GET_DATA_TABLES( database_fixed_link, 'groups');
@@ -357,7 +359,7 @@ async function student_choosen(parent)
           }
         }
 
-        parent.choosen_student.sessions[parent.choosen_student.sessions_count] = element.sessioninfo;parent.choosen_student.sessions_count++;
+        parent.choosen_student.sessions[parent.choosen_student.sessions_count] = element;parent.choosen_student.sessions_count++;
       }
 
     });
@@ -365,26 +367,52 @@ async function student_choosen(parent)
 
   var check_date = false;
   var counter_cer = 1;
+
+
+  $('#insert_certificationTap').empty();
+
+  var check_cer = false;
+  var session_counter_att = 0;
   parent.choosen_student.sessions.forEach(element => {
-    element.session_time_start = '';
+    element.sessioninfo.session_time_start = '';
     element.session_time_end = '';
 
+
+    if(element.attendance == "YES")
+    {
+      session_counter_att++;
+    }
     get_groups.forEach(element_grp => {
 
-      if(Number(element.groups_id) == Number(element_grp.id))
+      if(Number(element.sessioninfo.groups_id) == Number(element_grp.id))
       {
 
         
         get_cer.forEach(element_cer => {
-
+          
             if(Number(element_cer.age_id) == Number(element_grp.age_id) &&
               Number(element_cer.level_id) == Number(element_grp.level_id) &&
              Number(element_cer.lan_id) == Number(element_grp.lan_id) &&
              Number(element_cer.session_type_id) == Number(element_grp.type_id) &&
-              Number(element_cer.track_id )== Number(element_grp.track_id)
+              Number(element_cer.track_id )== Number(element_grp.track_id) &&
+              Number(element_cer.session_num ) <= session_counter_att
                )
             {
-              $('#insert_certificationTap').append(`<tr class="a-full" data-bs-toggle="modal" href="#certView" role="button"><td>Cerfication ${counter_cer} <i style="margin-left: 20px;" class="fa-solid fa-eye"></i></td></tr>`);
+              check_cer = true;
+
+              $('#insert_certificationTap').append(`<tr id='cer_ids_${counter_cer}' class="a-full" data-bs-toggle="modal" href="#certView" role="button"><td>Cerfication ${counter_cer} <i style="margin-left: 20px;" class="fa-solid fa-eye"></i></td></tr>`);
+              $(`#cer_ids_${counter_cer}`).click(function(){
+                $('#imgincert').attr('src' , element_cer.cert_link);
+                $('#student_cer_name').text(parent.choosen_student.name);
+
+                $("#download_pdf").empty();
+                $("#download_pdf").text('Download');
+
+                $("#download_pdf").click(function(){
+                  PDF_PRINT(parent.choosen_student.name , element_cer.session_num);
+                })
+
+              })
               counter_cer++;
             }
         });
@@ -394,8 +422,8 @@ async function student_choosen(parent)
           if(Number(element_slt.id) == Number(element_grp.slot_id))
           {
     
-            element.session_time_start = element_slt.from_value;
-            element.session_time_end = element_slt.to_value;
+            element.sessioninfo.session_time_start = element_slt.from_value;
+            element.sessioninfo.session_time_end = element_slt.to_value;
             
           }
 
@@ -407,6 +435,12 @@ async function student_choosen(parent)
 
   })
 
+
+  if(check_cer == false)
+  {
+    $('#insert_certificationTap').append(`<tr><td> No Certification Available</td></tr>`);
+
+  }
   var next_time_session_start_free = '';
   var next_time_session_end_free = '';
   var next_time_session_start_reg = '';
@@ -418,24 +452,24 @@ async function student_choosen(parent)
 
     get_groups.forEach(element_grp => {
 
-      if(element.groups_id == element_grp.id)
+      if(element.sessioninfo.groups_id == element_grp.id)
       {
-        element.session_type = element_grp.type_id
+        element.sessioninfo.session_type = element_grp.type_id
       }
 
     })
 
 
-    if(new Date(`${element.session_date} ${element.session_time_end}` ) > new Date() && check_date == false && Number(element.session_type) == 2)
+    if(new Date(`${element.sessioninfo.session_date} ${element.sessioninfo.session_time_end}` ) > new Date() && check_date == false && Number(element.sessioninfo.session_type) == 2)
     {
-      next_time_session_start_free = `${element.session_date} ${element.session_time_start}`
-      next_time_session_end_free = `${element.session_date} ${element.session_time_end}`
+      next_time_session_start_free = `${element.sessioninfo.session_date} ${element.sessioninfo.session_time_start}`
+      next_time_session_end_free = `${element.sessioninfo.session_date} ${element.sessioninfo.session_time_end}`
       check_date = true ;
     }
 
     get_employee.forEach(element_emp => {
 
-      if(Number(element_emp.id) == Number(element.employee_id))
+      if(Number(element_emp.id) == Number(element.sessioninfo.employee_id))
       {
         session_zoom_link = element_emp.zoomlink;
         instructor_name = element_emp.name;
@@ -578,22 +612,90 @@ async function student_choosen(parent)
   parent.choosen_student.packages = [];
   parent.choosen_student.packagescount = 0;
   
-  get_student_groups.forEach(element => {
+  get_student_pacakges.forEach(element => {
     
     if(element.student_id == parent.choosen_student.id)
     {
+      get_pac.forEach(element_pac => {
+        element.packages_arr = {};
+
+        if(element.packages_id == element_pac.id)
+        {
+          element.packages_arr = element_pac;
+        }
+      });
+
+      // parent.choosen_student.packages[parent.choosen_student.packagescount].invoice = []
+      // parent.choosen_student.packages[parent.choosen_student.packagescount].invoice_count = 0;
+
+      get_student_inv.forEach(element_inv => {
+
+        if(element_inv.packages_id == element.packages_id)
+        {
+          // parent.choosen_student.packages[parent.choosen_student.packagescount].invoice[parent.choosen_student.packages[parent.choosen_student.packagescount].invoice_count] = element_inv;
+          // parent.choosen_student.packages[parent.choosen_student.packagescount].invoice_count++;
+        }
+
+      });
+      
+      
       parent.choosen_student.packages[parent.choosen_student.packagescount] = element;parent.choosen_student.packagescount++;
     }
 
     
   });
 
-  console.log(parent.choosen_student.id)
+
+  if(parent.choosen_student.packagescount == 0)
+  {
+    tapsReset();
+    $("#student_sector").hide();
+    $("#dashboardSector").show();
+
+    $("#sessioninfoTap_id").show();
+    $("#sessioninfoTap").show();
+    $("#overviewTap").hide();
+
+    $("#certificationTap_id").show();
+    $("#roadmapTap_id").hide();
+    $("#packagesTap_id").show();
+    $("#overviewTap_id").hide();
+    $("#feedbackTap_id").hide();
+    $("#financeTap_id").hide();
+    
+    $("#reg_status").text('Not Registered').css('color', 'red').css('size' , '25px');
+    $(".sidebar").removeClass('registerd');
+    $(".nav-item").removeClass("active");
+    $("#sessioninfoTap_id").addClass("active");
+
+  }
+  else
+  {
+    tapsReset();
+
+    $(".nav-item").removeClass("active");
+    $("#overviewTap_id").addClass("active");
+
+    $("#reg_status").text('Registered').css('color', 'green').css('size' , '25px');
+    $(".sidebar").addClass('registerd');
+
+    $("#student_sector").hide();
+    $("#dashboardSector").show();
+
+    $("#sessioninfoTap_id").hide();
+    $("#sessioninfoTap").hide();
+
+    $("#certificationTap_id").show();
+    $("#roadmapTap_id").hide();
+    $("#packagesTap_id").show();
+    $("#overviewTap_id").show();
+    $("#overviewTap").show();
+
+    $("#feedbackTap_id").show();
+    $("#financeTap_id").show();
+  }
 
 
-  $("#student_sector").hide();
-  $("#dashboardSector").show();
-  $("#sessioninfoTap").show();
 
   Loading_page_clear();
 

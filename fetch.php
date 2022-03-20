@@ -17,12 +17,6 @@ $dbname = "ischool";
 // $dbname = "ischool4_operation";
 
 
-
-
-
-
-
-
 if (isset($_POST["status"])){
 
   // echo 'here';
