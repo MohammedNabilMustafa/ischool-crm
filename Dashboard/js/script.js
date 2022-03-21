@@ -291,7 +291,7 @@ async function student_choosen(parent)
   var get_student_inv = await GET_DATA_TABLES( database_fixed_link, 'invoice');
   var get_pac = await GET_DATA_TABLES( database_fixed_link, 'package');
 
-  var get_student_groups = await GET_DATA_TABLES( database_fixed_link, 'student_groups');
+  // var get_student_groups = await GET_DATA_TABLES( database_fixed_link, 'student_groups');
   var get_groups = await GET_DATA_TABLES( database_fixed_link, 'groups');
   var get_slots = await GET_DATA_TABLES( database_fixed_link, 'slots');
   var get_lvl = await GET_DATA_TABLES( database_fixed_link, 'level');
@@ -386,12 +386,18 @@ async function student_choosen(parent)
   var check_date_reg = false;
   var counter_cer = 1;
 
+  var next_session_info = {};
 
 
   $('#insert_certificationTap').empty();
 
   var check_cer = false;
   var session_counter_att = 0;
+
+  if(parent.choosen_student.sessions)
+  {
+
+  
   parent.choosen_student.sessions.forEach(element => {
     element.sessioninfo.session_time_start = '';
     element.session_time_end = '';
@@ -401,10 +407,16 @@ async function student_choosen(parent)
     {
       session_counter_att++;
     }
+    if(get_groups)
+    {
+
     get_groups.forEach(element_grp => {
 
       if(Number(element.sessioninfo.groups_id) == Number(element_grp.id))
       {
+
+        if(get_cer)
+        {
 
         
         get_cer.forEach(element_cer => {
@@ -435,7 +447,7 @@ async function student_choosen(parent)
               counter_cer++;
             }
         });
-
+      }
         get_slots.forEach(element_slt => {
 
           if(Number(element_slt.id) == Number(element_grp.slot_id))
@@ -450,9 +462,10 @@ async function student_choosen(parent)
 
       }
     });
-
+  }
 
   })
+  }
 
 
   if(check_cer == false)
@@ -470,6 +483,10 @@ async function student_choosen(parent)
   var ses_index = 0;
   $('#session_table_id').empty();
 
+  if(parent.choosen_student.sessions)
+  {
+
+  
   parent.choosen_student.sessions.forEach(element => {
 
     element.ses_index = ses_index;
@@ -488,20 +505,22 @@ async function student_choosen(parent)
       var id = this.id;
       var ret = id.replace('feed_back_btn_','') ;
 
-      console.log(element.feedback);
       $('#feedback_place').html(element.feedback);
       
     })
     
+if(get_groups)
+{
+  get_groups.forEach(element_grp => {
 
-    get_groups.forEach(element_grp => {
+    if(element.sessioninfo.groups_id == element_grp.id)
+    {
+      element.sessioninfo.session_type = element_grp.type_id
+    }
 
-      if(element.sessioninfo.groups_id == element_grp.id)
-      {
-        element.sessioninfo.session_type = element_grp.type_id
-      }
+  })
+}
 
-    })
 
 
     if(new Date(`${element.sessioninfo.session_date} ${element.sessioninfo.session_time_end}` ) > new Date() && check_date == false && Number(element.sessioninfo.session_type) == 2)
@@ -515,7 +534,7 @@ async function student_choosen(parent)
       next_time_session_start_reg = `${element.sessioninfo.session_date} ${element.sessioninfo.session_time_start}`
       next_time_session_end_reg = `${element.sessioninfo.session_date} ${element.sessioninfo.session_time_end}`
       check_date_reg = true ;
-
+      next_session_info = element.sessioninfo;
     }
 
     get_employee.forEach(element_emp => {
@@ -528,6 +547,15 @@ async function student_choosen(parent)
     })
     ses_index++;
   })
+}
+
+if(ses_index == 0)
+{
+  $('#session_table_id').append(`<tr> <td colspan="6"> No Sessions </td> </tr>`);
+
+}
+
+
 
   let countDownBox = document.querySelector(".allTime");
   let daysBox = document.querySelector(".days");
@@ -540,8 +568,22 @@ async function student_choosen(parent)
   minBox.innerHTML =  "";
   secBox.innerHTML =  "";
 
+
+  let SessioncountDownBox = document.querySelector(".session-start");
+  let SessiondaysBox = document.querySelector(".session-start .days");
+  let SessionhrsBox = document.querySelector(".session-start .hrs");
+  let SessionminBox = document.querySelector(".session-start .min");
+  let SessionsecBox = document.querySelector(".session-start .sec");
+
+  SessiondaysBox.innerHTML = "";
+  SessionhrsBox.innerHTML = "";
+  SessionminBox.innerHTML = "";
+  SessionsecBox.innerHTML = "";
+
+
   clearInterval(x);
   clearInterval(Sessionx);
+
 
   if(next_time_session_end_free != '')
   {
@@ -794,44 +836,45 @@ Sessionx = setInterval(function () {
   }
   else
   {
-
-
     $(".confirmation p").hide();
     $(".joinnow-btn").addClass('disabled').text('Session Expired').removeClass("btn-warning").addClass("btn-danger");
-
   }
+
+
 
   parent.choosen_student.packages = [];
   parent.choosen_student.packagescount = 0;
-  
+
+  parent.choosen_student.invoices = []
+  parent.choosen_student.invoice_count = 0;
+
   get_student_pacakges.forEach(element => {
     
     if(element.student_id == parent.choosen_student.id)
     {
-      get_pac.forEach(element_pac => {
-        element.packages_arr = {};
+      element.packages_arr = {};
 
-        if(element.packages_id == element_pac.id)
+      get_pac.forEach(element_pac => {
+
+        if(element.package_id == element_pac.id)
         {
           element.packages_arr = element_pac;
         }
       });
 
-      // parent.choosen_student.packages[parent.choosen_student.packagescount].invoice = []
-      // parent.choosen_student.packages[parent.choosen_student.packagescount].invoice_count = 0;
-
       get_student_inv.forEach(element_inv => {
 
-        if(element_inv.packages_id == element.packages_id)
+        if(element_inv.package_id == element.id)
         {
-          // parent.choosen_student.packages[parent.choosen_student.packagescount].invoice[parent.choosen_student.packages[parent.choosen_student.packagescount].invoice_count] = element_inv;
-          // parent.choosen_student.packages[parent.choosen_student.packagescount].invoice_count++;
+          parent.choosen_student.invoices[parent.choosen_student.invoice_count] = element_inv;
+          parent.choosen_student.invoice_count++;
         }
 
       });
       
-      
-      parent.choosen_student.packages[parent.choosen_student.packagescount] = element;parent.choosen_student.packagescount++;
+      parent.choosen_student.packages[parent.choosen_student.packagescount] = element;
+
+      parent.choosen_student.packagescount++;
     }
 
     
@@ -865,6 +908,138 @@ Sessionx = setInterval(function () {
   }
   else
   {
+
+  var select_agent = '';
+  var Total_quota = 0;
+  var att_se = 0;
+  var abs_se = 0;
+  var rem_se = 0;
+  var pd_se = 0;
+  var un_se = 0;
+
+  get_employee.forEach(element =>
+    {
+      if(element.id == parent.customer_agent_id)
+      {
+        select_agent = element.name
+      }
+
+    })
+
+    if(parent.choosen_student.sessions)
+    {
+
+    
+    parent.choosen_student.sessions.forEach(element => {
+      if(element.attendance == 'YES')
+      {
+        att_se++;
+      }
+      else if(element.attendance == 'NO')
+      {
+        abs_se++;
+      }
+      else
+      {
+        rem_se++;
+      }
+    })
+  }
+
+
+    parent.choosen_student.invoices.forEach(element => {
+      if(element.status == 'done'  )
+      {
+        pd_se += Number(element.qouta)
+      }
+      else if(element.status == 'waiting')
+      {
+        un_se += Number(element.qouta)
+      }
+
+    })
+    
+
+    parent.choosen_student.packages.forEach(element =>
+      {
+        Total_quota += Number(element.packages_arr.quota)
+      })
+
+
+
+  $('#student_name_over').text(parent.choosen_student.name)
+
+
+
+  if(parent.choosen_student.sessions.length)
+  {
+    console.log(next_session_info);
+    if(next_session_info.length)
+    {
+      $('#student_grop_over').text(next_session_info.group_arr.id)
+
+    }else{
+      $('#student_grop_over').text('No Groups').css('color' , 'red')
+
+    }
+  }
+  else
+  {
+    $('#student_grop_over').text('No Groups').css('color' , 'red')
+  }
+
+
+  $('#student_cs_over').text(select_agent);
+
+
+
+  $('#mem_q_id').text(`${Total_quota} Session/s`);
+  $('#mem_a_id').text(`${att_se} Session/s`).css('color','green');
+  $('#mem_b_id').text(`${abs_se} Session/s`).css('color','red');
+  $('#mem_r_id').text(`${rem_se} Session/s`);
+  $('#mem_p_id').text(`${pd_se} Session/s`);
+
+
+  if(Total_quota <= (abs_se+att_se))
+  {
+    $('#mem_status_id').text(`Expired`).css('color','red');
+    $(".joinnow-btn").addClass('disabled').text('Membership Expired').removeClass("btn-warning").addClass("btn-dangar");
+
+  }
+  else if(pd_se <= (abs_se+att_se))
+  {
+    $('#mem_status_id').text(`Due Installment`).css('color','red');
+    $(".joinnow-btn").addClass('disabled').text('Due Installment').removeClass("btn-warning").addClass("btn-dangar");
+
+  }
+  else if(pd_se > (abs_se+att_se))
+  {
+    $('#mem_status_id').text(`Valid`).css('color','green');
+
+    if(rem_se <= 0)
+    {
+      $(".joinnow-btn").addClass('disabled').text('Choose Schedule').removeClass("btn-warning").removeClass("btn-dangar").addClass("btn-primary");
+    }
+
+  }
+  
+  if(un_se)
+  {
+    $('#mem_u_id').show();
+    $('#unpaid_id').show();
+    
+    $('#mem_u_id').text(`${un_se} Session/s`);
+  }
+  else
+  {
+    $('#mem_u_id').hide();
+    $('#unpaid_id').hide();
+
+  }
+
+  $('#action_place').hide();
+
+  
     tapsReset();
 
     $(".nav-item").removeClass("active");
@@ -959,7 +1134,6 @@ async function set_pack()
 
 function sessions_att(element)
 {
-  console.log(element.sessioninfo);
   var result = ``;
 
   result = `
@@ -1032,7 +1206,6 @@ function sessions_att(element)
 
 function sessions_upcoming(element)
 {
-  console.log(element.sessioninfo);
   return `
   <tr>
   <td style="color: rgb(172, 172, 172)">Session ${element.sessioninfo.session_num}</td>

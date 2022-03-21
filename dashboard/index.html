@@ -662,14 +662,14 @@
                                             <li> Group ID : <a id="student_grop_over">B-FO-1518</a> </li>
                                             <li> Support Agent : <a id="student_cs_over">Hala Adel Mohamed</a></li>
                                         </div>
-                                        <div class="card border-left-warning shadow py-2 session-remain">
+                                        <div class="card border-left-warning shadow py-2 session-remain" id="action_place">
                                             <div class="card-body">
                                                 <div class="session-text">
-                                                    <div class="sessions-number"><a>0</a> Sessions left</div>
-                                                    <div class="session-alert">Please settle the bill</div>
+                                                    <div class="sessions-number"><a id="num_of_sessions">0</a> Sessions left</div>
+                                                    <div class="session-alert" id="warning_id">Please settle the bill</div>
                                                 </div>
 
-                                                <button class="btn btn-danger">Take Action</button>
+                                                <button class="btn btn-danger" id="action_btn_id">Take Action</button>
                                             </div>
                                         </div>
                                         <div class="">
@@ -683,12 +683,13 @@
                                             <h6 class="m-0 font-weight-bold text-primary">Membership Information</h6>
                                         </div>
                                         <div class="card-body">
-                                            <li> Membership Status <a>Expired</a> </li>
-                                            <li> Registered Quota : <a>48 Session/s</a> </li>
-                                            <li> Paid Quota : <a>12 Session/s</a></li>
-                                            <li> Remaining Quota <a> 0 Session/s</a> </li>
-                                            <li> Attend : <a>11 Session/s</a> </li>
-                                            <li> Absent : <a>1 Session/s</a></li>
+                                            <li> Membership Status <a id="mem_status_id">Expired</a> </li>
+                                            <li> Registered Quota : <a id="mem_q_id">48 Session/s</a> </li>
+                                            <li> Paid Quota : <a id="mem_p_id">12 Session/s</a></li>
+                                            <li id="unpaid_id"> Unpaid Quota <a id="mem_u_id"> 0 Session/s</a> </li>
+                                            <li> Attend : <a id="mem_a_id">11 Session/s</a> </li>
+                                            <li> Absent : <a id="mem_b_id">1 Session/s</a></li>
+                                            <li> Remain : <a id="mem_r_id">1 Session/s</a></li>
                                             <button class="btn btn-success" style="margin:auto; display:block;"><i class="fa-brands fa-whatsapp"></i> Chat with <a style="color:white;">Hala</a></button>
                                         </div>
                                     </div>

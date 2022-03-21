@@ -412,17 +412,17 @@ async function go_to_step02_func_reg()
         })
     
 
-        if(check_phone)
-        {
-            alert("This Phone is already exist");
-            return false;   
-        }
+        // if(check_phone)
+        // {
+        //     alert("This Phone is already exist");
+        //     return false;   
+        // }
 
-        if(check_email)
-        {
-            alert("This Email is already exist");
-            return false;
-        }
+        // if(check_email)
+        // {
+        //     alert("This Email is already exist");
+        //     return false;
+        // }
         
 function isEmail(email) {
     var EmailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
