@@ -540,7 +540,7 @@ async function go_to_step03_func_reg()
 
             $('#Pack_2_paid_as').text(elemnt.paid_as);
             $('#Pack_2_hours').text(`${hours} Hours online classes`);
-            $('#Pack_2_billing').text(`Billed Monthly`);
+            $('#Pack_2_billing').text(`Billed Quarterly`);
             $('#Pack_2_inst').text(`1 Year plan divided on ${elemnt.installments} payments` );
             $('#Pack_2_hour_rate').text(`${hour_rate.toFixed(2)} L.E / Hour`);
             $('#Pack_2_btn').text(`Pay ${elemnt.paid_as}`);
@@ -555,7 +555,7 @@ async function go_to_step03_func_reg()
 
             $('#Pack_3_paid_as').text(elemnt.paid_as);
             $('#Pack_3_hours').text(`${hours} Hours online classes`);
-            $('#Pack_3_billing').text(`Billed Monthly`);
+            $('#Pack_3_billing').text(`Billed Once`);
             $('#Pack_3_inst').text(`1 Year plan divided on ${elemnt.installments} payments` );
             $('#Pack_3_hour_rate').text(`${hour_rate.toFixed(2)} L.E / Hour`);
             $('#Pack_3_btn').text(`Pay ${elemnt.paid_as}`);
