@@ -156,6 +156,7 @@ var paper_inputs_label = [
 
 async function schedule_create(All_req_obj)
 {
+    Loading_page_set();
     var div = document.getElementById("search-results");
     div.innerHTML = '';
 
@@ -289,7 +290,6 @@ async function schedule_create(All_req_obj)
                                 ZoomLink = `<a href="${session_ids[index__][17]}" target="_blank">Open Reg Session</a> `
                             }
                             
-                            // var get_session_arr = await GET_DATA_TABLES(database_fixed_link , 'sessions');
 
 
                             var data_for_all = ['Group ID : '+session_ids[index__][5] , 'Session ID : '+session_ids[index__][0] , "Session Num : "+session_ids[index__][3] , "Lang : "+session_ids[index__][9] , "Type : "+session_ids[index__][13] , "Level : "+session_ids[index__][11] , count_st+" Students" 
@@ -586,7 +586,7 @@ async function schedule_create(All_req_obj)
                         result += `<br>`+ paper_inner_session_return(`lvl_${object_data_.table_count}_${return_data}_${return_data_1}` , "Lvl" , Lvl_slots , 0 , 2);
                         result += `<br>`+ paper_inner_session_return(`type_${object_data_.table_count}_${return_data}_${return_data_1}` , "Type" , Type_slots , 0 , 2);
                         result += `<br>`+ paper_inner_session_return(`age_${object_data_.table_count}_${return_data}_${return_data_1}` , "Age" , Age_slots , 0 , 2);
-                        result += `<br><label id='Lnum_${object_data_.table_count}_${return_data}_${return_data_1}' style='visibility:hidden'># of Se : </label><input class='col-3' id='num_${object_data_.table_count}_${return_data}_${return_data_1}' type='number' style='visibility:hidden'>`
+                        result += `<br><label id='Lnum_${object_data_.table_count}_${return_data}_${return_data_1}' style='visibility:hidden'># :</label><input class='col-9' id='num_${object_data_.table_count}_${return_data}_${return_data_1}' type='number' style='visibility:hidden'>`
                         result += `<input id='inst_${object_data_.table_count}_${return_data}_${return_data_1}'  value='${object_data_.schedule_data_rows[return_data][return_data_1][2]}' hidden>`
                         result += `<input id='date_${object_data_.table_count}_${return_data}_${return_data_1}'  value='${object_data_.schedule_data_rows[return_data][return_data_1][3]}' hidden>`
                         if(localStorage.permission == 4)
@@ -866,6 +866,8 @@ async function quary_tables_all_status_add_session_to_parent(All_table_obj , fun
     var seached_rows = [];
     var count__ = 0;
 
+    var sessions_tasks_arr = await GET_DATA_TABLES(database_fixed_link , "session_tasks");
+
    
 
 
@@ -1060,7 +1062,6 @@ if(All_table_obj.tables[11] && All_table_obj.tables[11] !== undefined && All_tab
             session_ids_rows[counter]  = "";
 
 
-            var sessions_tasks_arr = await GET_DATA_TABLES(database_fixed_link , "session_tasks");
 
             if(sessions_tasks_arr && sessions_tasks_arr !== undefined && sessions_tasks_arr.length != 0)
             {

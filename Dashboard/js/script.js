@@ -211,6 +211,7 @@ async function login_success(user_info)
   {
     // $("#dashboardSector").show();
     $("#student_sector").show();
+    $("#student_sector_container").show();
     $("#navg_bar").css('display',"flex");
 
     document.getElementById('student_sector_container').innerHTML = `
@@ -278,10 +279,6 @@ async function login_success(user_info)
     await student_choosen(user_info);
 
   }
-  // $("#student_sector").show();
-
-
-  
 
 
 }
@@ -311,6 +308,8 @@ async function student_choosen(parent)
 
 
   $("#student_sector").hide();
+  $("#student_sector_container").hide();
+
   $("#navg_bar").hide();
 
   parent.choosen_student.sessions = [];
@@ -605,7 +604,7 @@ async function student_choosen(parent)
     else
     {
 
-      $(".joinnow-btn").addClass('disabled').text('Session Not Started').removeClass("btn-warning").addClass("btn-primary");
+      $(".joinnow-btn").addClass('disabled').text('Session Not Started').removeClass("btn-warning").removeClass("btn-danger").addClass("btn-primary");
 
       let now = new Date().getTime();
       // TIME BETWEEN NOW AND DATE
@@ -729,7 +728,7 @@ if(distance_old <= 0)
 else
 {
 
-  $(".joinnow-btn").addClass('disabled').text('Session Not Started').removeClass("btn-warning").addClass("btn-primary");
+  $(".joinnow-btn").addClass('disabled').text('Session Not Started').removeClass("btn-warning").removeClass("btn-danger").addClass("btn-primary");
 
   let Sessionnow = new Date().getTime();
   // TIME BETWEEN NOW AND DATE
@@ -843,6 +842,8 @@ Sessionx = setInterval(function () {
   {
     tapsReset();
     $("#student_sector").hide();
+    $("#student_sector_container").hide();
+
     $("#dashboardSector").show();
 
     $("#sessioninfoTap_id").show();
@@ -873,6 +874,8 @@ Sessionx = setInterval(function () {
     $(".sidebar").addClass('registerd');
 
     $("#student_sector").hide();
+    $("#student_sector_container").hide();
+
     $("#dashboardSector").show();
 
     $("#sessioninfoTap_id").hide();
