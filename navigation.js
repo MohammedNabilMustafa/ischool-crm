@@ -3293,7 +3293,8 @@ function certifications()
       "cert_link",
       "type",
       "session_num",
-      "age_id"
+      "age_id",
+      "name"
 
       
   ];
@@ -3307,7 +3308,8 @@ function certifications()
       "Certification Link",
       "Type",
       "Session Number",
-      "Age ID"
+      "Age ID",
+      "Name"
 
   ];
 
@@ -3321,8 +3323,9 @@ function certifications()
     "Certification Link",
     "Type",
     "Session Number",
-    "Age ID"
-    ,"Edit" 
+    "Age ID",
+    "Name"
+        ,"Edit" 
     ,"Delete"
   ];
     

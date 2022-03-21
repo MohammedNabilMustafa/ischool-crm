@@ -190,7 +190,7 @@
     <div class="container collapse" id="student_sector">
 
         <!-- Outer Row -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" id="student_sector_container">
 
         </div>
 
@@ -221,6 +221,12 @@
                         <span>Overview</span></a>
                 </li>
 
+                <li class="nav-item leftside active" id="sessioninfoTap_id">
+                    <a class="nav-link" data-id="#sessioninfoTap">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>Trial Session</span></a>
+                </li>
+
                 <li class="nav-item leftside" id="feedbackTap_id">
                     <a class="nav-link" data-id="#feedbackTap">
                         <i class="fa-solid fa-star"></i>
@@ -228,13 +234,6 @@
                 </li>
 
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item leftside active" id="sessioninfoTap_id">
-                    <a class="nav-link" data-id="#sessioninfoTap">
-                        <i class="fa-solid fa-circle-info"></i>
-                        <span>Trial Session</span></a>
-                </li>
-
-
 
                 <!-- Nav Item - Charts -->
                 <li class="nav-item leftside" id="sessioninfoTap_id">
@@ -710,7 +709,8 @@
                                             <div class="wp sec"></div>
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary joinnow-btn" disabled>Join Session Now</button>
+                                    <button class="btn btn-primary joinnow-btn disabled" disabled>Join Session Now</button>
+                                    <p class="join-pc" >Join Session From PC</p>
 
                                 </div>
                             </div>
@@ -720,51 +720,54 @@
                             <table class="feedbacktable">
                                 <thead>
                                     <tr>
-                                        <th scope="col"># Session</th>
+                                        <th scope="col">Session #</th>
                                         <th scope="col">Date</th>
-                                        <th scope="col">Module</th>
                                         <th scope="col">Level</th>
+                                        <th scope="col">Attendance</th>
                                         <th scope="col">Record Link</th>
                                         <th scope="col">Feedback</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Session 01</td>
-                                        <td>28/10/2022</td>
-                                        <td>CS</td>
-                                        <td>Foundation</td>
+                                <tbody id="session_table_id">
+                                    <!-- <tr>
+                                        <td style="color: rgb(0, 0, 0)">Session 01</td>
+                                        <td style="color: rgb(0, 0, 0)">28/10/2022</td>
+                                        <td style="color: rgb(0, 0, 0)">CS</td>
+                                        <td style="color: rgb(0, 0, 0)">Foundation</td>
+                                        
+                                        <td  style="color: green;" > <i class="fa-solid fa-square-check"></i></td>
+                                        <td class="link"> <a href="#"><i class="fa-solid fa-link"></i></a></td>
+                                        <td class="link"><a data-bs-toggle="modal" href="#feedbackPop" role="button"><i class="fa-solid fa-eye"></i></a></td>
+                                    </tr>
 
+                                    <tr>
+                                        <td style="color: rgb(0, 0, 0)">Session 02</td>
+                                        <td style="color: rgb(0, 0, 0)">28/10/2022</td>
+                                        <td style="color: rgb(0, 0, 0)">CS</td>
+                                        <td style="color: rgb(0, 0, 0)">Foundation</td>
+
+                                        <td  style="color: red" > <i class="fa-solid fa-square-xmark"></i></td>                                        
                                         <td class="link"> <a href="#"><i class="fa-solid fa-link"></i></a></td>
                                         <td class="link"><a data-bs-toggle="modal" href="#feedbackPop" role="button"><i class="fa-solid fa-eye"></i></a></td>
                                     </tr>
                                     <tr>
-                                        <td>Session 02</td>
-                                        <td>28/10/2022</td>
-                                        <td>CS</td>
-                                        <td>Foundation</td>
+                                        <td style="color: rgb(172, 172, 172)">Session 03</td>
+                                        <td style="color: rgb(172, 172, 172)">28/10/2022</td>
+                                        <td style="color: rgb(172, 172, 172)">CS</td>
+                                        <td style="color: rgb(172, 172, 172)">Foundation</td>
 
-                                        <td class="link"> <a href="#"><i class="fa-solid fa-link"></i></a></td>
-                                        <td class="link"><a data-bs-toggle="modal" href="#feedbackPop" role="button"><i class="fa-solid fa-eye"></i></a></td>
+                                        <td  style="color: rgb(172, 172, 172)" colspan="3" > UPCOMMING</i></td>                                        
+
+
                                     </tr>
                                     <tr>
-                                        <td>Session 03</td>
-                                        <td>28/10/2022</td>
-                                        <td>CS</td>
-                                        <td>Foundation</td>
+                                        <td style="color: rgb(172, 172, 172)">Session 04</td>
+                                        <td style="color: rgb(172, 172, 172)">28/10/2022</td>
+                                        <td style="color: rgb(172, 172, 172)">CS</td>
+                                        <td style="color: rgb(172, 172, 172)">Foundation</td>
 
-                                        <td class="link"> <a href="#"><i class="fa-solid fa-link"></i></a></td>
-                                        <td class="link"><a data-bs-toggle="modal" href="#feedbackPop" role="button"><i class="fa-solid fa-eye"></i></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Session 04</td>
-                                        <td>28/10/2022</td>
-                                        <td>CS</td>
-                                        <td>Foundation</td>
-
-                                        <td class="link"> <a href="#"><i class="fa-solid fa-link"></i></a></td>
-                                        <td class="link"><a data-bs-toggle="modal" href="#feedbackPop" role="button"><i class="fa-solid fa-eye"></i></a></td>
-                                    </tr>
+                                        <td  style="color: rgb(172, 172, 172)" colspan="3" > UPCOMMING</i></td>        
+                                    </tr> -->
                                 </tbody>
                             </table>
                             <nav aria-label="..." class="pagination-center">
@@ -969,7 +972,7 @@
                                 <h5 class="modal-title" id="exampleModalLabel">Feedback</h5>
                                 <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body" id="feedback_place">
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia asperiores debitis exercitationem ad, cumque dolore error explicabo temporibus consequatur amet rem quasi aspernatur id? Ea nobis temporibus minima accusamus sed.
                             </div>
                             <div class="modal-footer">
@@ -1022,16 +1025,13 @@
     <script src="../database_functions_v2.js"></script>
     <script src="../json_func_admin.js"></script>
     <script src="../help_functions.js"></script>
+    <script src="../direction_func.js"></script>
 
     <script>
 
 Loading_page_set();
 
-// var database_fixed_link = "fetch.php";
-// var database_fixed_link = "http://localhost/ischool/ischool-crm/fetch.php";
-var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
 
-// var database_fixed_link = "../fetch.php";
 
 const rmCheck = document.getElementById("rememberMe");
 var  nameInput = document.getElementById("Username");

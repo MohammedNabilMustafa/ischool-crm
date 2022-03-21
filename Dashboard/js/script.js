@@ -1,36 +1,8 @@
 
 
 let x = '';
-// --------------------------------------------- Session CountDown -------------------------------
-// ----------------------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------
-// ----------------------------------------------------------------------------------------------------
-let SessioncountDownBox = document.querySelector(".session-start");
-let SessiondaysBox = document.querySelector(".session-start .days");
-let SessionhrsBox = document.querySelector(".session-start .hrs");
-let SessionminBox = document.querySelector(".session-start .min");
-let SessionsecBox = document.querySelector(".session-start .sec");
-let SessioncountDownDate = new Date("Mar 20, 2022 00:01:00").getTime();
-// COUNT DOWN FUNCTION
-let Sessionx = setInterval(function () {
-  // GET DATE
-  let Sessionnow = new Date().getTime();
-  // TIME BETWEEN NOW AND DATE
-  let Sessiondistance = SessioncountDownDate - Sessionnow;
-  // CALCULATION TIME
-  let Sessiondays = Math.floor(Sessiondistance / (1000 * 60 * 60 * 24));
-  let Sessionhours = Math.floor(
-    (Sessiondistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-  );
-  let Sessionminutes = Math.floor(
-    (Sessiondistance % (1000 * 60 * 60)) / (1000 * 60)
-  );
-  let Sessionseconds = Math.floor((Sessiondistance % (1000 * 60)) / 1000);
-  SessiondaysBox.innerHTML = Sessiondays + "<span>Days</span>";
-  SessionhrsBox.innerHTML = Sessionhours + "<span>Hours</span>";
-  SessionminBox.innerHTML = Sessionminutes + "<span>Minutes</span>";
-  SessionsecBox.innerHTML = Sessionseconds + "<span>Seconds</span>";
-}, 1000);
+let Sessionx = '';
+
 
 $(".nav-item.leftside").click(function () {
   tapsReset();
@@ -241,10 +213,10 @@ async function login_success(user_info)
     $("#student_sector").show();
     $("#navg_bar").css('display',"flex");
 
-    document.getElementById('student_sector').innerHTML = `
+    document.getElementById('student_sector_container').innerHTML = `
     <!-- Topbar Navbar -->
 
-    <h1>Choose student</h1>`;
+    <h1 style="display:block;margin:auto;text-align: center;">Choose student</h1>`;
 
 
     $("#sector_sea_st").show();
@@ -253,7 +225,7 @@ async function login_success(user_info)
 
     for(var index = 0; index < user_info.students_count ; index ++)
     {
-      document.getElementById('student_sector').innerHTML += `<button id='btn_${index}'> ${user_info.students[index].name}</button>`;
+      document.getElementById('student_sector_container').innerHTML += `<button class='choose_name_class' id='btn_${index}'> ${user_info.students[index].name}</button>`;
       $("#select_id_student").append(`<option value='${index}'> ${user_info.students[index].name} </option>`);
 
     }
@@ -325,6 +297,7 @@ async function student_choosen(parent)
   var get_student_groups = await GET_DATA_TABLES( database_fixed_link, 'student_groups');
   var get_groups = await GET_DATA_TABLES( database_fixed_link, 'groups');
   var get_slots = await GET_DATA_TABLES( database_fixed_link, 'slots');
+  var get_lvl = await GET_DATA_TABLES( database_fixed_link, 'level');
   var get_student_att = await GET_DATA_TABLES( database_fixed_link, 'att_feed');
   var get_ses = await GET_DATA_TABLES( database_fixed_link, 'sessions');
 
@@ -334,12 +307,16 @@ async function student_choosen(parent)
 
   var get_cer = await GET_DATA_TABLES( database_fixed_link, 'certifications');
 
+  var get_material = await GET_DATA_TABLES( database_fixed_link, 'material');
+
+
   $("#student_sector").hide();
   $("#navg_bar").hide();
 
   parent.choosen_student.sessions = [];
   parent.choosen_student.sessions_count = 0;
 
+  
   if(get_student_att)
   {
     get_student_att.forEach(element => {
@@ -354,10 +331,49 @@ async function student_choosen(parent)
             get_ses[index].next_se = 'false'
             if(element.session_id == get_ses[index].id)
             {
+
+              if(get_groups)
+              {
+                for(var index_grp = 0 ; index_grp < get_groups.length ; index_grp ++)
+                {
+                  get_ses[index].group_arr = {};
+                  if(get_groups[index_grp].id == get_ses[index].groups_id)
+                  {
+                    get_groups[index_grp].level_name = ''
+
+                    get_lvl.forEach(element_lvl => {
+                      if(Number(element_lvl.id) == Number(get_groups[index_grp].level_id))
+                      {
+                        get_groups[index_grp].level_name = element_lvl.name
+                      }
+                      
+                    });
+
+                    get_ses[index].group_arr = get_groups[index_grp];
+
+                    break;
+                  }
+                }
+              }
               element.sessioninfo = get_ses[index];
+
               break;
               
             }
+
+            get_ses[index].material_arr = {};
+
+            if(get_material)
+            {
+              get_material.forEach(element_mat => {
+                if(get_ses[index].material_id == element_mat.id)
+                {
+                  get_ses[index].material_arr = element_mat;
+                }
+              })
+  
+            }
+
           }
         }
 
@@ -368,7 +384,9 @@ async function student_choosen(parent)
   }
 
   var check_date = false;
+  var check_date_reg = false;
   var counter_cer = 1;
+
 
 
   $('#insert_certificationTap').empty();
@@ -402,7 +420,7 @@ async function student_choosen(parent)
             {
               check_cer = true;
 
-              $('#insert_certificationTap').append(`<tr id='cer_ids_${counter_cer}' class="a-full" data-bs-toggle="modal" href="#certView" role="button"><td>Cerfication ${counter_cer} <i style="margin-left: 20px;" class="fa-solid fa-eye"></i></td></tr>`);
+              $('#insert_certificationTap').append(`<tr id='cer_ids_${counter_cer}' class="a-full" data-bs-toggle="modal" href="#certView" role="button"><td> ${element_cer.name} <i style="margin-left: 20px;" class="fa-solid fa-eye"></i></td></tr>`);
               $(`#cer_ids_${counter_cer}`).click(function(){
                 $('#imgincert').attr('src' , element_cer.cert_link);
                 $('#student_cer_name').text(parent.choosen_student.name);
@@ -450,7 +468,32 @@ async function student_choosen(parent)
   var session_zoom_link = '';
   var instructor_name = '';
 
+  var ses_index = 0;
+  $('#session_table_id').empty();
+
   parent.choosen_student.sessions.forEach(element => {
+
+    element.ses_index = ses_index;
+
+    if(new Date(`${element.sessioninfo.session_date} ${element.sessioninfo.session_time_end}` ) < new Date())
+    {
+        $('#session_table_id').append(sessions_att(element))
+    }
+    else
+    {
+      $('#session_table_id').append(sessions_upcoming(element))
+    }
+
+
+    $('#feed_back_btn_'+element.ses_index).click(function(){
+      var id = this.id;
+      var ret = id.replace('feed_back_btn_','') ;
+
+      console.log(element.feedback);
+      $('#feedback_place').html(element.feedback);
+      
+    })
+    
 
     get_groups.forEach(element_grp => {
 
@@ -468,6 +511,13 @@ async function student_choosen(parent)
       next_time_session_end_free = `${element.sessioninfo.session_date} ${element.sessioninfo.session_time_end}`
       check_date = true ;
     }
+    else if(new Date(`${element.sessioninfo.session_date} ${element.sessioninfo.session_time_end}` ) > new Date() && check_date_reg == false && Number(element.sessioninfo.session_type) == 1)
+    {
+      next_time_session_start_reg = `${element.sessioninfo.session_date} ${element.sessioninfo.session_time_start}`
+      next_time_session_end_reg = `${element.sessioninfo.session_date} ${element.sessioninfo.session_time_end}`
+      check_date_reg = true ;
+
+    }
 
     get_employee.forEach(element_emp => {
 
@@ -477,7 +527,7 @@ async function student_choosen(parent)
         instructor_name = element_emp.name;
       }
     })
-    
+    ses_index++;
   })
 
   let countDownBox = document.querySelector(".allTime");
@@ -492,6 +542,7 @@ async function student_choosen(parent)
   secBox.innerHTML =  "";
 
   clearInterval(x);
+  clearInterval(Sessionx);
 
   if(next_time_session_end_free != '')
   {
@@ -524,17 +575,14 @@ async function student_choosen(parent)
 
       x = setInterval(function () {
         // GET DATE
-        let now = new Date().getTime();
-
+      let now = new Date().getTime();
         // TIME BETWEEN NOW AND DATE
-        let distance = countDownDate_end - now;
-
+      let distance = countDownDate_end - now;
         // CALCULATION TIME
-        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
+      let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       if(distance < 0)
       {
@@ -559,20 +607,30 @@ async function student_choosen(parent)
 
       $(".joinnow-btn").addClass('disabled').text('Session Not Started').removeClass("btn-warning").addClass("btn-primary");
 
+      let now = new Date().getTime();
+      // TIME BETWEEN NOW AND DATE
+      let distance = countDownDate - now;
+      // CALCULATION TIME
+      let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      daysBox.innerHTML = days + "<span>Days</span>";
+      hrsBox.innerHTML = hours + "<span>Hours</span>";
+      minBox.innerHTML = minutes + "<span>Minutes</span>";
+      secBox.innerHTML = seconds + "<span>Seconds</span>";
+
     // COUNT DOWN FUNCTION
       x = setInterval(function () {
         // GET DATE
         let now = new Date().getTime();
-
         // TIME BETWEEN NOW AND DATE
         let distance = countDownDate - now;
-
         // CALCULATION TIME
         let days = Math.floor(distance / (1000 * 60 * 60 * 24));
         let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
         daysBox.innerHTML = days + "<span>Days</span>";
         hrsBox.innerHTML = hours + "<span>Hours</span>";
         minBox.innerHTML = minutes + "<span>Minutes</span>";
@@ -602,14 +660,147 @@ async function student_choosen(parent)
 
 
   }
-  else
+  else if(next_time_session_end_reg != '')
+  {
+    
+
+    // --------------------------------------------- Session CountDown -------------------------------
+// ----------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------
+
+let SessioncountDownBox = document.querySelector(".session-start");
+let SessiondaysBox = document.querySelector(".session-start .days");
+let SessionhrsBox = document.querySelector(".session-start .hrs");
+let SessionminBox = document.querySelector(".session-start .min");
+let SessionsecBox = document.querySelector(".session-start .sec");
+
+let SessioncountDownDate = new Date(next_time_session_start_reg).getTime();
+let SessioncountDownDate_end = new Date(next_time_session_end_reg).getTime();
+
+let old_now = new Date().getTime();
+
+let distance_old = SessioncountDownDate - old_now;
+
+if(distance_old <= 0)
+{
+
+  $(".confirmation p").text('Session Running Now');
+  $(".joinnow-btn").removeClass('disabled');
+
+    $(".joinnow-btn").prop('href' , session_zoom_link)
+
+// COUNT DOWN FUNCTION
+    Sessionx = setInterval(function () {
+      // GET DATE
+      let Sessionnow = new Date().getTime();
+      // TIME BETWEEN NOW AND DATE
+      let Sessiondistance = SessioncountDownDate - Sessionnow;
+      // CALCULATION TIME
+      let Sessiondays = Math.floor(Sessiondistance / (1000 * 60 * 60 * 24));
+      let Sessionhours = Math.floor(
+        (Sessiondistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      let Sessionminutes = Math.floor(
+        (Sessiondistance % (1000 * 60 * 60)) / (1000 * 60)
+      );
+      let Sessionseconds = Math.floor((Sessiondistance % (1000 * 60)) / 1000);
+
+    
+      if(Sessiondistance < 0)
+      {
+    
+        student_choosen(parent);
+      
+    
+        // $(".confirmation p").hide();
+        $(".confirmation p").text('Session Running Now');
+        $(".joinnow-btn").removeClass('disabled');
+    
+        clearInterval(x);
+    
+        // href="https://www.google.com" target="_blank"
+      }
+    
+    
+    }, 1000);
+
+}
+else
+{
+
+  $(".joinnow-btn").addClass('disabled').text('Session Not Started').removeClass("btn-warning").addClass("btn-primary");
+
+  let Sessionnow = new Date().getTime();
+  // TIME BETWEEN NOW AND DATE
+  let Sessiondistance = SessioncountDownDate - Sessionnow;
+  // CALCULATION TIME
+  let Sessiondays = Math.floor(Sessiondistance / (1000 * 60 * 60 * 24));
+  let Sessionhours = Math.floor(
+    (Sessiondistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  let Sessionminutes = Math.floor(
+    (Sessiondistance % (1000 * 60 * 60)) / (1000 * 60)
+  );
+  let Sessionseconds = Math.floor((Sessiondistance % (1000 * 60)) / 1000);
+  SessiondaysBox.innerHTML = Sessiondays + "<span>Days</span>";
+  SessionhrsBox.innerHTML = Sessionhours + "<span>Hours</span>";
+  SessionminBox.innerHTML = Sessionminutes + "<span>Minutes</span>";
+  SessionsecBox.innerHTML = Sessionseconds + "<span>Seconds</span>";
+
+// COUNT DOWN FUNCTION
+Sessionx = setInterval(function () {
+  // GET DATE
+  let Sessionnow = new Date().getTime();
+  // TIME BETWEEN NOW AND DATE
+  let Sessiondistance = SessioncountDownDate - Sessionnow;
+  // CALCULATION TIME
+  let Sessiondays = Math.floor(Sessiondistance / (1000 * 60 * 60 * 24));
+  let Sessionhours = Math.floor(
+    (Sessiondistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  let Sessionminutes = Math.floor(
+    (Sessiondistance % (1000 * 60 * 60)) / (1000 * 60)
+  );
+  let Sessionseconds = Math.floor((Sessiondistance % (1000 * 60)) / 1000);
+  SessiondaysBox.innerHTML = Sessiondays + "<span>Days</span>";
+  SessionhrsBox.innerHTML = Sessionhours + "<span>Hours</span>";
+  SessionminBox.innerHTML = Sessionminutes + "<span>Minutes</span>";
+  SessionsecBox.innerHTML = Sessionseconds + "<span>Seconds</span>";
+
+  if(Sessiondistance < 0)
   {
 
+    daysBox.innerHTML = "";
+    hrsBox.innerHTML = "";
+    minBox.innerHTML = "";
+    secBox.innerHTML = "";
+
+    student_choosen(parent);
+
     $(".confirmation p").hide();
-    $(".joinnow-btn").addClass('disabled').text('Session Expired').removeClass("btn-warning").addClass("btn-primary");
+    $(".joinnow-btn").prop('disabled', false);
+    $(".joinnow-btn").prop('href' , '')
+    clearInterval(x);
 
   }
 
+
+}, 1000);
+
+
+}
+
+
+  }
+  else
+  {
+
+
+    $(".confirmation p").hide();
+    $(".joinnow-btn").addClass('disabled').text('Session Expired').removeClass("btn-warning").addClass("btn-danger");
+
+  }
 
   parent.choosen_student.packages = [];
   parent.choosen_student.packagescount = 0;
@@ -662,7 +853,7 @@ async function student_choosen(parent)
     $("#roadmapTap_id").hide();
     $("#packagesTap_id").show();
     $("#overviewTap_id").hide();
-    $("#feedbackTap_id").hide();
+    $("#feedbackTap_id").show();
     $("#financeTap_id").hide();
     
     $("#reg_status").text('Not Registered').css('color', 'red').css('size' , '25px');
@@ -759,4 +950,94 @@ async function set_pack()
 
   }
   )
+}
+
+
+
+function sessions_att(element)
+{
+  console.log(element.sessioninfo);
+  var result = ``;
+
+  result = `
+  <tr>
+  <td style="color: rgb(0, 0, 0)">Session ${element.sessioninfo.session_num}</td>
+  <td style="color: rgb(0, 0, 0)">${element.sessioninfo.session_date}</td>
+  <td style="color: rgb(0, 0, 0)">${element.sessioninfo.group_arr.level_name}</td> `
+   
+
+  if(element.attendance == 'YES')
+  {
+    result += `<td  style="color: green;" > <i class="fa-solid fa-square-check"></i></td>`;
+    if(Number(element.sessioninfo.material_id) == 0)
+    {
+      result += `<td style="color: red"  ><i class="fa-solid fa-ban"></i></td>`;
+    }
+    else
+    {
+      if(element.sessioninfo.material_arr)
+      {
+        result += `<td class="link"> <a href="${element.sessioninfo.material_arr.video_link}" target="_blank"><i class="fa-solid fa-link"></i></a></td>`
+      }
+      else
+      {
+        result += `<td style="color: red"  ><i class="fa-solid fa-ban"></i></td>`;
+      }
+    }
+    if(element.feedback == '')
+    {
+      result += `<td style="color: red"  ><i class="fa-solid fa-ban"></i></td>`;
+    }
+    else
+    {
+      result += `<td class="link"><a data-bs-toggle="modal" href="#feedbackPop" role="button" id='feed_back_btn_${element.ses_index}'><i class="fa-solid fa-eye"></i></a></td>`;
+    }
+  }
+  else if(element.attendance == 'NO')
+  {
+    result += `<td  style="color: red" > <i class="fa-solid fa-square-xmark"></i></td>`;
+    if(Number(element.sessioninfo.material_id) == 0)
+    {
+      result += `<td style="color: red"  ><i class="fa-solid fa-ban"></i></td>`;
+    }
+    else
+    {
+      if(element.sessioninfo.material_arr)
+      {
+        result += `<td class="link"> <a href="${element.sessioninfo.material_arr.video_link}" target="_blank"><i class="fa-solid fa-link"></i></a></td>`
+      }
+      else
+      {
+        result += `<td style="color: red"  ><i class="fa-solid fa-ban"></i></td>`;
+      }
+    }
+
+    result += `<td style="color: red"  ><i class="fa-solid fa-ban"></i></td>`;
+
+  }
+  else
+  {
+    result += `<td  style="color:#fd7d00" colspan="3" >PENDING</i></td>`;
+  }
+
+  result +=`</tr>`;
+
+
+  return result;
+}
+
+
+function sessions_upcoming(element)
+{
+  console.log(element.sessioninfo);
+  return `
+  <tr>
+  <td style="color: rgb(172, 172, 172)">Session ${element.sessioninfo.session_num}</td>
+  <td style="color: rgb(172, 172, 172)">${element.sessioninfo.session_date}</td>
+  <td style="color: rgb(172, 172, 172)">${element.sessioninfo.group_arr.level_name}</td>
+  
+  <td  style="color: rgb(172, 172, 172)" colspan="3" > UPCOMMING</i></td>        
+
+  </tr>
+  `;
 }

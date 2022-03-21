@@ -56,6 +56,10 @@ async function CERTIFICATION_DASHBOARD()
 
 
     document.getElementById("Location_1").innerHTML +=`</div></div>`;
+    document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
+
+    document.getElementById("Location_1").innerHTML +=`<label> Name : </label><input class='col-4' id='name_input' type='text'/>`;
+    document.getElementById("Location_1").innerHTML +=`</div></div>`;
 
     document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
 
@@ -128,8 +132,10 @@ async function CERTIFICATION_DASHBOARD()
         input_send_data[input_send_data_count] = $("#get_input").val();input_send_data_count++;
         input_send_data[input_send_data_count] = $("#se_num_input").val();input_send_data_count++;
         input_send_data[input_send_data_count] = $("#age_input").val();input_send_data_count++;
+        input_send_data[input_send_data_count] = $("#name_input").val();input_send_data_count++;
 
 
+        
         
         if(input_send_data[7] == ""){alert("Please Choose Age");Loading_page_clear();return;}
         if(input_send_data[0] == ""){alert("Please Choose Level");Loading_page_clear();return;}
@@ -139,6 +145,7 @@ async function CERTIFICATION_DASHBOARD()
         if(input_send_data[4] == ""){alert("Set Certification Link");Loading_page_clear();return;}
         if(input_send_data[5] == ""){alert("Please Choose Category");Loading_page_clear();return;}
         if(input_send_data[6] == ""){alert("Set Session Number");Loading_page_clear();return;}
+        if(input_send_data[8] == ""){alert("Set Name ");Loading_page_clear();return;}
 
         var response = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'certifications' ,
         [
@@ -149,7 +156,8 @@ async function CERTIFICATION_DASHBOARD()
             "cert_link",
             "type",
             "session_num",
-            "age_id"
+            "age_id",
+            "name"
         ]
         ,
         input_send_data);
@@ -349,6 +357,7 @@ function createTable_cert(dataArray ,All_data_obj ) {
                 result += "</td>";
 
                 result += "<td>";
+                result += `Name : ${dataArray[index].name}<br>`;
                 result += `Session Number : ${dataArray[index].session_num}<br>`;
                 result += `Type : ${dataArray[index].type}<br>`;
                 result += `<a href="${dataArray[index].cert_link}" target="_blank">Session Certificaiton ${dataArray[index].session_num} link</a> <br>`;

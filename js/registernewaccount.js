@@ -207,6 +207,8 @@ async function go_to_step01_func_reg()
     })
     }
     check_groups_reg();
+
+    $('#coontent-container_id').show();
     Loading_page_clear();
 }
 

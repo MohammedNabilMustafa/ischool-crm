@@ -358,6 +358,7 @@ async function go_to_step01_func_free()
     })
     }
     check_groups_free();
+    $('#coontent-container_id').show();
     Loading_page_clear();
 }
 
