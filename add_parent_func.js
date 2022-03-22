@@ -659,6 +659,7 @@ Not Registered
             {
                 
                 create_new_table_cols[counter] = All_table_obj.tables[0][index_].name; counter++;
+                break;
             }
         }
 
@@ -667,6 +668,7 @@ Not Registered
             if(All_table_obj.tables[3][index].department_id == All_table_obj.tables[1][index_].id)
             {
                 create_new_table_cols[counter] = All_table_obj.tables[1][index_].name;counter++;
+                break;
             }
         }
 
@@ -675,6 +677,7 @@ Not Registered
             if(All_table_obj.tables[3][index].role_id == All_table_obj.tables[2][index_].id)
             {
                 create_new_table_cols[counter] = All_table_obj.tables[2][index_].name;;
+                break;
             }
         }
         create_new_tabl_rows_emp[index] = create_new_table_cols;

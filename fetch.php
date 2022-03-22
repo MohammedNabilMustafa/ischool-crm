@@ -8,7 +8,8 @@ header("Access-Control-Allow-Origin: *");
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "ischool";
+// $dbname = "ischool";
+$dbname = "havy_test";
 
 //public
 // $servername = "localhost";

@@ -307,6 +307,8 @@ async function student_choosen(parent)
   var get_material = await GET_DATA_TABLES( database_fixed_link, 'material');
 
 
+
+
   $("#student_sector").hide();
   $("#student_sector_container").hide();
 
@@ -340,13 +342,16 @@ async function student_choosen(parent)
                   {
                     get_groups[index_grp].level_name = ''
 
-                    get_lvl.forEach(element_lvl => {
-                      if(Number(element_lvl.id) == Number(get_groups[index_grp].level_id))
-                      {
-                        get_groups[index_grp].level_name = element_lvl.name
-                      }
-                      
-                    });
+                    if(get_lvl)
+                    {
+                      get_lvl.forEach(element_lvl => {
+                        if(Number(element_lvl.id) == Number(get_groups[index_grp].level_id))
+                        {
+                          get_groups[index_grp].level_name = element_lvl.name
+                        }
+                        
+                      });
+                    }
 
                     get_ses[index].group_arr = get_groups[index_grp];
 
@@ -382,6 +387,7 @@ async function student_choosen(parent)
     });
   }
 
+
   var check_date = false;
   var check_date_reg = false;
   var counter_cer = 1;
@@ -394,7 +400,7 @@ async function student_choosen(parent)
   var check_cer = false;
   var session_counter_att = 0;
 
-  if(parent.choosen_student.sessions)
+  if(parent.choosen_student.sessions.length)
   {
 
   
@@ -483,7 +489,7 @@ async function student_choosen(parent)
   var ses_index = 0;
   $('#session_table_id').empty();
 
-  if(parent.choosen_student.sessions)
+  if(parent.choosen_student.sessions.length)
   {
 
   
@@ -509,17 +515,18 @@ async function student_choosen(parent)
       
     })
     
-if(get_groups)
-{
-  get_groups.forEach(element_grp => {
 
-    if(element.sessioninfo.groups_id == element_grp.id)
+    if(get_groups)
     {
-      element.sessioninfo.session_type = element_grp.type_id
-    }
+      get_groups.forEach(element_grp => {
 
-  })
-}
+        if(element.sessioninfo.groups_id == element_grp.id)
+        {
+          element.sessioninfo.session_type = element_grp.type_id
+        }
+
+      })
+    }
 
 
 
@@ -547,14 +554,15 @@ if(get_groups)
     })
     ses_index++;
   })
+
 }
+
 
 if(ses_index == 0)
 {
   $('#session_table_id').append(`<tr> <td colspan="6"> No Sessions </td> </tr>`);
 
 }
-
 
 
   let countDownBox = document.querySelector(".allTime");
@@ -827,10 +835,10 @@ Sessionx = setInterval(function () {
   }
 
 
-}, 1000);
+  }, 1000);
 
 
-}
+  }
 
 
   }
@@ -881,6 +889,7 @@ Sessionx = setInterval(function () {
   });
 
 
+  
   if(parent.choosen_student.packagescount == 0)
   {
     tapsReset();
@@ -926,7 +935,7 @@ Sessionx = setInterval(function () {
 
     })
 
-    if(parent.choosen_student.sessions)
+    if(parent.choosen_student.sessions.length)
     {
 
     
@@ -973,7 +982,6 @@ Sessionx = setInterval(function () {
 
   if(parent.choosen_student.sessions.length)
   {
-    console.log(next_session_info);
     if(next_session_info.length)
     {
       $('#student_grop_over').text(next_session_info.group_arr.id)
@@ -1134,14 +1142,19 @@ async function set_pack()
 
 function sessions_att(element)
 {
-  var result = ``;
 
-  result = `
-  <tr>
-  <td style="color: rgb(0, 0, 0)">Session ${element.sessioninfo.session_num}</td>
-  <td style="color: rgb(0, 0, 0)">${element.sessioninfo.session_date}</td>
-  <td style="color: rgb(0, 0, 0)">${element.sessioninfo.group_arr.level_name}</td> `
-   
+  var result = ``;
+  if(element)
+  {
+
+
+      result = `
+      <tr>
+      <td style="color: rgb(0, 0, 0)">Session ${element.sessioninfo.session_num}</td>
+      <td style="color: rgb(0, 0, 0)">${element.sessioninfo.session_date}</td>
+       `
+    
+      //  <td style="color: rgb(0, 0, 0)">${element.sessioninfo.group_arr.level_name}</td>
 
   if(element.attendance == 'YES')
   {
@@ -1200,20 +1213,29 @@ function sessions_att(element)
   result +=`</tr>`;
 
 
+}
+
+
   return result;
 }
 
 
 function sessions_upcoming(element)
 {
-  return `
-  <tr>
-  <td style="color: rgb(172, 172, 172)">Session ${element.sessioninfo.session_num}</td>
-  <td style="color: rgb(172, 172, 172)">${element.sessioninfo.session_date}</td>
-  <td style="color: rgb(172, 172, 172)">${element.sessioninfo.group_arr.level_name}</td>
+//<td style="color: rgb(172, 172, 172)">${element.sessioninfo.group_arr.level_name}</td>
+  if(element)
+  {
+    return `
+    <tr>
+    <td style="color: rgb(172, 172, 172)">Session ${element.sessioninfo.session_num}</td>
+    <td style="color: rgb(172, 172, 172)">${element.sessioninfo.session_date}</td>
+    
+    
+    <td  style="color: rgb(172, 172, 172)" colspan="3" > UPCOMMING</i></td>        
   
-  <td  style="color: rgb(172, 172, 172)" colspan="3" > UPCOMMING</i></td>        
+    </tr>
+    `;
+  }
 
-  </tr>
-  `;
+
 }

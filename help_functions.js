@@ -223,6 +223,7 @@ function search_two_tables(table_for , table_from , index_for , index_from , ind
           if(search_for[index_for] == search_from[index_from])
           {
             data_return[counter++] =  search_from[index_return];
+            break;
           }
       }
   }

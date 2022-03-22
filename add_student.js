@@ -7,12 +7,21 @@ var saved_status_arr = []
 var saved_parent_arr = []
 var Packages_id_input = [];
 var Packages_id_input = [];
+var get_tasks_arr = [];
+var get_se_task_arr = [];
+var get_ans_arr = [];
 
 var saved_student_arr = []
 var saved_employee_arr = []
 
-function ADD_NEW_STUDENT()
+async function ADD_NEW_STUDENT()
 {
+
+
+    get_tasks_arr = await GET_DATA_TABLES(database_fixed_link , 'tasks'); 
+    get_se_task_arr = await GET_DATA_TABLES(database_fixed_link , 'session_tasks'); 
+    get_ans_arr = await GET_DATA_TABLES(database_fixed_link , 'students_ans'); 
+
 
     Loading_page_set();
     document.getElementById("blob_Location_1").innerHTML = ``;
@@ -888,6 +897,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
     var create_new_tabl_rows = []
     var counter = 0;
 
+    
     // 'parent',
     // 'students',
     // 'groups',
@@ -898,240 +908,274 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
     // 'sessions',
     // 'package',
     // 'att_feed'
+    // let result_ ='';
 
 
-    if(All_table_obj.tables[1] && All_table_obj.tables[1] !== undefined && All_table_obj.tables[1].length != 0)
-    {
-        create_new_tabl_rows = All_table_obj.tables[1]
-
-        for(var index = 0 ; index < All_table_obj.tables[1].length ; index++)
+    All_table_obj.tables[1].forEach( elment => 
         {
-            var create_new_tabl_col = [];
-            var counter_col = 0;
-            create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].id; counter_col++;
-            create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].std_id; counter_col++;
-            create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].name; counter_col++;
-
-            var return_data = search_two_tables(All_table_obj.tables[1][index] , All_table_obj.tables[0] , 3 , 0 , 0)
-            create_new_tabl_col[counter_col] = return_data;counter_col++;
-
-            var return_data = search_two_tables(All_table_obj.tables[1][index] , All_table_obj.tables[0] , 3 , 0 , 2)
-            create_new_tabl_col[counter_col] = return_data;counter_col++;
-
-
-
-
-            create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].free_session_status; counter_col++;
-
-            var check_status = false;
-
-
-            if(saved_status_arr && saved_status_arr !== undefined && saved_status_arr.length != 0)
-            {
-                for(var index___ = 0 ; index___ < saved_status_arr.length ; index___++)
-                {
-                    if(saved_status_arr[index___][0] == All_table_obj.tables[1][index].std_status)
-                    {
-                        check_status = true;
-                        create_new_tabl_col[counter_col] = saved_status_arr[index___][2];counter_col++;
-                        break;
-                    }
-                }
-            }
-
-            if(check_status == false)
-            {
-                create_new_tabl_col[counter_col] = 'No Status';counter_col++;
-            }
+            console.log(All_table_obj.tables[0][elment.parent_id]);
             
-            // create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].std_status; counter_col++;
-            create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].age; counter_col++;
-            create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].birthdate; counter_col++;
-
-            var check_sales = false;
-            var check_cs = false;
-
-
-            All_table_obj.tables[0].forEach(element_pt => {
-                
-                if(All_table_obj.tables[1][index].parent_id == element_pt.id)
-                {
-                    All_table_obj.tables[10].forEach(element_emp => {
-                        if(element_pt.sales_agent_id == element_emp.id)
-                        {
-                            create_new_tabl_col[counter_col] = element_emp.name;counter_col++;check_sales=true;
-                        }
-                    });
-                }
-            });
-
-            if(check_sales == false)
-            {
-                create_new_tabl_col[counter_col] = "No Agent";counter_col++ 
-            }
-
-            All_table_obj.tables[0].forEach(element_pt => {
-                
-                if(All_table_obj.tables[1][index].parent_id == element_pt.id)
-                {
-                    All_table_obj.tables[10].forEach(element_emp => {
-                        if(element_pt.customer_agent_id == element_emp.id)
-                        {
-                            create_new_tabl_col[counter_col] = element_emp.name;counter_col++;check_cs=true;
-                        }
-                    });
-                }
-            });
-            
-            if(check_cs == false)
-            {
-                create_new_tabl_col[counter_col] = "No Agent";counter_col++ 
-            }
-
-       
-            var count_all= 0;
-            var all_created= 0;
-            var count_comp= 0;
-            var count_comp= 0;
-            var Att= 0;
-            var Abs= 0;
-            var Feed= 0;
-            var Non_att= 0;
-            var students_sessions = [];
-
-
-
-            if(All_table_obj.tables[9] && All_table_obj.tables[9] !== undefined && All_table_obj.tables[9].length != 0)
-            {        
-
-                for(var index_9 = 0 ; index_9 < All_table_obj.tables[9].length ; index_9++)
-                {
-                    var session_date_check = 0;
-                    for(var x = 0 ; x < saved_sessions_id_arr.length ; x++)
-                    {
-                        if(saved_sessions_id_arr[x].id == All_table_obj.tables[9][index_9].session_id)
-                        {
-                            session_date_check = saved_sessions_id_arr[x].session_date;
-                        }
-                    }
-
-
-                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id && new Date(session_date_check) < new Date()  )
-                    {
-                        students_sessions[count_comp] = All_table_obj.tables[9][index_9];
-                        count_comp++;
-                    }
-
-                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id )
-                    {
-                        students_sessions[all_created] = All_table_obj.tables[9][index_9];
-                        all_created++;
-                    }
-                
-
-                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "YES" && new Date(session_date_check) < new Date())
-                    {
-                        Att++;
-                    }
-                    else if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "NO" && new Date(session_date_check) < new Date())
-                    {
-                        Abs++;
-                    }
-                    else if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "" && new Date(session_date_check) > new Date())
-                    {
-                        Non_att++;
-                    }
-                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].feedback != "" && new Date(session_date_check) < new Date())
-                    {
-                        Feed++;
-                    }
-
-                }
-
-            }
-
-            create_new_tabl_col[counter_col] = all_created + ` - Created SE`; counter_col++;
-            create_new_tabl_col[counter_col] = count_comp + ` - Ended SE`; counter_col++;
-            create_new_tabl_col[counter_col] = Non_att + ` - Remains SE`; counter_col++;
-
-            create_new_tabl_col[counter_col] = (Att+Abs) + ` - Completed SE`; counter_col++;
-            create_new_tabl_col[counter_col] = Abs + ` - Absence SE`; counter_col++;
-            create_new_tabl_col[counter_col] = Att + ` - Attended SE`; counter_col++;
-            create_new_tabl_col[counter_col] = (Feed) + ` - Feedbacks SE`; counter_col++;
-
-
-
-            if(count_comp - (Att + Abs))
-            {
-                create_new_tabl_col[counter_col] = `<label style='color:red'>Not Updated Attendance</label>`;counter_col++;
-            }
-            else
-            {
-                create_new_tabl_col[counter_col] = '';counter_col++;
-            }
-
-
-            if(Att - Feed > 0)
-            {
-                create_new_tabl_col[counter_col] = `<label style='color:red'>Not Updated Feedback</label>`;counter_col++;
-            }
-            else
-            {
-                create_new_tabl_col[counter_col] = '';counter_col++;
-            }
-
-            create_new_tabl_col[counter_col] = 'No Date'; 
-            create_new_tabl_col[counter_col+1] = 'No Sessions'; 
-            create_new_tabl_col[counter_col+2] = 'No Instructor'; 
-            var check_lock = false;
-
-
-            All_table_obj.tables[9].forEach(element_att => {
-
-                if(All_table_obj.tables[1][index].id == element_att.student_id)
-                {
-                    
-                        All_table_obj.tables[7].forEach(element_se => {
-    
-                            if(element_att.session_id == element_se.id && new Date(element_se.session_date) >= new Date() && check_lock == false)
-                            {
-                                create_new_tabl_col[counter_col] = element_se.session_date; 
-                                create_new_tabl_col[counter_col+1] = element_se.session_num; 
-
-                                All_table_obj.tables[10].forEach(element_em => {
-                                    if(element_se.employee_id == element_em.id )
-                                    {
-                                        create_new_tabl_col[counter_col+2] = element_em.name;
-                                    }
-                                });
-
-                                check_lock = true;
-                            }
-    
-                        })
-                    
-
-                }
-
-
-
-        })
-
-            counter_col +=3;
-            
-
-
-            create_new_tabl_col[counter_col] = students_sessions; counter_col++;
-
-
-
-            create_new_tabl_rows[counter] = create_new_tabl_col;counter++;
-
         }
 
-    }
+     )
 
-    func(create_new_tabl_rows);
+
+
+    //  All_table_obj.tables[0].forEach( elment => 
+    //     {
+    //         console.log(elment);
+    //     }
+
+    //  )
+
+     
+
+
+
+    // var array1 = ["cat", "sum","fun", "run"];
+    // var array2 = ["bat", "cat","dog","sun", "hut", "gut"];
+
+
+    // const intersection = Object.values(All_table_obj.tables[1]).filter(element => Object.values(All_table_obj.tables[0]).includes(element[0]));
+
+
+
+    // console.log(intersection);
+
+
+    // if(All_table_obj.tables[1] && All_table_obj.tables[1] !== undefined && All_table_obj.tables[1].length != 0)
+    // {
+    //     create_new_tabl_rows = All_table_obj.tables[1]
+
+    //     for(var index = 0 ; index < All_table_obj.tables[1].length ; index++)
+    //     {
+    //         var create_new_tabl_col = [];
+    //         var counter_col = 0;
+    //         create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].id; counter_col++;
+    //         create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].std_id; counter_col++;
+    //         create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].name; counter_col++;
+
+    //         var return_data = search_two_tables(All_table_obj.tables[1][index] , All_table_obj.tables[0] , 3 , 0 , 0)
+    //         create_new_tabl_col[counter_col] = return_data;counter_col++;
+
+    //         var return_data = search_two_tables(All_table_obj.tables[1][index] , All_table_obj.tables[0] , 3 , 0 , 2)
+    //         create_new_tabl_col[counter_col] = return_data;counter_col++;
+
+
+
+
+    //         create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].free_session_status; counter_col++;
+
+    //         var check_status = false;
+
+
+    //         if(saved_status_arr && saved_status_arr !== undefined && saved_status_arr.length != 0)
+    //         {
+    //             for(var index___ = 0 ; index___ < saved_status_arr.length ; index___++)
+    //             {
+    //                 if(saved_status_arr[index___][0] == All_table_obj.tables[1][index].std_status)
+    //                 {
+    //                     check_status = true;
+    //                     create_new_tabl_col[counter_col] = saved_status_arr[index___][2];counter_col++;
+    //                     break;
+    //                 }
+    //             }
+    //         }
+
+    //         if(check_status == false)
+    //         {
+    //             create_new_tabl_col[counter_col] = 'No Status';counter_col++;
+    //         }
+            
+    //         // create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].std_status; counter_col++;
+    //         create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].age; counter_col++;
+    //         create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].birthdate; counter_col++;
+
+    //         var check_sales = false;
+    //         var check_cs = false;
+
+
+    //         All_table_obj.tables[0].forEach(element_pt => {
+                
+    //             if(All_table_obj.tables[1][index].parent_id == element_pt.id)
+    //             {
+    //                 All_table_obj.tables[10].forEach(element_emp => {
+    //                     if(element_pt.sales_agent_id == element_emp.id)
+    //                     {
+    //                         create_new_tabl_col[counter_col] = element_emp.name;counter_col++;check_sales=true;
+    //                         return false;
+    //                     }
+    //                 });
+    //             }
+    //         });
+
+    //         if(check_sales == false)
+    //         {
+    //             create_new_tabl_col[counter_col] = "No Agent";counter_col++ 
+    //         }
+
+    //         All_table_obj.tables[0].forEach(element_pt => {
+                
+    //             if(All_table_obj.tables[1][index].parent_id == element_pt.id)
+    //             {
+    //                 All_table_obj.tables[10].forEach(element_emp => {
+    //                     if(element_pt.customer_agent_id == element_emp.id)
+    //                     {
+    //                         create_new_tabl_col[counter_col] = element_emp.name;counter_col++;check_cs=true;
+    //                         return false;
+    //                     }
+    //                 });
+    //             }
+    //         });
+            
+    //         if(check_cs == false)
+    //         {
+    //             create_new_tabl_col[counter_col] = "No Agent";counter_col++ 
+    //         }
+
+       
+    //         var count_all= 0;
+    //         var all_created= 0;
+    //         var count_comp= 0;
+    //         var count_comp= 0;
+    //         var Att= 0;
+    //         var Abs= 0;
+    //         var Feed= 0;
+    //         var Non_att= 0;
+    //         var students_sessions = [];
+
+
+
+    //         if(All_table_obj.tables[9] && All_table_obj.tables[9] !== undefined && All_table_obj.tables[9].length != 0)
+    //         {        
+
+    //             for(var index_9 = 0 ; index_9 < All_table_obj.tables[9].length ; index_9++)
+    //             {
+    //                 var session_date_check = 0;
+    //                 for(var x = 0 ; x < saved_sessions_id_arr.length ; x++)
+    //                 {
+    //                     if(saved_sessions_id_arr[x].id == All_table_obj.tables[9][index_9].session_id)
+    //                     {
+    //                         session_date_check = saved_sessions_id_arr[x].session_date;
+    //                         break;
+    //                     }
+    //                 }
+
+
+    //                 if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id && new Date(session_date_check) < new Date()  )
+    //                 {
+    //                     students_sessions[count_comp] = All_table_obj.tables[9][index_9];
+    //                     count_comp++;
+    //                 }
+
+    //                 if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id )
+    //                 {
+    //                     students_sessions[all_created] = All_table_obj.tables[9][index_9];
+    //                     all_created++;
+    //                 }
+                
+
+    //                 if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "YES" && new Date(session_date_check) < new Date())
+    //                 {
+    //                     Att++;
+    //                 }
+    //                 else if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "NO" && new Date(session_date_check) < new Date())
+    //                 {
+    //                     Abs++;
+    //                 }
+    //                 else if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "" && new Date(session_date_check) > new Date())
+    //                 {
+    //                     Non_att++;
+    //                 }
+    //                 if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].feedback != "" && new Date(session_date_check) < new Date())
+    //                 {
+    //                     Feed++;
+    //                 }
+
+    //                 if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id)
+    //                 {
+                        
+    //                         All_table_obj.tables[7].forEach(element_se => {
+        
+    //                             if(All_table_obj.tables[9][index_9].session_id == element_se.id && new Date(element_se.session_date) >= new Date() && check_lock == false)
+    //                             {
+    //                                 create_new_tabl_col[counter_col] = element_se.session_date; 
+    //                                 create_new_tabl_col[counter_col+1] = element_se.session_num; 
+    
+    //                                 All_table_obj.tables[10].forEach(element_em => {
+    //                                     if(element_se.employee_id == element_em.id )
+    //                                     {
+    //                                         create_new_tabl_col[counter_col+2] = element_em.name;
+    //                                         return false;
+    //                                     }
+    //                                 });
+    
+    //                                 check_lock = true;
+    //                                 return false;
+    //                             }
+        
+    //                         })
+                        
+    
+    //                 }
+
+    //             }
+
+    //         }
+
+    //         create_new_tabl_col[counter_col] = all_created + ` - Created SE`; counter_col++;
+    //         create_new_tabl_col[counter_col] = count_comp + ` - Ended SE`; counter_col++;
+    //         create_new_tabl_col[counter_col] = Non_att + ` - Remains SE`; counter_col++;
+
+    //         create_new_tabl_col[counter_col] = (Att+Abs) + ` - Completed SE`; counter_col++;
+    //         create_new_tabl_col[counter_col] = Abs + ` - Absence SE`; counter_col++;
+    //         create_new_tabl_col[counter_col] = Att + ` - Attended SE`; counter_col++;
+    //         create_new_tabl_col[counter_col] = (Feed) + ` - Feedbacks SE`; counter_col++;
+
+
+
+    //         if(count_comp - (Att + Abs))
+    //         {
+    //             create_new_tabl_col[counter_col] = `<label style='color:red'>Not Updated Attendance</label>`;counter_col++;
+    //         }
+    //         else
+    //         {
+    //             create_new_tabl_col[counter_col] = '';counter_col++;
+    //         }
+
+
+    //         if(Att - Feed > 0)
+    //         {
+    //             create_new_tabl_col[counter_col] = `<label style='color:red'>Not Updated Feedback</label>`;counter_col++;
+    //         }
+    //         else
+    //         {
+    //             create_new_tabl_col[counter_col] = '';counter_col++;
+    //         }
+
+    //         create_new_tabl_col[counter_col] = 'No Date'; 
+    //         create_new_tabl_col[counter_col+1] = 'No Sessions'; 
+    //         create_new_tabl_col[counter_col+2] = 'No Instructor'; 
+    //         var check_lock = false;
+
+
+    //         counter_col +=3;
+            
+
+
+    //         create_new_tabl_col[counter_col] = students_sessions; counter_col++;
+
+
+
+    //         create_new_tabl_rows[counter] = create_new_tabl_col;counter++;
+
+    //     }
+
+    // }
+
+    // func(create_new_tabl_rows);
+    Loading_page_clear();
+
 }
 
  async function create_paper_table_parent_students(all_tables)
@@ -1139,99 +1183,97 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
     Loading_page_clear();
 
 
-            var get_tasks_arr = await GET_DATA_TABLES(database_fixed_link , 'tasks'); 
-            var get_se_task_arr = await GET_DATA_TABLES(database_fixed_link , 'session_tasks'); 
-            var get_ans_arr = await GET_DATA_TABLES(database_fixed_link , 'students_ans'); 
 
 
-            for(var ret = 0 ; ret < all_tables.length ; ret++ )
-            {
 
-                all_tables[ret][26] = [];
+            // for(var ret = 0 ; ret < all_tables.length ; ret++ )
+            // {
+
+            //     all_tables[ret][26] = [];
             
-                all_tables[ret][26] = all_tables[ret][23];
+            //     all_tables[ret][26] = all_tables[ret][23];
 
-                all_tables[ret][23] = "0 Task/s"
-                all_tables[ret][24] = 0
-                all_tables[ret][25] = 0
+            //     all_tables[ret][23] = "0 Task/s"
+            //     all_tables[ret][24] = 0
+            //     all_tables[ret][25] = 0
 
 
-                all_tables[ret][27] = {};
+            //     all_tables[ret][27] = {};
 
-                all_tables[ret][27].tasks = []
-                all_tables[ret][27].tasks_count = 0
-                for(var i = 0 ; i < all_tables[ret][26].length ; i++)
-                {
+            //     all_tables[ret][27].tasks = []
+            //     all_tables[ret][27].tasks_count = 0
+            //     for(var i = 0 ; i < all_tables[ret][26].length ; i++)
+            //     {
     
-                    if(get_se_task_arr)
-                    {
-                        get_se_task_arr.forEach(element => {
-                            if(Number(all_tables[ret][26][i].session_id) == Number(element.session_id) )
-                            {
+            //         if(get_se_task_arr)
+            //         {
+            //             get_se_task_arr.forEach(element => {
+            //                 if(Number(all_tables[ret][26][i].session_id) == Number(element.session_id) )
+            //                 {
                                 
-                                get_tasks_arr.forEach(element_task => {
-                                    if(Number(element_task.id)== Number(element.task_id) )
-                                    {
+            //                     get_tasks_arr.forEach(element_task => {
+            //                         if(Number(element_task.id)== Number(element.task_id) )
+            //                         {
     
-                                        element_task.session_id = element.session_id;
-                                        element_task.att_id = all_tables[ret][26][i].id;
-                                        element_task.st_answer = '';
-                                        element_task.st_ans_cor = '';
+            //                             element_task.session_id = element.session_id;
+            //                             element_task.att_id = all_tables[ret][26][i].id;
+            //                             element_task.st_answer = '';
+            //                             element_task.st_ans_cor = '';
     
-                                        if(get_ans_arr)
-                                        {
-                                            get_ans_arr.forEach(element_ts_att => {
-                                                if(Number(all_tables[ret][26][i].id) == Number(element_ts_att.att_feed_id) && Number(element_task.id) ==  Number(element_ts_att.tasks_id))
-                                                {
-                                                    element_task.st_answer = element_ts_att.answer;
-                                                    element_task.st_ans_cor = element_ts_att.correct;
+            //                             if(get_ans_arr)
+            //                             {
+            //                                 get_ans_arr.forEach(element_ts_att => {
+            //                                     if(Number(all_tables[ret][26][i].id) == Number(element_ts_att.att_feed_id) && Number(element_task.id) ==  Number(element_ts_att.tasks_id))
+            //                                     {
+            //                                         element_task.st_answer = element_ts_att.answer;
+            //                                         element_task.st_ans_cor = element_ts_att.correct;
 
 
-                                                    if(element_task.st_ans_cor = element_ts_att.correct == 'Right')
-                                                    {
-                                                        all_tables[ret][24]++;
-                                                    }
-                                                    else if(element_task.st_ans_cor = element_ts_att.correct == 'Wrong')
-                                                    {
-                                                        all_tables[ret][25]++;
+            //                                         if(element_task.st_ans_cor = element_ts_att.correct == 'Right')
+            //                                         {
+            //                                             all_tables[ret][24]++;
+            //                                         }
+            //                                         else if(element_task.st_ans_cor = element_ts_att.correct == 'Wrong')
+            //                                         {
+            //                                             all_tables[ret][25]++;
 
-                                                    }
-                                                }
-                                            }
-                                            )
-                                        }
+            //                                         }
+            //                                     }
+            //                                 }
+            //                                 )
+            //                             }
                                         
-                                        all_tables[ret][27].tasks[all_tables[ret][27].tasks_count] = element_task;
-                                        all_tables[ret][27].tasks_count++;
-                                        all_tables[ret][23] = all_tables[ret][27].tasks_count + ` Task/s`;
+            //                             all_tables[ret][27].tasks[all_tables[ret][27].tasks_count] = element_task;
+            //                             all_tables[ret][27].tasks_count++;
+            //                             all_tables[ret][23] = all_tables[ret][27].tasks_count + ` Task/s`;
     
-                                    }
-                                }
-                                )
+            //                         }
+            //                     }
+            //                     )
     
     
-                            }
-                        }
-                        )
-                    }
+            //                 }
+            //             }
+            //             )
+            //         }
     
-                }
-                var saved_res = all_tables[ret][24] + all_tables[ret][25];
+            //     }
+            //     var saved_res = all_tables[ret][24] + all_tables[ret][25];
 
-                if(saved_res)
-                {
-                    var saved_per = Number(all_tables[ret][24])/ saved_res;
-                    all_tables[ret][25] = (saved_per * 100).toFixed(2) + "%";
-                }
-                else
-                {
-                    all_tables[ret][25] = "0 %";
+            //     if(saved_res)
+            //     {
+            //         var saved_per = Number(all_tables[ret][24])/ saved_res;
+            //         all_tables[ret][25] = (saved_per * 100).toFixed(2) + "%";
+            //     }
+            //     else
+            //     {
+            //         all_tables[ret][25] = "0 %";
 
-                }
-                all_tables[ret][24] = saved_res + " Completed";
+            //     }
+            //     all_tables[ret][24] = saved_res + " Completed";
 
                 
-            }
+            // }
 
 
 
@@ -1754,7 +1796,6 @@ if(Object.values(dataArray) && Object.values(dataArray) !== undefined && Object.
 
                         result += `Question : ${dataArray.tasks[index].question}`;
 
-                        console.log(dataArray.tasks[index]);
                         if(dataArray.tasks[index].st_answer == "")
                         {
 
