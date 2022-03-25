@@ -892,12 +892,15 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
 
 }
 
- function quary_tables_all__student(All_table_obj , func)
+ async function quary_tables_all__student(All_table_obj , func)
  {
     var create_new_tabl_rows = []
     var counter = 0;
 
+    var result_value = await GET_DATA_TABLES_FULL_JOIN(database_fixed_link , 'parent' , 'students' , 'students.parent_id , parent.id ' , 'parent.id = students.parent_id' , 'parent.id');
     
+    console.log(result_value[0]);
+
     // 'parent',
     // 'students',
     // 'groups',
@@ -911,14 +914,15 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
     // let result_ ='';
 
 
-    All_table_obj.tables[1].forEach( elment => 
-        {
-            console.log(All_table_obj.tables[0][elment.parent_id]);
+    // All_table_obj.tables[1].forEach( elment => 
+    //     {
+    //         console.log(All_table_obj.tables[0][elment.parent_id]);
             
-        }
+    //     }
 
-     )
+    //  )
 
+    //  console.log(All_table_obj.tables);
 
 
     //  All_table_obj.tables[0].forEach( elment => 

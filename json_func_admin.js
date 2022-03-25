@@ -10,6 +10,23 @@ async function GET_DATA_TABLES(Database_link , Table_name)
 
 }
 
+async function GET_DATA_TABLES_FULL_JOIN(Database_link , Table_name , Table_name2 , returncol ,condition , order)
+{
+    const All_req_obj = {};
+    All_req_obj.Database_link = Database_link;
+    All_req_obj.table1 =  Table_name;
+    All_req_obj.table2 =  Table_name2;
+    All_req_obj.getcols =  returncol;
+    All_req_obj.condition =  condition;
+    All_req_obj.order =  order;
+
+    var result = await get_full_join_data(All_req_obj);
+
+    return JSON.parse(result);
+    // return result;
+
+}
+
 async function GET_DATA_TABLES_ONE_COL(Database_link , Table_name , Col_num)
 {
 

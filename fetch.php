@@ -50,6 +50,10 @@ if (isset($_POST["status"])){
         {
             update_row($servername , $username , $password , $dbname  , $_POST["table"] , $_POST["index_counter"] , $_POST["cols_data"]);
         }
+        else if($_POST["status"] == "GetJoin")
+        {
+            get_join_table($servername , $username , $password , $dbname , $_POST["table1"] , $_POST["table2"] , $_POST["getcols"]  , $_POST["condition_"] , $_POST["ORDER"]   );
+        }
 
 
 }
@@ -65,6 +69,7 @@ if ($conn->connect_error) {
 }
 
 $sql = "SELECT * FROM $tableName";
+
 $result = $conn->query($sql);
 $no_data = "true";
 
@@ -200,6 +205,55 @@ $conn->close();
 
 
 }
+
+
+
+function get_join_table($servername , $username , $password , $dbname , $tableName , $tableName_2 , $colomns_in  , $com , $order_by  )
+{
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+// $sql = "SELECT $colomns_in FROM $tableName_2 FULL OUTER JOIN $tableName ON $com ORDER BY $order_by";
+
+// $sql = "SELECT parent.name , parent.id FROM parent FULL OUTER JOIN students ON parent.id = students.parent_id;";
+
+
+$sql = "SELECT   students.id , students.name, sessions.session_date , att_feed.id  FROM ((att_feed
+  INNER JOIN students ON students.id = att_feed.student_id) 
+  INNER JOIN sessions ON sessions.id = att_feed.session_id);";
+
+// echo $sql;
+
+$result = $conn->query($sql);
+$no_data = "true";
+
+if ($result->num_rows > 0) {
+    // output data of each row
+
+
+    for ($set = array (); $row = $result->fetch_assoc(); $set[] = $row);
+    
+    echo json_encode($set);
+
+} else {
+    // $data_var = $no_data;
+    echo json_encode($result->fetch_assoc() );
+}
+
+
+$conn->close();
+
+
+}
+
+
+
+
+
 
 
 

@@ -5,6 +5,33 @@
 //------------------------------------------------------------
 
 
+async function get_full_join_data(All_data_obj)
+{
+  let result;
+  try {
+    result = await $.ajax({
+    url: All_data_obj.Database_link,
+    type: "post",
+    data: {
+            status: 'GetJoin' ,
+            table1: All_data_obj.table1,
+            table2: All_data_obj.table2,
+            getcols: All_data_obj.getcols,
+            condition_: All_data_obj.condition,
+            ORDER: All_data_obj.order
+          }
+        });
+      return result;
+    }
+    catch (error)
+    {
+      console.error(error);
+    }
+
+}
+
+
+
 
 async function get_all_data_from_database_doAjax(All_data_obj)
 {
