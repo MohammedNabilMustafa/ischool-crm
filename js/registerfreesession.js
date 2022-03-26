@@ -674,7 +674,7 @@ async function go_to_step03_func_free()
   ],
     [
         choosen_group,
-        get_student_arr_return[get_student_arr_return.length-1].students_id,
+        get_student_arr_return[get_student_arr_return.length-1].id,
         'active'
     ]
     );
@@ -700,7 +700,7 @@ async function go_to_step03_func_free()
       ],
         
       [
-        get_student_arr_return[get_student_arr_return.length-1].students_id,
+        get_student_arr_return[get_student_arr_return.length-1].id,
         get_required_sessions_arr[index].id,
         '',
           ''
