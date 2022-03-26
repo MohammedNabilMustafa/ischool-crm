@@ -985,7 +985,7 @@ function students()
     ,"parent_id"
     ,"free_session_status"
     ,"std_status"
-    ,"name"
+    ,"st_name"
     ,"age"
     ,"birthdate"
   ];
@@ -1243,7 +1243,7 @@ function employee()
 
     var inputs_col = 
     [
-      "name"
+      "emp_name"
     ,"phone"
     ,"email"
     ,"zoomlink"

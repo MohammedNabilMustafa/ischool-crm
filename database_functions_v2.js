@@ -14,11 +14,6 @@ async function get_full_join_data(All_data_obj)
     type: "post",
     data: {
             status: 'GetJoin' ,
-            table1: All_data_obj.table1,
-            table2: All_data_obj.table2,
-            getcols: All_data_obj.getcols,
-            condition_: All_data_obj.condition,
-            ORDER: All_data_obj.order
           }
         });
       return result;

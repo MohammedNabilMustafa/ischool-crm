@@ -8,8 +8,8 @@ header("Access-Control-Allow-Origin: *");
 $servername = "localhost";
 $username = "root";
 $password = "";
-// $dbname = "ischool";
-$dbname = "havy_test";
+$dbname = "ischool";
+// $dbname = "havy_test";
 
 //public
 // $servername = "localhost";
@@ -52,7 +52,7 @@ if (isset($_POST["status"])){
         }
         else if($_POST["status"] == "GetJoin")
         {
-            get_join_table($servername , $username , $password , $dbname , $_POST["table1"] , $_POST["table2"] , $_POST["getcols"]  , $_POST["condition_"] , $_POST["ORDER"]   );
+            get_join_table($servername , $username , $password , $dbname );
         }
 
 
@@ -203,12 +203,9 @@ if ($conn->query($sql) === TRUE) {
 
 $conn->close();
 
-
 }
 
-
-
-function get_join_table($servername , $username , $password , $dbname , $tableName , $tableName_2 , $colomns_in  , $com , $order_by  )
+function get_join_table($servername , $username , $password , $dbname  )
 {
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -217,14 +214,18 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-// $sql = "SELECT $colomns_in FROM $tableName_2 FULL OUTER JOIN $tableName ON $com ORDER BY $order_by";
 
-// $sql = "SELECT parent.name , parent.id FROM parent FULL OUTER JOIN students ON parent.id = students.parent_id;";
+$sql = "SELECT students.students_id , students.std_id , students.st_name , parent.id , parent.name , students.free_session_status , 
+students.std_status , students.age , students.birthdate , employee.emp_name  FROM parent";
 
+$sql = $sql." RIGHT JOIN students ON parent.id = students.parent_id";
+$sql = $sql." RIGHT JOIN employee ON employee.employee_id = COALESCE(parent.customer_agent_id, 9) ";
 
-$sql = "SELECT   students.id , students.name, sessions.session_date , att_feed.id  FROM ((att_feed
-  INNER JOIN students ON students.id = att_feed.student_id) 
-  INNER JOIN sessions ON sessions.id = att_feed.session_id);";
+// $sql = $sql." RIGHT JOIN att_feed ON students.students_id = att_feed.student_id";
+
+// $sql = $sql." RIGHT JOIN sessions ON sessions.id = att_feed.session_id";
+// $sql = $sql." RIGHT JOIN groups ON sessions.groups_id = groups.id";
+// $sql = $sql." RIGHT JOIN level ON level.id = groups.level_id";
 
 // echo $sql;
 
@@ -233,8 +234,6 @@ $no_data = "true";
 
 if ($result->num_rows > 0) {
     // output data of each row
-
-
     for ($set = array (); $row = $result->fetch_assoc(); $set[] = $row);
     
     echo json_encode($set);

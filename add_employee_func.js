@@ -15,7 +15,7 @@ function ADD_NEW_EMPLOYEE()
                       ["name"],
                       ["name"],
                       ["name"],
-                      ["name" 
+                      ["emp_name" 
                       , "phone" 
                       , "email" 
                       , "zoomlink" 
@@ -150,7 +150,7 @@ function add_new_empolyee(All_req_obj,paper_inputs)
     var Database_link = database_fixed_link
 
     var inputs_col = 
-    ["name" 
+    ["emp_name" 
     , "phone" 
     , "email" 
     , "zoomlink" 
