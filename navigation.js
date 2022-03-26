@@ -99,6 +99,186 @@ function groups()
   Add_Section(All_data_obj);
 }
 
+function free_session_whatsapp()
+{
+  Loading_page_set();
+    var Saved_data = [];
+    var Database_link = database_fixed_link
+
+    var inputs_col = 
+    [
+      "free_whats_token" 
+      , "free_whats_instance" 
+      , "free_whats_body" 
+      , "free_whats_num" 
+      , "free_whats_send" 
+      , "free_whats_msg" 
+      , "free_whats_msg_id" 
+      , "free_whats_parent_id"
+      ,"free_whats_parent_name"
+      ,"free_whats_parent_type"
+      
+  ];
+
+    var inputs_names_inputs = 
+    [
+      "free_whats_token" 
+      , "free_whats_instance" 
+      , "free_whats_body" 
+      , "free_whats_num" 
+      , "free_whats_send" 
+      , "free_whats_msg" 
+      , "free_whats_msg_id" 
+      , "free_whats_parent_id" 
+      ,"free_whats_parent_name"
+      ,"free_whats_parent_type"
+
+  ];
+
+    var inputs_names_search = 
+    ["ID"
+    ,"Timestamp"
+    ,"free_whats_token" 
+    , "free_whats_instance" 
+    , "free_whats_body" 
+    , "free_whats_num" 
+    , "free_whats_send" 
+    , "free_whats_msg" 
+    , "free_whats_msg_id" 
+    , "free_whats_parent_id" 
+    ,"free_whats_parent_name"
+    ,"free_whats_parent_type"
+
+    ,"Edit" 
+    ,"Delete"
+  ];
+    
+    var inputs_check = 
+    ["Slot missing" 
+  ];
+
+    var search_ids = 
+    ["Search1" 
+    , "Search2" 
+    , "Search3" 
+    , "Search4" 
+  ];
+
+    var called_table = 'free_session_whatsapp';
+
+  const All_data_obj = {};
+  All_data_obj.Start_Index = 1;
+  All_data_obj.next_btn = '#btn2';
+  All_data_obj.prev_btn = '#btn1';
+  All_data_obj.ind_btn = '#page_index';
+  All_data_obj.location_index = "Location_4";
+  All_data_obj.table_div = 'search-results';
+  All_data_obj.all_names = inputs_names_search;
+  All_data_obj.location_next = "Location_3";
+  All_data_obj.Location_2 = "Location_2";
+  All_data_obj.location_1 = "Location_1";
+  All_data_obj.search_data = search_ids;
+  All_data_obj.btn_index = 'btn_index';
+  All_data_obj.table_ = called_table;
+  All_data_obj.btn_index = 'btn_index';
+  All_data_obj.edit_index = [];
+  All_data_obj.delete_index = [];
+  All_data_obj.index_num_value = [];
+  All_data_obj.inputs_col_ = inputs_col;
+  All_data_obj.inputs_names_inputs_ = inputs_names_inputs;
+  All_data_obj.inputs_check_ = inputs_check;
+  All_data_obj.Database_link = Database_link;
+  All_data_obj.page_name = "Clients";
+  All_data_obj.page_name_id = "page_name";
+  All_data_obj.callbackfunc;
+  All_data_obj.obj;
+
+  Fetch_all_data(All_data_obj);
+  Add_Section(All_data_obj);
+}
+
+function free_session_whatsapp_temp()
+{
+  Loading_page_set();
+    var Saved_data = [];
+    var Database_link = database_fixed_link
+
+    var inputs_col = 
+    [
+      "free_whats_temp_token" 
+      , "free_whats_temp_instance" 
+      , "free_whats_temp_body" 
+      , "free_whats_temp_type" 
+
+      
+  ];
+
+    var inputs_names_inputs = 
+    [
+      "free_whats_temp_token" 
+      , "free_whats_temp_instance	" 
+      , "free_whats_temp_body" 
+      , "free_whats_temp_type" 
+
+  ];
+
+    var inputs_names_search = 
+    ["ID"
+    ,"Timestamp"
+    ,"free_whats_temp_token" 
+    , "free_whats_temp_instance	" 
+    , "free_whats_temp_body" 
+    , "free_whats_temp_type" 
+
+    ,"Edit" 
+    ,"Delete"
+  ];
+    
+    var inputs_check = 
+    ["Slot missing" 
+  ];
+
+    var search_ids = 
+    ["Search1" 
+    , "Search2" 
+    , "Search3" 
+    , "Search4" 
+  ];
+
+    var called_table = 'free_session_whatsapp_temp';
+
+  const All_data_obj = {};
+  All_data_obj.Start_Index = 1;
+  All_data_obj.next_btn = '#btn2';
+  All_data_obj.prev_btn = '#btn1';
+  All_data_obj.ind_btn = '#page_index';
+  All_data_obj.location_index = "Location_4";
+  All_data_obj.table_div = 'search-results';
+  All_data_obj.all_names = inputs_names_search;
+  All_data_obj.location_next = "Location_3";
+  All_data_obj.Location_2 = "Location_2";
+  All_data_obj.location_1 = "Location_1";
+  All_data_obj.search_data = search_ids;
+  All_data_obj.btn_index = 'btn_index';
+  All_data_obj.table_ = called_table;
+  All_data_obj.btn_index = 'btn_index';
+  All_data_obj.edit_index = [];
+  All_data_obj.delete_index = [];
+  All_data_obj.index_num_value = [];
+  All_data_obj.inputs_col_ = inputs_col;
+  All_data_obj.inputs_names_inputs_ = inputs_names_inputs;
+  All_data_obj.inputs_check_ = inputs_check;
+  All_data_obj.Database_link = Database_link;
+  All_data_obj.page_name = "Clients";
+  All_data_obj.page_name_id = "page_name";
+  All_data_obj.callbackfunc;
+  All_data_obj.obj;
+
+  Fetch_all_data(All_data_obj);
+  Add_Section(All_data_obj);
+}
+
+
 function sessions()
 {
   Loading_page_set();

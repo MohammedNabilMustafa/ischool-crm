@@ -26,10 +26,46 @@ function isEmail(email) {
     return EmailRegex.test(email);
   }
 
-  function isPhone(phone) {
-    var phone_pattern = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
-    return phone_pattern.test( phone );
+
+
+  const phoneInputField = document.getElementById("phonenumInput");
+  const phoneInput = window.intlTelInput(phoneInputField, {
+    utilsScript:
+      "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  });
+
+  const error = document.getElementById("phonenumInput_error");
+
+
+  function isPhone() {
+
+
+            const phoneNumber = phoneInput.getNumber();
+
+            if (phoneInput.isValidNumber()) {
+
+                $('#phonenumInput').val(phoneNumber);
+                return true;
+            } else {
+                return false;
+            }
+    
   }
+
+
+//   var input = document.getElementById("phonenumInput");
+// intlTelInput(input, {
+//     initialCountry: "auto",
+//     geoIpLookup: function(success, failure) {
+//         $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+//             var countryCode = (resp && resp.country) ? resp.country : "";
+//             success(countryCode);
+//         });
+//     },
+//     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+// });
+
+
 
   $(".btn.signup").click(async function() {
 
@@ -185,7 +221,15 @@ async function go_to_step02_func_free()
         else
         {
 
-            $('#phonenumInput_error').text('');    
+
+            if(isPhone($('#phonenumInput').val()) == false)
+            {
+                $('#phonenumInput_error').text('Please Set Valid Phone');return false;
+            }
+            else
+            {
+                $('#phonenumInput_error').text('');    
+            }
             
         }
 
@@ -274,6 +318,9 @@ async function go_to_step01_func_free()
     
     // var get_data = await $.getJSON('http://ipinfo.io/' + userip);
     
+    // console.log(get_data);
+
+    
     // allTimeZone.forEach(elment =>
     // {
     //     if(elment.Code == get_data.country)
@@ -292,7 +339,6 @@ async function go_to_step01_func_free()
     // })
 
 
-    // console.log(country_code);
     
     var get_parent_arr = await GET_DATA_TABLES(database_fixed_link ,'parent');    
     var saved_age_arr  = await GET_DATA_TABLES(database_fixed_link ,'age');    
@@ -417,7 +463,7 @@ async function go_to_step03_func_free()
     get_data_elements_parent_table[4] = ''
     get_data_elements_parent_table[5] = ''
     get_data_elements_parent_table[6] = ''
-    get_data_elements_parent_table[7] = $('#countries').val()
+    get_data_elements_parent_table[7] = ''
     get_data_elements_parent_table[8] = ''
     get_data_elements_parent_table[9] = get_element;
     get_data_elements_parent_table[10] = ''
@@ -522,6 +568,7 @@ async function go_to_step03_func_free()
     get_data_elements_parent_table[13] = $('#phonenumInput').val()
 
     var parent_id = '';
+    var parent_name = $('#firstnameInput').val();
 
     var check_email_phone = false;
 
@@ -611,7 +658,7 @@ async function go_to_step03_func_free()
     ,"parent_id"
     ,"free_session_status"
     ,"std_status"
-    ,"name"
+    ,"st_name"
     ,"age"
     ,"birthdate"
     ],
@@ -627,7 +674,7 @@ async function go_to_step03_func_free()
   ],
     [
         choosen_group,
-        get_student_arr_return[get_student_arr_return.length-1].id,
+        get_student_arr_return[get_student_arr_return.length-1].students_id,
         'active'
     ]
     );
@@ -653,7 +700,7 @@ async function go_to_step03_func_free()
       ],
         
       [
-        get_student_arr_return[get_student_arr_return.length-1].id,
+        get_student_arr_return[get_student_arr_return.length-1].students_id,
         get_required_sessions_arr[index].id,
         '',
           ''
@@ -662,10 +709,39 @@ async function go_to_step03_func_free()
 
     }
 
+    var result = await GET_DATA_TABLES(database_fixed_link , 'free_session_whatsapp_temp');
+
+
+
+    if(result)
+    {
+        for(var index = 0 ; index < result.length ; index++)
+        {
+            if(result[index].free_whats_temp_type == 'Intro_free')
+            {
+
+                // var result_link = text.link()
+
+                var URL__ = `http://localhost/ischool-crm/dashboard?username=${$('#emailInput').val()}&password=${$('#phonenumInput').val()}`;
+
+                var body = `Hello ${$('#firstnameInput').val()}
+${result[index].free_whats_temp_body}
+you can join dashboard using this link:
+${URL__}
+
+Or using username and password
+USERNAME : ${$('#emailInput').val()}
+PASSWORD : ${$('#phonenumInput').val()}
+`
+                var res = await send_whats_msg(result[index].free_whats_temp_token , result[index].free_whats_temp_instance , body ,  $('#phonenumInput').val() , parent_id , $('#firstnameInput').val() , result[index].free_whats_temp_type);
+            }
+        }
+    }
+
+
+
 
     Loading_page_clear();
-
-
 
     $("#done_name").text($('#firstnameInput').val());
     $("#done_date").text(choosen_date);

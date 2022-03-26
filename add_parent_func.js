@@ -651,7 +651,7 @@ Not Registered
         create_new_table_cols[counter] = All_table_obj.tables[3][index].email;counter++;
         create_new_table_cols[counter] = All_table_obj.tables[3][index].zoomlink;counter++;
         create_new_table_cols[counter] = All_table_obj.tables[3][index].username;counter++;
-        create_new_table_cols[counter] = All_table_obj.tables[3][index].password;counter++;
+        create_new_table_cols[counter] = All_table_obj.tables[3][index].password_value;counter++;
 
         for(var index_ = 0 ; index_ < All_table_obj.tables[0].length ; index_++)
         {
@@ -706,8 +706,8 @@ Not Registered
             create_new_tabl_cols[counter] = All_table_obj.tables[4][index].name_2;counter++;
             create_new_tabl_cols[counter] = All_table_obj.tables[4][index].phone_2;counter++;
             create_new_tabl_cols[counter] = All_table_obj.tables[4][index].email_2;counter++;
-            create_new_tabl_cols[counter] = All_table_obj.tables[4][index].address;counter++;
-            create_new_tabl_cols[counter] = All_table_obj.tables[4][index].location;counter++;
+            create_new_tabl_cols[counter] = All_table_obj.tables[4][index].username;counter++;
+            create_new_tabl_cols[counter] = All_table_obj.tables[4][index].password;counter++;
             create_new_tabl_cols[counter] = All_table_obj.tables[4][index].job;counter++;
             create_new_tabl_cols[counter] = All_table_obj.tables[4][index].marketing_id;counter++;
 
@@ -1242,8 +1242,8 @@ Not Registered
     , "Name 2 :" 
     , "Phone 2 :" 
     , "Email 2 :"
-    , "Address :"
-    , "Location :"
+    , "USERNAME :"
+    , "PASSWORD :"
     , "Job :"
     , "Marketing ID :"
     , "Reg Status :"

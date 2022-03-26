@@ -897,7 +897,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
     var create_new_tabl_rows = []
     var counter = 0;
 
-    var result_value = await GET_DATA_TABLES_FULL_JOIN();
+    var result_value = await GET_DATA_TABLES_FULL_JOIN(database_fixed_link);
     
 
     // var result_value = await GET_DATA_TABLES_FULL_JOIN(database_fixed_link , 'students' , 'parent' , null,
@@ -1157,10 +1157,14 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
     var saved_result_value = [] ;
     var saved_result_value_count = 0 ;
 
+    if(result_value)
+    {
     result_value.forEach(elment => {
         saved_result_value[saved_result_value_count] = Object.values(elment);
         saved_result_value_count++;
     })
+    }
+
 
     console.log(saved_result_value);
 

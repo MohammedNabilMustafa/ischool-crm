@@ -8,6 +8,12 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+  
     <title>iSchool Trial Session</title>
 
     <style>
@@ -23,7 +29,9 @@
         background-color: rgb(0,0,0); /* Fallback color */
         background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
         }
-
+        .iti.iti--allow-dropdown{
+            width: 100%;
+        }
         /* Modal Content/Box */
         .modal_loading-content {
         background-color: #fefefe00;
@@ -239,20 +247,17 @@ form {
                             </div>
                         </div>
                     </div>
-                    <div class="row twosides" >
-                        <!-- <div class="form-floating mb-3">
-                            <input type="tel" class="form-control " id="countrycodeInput" readonly>
-                            <label for="countrycodeInput">Country Code</label><span class="error_form" style="color: rgb(184, 0, 0);" id="countrycodeInput_error"></span>
-                        </div> -->
-                        <div class="form-floating mb-3">
-                            <input type="tel" class="form-control" id="phonenumInput" placeholder="Phone Number">
-                            <label for="phonenumInput">Phone Number</label><span class="error_form" style="color: rgb(184, 0, 0);" id="phonenumInput_error"></span>
+                    <div class="row" >
+
+                        <div class="form-floating mb-3" style="width: 100%;">
+                            <input style="height: 60px; width: 100%;" type="tel" class="form-control" id="phonenumInput" >
+                            <span class="error_form" style="color: rgb(184, 0, 0);" id="phonenumInput_error"></span>
                         </div>
+                    </div>
 
+                        <!-- <div class="row mb-3 country" style="width: 50%;" hidden>
 
-                        <div class="row mb-3 country" style="width: 50%;">
-
-                            <select name="countries" id="countries" is="ms-dropdown" data-child-height="200">
+                            <select name="countries" id="countries" is="ms-dropdown" data-child-height="200" >
     <option value='ad' data-image-css="flag ad" data-title="Andorra">Andorra</option>
     <option value='ae' data-image-css="flag ae" data-title="United Arab Emirates">United Arab Emirates</option>
     <option value='af' data-image-css="flag af" data-title="Afghanistan">Afghanistan</option>
@@ -500,9 +505,9 @@ form {
     <option value='zr' data-image-css="flag zr" data-title="Zaire (former)">Zaire (former)</option>
     <option value='zw' data-image-css="flag zw" data-title="Zimbabwe">Zimbabwe</option>
   </select>
-                        </div>
+                        </div> -->
 
-                    </div>
+                    
                     <div class="row">
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="emailInput" placeholder="Email Address">
@@ -680,6 +685,7 @@ form {
         <script   src="../help_functions.js" ></script>
         <script   src="../Country_codes.js" ></script>
         <script   src="../json_func_admin.js" ></script>
+        <script   src="../whatsapp.js" ></script>
 
         <script type="text/javascript">
             var userip;

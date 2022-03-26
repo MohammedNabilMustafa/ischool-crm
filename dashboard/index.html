@@ -74,8 +74,8 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input"  id="rememberMe">
-                                                <label class="custom-control-label" for="rememberMe">Remember
+                                                <input type="checkbox" class="custom-control-input"  id="rememberMe" hidden>
+                                                <label class="custom-control-label" for="rememberMe" hidden>Remember
                                                 Me</label>
                                             </div>
                                         </div>
@@ -794,13 +794,12 @@
                                             <tr>
                                                 <th scope="col">Student Name</th>
                                                 <th scope="col">Qouta</th>
-                                                <th scope="col">Used</th>
+                                                <th scope="col">Paid</th>
                                                 <th scope="col">Remain</th>
-                                                <th scope="col">Status</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
+                                        <tbody id="package_table_rows">
+                                            <!-- <tr>
                                                 <td data-label="Student Name" scope="col">Student Name</td>
                                                 <td data-label="Qouta" scope="col">50 Session/s</td>
                                                 <td data-label="Used" scope="col">30 Session/s</td>
@@ -827,11 +826,11 @@
                                                 <td data-label="Used" scope="col">30 Session/s</td>
                                                 <td data-label="Remain" scope="col">20 Session/s</td>
                                                 <td data-label="Status" scope="col">Active</td>
-                                            </tr>
+                                            </tr> -->
 
                                         </tbody>
                                     </table>
-                                    <nav aria-label="..." class="pagination-center">
+                                    <!-- <nav aria-label="..." class="pagination-center">
                                         <ul class="pagination">
                                             <li class="page-item disabled">
                                                 <a class="page-link" href="#" tabindex="-1">Previous</a>
@@ -845,7 +844,7 @@
                                                 <a class="page-link" href="#">Next</a>
                                             </li>
                                         </ul>
-                                    </nav>
+                                    </nav> -->
                                 </div>
                                 <div class="tab-pane fade" id="Installments" role="tabpanel" aria-labelledby="Installments-tab">
                                     <table class="table-resp">
@@ -857,8 +856,8 @@
                                                 <th scope="col">Pay</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
+                                        <tbody id="inst_table_rows">
+                                            <!-- <tr>
                                                 <td data-label="Description" scope="col">Description</td>
                                                 <td data-label="Date" scope="col">20/10/2022</td>
                                                 <td data-label="Amount" scope="col">3,000</td>
@@ -887,13 +886,13 @@
                                                 <td data-label="Date" scope="col">20/10/2022</td>
                                                 <td data-label="Amount" scope="col">3,000</td>
                                                 <td data-label="Pay" scope="col"><button class="btn btn-primary" style="padding: 5px 35px;">Pay</button></td>
-                                            </tr>
+                                            </tr> -->
                                        
 
                                         </tbody>
                                     </table>
-                                    <button class="btn btn-success btn-lg pay-btn">Pay once</button>
-                                    <nav aria-label="..." class="pagination-center">
+                                    <button class="btn btn-danger btn-lg pay-btn" style="display: block;margin: auto;margin-top: 50px;" id="payonce_btn">Pay once</button>
+                                    <!-- <nav aria-label="..." class="pagination-center">
                                         <ul class="pagination">
                                             <li class="page-item disabled">
                                                 <a class="page-link" href="#" tabindex="-1">Previous</a>
@@ -907,7 +906,7 @@
                                                 <a class="page-link" href="#">Next</a>
                                             </li>
                                         </ul>
-                                    </nav>
+                                    </nav> -->
                                 </div>
 
                             </div>
@@ -1024,6 +1023,24 @@
 Loading_page_set();
 
 
+let url = window.location.href;
+let params = (new URL(url)).searchParams;
+var get_element = '';
+
+ get_element_username = params.get('username');
+ get_element_password = params.get('password');
+
+ console.log(get_element_username.toString());
+ console.log(get_element_password.toString());
+ 
+ if(get_element_username != '' && get_element_password != '' && get_element_username != null && get_element_password != null)
+ {
+
+    localStorage.checkbox_client = 'on';
+    localStorage.username_client = get_element_username;
+    localStorage.password_client = get_element_password;
+
+ }
 
 const rmCheck = document.getElementById("rememberMe");
 var  nameInput = document.getElementById("Username");
@@ -1053,6 +1070,29 @@ $('#logout_id').click(function () {
         nameInput.value = localStorage.username_client;
         passInput.value = localStorage.password_client;
 
+
+        var value__ = await login_page_check_auto(nameInput.value , passInput.value);
+        
+        console.log(value__);
+
+        if(!value__){login_page_check();}
+        } else {
+        rmCheck.removeAttribute("checked");
+        nameInput.value = "";
+        passInput.value = "";
+        login_page_check();
+
+        }
+    }
+
+
+    async function waiting_login()
+    {
+        if (localStorage.checkbox_client && localStorage.checkbox_client !== "") {
+        rmCheck.setAttribute("checked", "checked");
+        nameInput.value = localStorage.username_client;
+        passInput.value = localStorage.password_client;
+
         var value__ = await login_page_check_auto(nameInput.value , passInput.value);
         if(!value__){login_page_check();}
         } else {
@@ -1065,16 +1105,22 @@ $('#logout_id').click(function () {
     }
 
 
+
         function lsRememberMe() {
-            if (rmCheck.checked && nameInput.value !== "" && passInput.value !== "") {
-              localStorage.username_client = nameInput.value;
-              localStorage.password_client = passInput.value;
+            localStorage.checkbox_client = 'on';
+            localStorage.username_client = nameInput.value;
+            localStorage.password_client = passInput.value;
+
+            // if (rmCheck.checked && nameInput.value !== "" && passInput.value !== "") {
+            //   localStorage.username_client = nameInput.value;
+            //   localStorage.password_client = passInput.value;
           
-              localStorage.checkbox_client = rmCheck.value;
-            } else {
-              localStorage.username_client = "";
-              localStorage.checkbox_client = "";
-            }
+            //   console.log(rmCheck.value);
+            //   localStorage.checkbox_client = rmCheck.value;
+            // } else {
+            //   localStorage.username_client = "";
+            //   localStorage.checkbox_client = "";
+            // }
           }
 
 

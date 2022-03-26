@@ -501,10 +501,17 @@ a{
                         <li><a href="#" id="call_status" class="link-dark rounded">CS Call Status</a></li>
 
                         <li><a href="#" id="sales_calls" class="link-dark rounded">Sales Calls</a></li>
+                        <li><a href="#" id="free_session_whatsapp_temp" class="link-dark rounded">Whatsapp MSGS TEMP</a></li>
+                        <li><a href="#" id="free_session_whatsapp" class="link-dark rounded">Whatsapp MSGS</a></li>
+
+                        
                         <li><a href="#" id="cat_sales" class="link-dark rounded">Sales Category</a></li>
                         <li><a href="#" id="close_sales" class="link-dark rounded">Sales Closing</a></li>
                         <li><a href="#" id="call_type_sales" class="link-dark rounded">Sales Call Type</a></li>
                         <li><a href="#" id="call_status_sales" class="link-dark rounded">Sales Call Status</a></li>
+
+
+                        
                       </ul>
                     </div>
                   </li>
@@ -656,6 +663,7 @@ a{
       <script   src="tasks_func.js" ></script>
       <script   src="session.js" ></script>
       <script   src="replace_student.js" ></script>
+      <script   src="whatsapp.js" ></script>
 
       <script src="js/dd.min.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
@@ -673,6 +681,7 @@ a{
       <script src="sidebars.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
       <script>
+
 
 
 var time_out = 1000;
@@ -745,6 +754,19 @@ var  passInput = document.getElementById("password");
       }); 
 
 
+      $('#free_session_whatsapp').click(function () {
+        clear_all_selected();
+        $('#free_session_whatsapp').css('background', '#008CBA').css('color','white');
+        document.getElementById("page_name").innerHTML = "<h1>Whatsapp MSGS</h1>"
+        free_session_whatsapp();
+      }); 
+
+      $('#free_session_whatsapp_temp').click(function () {
+        clear_all_selected();
+        $('#free_session_whatsapp_temp').css('background', '#008CBA').css('color','white');
+        document.getElementById("page_name").innerHTML = "<h1>Whatsapp MSGS</h1>"
+        free_session_whatsapp_temp();
+      }); 
       
 
       $('#replace_student').click(function () {
@@ -1273,6 +1295,8 @@ var  passInput = document.getElementById("password");
         $('#add_group').css('background', 'white').css('color','#008CBA');
         $('#add_sessions').css('background', 'white').css('color','#008CBA');
         $('#student_groups').css('background', 'white').css('color','#008CBA');
+        $('#free_session_whatsapp').css('background', 'white').css('color','#008CBA');
+        $('#free_session_whatsapp_temp').css('background', 'white').css('color','#008CBA');
         $('#role').css('background', 'white').css('color','#008CBA');
         $('#student_status').css('background', 'white').css('color','#008CBA');
         $('#department').css('background', 'white').css('color','#008CBA');

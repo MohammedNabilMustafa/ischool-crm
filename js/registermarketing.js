@@ -459,7 +459,7 @@ async function go_to_step02_func_mrkt()
     ,"parent_id"
     ,"free_session_status"
     ,"std_status"
-    ,"name"
+    ,"st_name"
     ,"age"
     ,"birthdate"
     ],

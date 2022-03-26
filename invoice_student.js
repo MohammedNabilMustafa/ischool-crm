@@ -32,7 +32,7 @@ function INVOICE_STUDENT()
     ,"parent_id"
     ,"free_session_status"
     ,"std_status"
-    ,"name"
+    ,"st_name"
     ,"age"
     ,"birthdate"
   ],
@@ -144,11 +144,11 @@ function quary_tables_all_paper_invoice(All_table_obj , func)
 
                 for(var index_1 = 0 ; index_1 < All_table_obj.tables[1].length ; index_1++)
                 {
-                    if(All_table_obj.tables[1][index_1].id == saved_st_id)
+                    if(All_table_obj.tables[1][index_1].students_id == saved_st_id)
                     {
-                        saved_arr[counter] = All_table_obj.tables[1][index_1].id;counter++;
+                        saved_arr[counter] = All_table_obj.tables[1][index_1].students_id;counter++;
                         saved_arr[counter] = All_table_obj.tables[1][index_1].std_id;counter++;
-                        saved_arr[counter] = All_table_obj.tables[1][index_1].name;counter++;
+                        saved_arr[counter] = All_table_obj.tables[1][index_1].st_name;counter++;
                         saved_arr[counter] = All_table_obj.tables[1][index_1].parent_id;counter++;
                         saved_arr[counter] = All_table_obj.tables[1][index_1].std_status;counter++;
 

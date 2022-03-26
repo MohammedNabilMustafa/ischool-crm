@@ -227,7 +227,7 @@ function add_new_empolyee(All_req_obj,paper_inputs)
         var counter = 0;
 
         create_new_table_cols[counter] = All_table_obj.tables[3][index].id;counter++;
-        create_new_table_cols[counter] = All_table_obj.tables[3][index].name;counter++;
+        create_new_table_cols[counter] = All_table_obj.tables[3][index].emp_name;counter++;
         create_new_table_cols[counter] = All_table_obj.tables[3][index].phone;counter++;
         create_new_table_cols[counter] = All_table_obj.tables[3][index].email;counter++;
         create_new_table_cols[counter] = All_table_obj.tables[3][index].zoom_free;counter++;

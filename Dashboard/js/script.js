@@ -226,8 +226,8 @@ async function login_success(user_info)
 
     for(var index = 0; index < user_info.students_count ; index ++)
     {
-      document.getElementById('student_sector_container').innerHTML += `<button class='choose_name_class' id='btn_${index}'> ${user_info.students[index].name}</button>`;
-      $("#select_id_student").append(`<option value='${index}'> ${user_info.students[index].name} </option>`);
+      document.getElementById('student_sector_container').innerHTML += `<button class='choose_name_class' id='btn_${index}'> ${user_info.students[index].st_name}</button>`;
+      $("#select_id_student").append(`<option value='${index}'> ${user_info.students[index].st_name} </option>`);
 
     }
 
@@ -321,7 +321,7 @@ async function student_choosen(parent)
   if(get_student_att)
   {
     get_student_att.forEach(element => {
-      if(Number(element.student_id) == Number(parent.choosen_student.id))
+      if(Number(element.student_id) == Number(parent.choosen_student.students_id))
       {
         element.sessioninfo = {};
 
@@ -406,6 +406,7 @@ async function student_choosen(parent)
   
   parent.choosen_student.sessions.forEach(element => {
     element.sessioninfo.session_time_start = '';
+    element.sessioninfo.live = '';
     element.session_time_end = '';
 
 
@@ -461,7 +462,8 @@ async function student_choosen(parent)
     
             element.sessioninfo.session_time_start = element_slt.from_value;
             element.sessioninfo.session_time_end = element_slt.to_value;
-            
+            element.sessioninfo.live = element_slt.live_slot;
+
           }
 
         });
@@ -546,7 +548,7 @@ async function student_choosen(parent)
 
     get_employee.forEach(element_emp => {
 
-      if(Number(element_emp.id) == Number(element.sessioninfo.employee_id))
+      if(Number(element_emp.employee_id) == Number(element.sessioninfo.employee_id))
       {
         session_zoom_link = element_emp.zoomlink;
         instructor_name = element_emp.name;
@@ -635,10 +637,7 @@ if(ses_index == 0)
 
       if(distance < 0)
       {
-
         student_choosen(parent);
-      
-
         // $(".confirmation p").hide();
         $(".confirmation p").text('Session Running Now');
         $(".joinnow-btn").removeClass('disabled');
@@ -858,7 +857,7 @@ Sessionx = setInterval(function () {
 
   get_student_pacakges.forEach(element => {
     
-    if(element.student_id == parent.choosen_student.id)
+    if(element.student_id == parent.choosen_student.students_id)
     {
       element.packages_arr = {};
 
@@ -928,7 +927,7 @@ Sessionx = setInterval(function () {
 
   get_employee.forEach(element =>
     {
-      if(element.id == parent.customer_agent_id)
+      if(element.employee_id == parent.customer_agent_id)
       {
         select_agent = element.name
       }
@@ -956,7 +955,53 @@ Sessionx = setInterval(function () {
   }
 
 
+  // payonce_btn
+  var total_re_amount = 0; 
+
     parent.choosen_student.invoices.forEach(element => {
+
+
+      var result_in = `
+      <tr>
+      <td data-label="Description" scope="col">Description</td>
+      <td data-label="Date" scope="col">${element.due_date}</td>
+      <td data-label="Amount" scope="col">${element.amount} L.E</td>
+
+      `
+
+      if(element.status == 'waiting' && new Date(element.due_date) < new Date())
+      {
+        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-danger" style="padding: 5px 35px;">Pay Now</button></td>
+        </tr>
+        `;
+      }
+
+      else if(element.status == 'waiting' && new Date(element.due_date) > new Date())
+      {
+        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-primary" style="padding: 5px 35px;">Pay</button></td>
+        </tr>
+        `;
+      }
+      else if(element.status == 'done')
+      {
+        result_in += `<td data-label="Paid" scope="col"><button class="btn btn-primary" style="padding: 5px 35px;" disabled>Paid</button></td>
+        </tr>
+        `;
+      }
+      else if(element.status == 'refund')
+      {
+        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-primary" style="padding: 5px 35px;">Pay</button></td>
+        </tr>
+        `;
+      }
+
+      else if(element.status == 'ar-refund')
+      {
+        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-primary" style="padding: 5px 35px;">Pay</button></td>
+        </tr>
+        `;
+      }
+
       if(element.status == 'done'  )
       {
         pd_se += Number(element.qouta)
@@ -964,19 +1009,75 @@ Sessionx = setInterval(function () {
       else if(element.status == 'waiting')
       {
         un_se += Number(element.qouta)
+
+        total_re_amount += Number(element.amount);
       }
 
+      $('#inst_table_rows').append(result_in);
+
+
     })
+
+    if(total_re_amount)
+    {
+      $('#payonce_btn').show();
+      $('#payonce_btn').text(`Pay ${(total_re_amount * 0.8)} L.E once save 20%`);
+    }
+    else
+    {
+      $('#payonce_btn').hide();
+    }
     
 
+    
+    $('#package_table_rows').empty();
     parent.choosen_student.packages.forEach(element =>
       {
+        var result_in = `
+        <tr>
+        <td data-label="Student Name" scope="col">${parent.choosen_student.st_name}</td>
+        <td data-label="Qouta" scope="col">${element.packages_arr.quota} Session/s</td>
+        
+        `;
+
+        var Fin_pd_se = 0;
+        var Fin_un_se = 0;
+
+        parent.choosen_student.invoices.forEach(element_inv => {
+
+          if(Number(element_inv.package_id) == Number(element.id))
+          {
+            if(element_inv.status == 'done'  )
+            {
+              Fin_pd_se += Number(element_inv.qouta)
+            }
+            else if(element_inv.status == 'waiting')
+            {
+              Fin_un_se += Number(element_inv.qouta)
+            }
+
+          }
+    
+        })
+
+       result_in += `
+        <td data-label="Used" scope="col">${Fin_pd_se} Session/s</td>
+        <td data-label="Remain" scope="col">${Fin_un_se} Session/s</td>
+        </tr>
+        `;
+
+
+        $('#package_table_rows').append(result_in);
+
         Total_quota += Number(element.packages_arr.quota)
       })
 
 
 
-  $('#student_name_over').text(parent.choosen_student.name)
+
+      console.log(parent.choosen_student);
+
+  $('#student_name_over').text(parent.choosen_student.st_name)
 
 
 
@@ -1152,9 +1253,10 @@ function sessions_att(element)
       <tr>
       <td style="color: rgb(0, 0, 0)">Session ${element.sessioninfo.session_num}</td>
       <td style="color: rgb(0, 0, 0)">${element.sessioninfo.session_date}</td>
+      <td style="color: rgb(0, 0, 0)">${element.sessioninfo.group_arr.level_name}</td>
+
        `
     
-      //  <td style="color: rgb(0, 0, 0)">${element.sessioninfo.group_arr.level_name}</td>
 
   if(element.attendance == 'YES')
   {
@@ -1228,8 +1330,8 @@ function sessions_upcoming(element)
     return `
     <tr>
     <td style="color: rgb(172, 172, 172)">Session ${element.sessioninfo.session_num}</td>
-    <td style="color: rgb(172, 172, 172)">${element.sessioninfo.session_date}</td>
-    
+    <td style="color: rgb(172, 172, 172)">${element.sessioninfo.session_date} | ${element.sessioninfo.live}</td>
+    <td style="color: rgb(0, 0, 0)">${element.sessioninfo.group_arr.level_name}</td>
     
     <td  style="color: rgb(172, 172, 172)" colspan="3" > UPCOMMING</i></td>        
   
