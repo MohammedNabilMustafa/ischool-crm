@@ -204,80 +204,84 @@
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+            <div class="left-side-static">
+                <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
-                <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                    <div class="sidebar-brand-icon">
-                        <img src="img/white-logo.svg" alt="">
-                    </div>
+                    <!-- Sidebar - Brand -->
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                        <div class="sidebar-brand-icon">
+                            <img src="img/white-logo.svg" alt="">
+                        </div>
+    
+                    </a>
+    
+                    <!-- Divider -->
+                    <hr class="sidebar-divider my-0">
+    
+                    <li class="nav-item leftside " id="overviewTap_id">
+                        <a class="nav-link " data-id="#overviewTap">
+                            <i class="fa-solid fa-house"></i>
+                            <span>Overview</span></a>
+                    </li>
+    
+                    <li class="nav-item leftside active" id="sessioninfoTap_id">
+                        <a class="nav-link" data-id="#sessioninfoTap">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>Trial Session</span></a>
+                    </li>
+    
+                    <li class="nav-item leftside" id="feedbackTap_id">
+                        <a class="nav-link" data-id="#feedbackTap">
+                            <i class="fa-solid fa-star"></i>
+                            <span>Sessions</span></a>
+                    </li>
+    
+                    <!-- Nav Item - Dashboard -->
+    
+                    <!-- Nav Item - Charts -->
+                    <li class="nav-item leftside" id="sessioninfoTap_id">
+                        <a class="nav-link" data-id="#certificationTap">
+                            <i class="fa-solid fa-certificate"></i>
+                            <span>Certification</span></a>
+                    </li>
+    
+                    <!-- Nav Item - Tables -->
+                    <li class="nav-item leftside" id="roadmapTap_id">
+                        <a class="nav-link" data-id="#roadmapTap">
+                            <i class="fa-solid fa-map-location-dot"></i>
+                            <span>Roadmap</span></a>
+                    </li>
+    
+                    <li class="nav-item leftside" id="financeTap_id">
+                        <a class="nav-link" data-id="#financeTap">
+                            <i class="fa-solid fa-coins"></i>
+                            <span>Finance</span></a>
+                    </li>
+    
+                    
+                    <li class="nav-item leftside" id="packagesTap_id">
+                        <a class="nav-link" data-id="#packagesTap02">
+                            <i class="fa-solid fa-shapes"></i>
+                            <span>Upgrade</span></a>
+                    </li>
+    
+    
+    
+    
+    
+    
+                    <!-- Divider -->
+                    <hr class="sidebar-divider d-none d-md-block">
+    
+                    <!-- Sidebar Toggler (Sidebar) -->
+    
+    
+    
+    
+                </ul>
+            </div>
 
-                </a>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider my-0">
-
-                <li class="nav-item leftside " id="overviewTap_id">
-                    <a class="nav-link " data-id="#overviewTap">
-                        <i class="fa-solid fa-house"></i>
-                        <span>Overview</span></a>
-                </li>
-
-                <li class="nav-item leftside active" id="sessioninfoTap_id">
-                    <a class="nav-link" data-id="#sessioninfoTap">
-                        <i class="fa-solid fa-circle-info"></i>
-                        <span>Trial Session</span></a>
-                </li>
-
-                <li class="nav-item leftside" id="feedbackTap_id">
-                    <a class="nav-link" data-id="#feedbackTap">
-                        <i class="fa-solid fa-star"></i>
-                        <span>Sessions</span></a>
-                </li>
-
-                <!-- Nav Item - Dashboard -->
-
-                <!-- Nav Item - Charts -->
-                <li class="nav-item leftside" id="sessioninfoTap_id">
-                    <a class="nav-link" data-id="#certificationTap">
-                        <i class="fa-solid fa-certificate"></i>
-                        <span>Certification</span></a>
-                </li>
-
-                <!-- Nav Item - Tables -->
-                <li class="nav-item leftside" id="roadmapTap_id">
-                    <a class="nav-link" data-id="#roadmapTap">
-                        <i class="fa-solid fa-map-location-dot"></i>
-                        <span>Roadmap</span></a>
-                </li>
-
-                <li class="nav-item leftside" id="financeTap_id">
-                    <a class="nav-link" data-id="#financeTap">
-                        <i class="fa-solid fa-coins"></i>
-                        <span>Finance</span></a>
-                </li>
-
-                
-                <li class="nav-item leftside" id="packagesTap_id">
-                    <a class="nav-link" data-id="#packagesTap">
-                        <i class="fa-solid fa-shapes"></i>
-                        <span>Upgrade</span></a>
-                </li>
-
-
-
-
-
-
-                <!-- Divider -->
-                <hr class="sidebar-divider d-none d-md-block">
-
-                <!-- Sidebar Toggler (Sidebar) -->
-
-
-
-
-            </ul>
+            
             <!-- End of Sidebar -->
 
             <!-- Content Wrapper -->
@@ -505,7 +509,7 @@
                         </div>
                         
 
-                        <div class="card schedule-container shadow" id="packagesTap02">
+                        <div class="card schedule-container shadow" id="packagesTap02" style="display:none;">
                             <div class="row body">
                   
                               <div class="col form">
@@ -570,7 +574,7 @@
                   
                   
                   
-                                  <button class="btn btn-primary next">Next</button>
+                                  <button class="btn btn-primary next" id="schedule_next">Next</button>
                               </div>
                               
                           </div>
@@ -859,14 +863,15 @@
                         <div id="financeTap">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="Packages-tab" data-toggle="tab" href="#Packages-exp" role="tab" aria-controls="Packages" aria-selected="true">Packages</a>
+                                    <a class="nav-link active" id="Installments-tab" data-toggle="tab" href="#Installments" role="tab" aria-controls="Installments" aria-selected="true">Installments</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="Installments-tab" data-toggle="tab" href="#Installments" role="tab" aria-controls="Installments" aria-selected="false">Installments</a>
+                                    <a class="nav-link " id="Packages-tab" data-toggle="tab" href="#Packages-exp" role="tab" aria-controls="Packages" aria-selected="false">Packages</a>
                                 </li>
+                              
                             </ul>
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="Packages-exp" role="tabpanel" aria-labelledby="Packages-tab">
+                                <div class="tab-pane fade " id="Packages-exp" role="tabpanel" aria-labelledby="Packages-tab">
                                     <table class="table-resp">
                                         <thead>
                                             <tr>
@@ -924,7 +929,7 @@
                                         </ul>
                                     </nav> -->
                                 </div>
-                                <div class="tab-pane fade" id="Installments" role="tabpanel" aria-labelledby="Installments-tab">
+                                <div class="tab-pane fade show active" id="Installments" role="tabpanel" aria-labelledby="Installments-tab">
                                     <table class="table-resp">
                                         <thead>
                                             <tr>
@@ -969,7 +974,7 @@
 
                                         </tbody>
                                     </table>
-                                    <button class="btn btn-danger btn-lg pay-btn" style="display: block;margin: auto;margin-top: 50px;" id="payonce_btn">Pay once</button>
+                                    <button class="btn animated-bg-blue btn-lg pay-btn" style="display: block;margin: 50px auto;" id="payonce_btn" data-sale="20%">Pay once</button>
                                     <!-- <nav aria-label="..." class="pagination-center">
                                         <ul class="pagination">
                                             <li class="page-item disabled">
@@ -1083,11 +1088,11 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="js/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/script.js"></script>

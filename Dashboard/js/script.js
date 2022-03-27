@@ -40,11 +40,26 @@ function tapsReset() {
   $("#certificationTap").hide();
   $("#roadmapTap").hide();
   $("#packagesTap").hide();
+  $("#packagesTap02").hide();
   $("#overviewTap").hide();
   $("#feedbackTap").hide();
   $("#financeTap").hide();
 }
+$("#schedule_next").click(function(){
+  
+  $("#packagesTap02").hide("drop", { direction: "left" }, 300);
+  setTimeout(function(){
+    $("#packagesTap").show("drop", { direction: "right" }, 300);
+  },400)
+  
+})
+$(".back-btn").click(function(){
 
+  $("#packagesTap").hide("drop", { direction: "right" }, 300);
+  setTimeout(function(){
+    $("#packagesTap02").show("drop", { direction: "left" }, 300);
+  },400)
+})
 function PDF_PRINT (name , sessions)
 {
   var element = document.getElementById('element-to-print');
@@ -905,6 +920,7 @@ Sessionx = setInterval(function () {
     $("#certificationTap_id").show();
     $("#roadmapTap_id").hide();
     $("#packagesTap_id").show();
+
     $("#overviewTap_id").hide();
     $("#feedbackTap_id").show();
     $("#financeTap_id").hide();
@@ -972,33 +988,33 @@ Sessionx = setInterval(function () {
 
       if(element.status == 'waiting' && new Date(element.due_date) < new Date())
       {
-        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-danger" style="padding: 5px 35px;">Pay Now</button></td>
+        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-primary" style="padding: 5px 35px;">Pay Now</button></td>
         </tr>
         `;
       }
 
       else if(element.status == 'waiting' && new Date(element.due_date) > new Date())
       {
-        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-primary" style="padding: 5px 35px;">Pay</button></td>
+        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-outline-primary" style="padding: 5px 35px;">Pay</button></td>
         </tr>
         `;
       }
       else if(element.status == 'done')
       {
-        result_in += `<td data-label="Paid" scope="col"><button class="btn btn-primary" style="padding: 5px 35px;" disabled>Paid</button></td>
+        result_in += `<td data-label="Paid" scope="col"><button class="btn btn-primary paid" style="padding: 5px 35px;" disabled><i class="fa-solid fa-check"></i> Paid</button></td>
         </tr>
         `;
       }
       else if(element.status == 'refund')
       {
-        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-primary" style="padding: 5px 35px;">Pay</button></td>
+        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-outline-primary" style="padding: 5px 35px;">Pay</button></td>
         </tr>
         `;
       }
 
       else if(element.status == 'ar-refund')
       {
-        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-primary" style="padding: 5px 35px;">Pay</button></td>
+        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-outline-primary" style="padding: 5px 35px;">Pay</button></td>
         </tr>
         `;
       }
@@ -1022,7 +1038,7 @@ Sessionx = setInterval(function () {
     if(total_re_amount)
     {
       $('#payonce_btn').show();
-      $('#payonce_btn').text(`Pay ${(total_re_amount * 0.8)} L.E once save 20%`);
+      $('#payonce_btn').text(`Pay ${(total_re_amount * 0.8)} L.E once`);
     }
     else
     {
@@ -1169,6 +1185,7 @@ Sessionx = setInterval(function () {
     $("#certificationTap_id").show();
     $("#roadmapTap_id").hide();
     $("#packagesTap_id").show();
+    
     $("#overviewTap_id").show();
     $("#overviewTap").show();
 
