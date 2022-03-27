@@ -61,6 +61,19 @@ function next_Section(location)
 }
 
 
+function next_Section_custom()
+{
+    var values = "";
+    values = `<div class='col justify-content-start'><button  class='btn btn-success ' id = 'btn_prev' > Pervious </button></div>
+    <div class='col-1 justify-content-center' style='display:flex;flex-direction:column;text-align:center;'><span style="margin:5px" ></span>
+    <input type='number' id='page_index_cust' /><div id='Location_5'></div></div>
+    
+    <div class='col justify-content-end' style='justify-content:right !important;'><button class='btn btn-success' style='float:right;' id='btn_next'> Next </button></div>`;
+
+    document.getElementById('Location_6').innerHTML = values;
+}
+
+
 function clear(location)
 {
     document.getElementById(location).innerHTML = "";

@@ -6,11 +6,8 @@ function ADD_NEW_GROUP_FUNC()
     Loading_page_set();
 
     get_days = [];
-    document.getElementById("Location_1").innerHTML = "";
-    document.getElementById("Location_2").innerHTML = "";
-    document.getElementById("Location_3").innerHTML = "";
-    //document.getElementById("Location_4").innerHTML = "";
-    document.getElementById("search-results").innerHTML = "";
+    clear_all_locations();
+
 
     var Database_link = database_fixed_link
 

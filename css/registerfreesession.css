@@ -4,9 +4,7 @@
     --black-color: #2c2c2c;
 }
 
-.mobile-header {
-    display: none;
-}
+
 
 * {
     font-family: 'roboto';
@@ -28,27 +26,6 @@
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.86, var(--blue-color)));
 }
 
-.header {
-    height: 60px;
-    background-color: var(--blue-color);
-    display: flex;
-    align-items: center;
-    padding: 0 90px;
-}
-
-.mobile-header {
-    background-color: var(--blue-color);
-    height: 40px;
-    overflow-x: hidden;
-}
-
-.header .row {
-    width: 100%;
-}
-
-.header img {
-    height: 35px;
-}
 
 .scheduletablehead {
     font-weight: bold;
@@ -101,100 +78,6 @@
 
 body {
     overflow-x: hidden;
-}
-
-.header .col-auto,
-.header .col {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.header .col {
-    justify-content: left;
-}
-
-.header ul {
-    display: flex;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-}
-
-.header ul li {
-    list-style: none;
-    color: white;
-    margin: 0 10px;
-    cursor: pointer;
-    transition: 300ms;
-}
-
-.header .nav-item:hover,
-.header .nav-item.active {
-    background-color: var(--orange-color);
-    padding: 35px;
-    border-radius: 0px 0px 15px 15px;
-}
-
-.header ul .btn-warning {
-    background-color: var(--orange-color);
-    outline: none;
-    border: none;
-    color: white;
-    background: linear-gradient(-45deg, #fdcf00, var(--orange-color), #fd4800, var(--orange-color));
-    background-size: 400% 400%;
-    animation: gradient 5s ease infinite;
-}
-
-.mobile-header {
-    width: 100%;
-}
-
-.mobile-header .header-optmize {
-    width: 100%;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 5%;
-}
-
-.mobile-header img {
-    height: 20px;
-}
-
-.mobile-header .menucontainer {
-    position: absolute;
-    background-color: #2c2c2c90;
-    width: 90%;
-    height: 100%;
-    color: white;
-    padding-top: 50px;
-    padding-left: 0;
-    backdrop-filter: blur(10px);
-    right: 0;
-    z-index: 1;
-    display: none;
-}
-
-.menucontainer .close {
-    position: absolute;
-    left: 15px;
-    top: 15px;
-}
-
-.mobile-header .menucontainer .mobilemenu-item {
-    list-style: none;
-    text-align: center;
-    font-size: 20px;
-    margin: 20px 0px;
-    width: 100%;
-}
-
-.mobile-header .menucontainer .mobilemenu-item.active {
-    background-color: var(--blue-color);
-    padding: 10px 0;
 }
 
 .right-align .nav-item:hover {
@@ -526,12 +409,7 @@ hr {
         width: 50% !important;
         padding-right: 0;
     }
-    .header {
-        display: none;
-    }
-    .mobile-header {
-        display: flex;
-    }
+    
     .col.picture {
         display: none;
     }
@@ -646,3 +524,204 @@ hr {
         transform: scale(1);
     }
 }
+
+.header {
+    padding: 20px 15%;
+  }
+  .header img {
+    height: 40px;
+  }
+  .header li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: #2c2c2c80;
+  }
+  .header ul {
+    padding: 0;
+    margin: 0;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+  }
+  .header .nav {
+    display: flex;
+    justify-content: right;
+    height: 100%;
+    align-items: center;
+  }
+  .header .nav .login-nav,
+  .header .nav .main-nav {
+    display: flex;
+    align-items: center;
+  }
+  .header .nav .nav-item {
+    margin: 0 10px;
+    position: relative;
+    transition: 300ms;
+    cursor: pointer;
+  }
+  .header .nav .nav-item.active {
+    color: #1955cc;
+    font-weight: 700;
+  }
+  .header .nav .nav-item.active::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1.5px;
+    background-color: #1955cc;
+    left: 0;
+    bottom: 0;
+  }
+  .header .nav button {
+    margin-left: 10px;
+  }
+  .header .fa-solid {
+    display: none;
+  }
+  b {
+    color: #fd7d00;
+  }
+  
+  @media screen and (max-width: 1200px) {
+  
+    .header img {
+      height: 45px;
+    }
+    .header {
+      padding: 20px 90px;
+    }
+    .header .fa-solid {
+      display: block;
+      margin-left: auto;
+    }
+    .header .fa-solid.fa-xmark {
+      font-size: 18px;
+      color: #fff;
+      position: absolute;
+      left: 20px;
+      top: 10px;
+    }
+    .header .nav {
+      flex-direction: column;
+      position: fixed;
+      height: 100%;
+      width: 85%;
+      z-index: 100;
+      right: -85%;
+      background-color: #2c2c2c80;
+      top: 0;
+      backdrop-filter: blur(10px);
+    }
+    .header .nav button {
+      margin-top: 20px;
+    }
+    .header .nav ul {
+      flex-direction: column;
+      color: #fff;
+      width: 100%;
+      text-align: center;
+      padding: 0;
+    }
+    .header .nav .nav-item {
+      width: 100%;
+      padding: 0;
+      padding: 15px 0;
+      color: #fff;
+      font-size: 15px;
+    }
+    .header .nav .main-nav {
+      width: 100%;
+      margin-top: 40px;
+    }
+    .header .nav .login-nav {
+      width: 100%;
+    }
+    .header .nav .nav-item.active {
+      background-color: #1955cc;
+      position: relative;
+      width: 100%;
+      color: #fff;
+    }
+    .vertical-div {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 870px) {
+  .header img {
+      height: 30px;
+    }
+    .header {
+      padding: 10px 50px;
+    }
+    .header .fa-solid {
+      display: block;
+      margin-left: auto;
+    }
+    .header .fa-solid.fa-xmark {
+      font-size: 18px;
+      color: #fff;
+      position: absolute;
+      left: 20px;
+      top: 10px;
+    }
+    .header .nav {
+      flex-direction: column;
+      position: fixed;
+      height: 100%;
+      width: 85%;
+      z-index: 100;
+      right: -85%;
+      background-color: #2c2c2c80;
+      top: 0;
+      backdrop-filter: blur(10px);
+    }
+    .header .nav button {
+      margin-top: 20px;
+    }
+    .header .nav ul {
+      flex-direction: column;
+      color: #fff;
+      width: 100%;
+      text-align: center;
+      padding: 0;
+    }
+    .header .nav .nav-item {
+      width: 100%;
+      padding: 0;
+      padding: 15px 0;
+      color: #fff;
+      font-size: 15px;
+    }
+    .header .nav .main-nav {
+      width: 100%;
+      margin-top: 40px;
+    }
+    .header .nav .login-nav {
+      width: 100%;
+    }
+    .header .nav .nav-item.active {
+      background-color: #1955cc;
+      position: relative;
+      width: 100%;
+      color: #fff;
+    }
+    .vertical-div {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 550px) {
+  .header {
+      padding: 10px 20px;
+    }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .header .nav .nav-item:hover {
+      color: #1955cc;
+    }
+  
+  }

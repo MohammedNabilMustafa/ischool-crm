@@ -137,10 +137,8 @@ async function ADD_NEW_PARENT()
     saved_age_arr = []
 
     st_ids = 0;
-    document.getElementById("Location_1").innerHTML = "";
-    document.getElementById("Location_2").innerHTML = "";
-    document.getElementById("Location_3").innerHTML = "";
-    document.getElementById("search-results").innerHTML = "";
+    clear_all_locations();
+
 
     var Database_link = database_fixed_link
     var inputs_col = [

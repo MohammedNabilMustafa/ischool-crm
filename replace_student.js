@@ -2,11 +2,8 @@
 async function REPLACE_STUDENT()
 {
 
-    document.getElementById('Location_1').innerHTML = ''
-    document.getElementById('Location_2').innerHTML = ''
-    document.getElementById('Location_3').innerHTML = ''
+    clear_all_locations();
 
-    document.getElementById('search-results').innerHTML = ''
 
 
     var student_table_arr = await GET_DATA_TABLES(database_fixed_link , 'students');

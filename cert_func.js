@@ -5,10 +5,8 @@ async function CERTIFICATION_DASHBOARD()
 {
     Loading_page_set();
 
-    document.getElementById("Location_1").innerHTML = "";
-    document.getElementById("Location_2").innerHTML = "";
-    document.getElementById("Location_3").innerHTML = "";
-    document.getElementById("search-results").innerHTML = "";
+    clear_all_locations();
+
 
     var get_lvl_arr = await GET_DATA_TABLES(database_fixed_link , 'level' );
     var get_age_arr = await GET_DATA_TABLES(database_fixed_link , 'age' );

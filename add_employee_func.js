@@ -4,10 +4,8 @@
 function ADD_NEW_EMPLOYEE()
 {
     Loading_page_set();
-    document.getElementById("Location_1").innerHTML = "";
-    document.getElementById("Location_2").innerHTML = "";
-    document.getElementById("Location_3").innerHTML = "";
-    //document.getElementById("Location_4").innerHTML = "";
+    clear_all_locations();
+
 
     var Database_link = database_fixed_link
 

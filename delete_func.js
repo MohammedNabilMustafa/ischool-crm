@@ -111,10 +111,8 @@ async function DELETE_PARENT()
 {
     Loading_page_set();
 
-    document.getElementById("Location_1").innerHTML = "";
-    document.getElementById("Location_2").innerHTML = "";
-    document.getElementById("Location_3").innerHTML = "";
-    document.getElementById("search-results").innerHTML = "";
+    clear_all_locations();
+
 
 
     document.getElementById("Location_1").innerHTML += `<button class='btn btn-info' id='check_for_all'>All</button> `;

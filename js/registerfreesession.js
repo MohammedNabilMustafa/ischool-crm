@@ -65,7 +65,20 @@ function isEmail(email) {
 //     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
 // });
 
-
+$(".header .close-btn").click(function() {
+    $(".header .nav").animate({
+            right: "-85%",
+        },
+        300
+    );
+});
+$(".header .menu-btn").click(function() {
+    $(".header .nav").animate({
+            right: 0,
+        },
+        300
+    );
+});
 
   $(".btn.signup").click(async function() {
 

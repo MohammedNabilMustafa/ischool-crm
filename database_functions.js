@@ -41,7 +41,6 @@ async function get_all_data_from_database_doAjax_arr(arr_data , index_pos ,  fun
     }
 }
 
-
 function get_one_data_from_database(All_data_obj)
 {
 

@@ -4,6 +4,7 @@
 async function SESSIONS_FUNC()
 {
     Loading_page_set();
+    clear_all_locations();
 
     var get_data_sessions = await GET_DATA_TABLES( database_fixed_link , "sessions") //
     var get_data_groups = await GET_DATA_TABLES( database_fixed_link , "groups") //

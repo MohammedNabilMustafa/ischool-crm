@@ -16,16 +16,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://kit.fontawesome.com/159acad575.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css">
     <!-- Custom styles for this template-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hurricane&display=swap" rel="stylesheet">
-
+    
     <script type="text/javascript" src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
-
+    
 </head>
 
 <body>
@@ -202,7 +204,7 @@
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -293,21 +295,13 @@
                         </div>
 
 
+                       
                         <Label id="reg_status">
                             Registered 
                         </Label>
-
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto align-items-center" >
-                            <span class=" ml-auto collapse"  id="sector_sea_st">
-                                <Label>
-                                    Switch Student : 
-                                </Label>
-                                <select id="select_id_student" >
-                                    <option value=""></option>
-                                </select>
-    
-                            </span>
+                          
                             <div class="topbar-divider d-none d-sm-block"></div>
 
                             <!-- Nav Item - User Information -->
@@ -328,10 +322,21 @@
                                     </a>
                                 </div>
                             </li>
-
+                           
                         </ul>
-
+                       
                     </nav>
+                    <div class="student-select">
+                        <span class=" collapse"  id="sector_sea_st">
+                            <Label>
+                                Kids : 
+                            </Label>
+                            <select id="select_id_student" class="select2" >
+                                <option  value=""></option>
+                            </select>
+
+                        </span>
+                    </div>
                     <!-- End of Topbar -->
 
                     <!-- -- -- -- -- -- -- -- -- -- -- -- -- -- Taps -- -- -- -- -- -- -- -- -- -- -- -- -->
@@ -345,7 +350,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="card shadow mb-4">
-                                        <div class="card-header py-3 bg-primary">
+                                        <div class="card-header py-3 headding-color">
                                             Join Class Using
                                         </div>
                                         <div class="card-body confirmation">
@@ -363,7 +368,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="card shadow mb-4">
-                                        <div class="card-header py-3 bg-primary">
+                                        <div class="card-header py-3 headding-color">
                                             Outcomes
                                         </div>
                                         <div class="card-body outcomes">
@@ -378,7 +383,7 @@
 
                             <!-- Page Heading -->
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3 bg-primary">
+                                <div class="card-header py-3 headding-color">
                                     <h5>Join Using ZOOM</h5>
                                 </div>
                                 <div class="card-body confirmation">
@@ -500,9 +505,80 @@
                         </div>
                         
 
-
-                        <div class="packages-container monthly" id="packagesTap">
-
+                        <div class="card schedule-container shadow" id="packagesTap02">
+                            <div class="row body">
+                  
+                              <div class="col form">
+                                  <h4 style="color: #2c2c2c;">Select Schedule</h4>
+                                  <hr>
+                  
+                                  <div class="row schedule-table">
+                                      <div class="row scheduletablehead ">
+                                          <span class="col">Starting date</span>
+                                          <span class="col">Day</span>
+                                          <span class="col">Time</span>
+                                          <span class="col">Language</span>
+                                          <span class="col"></span>
+                                      </div>
+                                      <div class="row scheduletableitem">
+                                          <span class="col-auto" hidden>52</span>
+                                          <span class="col">22/07/2022</span>
+                                          <span class="col">Tuesday</span>
+                                          <span class="col">4:30 PM</span>
+                                          <span class="col">lan</span>
+                  
+                                          <span class="col"><a class="check"></a></span>
+                                      </div>
+                                      <div class="row scheduletableitem">
+                                        <span class="col-auto" hidden>52</span>
+                                        <span class="col">22/07/2022</span>
+                                        <span class="col">Tuesday</span>
+                                        <span class="col">4:30 PM</span>
+                                        <span class="col">lan</span>
+                
+                                        <span class="col"><a class="check"></a></span>
+                                    </div>
+                                    <div class="row scheduletableitem">
+                                        <span class="col-auto" hidden>52</span>
+                                        <span class="col">22/07/2022</span>
+                                        <span class="col">Tuesday</span>
+                                        <span class="col">4:30 PM</span>
+                                        <span class="col">lan</span>
+                
+                                        <span class="col"><a class="check"></a></span>
+                                    </div>
+                                    <div class="row scheduletableitem">
+                                        <span class="col-auto" hidden>52</span>
+                                        <span class="col">22/07/2022</span>
+                                        <span class="col">Tuesday</span>
+                                        <span class="col">4:30 PM</span>
+                                        <span class="col">lan</span>
+                
+                                        <span class="col"><a class="check"></a></span>
+                                    </div>
+                                    <div class="row scheduletableitem">
+                                        <span class="col-auto" hidden>52</span>
+                                        <span class="col">22/07/2022</span>
+                                        <span class="col">Tuesday</span>
+                                        <span class="col">4:30 PM</span>
+                                        <span class="col">lan</span>
+                
+                                        <span class="col"><a class="check"></a></span>
+                                    </div>
+                                  </div>
+                  
+                  
+                  
+                  
+                                  <button class="btn btn-primary next">Next</button>
+                              </div>
+                              
+                          </div>
+                           </div>
+                           <div class="card shadow package-card" id="packagesTap">
+                            <div class="back-btn"><i class="fa-solid fa-arrow-left"></i></div>
+                        <div class="packages-container monthly" >
+               
                             <div class="package-comp monthly">
                                 <div class="package-title">Monthly Plan</div>
                                 <div class="package-body">
@@ -639,14 +715,16 @@
                                 </div>
 
                             </div>
+                          
+                        </div>
                         </div>
                         <div id="overviewTap">
                             <div class="row">
 
                                 <div class="col-lg-6">
                                     <div class="card shadow mb-4 basic-info">
-                                        <div class="card-header py-3">
-                                            <h6 class="m-0 font-weight-bold text-primary">Basic Information</h6>
+                                        <div class="card-header headding-color py-3">
+                                           Basic Information
                                         </div>
                                         <div class="card-body">
                                             <li> Student Name <a id="student_name_over">Alaa Nabil Mostafa Mohamed</a> </li>
@@ -670,8 +748,8 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="card shadow mb-4 membership-info">
-                                        <div class="card-header py-3">
-                                            <h6 class="m-0 font-weight-bold text-primary">Membership Information</h6>
+                                        <div class="card-header headding-color py-3">
+                                          Membership Information
                                         </div>
                                         <div class="card-body">
                                             <li> Membership Status <a id="mem_status_id">Expired</a> </li>
@@ -688,8 +766,8 @@
 
                             </div>
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3 bg-primary">
-                                    <h5>Next Session</h5>
+                                <div class="card-header py-3 headding-color">
+                                    Next Session
                                 </div>
                                 <div class="card-body confirmation">
                                     <p>Your session will start at </p>
@@ -1017,7 +1095,7 @@
     <script src="../json_func_admin.js"></script>
     <script src="../help_functions.js"></script>
     <script src="../direction_func.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script>
 
 Loading_page_set();

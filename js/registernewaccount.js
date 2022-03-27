@@ -1,9 +1,17 @@
-$(".mobile-header .menu").click(function() {
-    $(".mobile-header .menucontainer").show("blind", { direction: "right" });
-})
-$(".mobile-header .close").click(function() {
-    $(".mobile-header .menucontainer").hide("blind", { direction: "right" });
-})
+$(".header .close-btn").click(function() {
+    $(".header .nav").animate({
+            right: "-85%",
+        },
+        300
+    );
+});
+$(".header .menu-btn").click(function() {
+    $(".header .nav").animate({
+            right: 0,
+        },
+        300
+    );
+});
 $("#countryInput1").click(function() {
     $(".country-menu").slideToggle("fast")
 })
@@ -873,7 +881,7 @@ async function go_to_step05_func_reg(data_arr)
         ,"package_id"
     ],
         [
-            get_student_arr_return[get_student_arr_return.length-1].students_id,
+            get_student_arr_return[get_student_arr_return.length-1].id,
             data_arr.package_id
         ]
         );
@@ -891,7 +899,7 @@ async function go_to_step05_func_reg(data_arr)
             var invoice_data_arr = [];
             if(index == 0)
             {
-                invoice_data_arr[0] = get_student_arr_return[get_student_arr_return.length-1].students_id; //fee
+                invoice_data_arr[0] = get_student_arr_return[get_student_arr_return.length-1].id; //fee
                 invoice_data_arr[1] = package_selected[0].fees; //fee
                 invoice_data_arr[2] = package_selected[0].paid_as; //amount
                 invoice_data_arr[3] = 'done'; //status
@@ -905,7 +913,7 @@ async function go_to_step05_func_reg(data_arr)
             }
             else
             {
-                invoice_data_arr[0] = get_student_arr_return[get_student_arr_return.length-1].students_id; //fee
+                invoice_data_arr[0] = get_student_arr_return[get_student_arr_return.length-1].id; //fee
                 invoice_data_arr[1] = package_selected[0].fees; //fee
                 invoice_data_arr[2] = package_selected[0].paid_as; //amount
                 invoice_data_arr[3] = 'waiting'; //status
@@ -958,7 +966,7 @@ async function go_to_step05_func_reg(data_arr)
     ],
         [
             data_arr.group_id,
-            get_student_arr_return[get_student_arr_return.length-1].students_id,
+            get_student_arr_return[get_student_arr_return.length-1].id,
             'active'
         ]
         );
@@ -984,7 +992,7 @@ async function go_to_step05_func_reg(data_arr)
         ],
             
         [
-            get_student_arr_return[get_student_arr_return.length-1].students_id,
+            get_student_arr_return[get_student_arr_return.length-1].id,
             get_required_sessions_arr[index].id,
             '',
             ''

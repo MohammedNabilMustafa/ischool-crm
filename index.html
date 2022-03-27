@@ -371,9 +371,10 @@ a{
       </div> 
 
 
-
+ 
 
       <div class="container-fluid" id="all_countainer" style="display: none;">
+     
           <div class="row row_adj">
           <div class="col-2">
             <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
@@ -627,7 +628,8 @@ a{
                     </div>          
                   </div>
                 </div>
-              <div id="Location_3" class="row"></div>
+                <div id="Location_3" class="row"></div>
+                <div id="Location_6" class="row"></div>
             
           </div>
         
@@ -1248,12 +1250,19 @@ var  passInput = document.getElementById("password");
       
     }); 
     
+    function clear_all_locations()
+    {
+    document.getElementById("Location_1").innerHTML = "";
+    document.getElementById("Location_2").innerHTML = "";
+    document.getElementById("Location_3").innerHTML = "";
+    document.getElementById("Location_6").innerHTML = "";
+    document.getElementById("search-results").innerHTML = "";
+    }
 
     function clear_all_selected()
       {    
 
-        
-        
+        clear_all_locations();
         $('#replace_student').css('background', 'white').css('color','#008CBA');
         $('#tasks_dashboard').css('background', 'white').css('color','#008CBA');
         $('#registeration').css('background', 'white').css('color','#008CBA');

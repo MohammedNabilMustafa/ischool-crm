@@ -14,8 +14,23 @@ var get_ans_arr = [];
 var saved_student_arr = []
 var saved_employee_arr = []
 
+var start_index_num = 0;
+var ent_index = 0;
+
+function clear_all_locations()
+{
+    document.getElementById("Location_1").innerHTML = "";
+    document.getElementById("Location_2").innerHTML = "";
+    document.getElementById("Location_3").innerHTML = "";
+    document.getElementById("Location_6").innerHTML = "";
+    document.getElementById("search-results").innerHTML = "";
+}
+
 async function ADD_NEW_STUDENT()
 {
+
+    Loading_page_set();
+    clear_all_locations();
 
 
     get_tasks_arr = await GET_DATA_TABLES(database_fixed_link , 'tasks'); 
@@ -23,7 +38,6 @@ async function ADD_NEW_STUDENT()
     get_ans_arr = await GET_DATA_TABLES(database_fixed_link , 'students_ans'); 
 
 
-    Loading_page_set();
     document.getElementById("blob_Location_1").innerHTML = ``;
 
     saved_sessions_id_arr = [];
@@ -38,11 +52,7 @@ async function ADD_NEW_STUDENT()
     
     saved_age_arr = []
     st_ids = 0;
-    document.getElementById("Location_1").innerHTML = "";
-    document.getElementById("Location_2").innerHTML = "";
-    document.getElementById("Location_3").innerHTML = "";
-    //document.getElementById("Location_4").innerHTML = "";
-    document.getElementById("search-results").innerHTML = "";
+ 
 
     var Database_link = database_fixed_link
     var inputs_col = [
@@ -892,45 +902,74 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
 
 }
 
+function get_next_prev(All_table_obj,func)
+{
+
+    next_Section_custom();
+   $('#Location_3').hide();
+    document.getElementById('Location_5').innerHTML = `<label>`+Math.ceil((start_index_num+1)/10)+" - "+Math.ceil(All_table_obj.tables[1].length/10)+` </label>`;
+
+    $('#counter_id').val(All_table_obj.tables[1].length)
+
+    $('#btn_next').empty();
+    $('#btn_next').text('Next');
+
+    if(All_table_obj.tables[1].length - start_index_num > 10)
+    {
+        $('#btn_next').click(function()
+        {
+            start_index_num+=10;
+    
+            quary_tables_all__student(All_table_obj , func);
+            
+        })
+    }
+
+    if(start_index_num == 0)
+    {
+
+    }
+    else
+    {
+        $('#btn_prev').click(function()
+        {
+            start_index_num-=10;
+    
+            quary_tables_all__student(All_table_obj , func);
+            
+        })
+    }
+
+}
  async function quary_tables_all__student(All_table_obj , func)
  {
     var create_new_tabl_rows = []
     var counter = 0;
 
-    var result_value = await GET_DATA_TABLES_FULL_JOIN(database_fixed_link);
-    
-
-    // var result_value = await GET_DATA_TABLES_FULL_JOIN(database_fixed_link , 'students' , 'parent' , null,
-    // 'students.id , parent.id , parent.name' ,
-    // 'students.parent_id = parent.id' ,
-    // null,
-    // 'students.id');
-
-    // console.log(result_value);
-
-    // 'parent',
-    // 'students',
-    // 'groups',
-    // 'age',
-    // 'student_groups',
-    // 'operation_status',
-    // 'level',
-    // 'sessions',
-    // 'package',
-    // 'att_feed'
-    
     let result_ ='';
 
 
     if(All_table_obj.tables[1] && All_table_obj.tables[1] !== undefined && All_table_obj.tables[1].length != 0)
     {
-        create_new_tabl_rows = All_table_obj.tables[1]
 
-        for(var index = 0 ; index < All_table_obj.tables[1].length ; index++)
+        get_next_prev(All_table_obj , func);
+
+
+        if(Number(All_table_obj.tables[1].length) - start_index_num > 10)
+        {
+            ent_index = start_index_num+10;
+        }
+        else{
+            ent_index = Number(All_table_obj.tables[1].length);
+
+        }
+
+
+        for(var index = start_index_num ; index < ent_index ; index++)
         {
             var create_new_tabl_col = [];
             var counter_col = 0;
-            create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].students_id; counter_col++;
+            create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].id; counter_col++;
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].std_id; counter_col++;
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].st_name; counter_col++;
 
@@ -966,7 +1005,6 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
                 create_new_tabl_col[counter_col] = 'No Status';counter_col++;
             }
             
-            // create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].std_status; counter_col++;
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].age; counter_col++;
             create_new_tabl_col[counter_col] = All_table_obj.tables[1][index].birthdate; counter_col++;
 
@@ -981,7 +1019,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
                     All_table_obj.tables[10].forEach(element_emp => {
                         if(element_pt.sales_agent_id == element_emp.id)
                         {
-                            create_new_tabl_col[counter_col] = element_emp.name;counter_col++;check_sales=true;
+                            create_new_tabl_col[counter_col] = element_emp.emp_name;counter_col++;check_sales=true;
                             return false;
                         }
                     });
@@ -1000,7 +1038,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
                     All_table_obj.tables[10].forEach(element_emp => {
                         if(element_pt.customer_agent_id == element_emp.id)
                         {
-                            create_new_tabl_col[counter_col] = element_emp.name;counter_col++;check_cs=true;
+                            create_new_tabl_col[counter_col] = element_emp.emp_name;counter_col++;check_cs=true;
                             return false;
                         }
                     });
@@ -1041,37 +1079,37 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
                     }
 
 
-                    if(All_table_obj.tables[1][index].students_id == All_table_obj.tables[9][index_9].student_id && new Date(session_date_check) < new Date()  )
+                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id && new Date(session_date_check) < new Date()  )
                     {
                         students_sessions[count_comp] = All_table_obj.tables[9][index_9];
                         count_comp++;
                     }
 
-                    if(All_table_obj.tables[1][index].students_id == All_table_obj.tables[9][index_9].student_id )
+                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id )
                     {
                         students_sessions[all_created] = All_table_obj.tables[9][index_9];
                         all_created++;
                     }
                 
 
-                    if(All_table_obj.tables[1][index].students_id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "YES" && new Date(session_date_check) < new Date())
+                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "YES" && new Date(session_date_check) < new Date())
                     {
                         Att++;
                     }
-                    else if(All_table_obj.tables[1][index].students_id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "NO" && new Date(session_date_check) < new Date())
+                    else if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "NO" && new Date(session_date_check) < new Date())
                     {
                         Abs++;
                     }
-                    else if(All_table_obj.tables[1][index].students_id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "" && new Date(session_date_check) > new Date())
+                    else if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].attendance == "" && new Date(session_date_check) > new Date())
                     {
                         Non_att++;
                     }
-                    if(All_table_obj.tables[1][index].students_id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].feedback != "" && new Date(session_date_check) < new Date())
+                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id  && All_table_obj.tables[9][index_9].feedback != "" && new Date(session_date_check) < new Date())
                     {
                         Feed++;
                     }
 
-                    if(All_table_obj.tables[1][index].students_id == All_table_obj.tables[9][index_9].student_id)
+                    if(All_table_obj.tables[1][index].id == All_table_obj.tables[9][index_9].student_id)
                     {
                         
                             All_table_obj.tables[7].forEach(element_se => {
@@ -1084,7 +1122,7 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
                                     All_table_obj.tables[10].forEach(element_em => {
                                         if(element_se.employee_id == element_em.id )
                                         {
-                                            create_new_tabl_col[counter_col+2] = element_em.name;
+                                            create_new_tabl_col[counter_col+2] = element_em.emp_name;
                                             return false;
                                         }
                                     });
@@ -1152,127 +1190,102 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
 
     }
 
-    // func(create_new_tabl_rows);
-
-    var saved_result_value = [] ;
-    var saved_result_value_count = 0 ;
-
-    if(result_value)
-    {
-    result_value.forEach(elment => {
-        saved_result_value[saved_result_value_count] = Object.values(elment);
-        saved_result_value_count++;
-    })
-    }
-
-
-    console.log(saved_result_value);
-
-
-    console.log(create_new_tabl_rows);
-
-    
-    Loading_page_clear();
+    func(create_new_tabl_rows);
 
 }
 
- async function create_paper_table_parent_students(all_tables)
+ async function create_paper_table_parent_students(all_tables )
  {
     Loading_page_clear();
+    
+            for(var ret = 0 ; ret < 10 ; ret++ )
+            {
 
-    console.log(all_tables);
-
-
-
-
-            // for(var ret = 0 ; ret < all_tables.length ; ret++ )
-            // {
-
-            //     all_tables[ret][26] = [];
+                all_tables[ret][26] = [];
             
-            //     all_tables[ret][26] = all_tables[ret][23];
+                all_tables[ret][26] = all_tables[ret][23];
 
-            //     all_tables[ret][23] = "0 Task/s"
-            //     all_tables[ret][24] = 0
-            //     all_tables[ret][25] = 0
+                all_tables[ret][23] = "0 Task/s"
+                all_tables[ret][24] = 0
+                all_tables[ret][25] = 0
 
 
-            //     all_tables[ret][27] = {};
+                all_tables[ret][27] = {};
 
-            //     all_tables[ret][27].tasks = []
-            //     all_tables[ret][27].tasks_count = 0
-            //     for(var i = 0 ; i < all_tables[ret][26].length ; i++)
-            //     {
+                all_tables[ret][27].tasks = []
+                all_tables[ret][27].tasks_count = 0
+                for(var i = 0 ; i < all_tables[ret][26].length ; i++)
+                {
     
-            //         if(get_se_task_arr)
-            //         {
-            //             get_se_task_arr.forEach(element => {
-            //                 if(Number(all_tables[ret][26][i].session_id) == Number(element.session_id) )
-            //                 {
+                    if(get_se_task_arr)
+                    {
+                        get_se_task_arr.forEach(element => {
+                            if(Number(all_tables[ret][26][i].session_id) == Number(element.session_id) )
+                            {
                                 
-            //                     get_tasks_arr.forEach(element_task => {
-            //                         if(Number(element_task.id)== Number(element.task_id) )
-            //                         {
+                                get_tasks_arr.forEach(element_task => {
+                                    if(Number(element_task.id)== Number(element.task_id) )
+                                    {
     
-            //                             element_task.session_id = element.session_id;
-            //                             element_task.att_id = all_tables[ret][26][i].id;
-            //                             element_task.st_answer = '';
-            //                             element_task.st_ans_cor = '';
+                                        element_task.session_id = element.session_id;
+                                        element_task.att_id = all_tables[ret][26][i].id;
+                                        element_task.st_answer = '';
+                                        element_task.st_ans_cor = '';
     
-            //                             if(get_ans_arr)
-            //                             {
-            //                                 get_ans_arr.forEach(element_ts_att => {
-            //                                     if(Number(all_tables[ret][26][i].id) == Number(element_ts_att.att_feed_id) && Number(element_task.id) ==  Number(element_ts_att.tasks_id))
-            //                                     {
-            //                                         element_task.st_answer = element_ts_att.answer;
-            //                                         element_task.st_ans_cor = element_ts_att.correct;
+                                        if(get_ans_arr)
+                                        {
+                                            get_ans_arr.forEach(element_ts_att => {
+                                                if(Number(all_tables[ret][26][i].id) == Number(element_ts_att.att_feed_id) && Number(element_task.id) ==  Number(element_ts_att.tasks_id))
+                                                {
+                                                    element_task.st_answer = element_ts_att.answer;
+                                                    element_task.st_ans_cor = element_ts_att.correct;
 
 
-            //                                         if(element_task.st_ans_cor = element_ts_att.correct == 'Right')
-            //                                         {
-            //                                             all_tables[ret][24]++;
-            //                                         }
-            //                                         else if(element_task.st_ans_cor = element_ts_att.correct == 'Wrong')
-            //                                         {
-            //                                             all_tables[ret][25]++;
+                                                    if(element_task.st_ans_cor = element_ts_att.correct == 'Right')
+                                                    {
+                                                        all_tables[ret][24]++;
+                                                    }
+                                                    else if(element_task.st_ans_cor = element_ts_att.correct == 'Wrong')
+                                                    {
+                                                        all_tables[ret][25]++;
 
-            //                                         }
-            //                                     }
-            //                                 }
-            //                                 )
-            //                             }
+                                                    }
+                                                }
+                                            }
+                                            )
+                                        }
                                         
-            //                             all_tables[ret][27].tasks[all_tables[ret][27].tasks_count] = element_task;
-            //                             all_tables[ret][27].tasks_count++;
-            //                             all_tables[ret][23] = all_tables[ret][27].tasks_count + ` Task/s`;
+                                        all_tables[ret][27].tasks[all_tables[ret][27].tasks_count] = element_task;
+                                        all_tables[ret][27].tasks_count++;
+                                        all_tables[ret][23] = all_tables[ret][27].tasks_count + ` Task/s`;
     
-            //                         }
-            //                     }
-            //                     )
+                                    }
+                                }
+                                )
     
     
-            //                 }
-            //             }
-            //             )
-            //         }
+                            }
+                        }
+                        )
+                    }
     
-            //     }
-            //     var saved_res = all_tables[ret][24] + all_tables[ret][25];
+                }
+                var saved_res = all_tables[ret][24] + all_tables[ret][25];
 
-            //     if(saved_res)
-            //     {
-            //         var saved_per = Number(all_tables[ret][24])/ saved_res;
-            //         all_tables[ret][25] = (saved_per * 100).toFixed(2) + "%";
-            //     }
-            //     else
-            //     {
-            //         all_tables[ret][25] = "0 %";
+                if(saved_res)
+                {
+                    var saved_per = Number(all_tables[ret][24])/ saved_res;
+                    all_tables[ret][25] = (saved_per * 100).toFixed(2) + "%";
+                }
+                else
+                {
+                    all_tables[ret][25] = "0 %";
 
-            //     }
-            //     all_tables[ret][24] = saved_res + " Completed";
+                }
+                all_tables[ret][24] = saved_res + " Completed";
 
                 
-            // }
+            }
 
 
 
@@ -1357,7 +1370,6 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
     if(values_ == "")
     {
        All_data_obj.Start_Index = 1;
-       $('#counter_id').val(all_tables_arr.length)
 
        createTable(all_tables_arr ,All_data_obj , 'clear' , 9 , 5 , "open 2" , create_view_student , limit_count); 
  
@@ -1366,8 +1378,6 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
  
      var result = Search_for_value(all_tables_arr , values_)
          
-     $('#counter_id').val(result.length)
-
     createTable(result ,All_data_obj , 'clear' , 9 , 5 , "open 2" , create_view_student , result[0].length-2); 
 
 }
@@ -1480,7 +1490,7 @@ function create_view_student(All_data_obj , End_Index)
                             {
                                 if(saved_sessions_id_arr[index_9].employee_id== saved_employee_arr[index_12].id)
                                 {
-                                    inner_arr[index_count] =  saved_employee_arr[index_12].name;index_count++;
+                                    inner_arr[index_count] =  saved_employee_arr[index_12].emp_name;index_count++;
                                     break;
                                 }
                             }

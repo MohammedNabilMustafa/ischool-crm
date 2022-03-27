@@ -7,6 +7,9 @@ async function ADD_sales_call()
 
     document.getElementById("blob_Location_1").innerHTML = ``;
     
+    clear_all_locations();
+
+
     var parent_arr_all = await GET_DATA_TABLES(database_fixed_link , "parent" );
     var students_arr_0 = await GET_DATA_TABLES(database_fixed_link , "students" );
 
@@ -18,10 +21,6 @@ async function ADD_sales_call()
     var employee_arr = await GET_DATA_TABLES(database_fixed_link , "employee" );
 
 
-    document.getElementById("Location_1").innerHTML = "";
-    document.getElementById("Location_2").innerHTML = "";
-    document.getElementById("Location_3").innerHTML = "";
-    document.getElementById("search-results").innerHTML = ``;
 
     document.getElementById("Location_1").innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
 

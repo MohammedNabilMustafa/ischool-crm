@@ -227,10 +227,10 @@ async function login_success(user_info)
     for(var index = 0; index < user_info.students_count ; index ++)
     {
       document.getElementById('student_sector_container').innerHTML += `<button class='choose_name_class' id='btn_${index}'> ${user_info.students[index].st_name}</button>`;
-      $("#select_id_student").append(`<option value='${index}'> ${user_info.students[index].st_name} </option>`);
+      $("#select_id_student").append(`<option class="shadow" value='${index}'> ${user_info.students[index].st_name} </option>`);
 
     }
-
+    $('.select2').select2();
     for(var index = 0; index < user_info.students_count ; index ++)
     {
       $("#btn_"+index).click(async function () {
@@ -321,7 +321,7 @@ async function student_choosen(parent)
   if(get_student_att)
   {
     get_student_att.forEach(element => {
-      if(Number(element.student_id) == Number(parent.choosen_student.students_id))
+      if(Number(element.student_id) == Number(parent.choosen_student.id))
       {
         element.sessioninfo = {};
 
@@ -857,7 +857,7 @@ Sessionx = setInterval(function () {
 
   get_student_pacakges.forEach(element => {
     
-    if(element.student_id == parent.choosen_student.students_id)
+    if(element.student_id == parent.choosen_student.id)
     {
       element.packages_arr = {};
 
@@ -891,6 +891,7 @@ Sessionx = setInterval(function () {
   
   if(parent.choosen_student.packagescount == 0)
   {
+    freeColor();
     tapsReset();
     $("#student_sector").hide();
     $("#student_sector_container").hide();
@@ -916,7 +917,7 @@ Sessionx = setInterval(function () {
   }
   else
   {
-
+    RegColor();
   var select_agent = '';
   var Total_quota = 0;
   var att_se = 0;
@@ -1341,3 +1342,24 @@ function sessions_upcoming(element)
 
 
 }
+
+
+function freeColor(){
+  $(".sidebar").removeClass("bg-gradient-primary")
+  $(".sidebar").removeClass("bg-gradient-dark")
+  $(".sidebar").addClass("bg-gradient-dark")
+}
+function RegColor(){
+  $(".sidebar").removeClass("bg-gradient-primary")
+  $(".sidebar").removeClass("bg-gradient-dark")
+  $(".sidebar").addClass("bg-gradient-primary")
+  
+}
+
+$(".scheduletableitem").click(function() {
+  $(".scheduletableitem").removeClass("active");
+  $(".check").removeClass("active");
+  $(this).addClass("active");
+  Num = $(this).index();
+  $(".scheduletableitem:nth-child(" + (Num + 1) + ") .check").addClass("active")
+})
