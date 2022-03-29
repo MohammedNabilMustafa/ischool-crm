@@ -1,9 +1,18 @@
-$(".mobile-header .menu").click(function() {
-    $(".mobile-header .menucontainer").show("blind", { direction: "right" });
-})
-$(".mobile-header .close").click(function() {
-    $(".mobile-header .menucontainer").hide("blind", { direction: "right" });
-})
+
+$(".header .close-btn").click(function() {
+    $(".header .nav").animate({
+            right: "-85%",
+        },
+        300
+    );
+});
+$(".header .menu-btn").click(function() {
+    $(".header .nav").animate({
+            right: 0,
+        },
+        300
+    );
+});
 $("#countryInput1").click(function() {
     $(".country-menu").slideToggle("fast")
 })
@@ -213,11 +222,15 @@ async function go_to_step02_func_free()
     }
 
             if( $('#firstnameInput').val() == "" ) {
-            $('#firstnameInput_error').text('Please Set Name');return false;
+            $('#firstnameInput_error').text('Please Set Name');
+            $("#firstnameInput").addClass("error")
+            return false;
+
         }
         else
         {
-            $('#firstnameInput_error').text('');    
+            $('#firstnameInput_error').text('');  
+            $("#firstnameInput").removeClass("error")    
         }
 
         if( $('#birthdate').val() == "" ) {
@@ -225,11 +238,14 @@ async function go_to_step02_func_free()
         }
         else
         {
-            $('#birthdate_error').text('');    
+            $('#birthdate_error').text('');  
+            $("#birthdate").removeClass("error")  
         }
 
         if( $('#phonenumInput').val() == "" ) {
-            $('#phonenumInput_error').text('Please Set Phone Number');return false;
+            $('#phonenumInput_error').text('Please Set Phone Number');
+            $("#phonenumInput").addClass("error")
+            return false;
         }
         else
         {
@@ -237,27 +253,35 @@ async function go_to_step02_func_free()
 
             if(isPhone($('#phonenumInput').val()) == false)
             {
-                $('#phonenumInput_error').text('Please Set Valid Phone');return false;
+                $('#phonenumInput_error').text('Please Set Valid Phone');
+                $("#phonenumInput").addClass("error")
+                return false;
             }
             else
             {
-                $('#phonenumInput_error').text('');    
+                $('#phonenumInput_error').text(''); 
+                $("#phonenumInput").removeClass("error")
             }
             
         }
 
         if( $('#emailInput').val() == "" ) {
-            $('#emailInput_error').text('Please Set Email');return false;
+            $('#emailInput_error').text('Please Set Email');
+            $("#emailInput").addClass("error")
+            return false;
         }
         else
         {
             if(isEmail($('#emailInput').val()) == false)
             {
-                $('#emailInput_error').text('Please Set Valid Email');return false;
+                $('#emailInput_error').text('Please Set Valid Email');
+                $("#emailInput").addClass("error")
+                return false;
             }
             else
             {
-                $('#emailInput_error').text('');    
+                $('#emailInput_error').text('');
+                $("#emailInput").removeClass("error")    
             }
         }
 
@@ -814,3 +838,188 @@ function check_groups_free()
     }
     );
 }
+$(".days-slider").hide();
+var maxDays
+
+
+function detectMonthdays(){
+if($("#monthDate").val() === "01"||$("#monthDate").val() === "03"||$("#monthDate").val() === "05"||$("#monthDate").val() === "07"||$("#monthDate").val() === "08"||$("#monthDate").val() === "10"||$("#monthDate").val() === "12"){
+    $(".mb-3.date.days .days-slider li").each(function(){
+        $(this).show()
+    })
+    maxDays = 31;
+}
+else if($("#monthDate").val() === "02"){
+    maxDays = 28;
+    $(".mb-3.date.days .days-slider li").each(function(){
+        if ($(this).index() > 27 ){
+            $(this).hide();
+        }
+        else{
+            $(this).show();
+        }
+    })
+}
+else{
+    maxDays = 30;
+    $(".mb-3.date.days .days-slider li").each(function(){
+        if ($(this).index() > 29 ){
+            $(this).hide();
+        }
+        else{
+            $(this).show();
+        }
+    })
+}
+}
+
+function optmizeZero(){
+    $(".mb-3.date .form-control").each(function(){
+        if($(this).val() === "1" ||$(this).val() === "2" ||$(this).val() === "3" ||$(this).val() === "4" ||$(this).val() === "5" ||$(this).val() === "6" ||$(this).val() === "7" ||$(this).val() === "8" ||$(this).val() === "9"){
+            $(this).val(("0" + $(this).val())) 
+        }
+    })
+}
+function detectDay(){
+    if($("#dayDate").val() < 1){
+        $("#dayDate").val("01") 
+        $(".mb-3.date.days .days-slider li").removeClass("active");
+        $(".mb-3.date.days .days-slider li:first-child").addClass("active")
+    }
+    else if ($("#dayDate").val() > maxDays) {
+        $("#dayDate").val(maxDays)
+        $(".mb-3.date.days .days-slider li").removeClass("active");
+        $(".mb-3.date.days .days-slider li:nth-child(" + maxDays +")").addClass("active")
+    }
+    else{
+        $(".mb-3.date.days .days-slider li").removeClass("active");
+        $(".mb-3.date.days .days-slider li:nth-child(" + $("#dayDate").val() +")").addClass("active")
+    }
+}
+function detectMonth(){
+    if($("#monthDate").val() < 1){
+        $("#monthDate").val("01") 
+        $(".mb-3.date.months .days-slider li").removeClass("active");
+        $(".mb-3.date.months .days-slider li:first-child").addClass("active")
+    }
+    else if ($("#monthDate").val() > 12) {
+        $("#monthDate").val("12")
+        $(".mb-3.date.months .days-slider li").removeClass("active");
+        $(".mb-3.date.months .days-slider li:nth-child(12)").addClass("active")
+    }
+    else{
+        $(".mb-3.date.months .days-slider li").removeClass("active");
+        $(".mb-3.date.months .days-slider li:nth-child(" + $("#monthDate").val() +")").addClass("active")
+    }
+}
+let Yearsarr = [];
+for (i = 1; i <= 13 ; i++ ){
+    Yearsarr.push($(".mb-3.date.years .days-slider li:nth-child(" + i +")").text())
+}
+function detectyear(){
+ 
+    if(!Yearsarr.includes($("#yearDate").val())){
+        $("#yearDate").addClass("error")
+    }
+    else if($("#yearDate").val("")){
+        $("#yearDate").addClass("error")
+    }
+    else{
+        $("#yearDate").removeClass("error")
+    }
+}
+genrateYears();
+
+$("#dayDate").click(function(){
+    $(".mb-3.date.days .days-slider").toggle(100);
+})
+$("#yearDate").click(function(){
+    $(".mb-3.date.years .days-slider").toggle(100);
+})
+$("#dayDate").focusout(function(){
+    detectMonthdays();
+    optmizeZero();
+    detectDay();
+    detectMonth();
+})
+$("#monthDate").focusout(function(){
+    detectMonthdays();
+    optmizeZero();
+    detectMonth();
+    detectDay();
+})
+$("#yearDate").focusout(function(){
+    detectMonthdays();
+    optmizeZero();
+    detectMonth();
+    detectDay();
+    detectyear();
+})
+$("#monthDate").click(function(){
+    $(".mb-3.date.months .days-slider").toggle(100);
+})
+
+
+$(document).click(function() {
+    var container = $(".mb-3.date.days .days-slider");
+    var textb = $("#dayDate");
+    if (!container.is(event.target) && !container.has(event.target).length) {
+        if(!textb.is(event.target)){
+            container.hide();
+        } 
+    }
+});
+$(document).click(function() {
+    var container = $(".mb-3.date.months .days-slider");
+    var textb = $("#monthDate");
+    if (!container.is(event.target) && !container.has(event.target).length) {
+        if(!textb.is(event.target)){
+            container.hide();
+        } 
+    }
+});
+
+$(".mb-3.date.months .days-slider li").click(function(){
+    $(".mb-3.date.months .days-slider li").removeClass("active")
+    $(this).addClass("active")
+    $("#monthDate").val($(this).html())
+    $(".mb-3.date.months .days-slider").hide();
+    detectMonthdays();
+    detectMonth();
+    detectDay();
+})
+$(".mb-3.date.days .days-slider li").click(function(){
+    $(".mb-3.date.days .days-slider li").removeClass("active")
+    $(this).addClass("active")
+    $("#dayDate").val($(this).html())
+    $(".mb-3.date.days .days-slider").hide();
+    detectMonthdays();
+    detectDay();
+    detectMonth();
+})
+$(".mb-3.date.years .days-slider li").click(function(){
+    $(".mb-3.date.years .days-slider li").removeClass("active")
+    $(this).addClass("active")
+    $("#yearDate").val($(this).html())
+    $(".mb-3.date.years .days-slider").hide();
+    detectMonthdays();
+    detectDay();
+    detectMonth();
+})
+
+function genrateYears(){
+    var date = new Date
+    for (i = Number(date.getFullYear() - 18); i <= Number(date.getFullYear() -6) ; i++ ){
+        $(".mb-3.date.years .days-slider").html( $(".mb-3.date.years .days-slider").html() + "<li> " + i +" </li>" )
+    } 
+
+}
+$(document).click(function() {
+    var container = $(".mb-3.date.years .days-slider");
+    var textb = $("#yearDate");
+    if (!container.is(event.target) && !container.has(event.target).length) {
+        if(!textb.is(event.target)){
+            container.hide();
+        } 
+    }
+});

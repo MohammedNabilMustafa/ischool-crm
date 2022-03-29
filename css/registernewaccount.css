@@ -24,7 +24,12 @@
     border-radius: 10px;
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.86, var(--blue-color)));
 }
-
+.datepicker-container{
+    display: flex;
+}
+.datepicker-container.form-control{
+    width: auto;
+}
 
 .scheduletablehead {
     font-weight: bold;
@@ -41,7 +46,9 @@
     cursor: pointer;
     transition: 300ms;
 }
-
+.iti--allow-dropdown{
+    width: 100%;
+}
 .scheduletableitem:hover,
 .scheduletableitem.active {
     background-color: var(--orange-color);
@@ -464,6 +471,14 @@ hr {
 .ms-dd .ms-list-option.option-selected, .ms-dd .ms-optgroup ul .ms-list-option.option-selected{
     padding-right: 50px !important;
 }
+.row.twosides{
+    flex-direction: column;
+}
+.datepicker-container .form-floating label {
+    padding-left: 19px !important;
+    padding-top: 30px;
+    font-size: 14px;
+}
 }
 
 .back {
@@ -540,7 +555,113 @@ hr {
   b {
     color: #fd7d00;
   }
-  
+  .mb-3 .form-control{
+    height: 60px;
+    position: relative;
+}
+.mb-3.date.months .days-slider{
+    align-content: flex-start;
+    height: 150px;
+    bottom: -150px;
+}
+.datepicker-container .form-floating{
+    position: relative;
+}
+.datepicker-container .form-floating label{
+    padding-left: 8px;
+ }
+ 
+.datepicker-container ul {
+    position: absolute;
+    z-index: 1;
+    bottom: -300px;
+    left: 0px;
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #2c2c2c20;
+    padding: 0;
+    margin:0 ;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 10px;
+    justify-content: center;
+    color: #2c2c2c90;
+    z-index: 10;
+}
+.datepicker-container .months ul{
+    left: 0px;
+}
+.datepicker-container .days ul{
+    left: 50%;
+    transform: translateX(-50%);
+}
+.datepicker-container .years ul{
+    right: 0;
+    left: auto;
+}
+.datepicker-container ul li{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin: 5px;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 300ms;
+    border: 3px solid white;
+    border-radius: 100%;
+}
+.datepicker-container ul li:hover,
+.datepicker-container ul li.active{
+border: 3px solid #1955CC;
+border-radius: 100%;
+color: #2c2c2c;
+}
+.mb-3.date.years .days-slider li{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin: 5px;
+    height: 35px;
+    width: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 300ms;
+    border: 3px solid white;
+    border-radius: 5px;
+}
+.error{
+    border-color: red;
+}
+.mb-3.date.years .days-slider li:hover,
+.mb-3.date.years .days-slider li.active{
+    border: 3px solid #1955CC;
+border-radius: 5px;
+color: #2c2c2c;
+}
+.mb-3.date{
+    position: relative;
+}
+
+.datepicker-container{
+    display: flex;
+}
+
+.datepicker-container .form-control{
+    width: 90%;
+    padding: 0 10px;
+}
+label{
+    margin-bottom: 10px;
+}
+
   @media screen and (max-width: 1200px) {
   
     .header img {
