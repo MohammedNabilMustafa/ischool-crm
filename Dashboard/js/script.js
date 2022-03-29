@@ -4,6 +4,7 @@ let x = '';
 let Sessionx = '';
 
 
+
 $(".nav-item.leftside").click(function () {
   tapsReset();
   let child = $(this).index() + 1;

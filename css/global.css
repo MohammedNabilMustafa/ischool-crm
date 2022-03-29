@@ -17,7 +17,12 @@
     font-family: 'roboto';
     font-weight: 400;
 }
-
+a:visited,
+a:link,
+a:hover,
+a{
+    all: unset;
+}
 body {
     overflow-y: auto;
 }
@@ -1051,3 +1056,11 @@ table th {
         opacity: 1;
     }
 }
+
+.error_form{
+    text-align: left;
+    color: red;
+    font-size: 14px;
+    }
+  
+ 

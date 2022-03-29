@@ -8,145 +8,178 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
-  />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
     <title>iSchool Trial Session</title>
 
     <style>
-                .modal_loading {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        .modal_loading {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
         }
-        .iti.iti--allow-dropdown{
+
+        .iti.iti--allow-dropdown {
             width: 100%;
         }
+
         /* Modal Content/Box */
         .modal_loading-content {
-        background-color: #fefefe00;
-        margin: 15% auto; /* 15% from the top and centered */
-        padding: 20px;
-        border: 1px solid rgba(136, 136, 136, 0);
-        width: 80%; /* Could be more or less, depending on screen size */
+            background-color: #fefefe00;
+            margin: 15% auto;
+            /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid rgba(136, 136, 136, 0);
+            width: 80%;
+            /* Could be more or less, depending on screen size */
         }
 
         .loader_1 {
-        display: block;
-        margin: auto;
-        border: 10px solid #ffffff;
-        border-radius: 50%;
-        border-top: 10px solid #18547c;
-        width: 50px;
-        height: 50px;
-        -webkit-animation: spin 2s linear infinite; /* Safari */
-        animation: spin 2s linear infinite;
+            display: block;
+            margin: auto;
+            border: 10px solid #ffffff;
+            border-radius: 50%;
+            border-top: 10px solid #18547c;
+            width: 50px;
+            height: 50px;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
         }
 
         /* Safari */
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
 
-body {
-  margin: 20px;
-}
-form {
-  width: 300px;
-}
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
 
-.intl-tel-input {
-  display: table-cell;
-}
-.intl-tel-input .selected-flag {
-  z-index: 4;
-}
-.intl-tel-input .country-list {
-  z-index: 5;
-}
-.input-group .intl-tel-input .form-control {
-  border-top-left-radius: 4px;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 0;
-}
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
+        body {
+            margin: 20px;
+        }
 
-.lds-ellipsis {
-  display: block;
-  margin: auto;
+        form {
+            width: 300px;
+        }
 
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-.lds-ellipsis div {
-  position: absolute;
-  top: 33px;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: #fff;
-  animation-timing-function: cubic-bezier(0, 1, 1, 0);
-}
-.lds-ellipsis div:nth-child(1) {
-  left: 8px;
-  animation: lds-ellipsis1 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(2) {
-  left: 8px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(3) {
-  left: 32px;
-  animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(4) {
-  left: 56px;
-  animation: lds-ellipsis3 0.6s infinite;
-}
-@keyframes lds-ellipsis1 {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-@keyframes lds-ellipsis3 {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
-}
-@keyframes lds-ellipsis2 {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(24px, 0);
-  }
-}
+        .intl-tel-input {
+            display: table-cell;
+        }
+
+        .intl-tel-input .selected-flag {
+            z-index: 4;
+        }
+
+        .intl-tel-input .country-list {
+            z-index: 5;
+        }
+
+        .input-group .intl-tel-input .form-control {
+            border-top-left-radius: 4px;
+            border-top-right-radius: 0;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 0;
+        }
 
 
+        .lds-ellipsis {
+            display: block;
+            margin: auto;
+
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .lds-ellipsis div {
+            position: absolute;
+            top: 33px;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: #fff;
+            animation-timing-function: cubic-bezier(0, 1, 1, 0);
+        }
+
+        .lds-ellipsis div:nth-child(1) {
+            left: 8px;
+            animation: lds-ellipsis1 0.6s infinite;
+        }
+
+        .lds-ellipsis div:nth-child(2) {
+            left: 8px;
+            animation: lds-ellipsis2 0.6s infinite;
+        }
+
+        .lds-ellipsis div:nth-child(3) {
+            left: 32px;
+            animation: lds-ellipsis2 0.6s infinite;
+        }
+
+        .lds-ellipsis div:nth-child(4) {
+            left: 56px;
+            animation: lds-ellipsis3 0.6s infinite;
+        }
+
+        @keyframes lds-ellipsis1 {
+            0% {
+                transform: scale(0);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes lds-ellipsis3 {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(0);
+            }
+        }
+
+        @keyframes lds-ellipsis2 {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(24px, 0);
+            }
+        }
     </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -158,7 +191,9 @@ form {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;500;700;900&family=Roboto:wght@100;300;500;700;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;500;700;900&family=Roboto:wght@100;300;500;700;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="../js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
@@ -175,31 +210,33 @@ form {
 
         <!-- Modal content -->
         <div class="modal_loading-content">
-          <div id="loading_location" ></div>
+            <div id="loading_location"></div>
 
         </div>
 
-      </div>
+    </div>
 
 
-      <div class="header">
-        <div class="logo col-auto"><img src="../img/blue-logo.svg" alt=""></div>
+    <div class="header">
+
+        <div class="logo col-auto"><img href="#" src="../img/blue-logo.svg" alt=""></div>
         <i class="fa-solid fa-bars menu-btn"></i>
         <div class="nav col">
             <i class="fa-solid fa-xmark close-btn"></i>
             <ul class="main-nav">
-                <li class="nav-item active">Home</li>
-                <li class="nav-item">Programs</li>
-                <li class="nav-item">About</li>
-                <li class="nav-item">Contact us</li>
+                <li class="nav-item"><a href="#">Home</a></li>
+                <li class="nav-item"><a href="#">Programs </a></li>
+                <li class="nav-item"><a href="#">About </a></li>
+                <li class="nav-item"><a href="#">Contact us </a></li>
             </ul>
             <div class="vertical-div"></div>
             <ul class="login-nav">
-                <li class="nav-item">Enroll</li>
-                <li class="nav-item">Login</li>
-                <Button class="btn btn-primary">Book a Free Session</Button>
+                <li class="nav-item"><a href="../Reg/">Enroll</a></li>
+                <li class="nav-item"><a href="../Dashboard/">Login</a></li>
+                <Button class="btn btn-warning"><a href="../free/">Book a Free Session</a></Button>
             </ul>
         </div>
+
     </div>
 
     <div class="coontent-container container" id="coontent-container_id" style="display:none;">
@@ -213,26 +250,95 @@ form {
                     <h4 style="color: #2c2c2c;">Basic Information</h4>
                     <hr>
 
-                    <div class="row twosides" >
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="firstnameInput" placeholder="First name">
-                            <label for="firstnameInput">Full Student Name</label><span class="error_form" style="color: rgb(184, 0, 0);" id="firstnameInput_error"></span>
+                    <div class="row twosides">
+                        <div class="col mb-3">
+                            <label for="firstnameInput">Full Student Name</label>
+                            <input type=" text" class="form-control" id="firstnameInput" placeholder="First name">
+                            <span class="error_form" style="color: rgb(184, 0, 0);" id="firstnameInput_error"></span>
                         </div>
-                        <div class="form-floating mb-3">
-                            <div class="md-form md-outline input-with-post-icon datepicker">
-                                <input placeholder="Select date" type="date" id="birthdate" style="height: 60px;" class="form-control"><span class="error_form" style="color: rgb(184, 0, 0);" id="birthdate_error"></span>
+
+                        <div class=" col ">
+                            <label for="monthDate">Student Birth Date</label>
+                            <div class="datepicker-container">
+                                <div class="form-floating mb-3 date months">
+
+                                    <input type=" text" class="form-control" id="monthDate" placeholder="Month">
+                                    <label for="monthDate">Month</label>
+                                    <ul class="days-slider shadow">
+                                        <li>01</li>
+                                        <li>02</li>
+                                        <li>03</li>
+                                        <li>04</li>
+                                        <li>05</li>
+                                        <li>06</li>
+                                        <li>07</li>
+                                        <li>08</li>
+                                        <li>09</li>
+                                        <li>10</li>
+                                        <li>11</li>
+                                        <li>12</li>
+
+                                    </ul>
+                                </div>
+                                <div class="form-floating mb-3 date days">
+                                    <input type=" text" class="form-control" id="dayDate" placeholder="Day">
+                                    <label for="dayDate">Day</label>
+                                    <ul class="days-slider shadow">
+                                        <li>01</li>
+                                        <li>02</li>
+                                        <li>03</li>
+                                        <li>04</li>
+                                        <li>05</li>
+                                        <li>06</li>
+                                        <li>07</li>
+                                        <li>08</li>
+                                        <li>09</li>
+                                        <li>10</li>
+                                        <li>11</li>
+                                        <li>12</li>
+                                        <li>13</li>
+                                        <li>14</li>
+                                        <li>15</li>
+                                        <li>16</li>
+                                        <li>17</li>
+                                        <li>18</li>
+                                        <li>19</li>
+                                        <li>20</li>
+                                        <li>21</li>
+                                        <li>22</li>
+                                        <li>23</li>
+                                        <li>24</li>
+                                        <li>25</li>
+                                        <li>26</li>
+                                        <li>27</li>
+                                        <li>28</li>
+                                        <li>29</li>
+                                        <li>30</li>
+                                        <li>31</li>
+
+                                    </ul>
+                                </div>
+                                <div class="form-floating mb-3 date years">
+                                    <input type=" text" class="form-control" id="yearDate" placeholder="Year">
+                                    <label for="yearDate">Year</label>
+                                    <ul class="days-slider shadow">
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row" >
 
-                        <div class="form-floating mb-3" style="width: 100%;">
-                            <input style="height: 60px; width: 100%;" type="tel" class="form-control" id="phonenumInput" >
+                    </div>
+                    <div class="row">
+
+                        <div class="mb-3" style="width: 100%;">
+                            <label for="firstnameInput">Phone Number</label>
+                            <input style="height: 60px; width: 100%;" type="tel" class="form-control"
+                                id="phonenumInput">
                             <span class="error_form" style="color: rgb(184, 0, 0);" id="phonenumInput_error"></span>
                         </div>
                     </div>
 
-                        <!-- <div class="row mb-3 country" style="width: 50%;" hidden>
+                    <!-- <div class="row mb-3 country" style="width: 50%;" hidden>
 
                             <select name="countries" id="countries" is="ms-dropdown" data-child-height="200" >
     <option value='ad' data-image-css="flag ad" data-title="Andorra">Andorra</option>
@@ -484,11 +590,12 @@ form {
   </select>
                         </div> -->
 
-                    
+
                     <div class="row">
-                        <div class="form-floating mb-3">
+                        <div class="mb-3">
+                            <label for="emailInput">Email Address</label>
                             <input type="email" class="form-control" id="emailInput" placeholder="Email Address">
-                            <label for="emailInput">Email Address</label><span class="error_form" style="color: rgb(184, 0, 0);" id="emailInput_error"></span>
+                            <span class="error_form" style="color: rgb(184, 0, 0);" id="emailInput_error"></span>
                         </div>
                     </div>
 
@@ -499,9 +606,10 @@ form {
                 <div class="col picture">
                     <div class="title-right">
                         Creating the next
-                        <br><b>tech  leaders.</b>
+                        <br><b>tech leaders.</b>
                     </div>
-                    <img src="../img/OBJECTS.svg" alt=""></div>
+                    <img src="../img/OBJECTS.svg" alt="">
+                </div>
             </div>
         </div>
         <div class="step02" style="display: none;">
@@ -543,7 +651,7 @@ form {
                             <span class="col-2">Sunday</span>
                             <span class="col-2">4:30 PM</span>
                             <span class="col-2">lan</span>
-                            <span class="col-2"><a  class="check"></a></span>
+                            <span class="col-2"><a class="check"></a></span>
                         </div>
                         <div class="row scheduletableitem ">
                             <span class="col-auto" hidden>52</span>
@@ -551,7 +659,7 @@ form {
                             <span class="col-2">Tuesday</span>
                             <span class="col-2">4:30 PM</span>
                             <span class="col-2">lan</span>
-                            <span class="col-2"><a  class="check"></a></span>
+                            <span class="col-2"><a class="check"></a></span>
                         </div>
                         <div class="row scheduletableitem ">
                             <span class="col-auto" hidden>52</span>
@@ -577,10 +685,11 @@ form {
                 </div>
                 <div class="col picture">
                     <div class="title-right">
-                        <b> Tech  leaders</b>
+                        <b> Tech leaders</b>
                         <br>started from here.
                     </div>
-                    <img src="../img/hero 1.png" alt=""></div>
+                    <img src="../img/hero 1.png" alt="">
+                </div>
             </div>
         </div>
         <div class="step03" style="display: none;">
@@ -592,38 +701,39 @@ form {
 
                         <div class="card-body">
                             <p class="card-text">
-                                <div class="row" style="display:flex; align-items:center;color:#05BC0C">
-                                    <span style="font-size:100px" class="col-auto"><i class="fa-solid fa-square-check"></i></span>
-                                    <span style="font-size:30px" class="col">Booking a free session is confirmed</span>
-                                </div>
+                            <div class="row" style="display:flex; align-items:center;color:#05BC0C">
+                                <span style="font-size:100px" class="col-auto"><i
+                                        class="fa-solid fa-square-check"></i></span>
+                                <span style="font-size:30px" class="col">Booking a free session is confirmed</span>
+                            </div>
 
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        Student Name : <a id="done_name">Alaa Nabil Mostafa</a>
-                                    </div>
-                                    <div class="col">
-                                        Starting Date : <a id="done_date">22/07/2022</a>
-                                    </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    Student Name : <a id="done_name">Alaa Nabil Mostafa</a>
                                 </div>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        Day : <a id="done_day">Friday</a>
-                                    </div>
-                                    <div class="col">
-                                        Language : <a id="done_lan">4:30 PM</a>
-                                    </div>
+                                <div class="col">
+                                    Starting Date : <a id="done_date">22/07/2022</a>
                                 </div>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        Time : <a id="done_time">4:30 PM</a>
-                                    </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    Day : <a id="done_day">Friday</a>
                                 </div>
+                                <div class="col">
+                                    Language : <a id="done_lan">4:30 PM</a>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    Time : <a id="done_time">4:30 PM</a>
+                                </div>
+                            </div>
 
 
-                                <br><br>
-                                <div class="row headding">
-                                    <p style="color: #023bf5;" onclick="location.href = dash_page" >LOGIN NOW</p>
-                                </div>
+                            <br><br>
+                            <div class="row headding">
+                                <p style="color: #023bf5;" onclick="location.href = dash_page">LOGIN NOW</p>
+                            </div>
 
                             </p>
                         </div>
@@ -634,14 +744,14 @@ form {
 
                         <div class="card-body">
                             <p class="card-text">
-                                <h3>How to join ?</h3>
-                                <hr>
-                                <p>1- s simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                    <br> <br>1- s simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                    <br> <br>1- s simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                    <br> <br>1- s simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                            <h3>How to join ?</h3>
+                            <hr>
+                            <p>1- s simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                <br> <br>1- s simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                <br> <br>1- s simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                <br> <br>1- s simply dummy text of the printing and typesetting industry. Lorem Ipsum
 
-                                </p>
+                            </p>
                             </p>
                         </div>
                     </div>
@@ -657,12 +767,12 @@ form {
         <script src="../js/registerfreesession.js"></script>
         <script src="../js/dd.min.js"></script>
 
-        <script   src="../database_functions_v2.js" ></script>
-        <script   src="../add_parent_func.js" ></script>
-        <script   src="../help_functions.js" ></script>
-        <script   src="../Country_codes.js" ></script>
-        <script   src="../json_func_admin.js" ></script>
-        <script   src="../whatsapp.js" ></script>
+        <script src="../database_functions_v2.js"></script>
+        <script src="../add_parent_func.js"></script>
+        <script src="../help_functions.js"></script>
+        <script src="../Country_codes.js"></script>
+        <script src="../json_func_admin.js"></script>
+        <script src="../whatsapp.js"></script>
 
         <script type="text/javascript">
             var userip;
@@ -671,21 +781,19 @@ form {
         <script src="../direction_func.js"></script>
 
         <script>
-            
 
 
-        go_to_step01_func_free();
 
-        function Loading_page_set()
-        {
-            modal_1.style.display = "block";
-            document.getElementById("loading_location").innerHTML = `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`;
-        }
+            go_to_step01_func_free();
 
-        function Loading_page_clear()
-        {
-            modal_1.style.display = "none";
-        }
+            function Loading_page_set() {
+                modal_1.style.display = "block";
+                document.getElementById("loading_location").innerHTML = `<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>`;
+            }
+
+            function Loading_page_clear() {
+                modal_1.style.display = "none";
+            }
 
 
 
