@@ -141,9 +141,9 @@ function quary_tables_all_paper_invoice(All_table_obj , func)
 
                 for(var index_1 = 0 ; index_1 < All_table_obj.tables[1].length ; index_1++)
                 {
-                    if(All_table_obj.tables[1][index_1].students_id == saved_st_id)
+                    if(All_table_obj.tables[1][index_1].id == saved_st_id)
                     {
-                        saved_arr[counter] = All_table_obj.tables[1][index_1].students_id;counter++;
+                        saved_arr[counter] = All_table_obj.tables[1][index_1].id;counter++;
                         saved_arr[counter] = All_table_obj.tables[1][index_1].std_id;counter++;
                         saved_arr[counter] = All_table_obj.tables[1][index_1].st_name;counter++;
                         saved_arr[counter] = All_table_obj.tables[1][index_1].parent_id;counter++;
@@ -218,7 +218,7 @@ function change_input_layer(create_new_tabl_rows)
         saved_arr[counter] = `<div class='row'><input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='id_invoice_${index}' value='${create_new_tabl_rows[index][0]}' readonly></div>`;counter++;
 
         saved_arr[counter] = `<div class='row'>ID : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:80px!important;text-align:center;' type='number' id='id_student_${index}' value='${create_new_tabl_rows[index][1]}' readonly></div>`;counter++;
-        saved_arr[counter] = `<div class='row'>iSchool  ID : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:80px!important;text-align:center;' type='text' id='std_id_student_${index}' value='${create_new_tabl_rows[index][2]}' readonly></div>`;counter++;
+        saved_arr[counter] = `<div class='row'>iSchool ID : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:80px!important;text-align:center;' type='text' id='std_id_student_${index}' value='${create_new_tabl_rows[index][2]}' readonly></div>`;counter++;
         saved_arr[counter] = `<div class='row'>Name : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:150px!important;text-align:center;' type='text' id='name_student_${index}' value='${create_new_tabl_rows[index][3]}' readonly></div>`;counter++;
         saved_arr[counter] = `<div class='row'>Parent ID : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='parent_id_student_${index}' value='${create_new_tabl_rows[index][4]}' readonly></div>`;counter++;
         saved_arr[counter] = `<div class='row'>Status : <input class="form-control" style='height:30px!important;padding-top:5px!important;width:100px!important;text-align:center;' type='number' id='status_student_${index}' value='${create_new_tabl_rows[index][5]}' readonly></div>`;counter++;

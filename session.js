@@ -154,7 +154,7 @@ async function SESSIONS_FUNC()
 
 
 
-                                element_att.st_name = element_st.name;
+                                element_att.st_name = element_st.st_name;
                                 element_att.tasks = [];
                                 element_att.tasks_count = 0;
 
