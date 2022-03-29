@@ -1,4 +1,7 @@
 
+var choosen_date_var_free = '';
+
+
 $(".header .close-btn").click(function() {
     $(".header .nav").animate({
             right: "-85%",
@@ -60,19 +63,6 @@ function isEmail(email) {
             }
     
   }
-
-
-//   var input = document.getElementById("phonenumInput");
-// intlTelInput(input, {
-//     initialCountry: "auto",
-//     geoIpLookup: function(success, failure) {
-//         $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-//             var countryCode = (resp && resp.country) ? resp.country : "";
-//             success(countryCode);
-//         });
-//     },
-//     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
-// });
 
 $(".header .close-btn").click(function() {
     $(".header .nav").animate({
@@ -157,6 +147,7 @@ $(".step03 .back").click(function() {
 async function go_to_step02_func_free()
 {    
     Loading_page_set();
+    choosen_date_var_free = '';
   
     var get_parent_arr = await GET_DATA_TABLES(database_fixed_link ,'parent');    
     var saved_age_arr  = await GET_DATA_TABLES(database_fixed_link ,'age');    
@@ -232,8 +223,9 @@ async function go_to_step02_func_free()
             $('#firstnameInput_error').text('');  
             $("#firstnameInput").removeClass("error")    
         }
+        choosen_date_var_free = `${$('#monthDate').val()}-${$('#dayDate').val()}-${$('#yearDate').val()}`;
 
-        if( $('#birthdate').val() == "" ) {
+        if( choosen_date_var_free == "" || choosen_date_var_free == "--"  ) {
             $('#birthdate_error').text('Please Select Birthdate');return false;
         }
         else
@@ -291,7 +283,7 @@ async function go_to_step02_func_free()
         $( ".scheduletableitem:nth-child(5)").hide();
         $( ".scheduletableitem:nth-child(6)").hide();
 
-        var kid_age =  (new Date()).getFullYear() - new Date($("#birthdate").val()).getFullYear() 
+        var kid_age =  (new Date()).getFullYear() - new Date(choosen_date_var_free).getFullYear() 
             var age_req = '';
             if(kid_age < 18)
             {
@@ -355,7 +347,6 @@ async function go_to_step01_func_free()
     
     // var get_data = await $.getJSON('http://ipinfo.io/' + userip);
     
-    // console.log(get_data);
 
     
     // allTimeZone.forEach(elment =>
@@ -663,10 +654,6 @@ async function go_to_step03_func_free()
         localStorage.password_client = get_parent_arr_return[get_parent_arr_return.length-1].password;
     }
 
-
-
-
-
     var saved_age_arr  = await GET_DATA_TABLES(database_fixed_link ,'age');    
 
     var kid_age =  (new Date()).getFullYear() - new Date($("#birthdate").val()).getFullYear() 
@@ -688,7 +675,7 @@ async function go_to_step03_func_free()
     get_data_elements_student_table[3] = 'active';
     get_data_elements_student_table[4] = $('#firstnameInput').val();
     get_data_elements_student_table[5] = age_req;
-    get_data_elements_student_table[6] = $('#birthdate').val();
+    get_data_elements_student_table[6] = choosen_date_var_free;
 
     var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'students' , 
     ["std_id"
@@ -747,8 +734,6 @@ async function go_to_step03_func_free()
     }
 
     var result = await GET_DATA_TABLES(database_fixed_link , 'free_session_whatsapp_temp');
-
-
 
     if(result)
     {
@@ -1010,7 +995,7 @@ $(".mb-3.date.years .days-slider li").click(function(){
 function genrateYears(){
     var date = new Date
     for (i = Number(date.getFullYear() - 18); i <= Number(date.getFullYear() -6) ; i++ ){
-        $(".mb-3.date.years .days-slider").html( $(".mb-3.date.years .days-slider").html() + "<li> " + i +" </li>" )
+        $(".mb-3.date.years .days-slider").html( $(".mb-3.date.years .days-slider").html() + "<li>" + i +"</li>" )
     } 
 
 }

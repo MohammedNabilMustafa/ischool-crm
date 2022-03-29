@@ -144,7 +144,7 @@ $(".step03 .back").click(function() {
     }, 400)
 })
 
-
+var choosen_date_var = '';
 
 async function go_to_step01_func_reg()
 {    
@@ -172,9 +172,7 @@ async function go_to_step01_func_reg()
 
     
 
-    // countrycodeInput
     
-    // console.log(country_code);
 
     var get_parent_arr = await GET_DATA_TABLES(database_fixed_link ,'parent');    
     var saved_age_arr  = await GET_DATA_TABLES(database_fixed_link ,'age');    
@@ -386,12 +384,25 @@ async function go_to_step02_func_reg()
         }
 
         if( $('#phonenumInput').val() == "" ) {
-            $('#phonenumInput_error').text('Please Set Phone Number');return false;
+            $('#phonenumInput_error').text('Please Set Phone Number');
+            $("#phonenumInput").addClass("error")
+            return false;
         }
         else
         {
 
-            $('#phonenumInput_error').text('');    
+            if(isPhone($('#phonenumInput').val()) == false)
+            {
+                $('#phonenumInput_error').text('Please Set Valid Phone');
+                $("#phonenumInput").addClass("error")
+                return false;
+            }
+            else
+            {
+                $('#phonenumInput_error').text(''); 
+                $("#phonenumInput").removeClass("error")
+            }
+            
         }
 
         if( $('#emailInput').val() == "" ) {
@@ -417,7 +428,10 @@ async function go_to_step02_func_reg()
             $('#studentnameInput_error').text('');    
         }
 
-        if( $('#birthdate').val() == "" ) {
+        choosen_date_var = '';
+        choosen_date_var = `${$('#monthDate').val()}-${$('#dayDate').val()}-${$('#yearDate').val()}`;
+        
+        if( choosen_date_var == "" || choosen_date_var == "--"   ) {
             $('#birthdate_error').text('Please Select Birthdate');return false;
         }
         else
@@ -462,10 +476,8 @@ function isEmail(email) {
     return EmailRegex.test(email);
   }
 
-  function isPhone(phone) {
-    var phone_pattern = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
-    return phone_pattern.test( phone );
-  }
+
+
 
 
 
@@ -475,7 +487,7 @@ function isEmail(email) {
         $( ".scheduletableitem:nth-child(5)").hide();
         $( ".scheduletableitem:nth-child(6)").hide();
 
-        var kid_age =  (new Date()).getFullYear() - new Date($("#birthdate").val()).getFullYear() 
+        var kid_age =  (new Date()).getFullYear() - new Date(choosen_date_var).getFullYear() 
             var age_req = '';
             if(kid_age < 18)
             {
@@ -626,7 +638,7 @@ async function go_to_step04_func_reg()
     saved_data_reg[3] = $('#emailInput').val();
     saved_data_reg[4] = get_element;
     saved_data_reg[5] = $('#countries').val();
-    saved_data_reg[6] = $("#birthdate").val();
+    saved_data_reg[6] = choosen_date_var;
     saved_data_reg[7] = choosen_group_reg;
     saved_data_reg[8] = choosen_package_reg;
     saved_data_reg[9] = 'pending';
@@ -852,10 +864,12 @@ async function go_to_step05_func_reg(data_arr)
 
     }
 
+    console.log(parent_id)
+
 
     var saved_age_arr  = await GET_DATA_TABLES(database_fixed_link ,'age');    
 
-    var kid_age =  (new Date()).getFullYear() - new Date($("#birthdate").val()).getFullYear() 
+    var kid_age =  (new Date()).getFullYear() - new Date(choosen_date_var).getFullYear() 
     var age_req = '';
     if(kid_age < 18)
     {
@@ -1028,8 +1042,39 @@ async function go_to_step05_func_reg(data_arr)
     }
 
 
+    var result = await GET_DATA_TABLES(database_fixed_link , 'free_session_whatsapp_temp');
+
+
+
+    if(result)
+    {
+        for(var index = 0 ; index < result.length ; index++)
+        {
+            if(result[index].free_whats_temp_type == 'Intro_free')
+            {
+
+                // var result_link = text.link()
+
+                var URL__ = `http://localhost/ischool-crm/dashboard?username=${$('#emailInput').val()}&password=${$('#phonenumInput').val()}`;
+
+                var body = `Hello ${$('#firstnameInput').val()}
+${result[index].free_whats_temp_body}
+you can join dashboard using this link:
+${URL__}
+
+Or using username and password
+USERNAME : ${$('#emailInput').val()}
+PASSWORD : ${$('#phonenumInput').val()}
+`
+                var res = await send_whats_msg(result[index].free_whats_temp_token , result[index].free_whats_temp_instance , body ,  $('#phonenumInput').val() , parent_id , $('#firstnameInput').val() , result[index].free_whats_temp_type);
+            }
+        }
+    }
+
+
+
     Loading_page_clear();
-    $(".step04").show("drop", { direction: "left" }, 300);
+    // $(".step04").show("drop", { direction: "left" }, 300);
 
     return true;
 
@@ -1045,7 +1090,6 @@ function checkout() {
 
 // FawryPay.checkout(buildChargeRequest(), configuration);
 
-console.log('here');
 location.href = return_page+ "?orderStatus=PAID&statusCode=200&paymentMethod=PayUsingCC&merchantRefNumber="+choosen_ref
 }
 
@@ -1266,7 +1310,7 @@ $(".mb-3.date.years .days-slider li").click(function(){
 function genrateYears(){
     var date = new Date
     for (i = Number(date.getFullYear() - 18); i <= Number(date.getFullYear() -6) ; i++ ){
-        $(".mb-3.date.years .days-slider").html( $(".mb-3.date.years .days-slider").html() + "<li> " + i +" </li>" )
+        $(".mb-3.date.years .days-slider").html( $(".mb-3.date.years .days-slider").html() + "<li>" + i +"</li>" )
     } 
 
 }
