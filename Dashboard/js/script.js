@@ -41,14 +41,14 @@ function tapsReset() {
   $("#certificationTap").hide();
   $("#roadmapTap").hide();
   $("#packagesTap").hide();
-  $("#packagesTap02").hide();
+  $("#packagesTap01").hide();
   $("#overviewTap").hide();
   $("#feedbackTap").hide();
   $("#financeTap").hide();
 }
 $("#schedule_next").click(function(){
   
-  $("#packagesTap02").hide("drop", { direction: "left" }, 300);
+  $("#packagesTap01").hide("drop", { direction: "left" }, 300);
   setTimeout(function(){
     $("#packagesTap").show("drop", { direction: "right" }, 300);
   },400)
@@ -58,7 +58,7 @@ $(".back-btn").click(function(){
 
   $("#packagesTap").hide("drop", { direction: "right" }, 300);
   setTimeout(function(){
-    $("#packagesTap02").show("drop", { direction: "left" }, 300);
+    $("#packagesTap01").show("drop", { direction: "left" }, 300);
   },400)
 })
 function PDF_PRINT (name , sessions)
@@ -564,7 +564,7 @@ async function student_choosen(parent)
 
     get_employee.forEach(element_emp => {
 
-      if(Number(element_emp.employee_id) == Number(element.sessioninfo.employee_id))
+      if(Number(element_emp.id) == Number(element.sessioninfo.employee_id))
       {
         session_zoom_link = element_emp.zoomlink;
         instructor_name = element_emp.name;
@@ -907,6 +907,7 @@ Sessionx = setInterval(function () {
   
   if(parent.choosen_student.packagescount == 0)
   {
+
     freeColor();
     tapsReset();
     $("#student_sector").hide();
@@ -931,9 +932,14 @@ Sessionx = setInterval(function () {
     $(".nav-item").removeClass("active");
     $("#sessioninfoTap_id").addClass("active");
 
+    $("#packagesTap").hide("drop", { direction: "right" }, 300);
+    $("#packagesTap01").hide("drop", { direction: "right" }, 300);
+
   }
   else
   {
+    tapsReset();
+
     RegColor();
   var select_agent = '';
   var Total_quota = 0;
@@ -945,7 +951,7 @@ Sessionx = setInterval(function () {
 
   get_employee.forEach(element =>
     {
-      if(element.employee_id == parent.customer_agent_id)
+      if(element.id == parent.customer_agent_id)
       {
         select_agent = element.name
       }
@@ -975,9 +981,9 @@ Sessionx = setInterval(function () {
 
   // payonce_btn
   var total_re_amount = 0; 
+  $('#inst_table_rows').html('');
 
     parent.choosen_student.invoices.forEach(element => {
-
 
       var result_in = `
       <tr>
@@ -985,7 +991,7 @@ Sessionx = setInterval(function () {
       <td data-label="Date" scope="col">${element.due_date}</td>
       <td data-label="Amount" scope="col">${element.amount} L.E</td>
 
-      `
+      `;
 
       if(element.status == 'waiting' && new Date(element.due_date) < new Date())
       {
@@ -1091,17 +1097,13 @@ Sessionx = setInterval(function () {
       })
 
 
-
-
-      console.log(parent.choosen_student);
-
-  $('#student_name_over').text(parent.choosen_student.st_name)
-
+      $('#student_name_over').text(parent.choosen_student.st_name)
+      $('#student_id_over').text(parent.choosen_student.id)
 
 
   if(parent.choosen_student.sessions.length)
   {
-    if(next_session_info.length)
+    if(next_session_info)
     {
       $('#student_grop_over').text(next_session_info.group_arr.id)
 
@@ -1186,6 +1188,7 @@ Sessionx = setInterval(function () {
     $("#certificationTap_id").show();
     $("#roadmapTap_id").hide();
     $("#packagesTap_id").show();
+
     
     $("#overviewTap_id").show();
     $("#overviewTap").show();

@@ -632,12 +632,30 @@ async function go_to_step04_func_reg()
     get_element = params.get('camp_id');
 
 
+    var get_all_parent_table = await GET_DATA_TABLES(database_fixed_link , 'parent')    
+
+
+    get_all_parent_table.forEach(element =>
+        {
+            if(element.phone == $('#phonenumInput').val() || element.email == $('#emailInput').val() )
+            {
+                $('#phonenumInput').val(element.phone);
+                $('#emailInput').val(element.email);
+                return;
+            }
+
+        })
+
+
+    localStorage.setItem("emailInput_success" , $('#emailInput').val());
+    localStorage.setItem("phonenumInput_success" , $('#phonenumInput').val());
+
     saved_data_reg[0] = $('#firstnameInput').val();
     saved_data_reg[1] = $('#studentnameInput').val();
     saved_data_reg[2] = $('#phonenumInput').val();
     saved_data_reg[3] = $('#emailInput').val();
     saved_data_reg[4] = get_element;
-    saved_data_reg[5] = $('#countries').val();
+    saved_data_reg[5] = '';
     saved_data_reg[6] = choosen_date_var;
     saved_data_reg[7] = choosen_group_reg;
     saved_data_reg[8] = choosen_package_reg;
@@ -864,9 +882,6 @@ async function go_to_step05_func_reg(data_arr)
 
     }
 
-    console.log(parent_id)
-
-
     var saved_age_arr  = await GET_DATA_TABLES(database_fixed_link ,'age');    
 
     var kid_age =  (new Date()).getFullYear() - new Date(choosen_date_var).getFullYear() 
@@ -1045,17 +1060,20 @@ async function go_to_step05_func_reg(data_arr)
     var result = await GET_DATA_TABLES(database_fixed_link , 'free_session_whatsapp_temp');
 
 
+    var get_email_data = localStorage.getItem("emailInput_success" );
+    var get_phone_data = localStorage.getItem("phonenumInput_success" );
 
     if(result)
     {
         for(var index = 0 ; index < result.length ; index++)
         {
-            if(result[index].free_whats_temp_type == 'Intro_free')
+            if(result[index].free_whats_temp_type == 'Intro_reg')
             {
+
 
                 // var result_link = text.link()
 
-                var URL__ = `http://localhost/ischool-crm/dashboard?username=${$('#emailInput').val()}&password=${$('#phonenumInput').val()}`;
+                var URL__ = `http://localhost/ischool-crm/dashboard?username=${get_email_data}&password=${get_phone_data}`;
 
                 var body = `Hello ${$('#firstnameInput').val()}
 ${result[index].free_whats_temp_body}
@@ -1063,10 +1081,10 @@ you can join dashboard using this link:
 ${URL__}
 
 Or using username and password
-USERNAME : ${$('#emailInput').val()}
-PASSWORD : ${$('#phonenumInput').val()}
+USERNAME : ${get_email_data}
+PASSWORD : ${get_phone_data}
 `
-                var res = await send_whats_msg(result[index].free_whats_temp_token , result[index].free_whats_temp_instance , body ,  $('#phonenumInput').val() , parent_id , $('#firstnameInput').val() , result[index].free_whats_temp_type);
+                var res = await send_whats_msg(result[index].free_whats_temp_token , result[index].free_whats_temp_instance , body ,  get_phone_data , parent_id , $('#firstnameInput').val() , result[index].free_whats_temp_type);
             }
         }
     }
@@ -1074,7 +1092,7 @@ PASSWORD : ${$('#phonenumInput').val()}
 
 
     Loading_page_clear();
-    // $(".step04").show("drop", { direction: "left" }, 300);
+    $(".step04").show("drop", { direction: "left" }, 300);
 
     return true;
 

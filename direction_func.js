@@ -3,7 +3,7 @@
 //local
 var database_fixed_link = "http://localhost/ischool-crm/fetch.php";
 var database_fixed_link_history = "http://localhost/ischool-crm/fetch_history.php";
-var return_page = "http://localhost/ischool-crm/success/index.html";
+var return_page = "http://localhost/ischool-crm/success";
 var reg_page =  "http://localhost/ischool-crm/reg/"
 var dash_page =  "http://localhost/ischool-crm/dashboard/"
 var free_page =  "http://localhost/ischool-crm/free/"
