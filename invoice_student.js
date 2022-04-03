@@ -6,7 +6,11 @@ function INVOICE_STUDENT()
 {
     Loading_page_set();
 
+    start_index_num = 0;
+    ent_index = 0;
+
     clear_all_locations();
+
 
 
     var Database_link = database_fixed_link
@@ -84,7 +88,7 @@ var paper_inputs_label = [
     $('#search_btn').click(function (index) {  
         Loading_page_set();
 
-        get_all_data_arr(All_req_obj ,quary_tables_all_paper_invoice,create_table_inovice_customized , time_out , 3);
+        get_all_data_arr(All_req_obj ,quary_tables_all_paper_invoice,create_table_invoice , time_out , 3);
         });
 }
 
@@ -108,7 +112,7 @@ function html_create_lists_add_invoice(paper_inputs , paper_inputs_label  , loca
     </div>
     <div class='col justify-content-start'><button type="button" id='search_btn' class="btn btn-primary">
       <i class="fas fa-search"></i>
-    </button></div>
+    </button> <input id='counter_id' readonly> <input id='counter_id_id' readonly></div>
   </div>`;
   document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
   document.getElementById(location_).innerHTML +=`</div></div>`;
@@ -130,7 +134,20 @@ function quary_tables_all_paper_invoice(All_table_obj , func)
 
    if(All_table_obj.tables[0] && All_table_obj.tables[0] !== undefined && All_table_obj.tables[0].length != 0){
 
-        for(var index = 0 ; index < All_table_obj.tables[0].length ; index++)
+
+    get_next_prev_invoices(All_table_obj , func , 0);
+
+
+    if(Number(All_table_obj.tables[0].length) - start_index_num > 10)
+    {
+        ent_index = start_index_num+10;
+    }
+    else{
+        ent_index = Number(All_table_obj.tables[0].length);
+
+    }
+
+        for(var index = start_index_num ; index < ent_index ; index++)
         {
             var saved_arr = []
             var counter = 0;
@@ -199,7 +216,7 @@ function quary_tables_all_paper_invoice(All_table_obj , func)
         saved_arr[counter] = All_table_obj.tables[0][index].remain;counter++;
 
 
-            create_new_tabl_rows[index] = saved_arr;
+            create_new_tabl_rows[index - start_index_num] = saved_arr;
         }
 
     }
@@ -288,10 +305,26 @@ function create_table_invoice(all_tables)
    All_data_obj.obj_data = [];
    All_data_obj.saved_index ;
 
-   var saved_table_arr = change_input_layer(all_tables);
+   var values_ = document.getElementById("search_all").value;
 
+   if(values_ == "")
+   {
+      All_data_obj.Start_Index = 1;
+      var saved_table_arr = change_input_layer(all_tables);
 
-   createTable_invoice(saved_table_arr ,All_data_obj , 'clear' , 5, 6 , null , create_view_invoice); 
+      $('#counter_id_id').val(saved_table_arr.length)
+      createTable_invoice(saved_table_arr ,All_data_obj , 'clear' , 5, 6 , null , create_view_invoice); 
+      return;
+   }
+
+    var result = Search_for_value(all_tables , values_)
+
+    var saved_table_arr = change_input_layer(result);
+
+    $('#counter_id_id').val(saved_table_arr.length)
+
+    createTable_invoice(saved_table_arr ,All_data_obj , 'clear' , 5, 6 , null , create_view_invoice); 
+
 }
 
 function create_view_invoice(All_data_obj , End_Index)
@@ -488,3 +521,69 @@ function paper_inner_invoice (paper_ , title , value)
 }
 
 /* <select id="select-state" placeholder="Pick a state..."></select> */
+
+function get_next_prev_invoices(All_table_obj,func )
+{
+
+    next_Section_custom();
+   $('#Location_3').hide();
+    document.getElementById('Location_5').innerHTML = `<label>`+Math.ceil((start_index_num+1)/10)+" - "+Math.ceil(All_table_obj.tables[0].length/10)+` </label>`;
+
+    $('#counter_id').val(All_table_obj.tables[0].length)
+
+    $('#btn_next').empty();
+    $('#btn_next').text('Next');
+
+    $('#btn_prev').empty();
+    $('#btn_prev').text('Previous');
+
+    $('#page_index_cust').empty();
+
+    
+
+    $('#page_index_cust').change(function()
+    {
+        var get_data_ = ($('#page_index_cust').val() * 10 )-10;
+
+        if(get_data_ < 0)
+        {
+            return;
+        }
+        if(All_table_obj.tables[0].length > get_data_ )
+        {
+            start_index_num = get_data_;
+            quary_tables_all_paper_invoice(All_table_obj , func);
+
+        }
+
+        
+    })
+
+
+    if(All_table_obj.tables[0].length - start_index_num > 10)
+    {
+        $('#btn_next').click(function()
+        {
+            start_index_num+=10;
+    
+            quary_tables_all_paper_invoice(All_table_obj , func);
+            
+        })
+    }
+
+    if(start_index_num == 0)
+    {
+
+    }
+    else
+    {
+        $('#btn_prev').click(function()
+        {
+            start_index_num-=10;
+    
+            quary_tables_all_paper_invoice(All_table_obj , func);
+            
+        })
+    }
+
+}

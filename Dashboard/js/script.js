@@ -48,7 +48,7 @@ function tapsReset() {
 }
 $("#schedule_next").click(function(){
   
-  $("#packagesTap01").hide("drop", { direction: "left" }, 300);
+  $("#packagesTap02").hide("drop", { direction: "left" }, 300);
   setTimeout(function(){
     $("#packagesTap").show("drop", { direction: "right" }, 300);
   },400)
@@ -58,7 +58,7 @@ $(".back-btn").click(function(){
 
   $("#packagesTap").hide("drop", { direction: "right" }, 300);
   setTimeout(function(){
-    $("#packagesTap01").show("drop", { direction: "left" }, 300);
+    $("#packagesTap02").show("drop", { direction: "left" }, 300);
   },400)
 })
 function PDF_PRINT (name , sessions)
@@ -904,7 +904,6 @@ Sessionx = setInterval(function () {
   });
 
 
-  
   if(parent.choosen_student.packagescount == 0)
   {
 
@@ -932,14 +931,19 @@ Sessionx = setInterval(function () {
     $(".nav-item").removeClass("active");
     $("#sessioninfoTap_id").addClass("active");
 
-    $("#packagesTap").hide("drop", { direction: "right" }, 300);
-    $("#packagesTap01").hide("drop", { direction: "right" }, 300);
+
+    $("#packagesTap02").show();
+    $("#packagesTap").show();
+    $("#packagesTap01").show();
 
   }
   else
   {
-    tapsReset();
+    $("#packagesTap02").hide();
+    $("#packagesTap").hide();
+    $("#packagesTap01").hide();
 
+    tapsReset();
     RegColor();
   var select_agent = '';
   var Total_quota = 0;

@@ -3,6 +3,9 @@ var get_days = []
 
 function ADD_NEW_GROUP_FUNC()
 {
+
+    start_index_num = 0;
+    ent_index = 0;
     Loading_page_set();
 
     get_days = [];
@@ -109,7 +112,7 @@ function ADD_NEW_GROUP_FUNC()
                  
         html_create_lists_groups_func(paper_inputs , paper_inputs_label , "Location_1" );
 
-        get_all_data_arr(All_req_obj ,quary_tables_all_status_groups , '' , time_out  , 1);
+        // get_all_data_arr(All_req_obj ,quary_tables_all_status_groups , '' , time_out  , 1);
 
         get_all_data_arr(All_req_obj ,quary_tables_all_Groups_func,create_group_table , time_out , 2);
 
@@ -139,7 +142,7 @@ function html_create_lists_groups_func(paper_inputs , paper_inputs_label  , loca
     </div>
     <div class='col justify-content-start' style='z-index:0;'><button type="button" id='search_btn_groups' class="btn btn-primary">
       <i class="fas fa-search"></i>
-    </button></div>
+    </button> <input id='counter_id' readonly></div>
   </div>`;
   document.getElementById(location_).innerHTML +=`<div class="col"><div class="form-floating mb-3 search_adjust">`;
   document.getElementById(location_).innerHTML +=`</div></div>`;
@@ -287,6 +290,21 @@ function add_new_Groups_func(All_req_obj,paper_inputs)
                 }    
             }
 
+
+            
+        get_next_prev_Groups(All_table_obj , func , 8);
+
+
+        if(Number(All_table_obj.tables[8].length) - start_index_num > 10)
+        {
+            ent_index = start_index_num+10;
+        }
+        else{
+            ent_index = Number(All_table_obj.tables[8].length);
+
+        }
+
+
     for(var index = 0 ; index < All_table_obj.tables[8].length ; index++)
     {
         var create_new_table_cols = []
@@ -412,7 +430,7 @@ function add_new_Groups_func(All_req_obj,paper_inputs)
         create_new_table_cols[counter] = counter_sessions + ' Created Session/s' ;counter++;
         create_new_table_cols[counter] = counter_sessions_date + ' Completed Session/s' ;counter++;
 
-        create_new_tabl_rows[index] = create_new_table_cols;
+        create_new_tabl_rows[index - start_index_num] = create_new_table_cols;
 
 
         }
@@ -622,3 +640,68 @@ function paper_inner (paper_ , title)
   </select>` ;
 }
 
+
+
+function get_next_prev_Groups(All_table_obj,func , index)
+{
+
+    next_Section_custom();
+   $('#Location_3').hide();
+    document.getElementById('Location_5').innerHTML = `<label>`+Math.ceil((start_index_num+1)/10)+" - "+Math.ceil(All_table_obj.tables[index].length/10)+` </label>`;
+
+    $('#counter_id').val(All_table_obj.tables[index].length)
+
+    $('#btn_next').empty();
+    $('#btn_next').text('Next');
+
+    $('#btn_prev').empty();
+    $('#btn_prev').text('Previous');
+
+    $('#page_index_cust').empty();
+
+    $('#page_index_cust').change(function()
+    {
+        var get_data_ = ($('#page_index_cust').val() * 10 )-10;
+
+        if(get_data_ < 0)
+        {
+            return;
+        }
+        if(All_table_obj.tables[index].length > get_data_ )
+        {
+            start_index_num = get_data_;
+            quary_tables_all_Groups_func(All_table_obj , func);
+
+        }
+
+        
+    })
+
+
+    if(All_table_obj.tables[index].length - start_index_num > 10)
+    {
+        $('#btn_next').click(function()
+        {
+            start_index_num+=10;
+    
+            quary_tables_all_Groups_func(All_table_obj , func);
+            
+        })
+    }
+
+    if(start_index_num == 0)
+    {
+
+    }
+    else
+    {
+        $('#btn_prev').click(function()
+        {
+            start_index_num-=10;
+    
+            quary_tables_all_Groups_func(All_table_obj , func);
+            
+        })
+    }
+
+}

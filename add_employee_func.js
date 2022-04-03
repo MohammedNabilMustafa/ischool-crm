@@ -6,7 +6,6 @@ function ADD_NEW_EMPLOYEE()
     Loading_page_set();
     clear_all_locations();
 
-
     var Database_link = database_fixed_link
 
     var inputs_col = [

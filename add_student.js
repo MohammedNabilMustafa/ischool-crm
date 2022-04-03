@@ -17,17 +17,24 @@ var saved_employee_arr = []
 var start_index_num = 0;
 var ent_index = 0;
 
-function clear_all_locations()
-{
-    document.getElementById("Location_1").innerHTML = "";
-    document.getElementById("Location_2").innerHTML = "";
-    document.getElementById("Location_3").innerHTML = "";
-    document.getElementById("Location_6").innerHTML = "";
-    document.getElementById("search-results").innerHTML = "";
-}
+// function clear_all_locations()
+// {
+//     document.getElementById("Location_1").innerHTML = "";
+//     document.getElementById("Location_2").innerHTML = "";
+//     document.getElementById("Location_3").innerHTML = "";
+//     document.getElementById("Location_6").innerHTML = "";
+//     document.getElementById("search-results").innerHTML = "";
+//     $('#Location_3').show();
+
+// }
+
+
 
 async function ADD_NEW_STUDENT()
 {
+
+    start_index_num = 0;
+    ent_index = 0;
 
     Loading_page_set();
     clear_all_locations();
@@ -902,17 +909,44 @@ function get_all_data_arr(All_req_obj , func_quary,func , timeout , index_pos , 
 
 }
 
-function get_next_prev(All_table_obj,func)
+function get_next_prev_students(All_table_obj,func)
 {
 
     next_Section_custom();
-   $('#Location_3').hide();
     document.getElementById('Location_5').innerHTML = `<label>`+Math.ceil((start_index_num+1)/10)+" - "+Math.ceil(All_table_obj.tables[1].length/10)+` </label>`;
 
     $('#counter_id').val(All_table_obj.tables[1].length)
 
     $('#btn_next').empty();
     $('#btn_next').text('Next');
+
+    $('#btn_prev').empty();
+    $('#btn_prev').text('Previous');
+
+    $('#page_index_cust').empty();
+
+
+
+    
+
+    $('#page_index_cust').change(function()
+    {
+        var get_data_ = ($('#page_index_cust').val() * 10 )-10;
+
+        if(get_data_ < 0)
+        {
+            return;
+        }
+        if(All_table_obj.tables[1].length > get_data_ )
+        {
+            start_index_num = get_data_;
+            quary_tables_all__student(All_table_obj , func);
+
+        }
+
+        
+    })
+
 
     if(All_table_obj.tables[1].length - start_index_num > 10)
     {
@@ -941,6 +975,7 @@ function get_next_prev(All_table_obj,func)
     }
 
 }
+
  async function quary_tables_all__student(All_table_obj , func)
  {
     var create_new_tabl_rows = []
@@ -952,7 +987,7 @@ function get_next_prev(All_table_obj,func)
     if(All_table_obj.tables[1] && All_table_obj.tables[1] !== undefined && All_table_obj.tables[1].length != 0)
     {
 
-        get_next_prev(All_table_obj , func);
+        get_next_prev_students(All_table_obj , func);
 
 
         if(Number(All_table_obj.tables[1].length) - start_index_num > 10)
@@ -963,7 +998,6 @@ function get_next_prev(All_table_obj,func)
             ent_index = Number(All_table_obj.tables[1].length);
 
         }
-
 
         for(var index = start_index_num ; index < ent_index ; index++)
         {
@@ -1198,7 +1232,7 @@ function get_next_prev(All_table_obj,func)
  {
     Loading_page_clear();
     
-            for(var ret = 0 ; ret < 10 ; ret++ )
+            for(var ret = 0 ; ret < ent_index - start_index_num ; ret++ )
             {
 
                 all_tables[ret][26] = [];

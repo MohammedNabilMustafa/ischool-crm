@@ -133,6 +133,11 @@ var called_table = ['slots',
 async function ADD_NEW_PARENT()
 {
     Loading_page_set();
+
+    start_index_num = 0;
+    ent_index = 0;
+
+
     saved_group_arr = []
     saved_age_arr = []
 
@@ -690,7 +695,19 @@ Not Registered
     if(All_table_obj.tables[4] && All_table_obj.tables[4] !== undefined && All_table_obj.tables[4].length != 0)
     {
 
-        for(var index = 0 ; index < All_table_obj.tables[4].length ; index++)
+
+        get_next_prev_parent(All_table_obj , func);
+
+
+        if(Number(All_table_obj.tables[4].length) - start_index_num > 10)
+        {
+            ent_index = start_index_num+10;
+        }
+        else{
+            ent_index = Number(All_table_obj.tables[4].length);
+
+        }
+        for(var index = start_index_num ; index < ent_index ; index++)
         {
 
 
@@ -2297,4 +2314,73 @@ function Loading_page_set()
 function Loading_page_clear()
 {
     modal_1.style.display = "none";
+}
+
+function get_next_prev_parent(All_table_obj,func)
+{
+
+    next_Section_custom();
+   $('#Location_3').hide();
+    document.getElementById('Location_5').innerHTML = `<label>`+Math.ceil((start_index_num+1)/10)+" - "+Math.ceil(All_table_obj.tables[4].length/10)+` </label>`;
+
+    $('#counter_id').val(All_table_obj.tables[4].length)
+
+    $('#btn_next').empty();
+    $('#btn_next').text('Next');
+
+    $('#btn_prev').empty();
+    $('#btn_prev').text('Previous');
+
+    $('#page_index_cust').empty();
+
+
+
+    
+
+    $('#page_index_cust').change(function()
+    {
+        console.log($('#page_index_cust').val());
+        var get_data_ = ($('#page_index_cust').val() * 10 )-10;
+
+        if(get_data_ < 0)
+        {
+            return;
+        }
+        if(All_table_obj.tables[4].length > get_data_ )
+        {
+            start_index_num = get_data_;
+            quary_tables_all__student(All_table_obj , func);
+
+        }
+
+        
+    })
+
+
+    if(All_table_obj.tables[4].length - start_index_num > 10)
+    {
+        $('#btn_next').click(function()
+        {
+            start_index_num+=10;
+    
+            quary_tables_all__student(All_table_obj , func);
+            
+        })
+    }
+
+    if(start_index_num == 0)
+    {
+
+    }
+    else
+    {
+        $('#btn_prev').click(function()
+        {
+            start_index_num-=10;
+    
+            quary_tables_all__student(All_table_obj , func);
+            
+        })
+    }
+
 }

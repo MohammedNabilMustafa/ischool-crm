@@ -58,6 +58,7 @@ function next_Section(location)
     <div class='col justify-content-end' style='justify-content:right !important;'><button class='btn btn-success' style='float:right;' id='btn2'> Next </button></div>`;
 
     document.getElementById(location).innerHTML = values;
+
 }
 
 
@@ -71,6 +72,8 @@ function next_Section_custom()
     <div class='col justify-content-end' style='justify-content:right !important;'><button class='btn btn-success' style='float:right;' id='btn_next'> Next </button></div>`;
 
     document.getElementById('Location_6').innerHTML = values;
+       $('#Location_3').hide();
+
 }
 
 

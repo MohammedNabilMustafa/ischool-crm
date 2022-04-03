@@ -269,9 +269,54 @@ var inputs_col_data =
 
 }
 
+async function add_multi_records_calls(recordes)
+{
+  Loading_page_set();
+
+  for(var index = 0 ; index < recordes ; index++)
+  {
+
+  var inputs_col = 
+  [
+    "call_type_id"
+    ,"call_status_id"
+    ,"cat_id"
+    ,"close_id"
+    ,"follow_date"
+    ,"note"
+    ,"call_id"
+    ,"student_id"
+    ,"parent_id"
+
+  ]
+
+
+var inputs_col_data = 
+[
+  1
+  ,1
+  ,1
+  ,1
+  ,"1/1/2020"
+  ,''
+  ,0
+  ,0
+  ,137
+
+]
 
 
 
+
+    await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'cs_calls' , inputs_col , inputs_col_data);
+  }
+
+    Loading_page_clear();
+
+}
+
+
+// add_multi_records_calls(2000)
 
 // add_multi_records_invoice(2400);
 

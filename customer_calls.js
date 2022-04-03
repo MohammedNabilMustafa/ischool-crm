@@ -1591,11 +1591,10 @@ async function Search_for_filter()
     var call_type_arr = await GET_DATA_TABLES(database_fixed_link , "call_type" );
     var cat_arr = await GET_DATA_TABLES(database_fixed_link , "cat" );
     var close_arr = await GET_DATA_TABLES(database_fixed_link , "close" );
-    var customer_ser_arr_0 = await GET_DATA_TABLES(database_fixed_link , "cs_calls" );
     var employee_arr = await GET_DATA_TABLES(database_fixed_link , "employee" );
     var students_arr_0 = await GET_DATA_TABLES(database_fixed_link , "students" );
 
-    var parent_arr=[]
+    var parent_arr = []
     parent_arr = parent_arr_all;
 
     if(customer_ser_arr_1 && customer_ser_arr_1 !== undefined && customer_ser_arr_1.length != 0){
@@ -1656,7 +1655,7 @@ async function Search_for_filter()
                   {
                       element.student_id = Data_.id
                       if(Data_.name != "")
-                      element.student_name = Data_.name
+                      element.student_name = Data_.st_name
                       else
                       element.student_name = "No Student Name"
                   }
@@ -1678,7 +1677,7 @@ async function Search_for_filter()
                           {
                               element.cs_id = Data_em.id
                               if(Data_.name != "")
-                              element.cs_name = Data_em.name
+                              element.cs_name = Data_em.emp_name
                               else
                               element.cs_name = "No CS-Agent Assigned"
                           }
@@ -1689,7 +1688,7 @@ async function Search_for_filter()
                           {
                               element.sales_id = Data_em.id
                               if(Data_.name != "")
-                              element.sales_name = Data_em.name
+                              element.sales_name = Data_em.emp_name
                               else
                               element.sales_name = "No Sales-Agent Assigned"
                           }
@@ -1778,7 +1777,7 @@ async function Search_for_filter()
                               {
                                   Data__.student_id = Data_.id
                                   if(Data_.name != "")
-                                  Data__.student_name = Data_.name
+                                  Data__.student_name = Data_.st_name
                                   else
                                   Data__.student_name = "No Student Name"
                               }
@@ -2161,7 +2160,7 @@ $("#call_parent_input").change(async function()
             {
 
                 $('#call_student_input').append(`<option value="${students_arr[index].id}">
-                ( ID : ${students_arr[index].id} ) - ( Name : ${students_arr[index].name} )</option>`); 
+                ( ID : ${students_arr[index].id} ) - ( Name : ${students_arr[index].st_name} )</option>`); 
             }
         }
     }
