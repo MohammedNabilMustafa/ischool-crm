@@ -28,11 +28,18 @@ async function SESSIONS_FUNC()
 
     var get_data_sessions_copy = [];
 
+    html_create_lists_session('Location_1');
 
     if(get_data_sessions)
     {
-        get_next_prev_sessions(get_data_sessions  );
 
+        if(localStorage.value_searchall)
+        {
+            document.getElementById("search_all").value = localStorage.value_searchall
+            get_data_sessions = Search_for_value_same(get_data_sessions , document.getElementById("search_all").value);
+        }
+
+        get_next_prev_sessions(get_data_sessions  );
 
         if(Number(get_data_sessions.length) - start_index_num > 10)
         {
@@ -252,11 +259,12 @@ async function SESSIONS_FUNC()
 
     }
 
-    html_create_lists_session('Location_1');
 
     $('#search_btn_groups').click(function (index) {  
         Loading_page_set();
-        create_table_sessions_func(get_data_sessions_copy);
+        var values_ = document.getElementById("search_all").value;
+        localStorage.value_searchall = values_;
+        SESSIONS_FUNC();
     });
 
 
@@ -564,7 +572,7 @@ function createTable_sessions(dataArray ,All_data_obj ) {
 
 
     var values_ = document.getElementById("search_all").value;
-
+    localStorage.value_searchall = values_;
     if(values_ == "")
     {
        All_data_obj.Start_Index = 1;

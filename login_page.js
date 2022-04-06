@@ -246,7 +246,7 @@ async function login_success(user_info)
 
 
     Show_all();
-    localStorage.agentname =  user_info.name;
+    localStorage.agentname =  user_info.emp_name;
     localStorage.permission = user_info.permission_id;
     localStorage.userid = user_info.id;
     if(user_info.permission_id == 4)

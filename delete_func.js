@@ -27,7 +27,7 @@ var student_col_arr =
     ,"parent_id"
     ,"free_session_status"
     ,"std_status"
-    ,"name"
+    ,"st_name"
     ,"age"
     ,"birthdate"
 ]

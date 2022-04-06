@@ -45,6 +45,8 @@ function tapsReset() {
   $("#overviewTap").hide();
   $("#feedbackTap").hide();
   $("#financeTap").hide();
+  $("#packagesTap02").hide();
+  
 }
 $("#schedule_next").click(function(){
   
@@ -67,6 +69,181 @@ function PDF_PRINT (name , sessions)
   html2pdf().from(element).save(name + " Session "+sessions);
 }
 
+var choosen_package_reg = '';
+var choosen_group_reg = -1;
+var choosen_date_var = '';
+
+$("#payonce_btn").click(async function() {
+  // choosen_package_reg = $("#Pack_1_btn").val()
+  // var ret = $("#Pack_1_btn").text().replace('Pay ','') ;
+  var ret = 0;
+  var get_student_inv = await GET_DATA_TABLES( database_fixed_link, 'invoice');  
+
+  get_student_inv.forEach(element => {
+    if(element.student_id == fixed_user_info.choosen_student.id)
+    {
+      if(element.status == 'waiting')
+      {
+        ret += Number(element.amount)
+      }
+    }
+  })
+  var ret_data = {};
+  ret_data.price = ret * 100 *0.8;
+  ret_data.firstname = fixed_user_info.name;
+  ret_data.email = fixed_user_info.email;
+  ret_data.phone = fixed_user_info.phone;
+  ret_data.lastname = fixed_user_info.name;``
+
+  console.log(ret_data);
+
+  Loading_page_set();
+  localStorage.reg_code =  await send_inst(-1);
+  payment_AUTH_callAPI(ret_data);
+
+})
+
+$("#Pack_1_btn").click(async function() {
+  choosen_package_reg = $("#Pack_1_btn").val()
+  var ret = $("#Pack_1_btn").text().replace('Pay ','') ;
+
+  var ret_data = {};
+  ret_data.price = ret * 100;
+  ret_data.firstname = fixed_user_info.name;
+  ret_data.email = fixed_user_info.email;
+  ret_data.phone = fixed_user_info.phone;
+  ret_data.lastname = fixed_user_info.name;
+
+  Loading_page_set();
+  localStorage.reg_code =  await send_reg();
+  payment_AUTH_callAPI(ret_data);
+
+})
+
+
+$("#Pack_2_btn").click(async function() {
+  choosen_package_reg = $("#Pack_2_btn").val()
+  var ret = $("#Pack_2_btn").text().replace('Pay ','') ;
+
+  var ret_data = {};
+  ret_data.price = ret * 100;
+  ret_data.firstname = fixed_user_info.name;
+  ret_data.email = fixed_user_info.email;
+  ret_data.phone = fixed_user_info.phone;
+  ret_data.lastname = fixed_user_info.name;
+
+  Loading_page_set();
+  localStorage.reg_code = await  send_reg();
+  payment_AUTH_callAPI(ret_data);
+
+})
+
+$("#Pack_3_btn").click(async function() {
+  choosen_package_reg = $("#Pack_3_btn").val()
+  var ret = ($("#Pack_3_btn").text()).replace('Pay ','') ;
+
+  var ret_data = {};
+  ret_data.price = ret * 100;
+  ret_data.firstname = fixed_user_info.name;
+  ret_data.email = fixed_user_info.email;
+  ret_data.phone = fixed_user_info.phone;
+  ret_data.lastname = fixed_user_info.name;
+
+  Loading_page_set();
+  localStorage.reg_code = await  send_reg();
+  payment_AUTH_callAPI(ret_data);
+
+
+})
+
+
+async function send_reg()
+{
+  var saved_data_reg = [];
+
+  saved_data_reg[0] = fixed_user_info.name;
+  saved_data_reg[1] = fixed_user_info.choosen_student.st_name;
+  saved_data_reg[2] = fixed_user_info.phone;
+  saved_data_reg[3] = fixed_user_info.email;
+  saved_data_reg[4] = fixed_user_info.marketing_id;
+  saved_data_reg[5] = '';
+  saved_data_reg[6] = choosen_date_var;
+  saved_data_reg[7] = choosen_group_reg;
+  saved_data_reg[8] = choosen_package_reg;
+  saved_data_reg[9] = 'pending';
+  saved_data_reg[10] = '';
+  saved_data_reg[11] = fixed_user_info.id;
+  saved_data_reg[12] = fixed_user_info.choosen_student.id;
+  saved_data_reg[13] = '';
+  
+  
+  var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'registeration' , 
+  ["parent_name"
+  ,"student_name"
+  ,"phone"
+  ,"email"
+  ,"camp_id"
+  ,"country"
+  ,"birthdate"
+  ,"group_id"
+  ,"package_id"
+  ,"status"
+  ,"type"
+  ,"parent_id"
+  ,"student_id"
+  ,"inst"
+  ],
+  saved_data_reg
+  );
+
+  var returncheck = await GET_DATA_TABLES(database_fixed_link , 'registeration' )
+
+  return returncheck[returncheck.length-1].id;
+}
+
+async function send_inst(id)
+{
+  var saved_data_reg = [];
+
+  saved_data_reg[0] = fixed_user_info.name;
+  saved_data_reg[1] = fixed_user_info.choosen_student.st_name;
+  saved_data_reg[2] = fixed_user_info.phone;
+  saved_data_reg[3] = fixed_user_info.email;
+  saved_data_reg[4] = fixed_user_info.marketing_id;
+  saved_data_reg[5] = '';
+  saved_data_reg[6] = choosen_date_var;
+  saved_data_reg[7] = -1;
+  saved_data_reg[8] = '';
+  saved_data_reg[9] = 'pending';
+  saved_data_reg[10] = '';
+  saved_data_reg[11] = fixed_user_info.id;
+  saved_data_reg[12] = fixed_user_info.choosen_student.id;
+  saved_data_reg[13] = id;
+  
+  
+  var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'registeration' , 
+  ["parent_name"
+  ,"student_name"
+  ,"phone"
+  ,"email"
+  ,"camp_id"
+  ,"country"
+  ,"birthdate"
+  ,"group_id"
+  ,"package_id"
+  ,"status"
+  ,"type"
+  ,"parent_id"
+  ,"student_id"
+  ,"inst"
+  ],
+  saved_data_reg
+  );
+
+  var returncheck = await GET_DATA_TABLES(database_fixed_link , 'registeration' )
+
+  return returncheck[returncheck.length-1].id;
+}
 
 async function login_page_check_auto(user , pass)
 {
@@ -192,11 +369,12 @@ async function login_page_check()
    
 }
 
-
+var fixed_user_info = {};
 
 async function login_success(user_info)
 {
 
+  fixed_user_info = user_info;
   await set_pack();
 
   $('#clientname').text(user_info.name);
@@ -907,6 +1085,7 @@ Sessionx = setInterval(function () {
   if(parent.choosen_student.packagescount == 0)
   {
 
+    
     freeColor();
     tapsReset();
     $("#student_sector").hide();
@@ -932,16 +1111,46 @@ Sessionx = setInterval(function () {
     $("#sessioninfoTap_id").addClass("active");
 
 
-    $("#packagesTap02").show();
-    $("#packagesTap").show();
-    $("#packagesTap01").show();
+    // $("#packagesTap02").show();
+    // $("#packagesTap").show();
+    // $("#packagesTap01").show();
+
+    $("#packagesTap_id").empty();
+    $("#packagesTap_id").html(`    <a class="nav-link" >
+    <i class="fa-solid fa-shapes"></i>
+    <span>Upgrade</span></a>`);
+    
+
+
+    $("#packagesTap_id").click(function (){
+      $(".back-btn").show();
+      $("#packagesTap").hide();
+      $("#packagesTap02").show();
+    })
+
+
 
   }
   else
   {
-    $("#packagesTap02").hide();
-    $("#packagesTap").hide();
-    $("#packagesTap01").hide();
+    // $("#packagesTap02").hide();
+    // $("#packagesTap").hide();
+    // $("#packagesTap01").hide();
+
+    $("#packagesTap_id").empty();
+    $("#packagesTap_id").html(`    <a class="nav-link" >
+    <i class="fa-solid fa-shapes"></i>
+    <span>Upgrade</span></a>`);
+    
+
+
+    $("#packagesTap_id").click(function (){
+
+      $(".back-btn").hide();
+      $("#packagesTap02").hide();
+      $("#packagesTap").show();
+    })
+
 
     tapsReset();
     RegColor();
@@ -987,26 +1196,27 @@ Sessionx = setInterval(function () {
   var total_re_amount = 0; 
   $('#inst_table_rows').html('');
 
+  var count_test = 0;
+
     parent.choosen_student.invoices.forEach(element => {
 
       var result_in = `
       <tr>
-      <td data-label="Description" scope="col">Description</td>
-      <td data-label="Date" scope="col">${element.due_date}</td>
+=      <td data-label="Date" scope="col">${element.due_date}</td>
       <td data-label="Amount" scope="col">${element.amount} L.E</td>
 
       `;
 
       if(element.status == 'waiting' && new Date(element.due_date) < new Date())
       {
-        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-primary" style="padding: 5px 35px;">Pay Now</button></td>
+        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-primary" id='btn_pay_${count_test}' style="padding: 5px 35px;">Pay Now</button></td>
         </tr>
         `;
       }
 
       else if(element.status == 'waiting' && new Date(element.due_date) > new Date())
       {
-        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-outline-primary" style="padding: 5px 35px;">Pay</button></td>
+        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-outline-primary" id='btn_pay_${count_test}' style="padding: 5px 35px;">Pay</button></td>
         </tr>
         `;
       }
@@ -1018,14 +1228,14 @@ Sessionx = setInterval(function () {
       }
       else if(element.status == 'refund')
       {
-        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-outline-primary" style="padding: 5px 35px;">Pay</button></td>
+        result_in += `<td data-label="Refunded" scope="col"><button class="btn btn-outline-danger" style="padding: 5px 35px;" disabled>Refunded</button></td>
         </tr>
         `;
       }
 
       else if(element.status == 'ar-refund')
       {
-        result_in += `<td data-label="Pay" scope="col"><button class="btn btn-outline-primary" style="padding: 5px 35px;">Pay</button></td>
+        result_in += `<td data-label="Refunded" scope="col"><button class="btn btn-outline-danger" style="padding: 5px 35px;" disabled>Cancelled</button></td>
         </tr>
         `;
       }
@@ -1043,8 +1253,29 @@ Sessionx = setInterval(function () {
 
       $('#inst_table_rows').append(result_in);
 
+      count_test++;
 
     })
+
+    for(var index = 0 ; index < count_test ; index++)
+    {
+      $("#btn_pay_"+index).click(async function (){
+
+        var id = this.id;
+        var ret = id.replace('btn_pay_','') ;        
+        Loading_page_set();
+        localStorage.reg_code = await send_inst(parent.choosen_student.invoices[ret].id);
+
+        var ret_data = {};
+        ret_data.price = Number(parent.choosen_student.invoices[ret].amount) * 100;
+        ret_data.firstname = fixed_user_info.name;
+        ret_data.email = fixed_user_info.email;
+        ret_data.phone = fixed_user_info.phone;
+        ret_data.lastname = fixed_user_info.name;
+
+        payment_AUTH_callAPI(ret_data);
+      })
+    }
 
     if(total_re_amount)
     {
@@ -1206,6 +1437,9 @@ Sessionx = setInterval(function () {
   Loading_page_clear();
 
 }
+
+
+
 
 
 
@@ -1388,3 +1622,9 @@ $(".scheduletableitem").click(function() {
   Num = $(this).index();
   $(".scheduletableitem:nth-child(" + (Num + 1) + ") .check").addClass("active")
 })
+
+
+function pay_inst ()
+{
+  
+}
