@@ -13,8 +13,10 @@ async function payment_AUTH_callAPI(ret_data) {
 
     result3 = JSON.parse(result3);
 
+    
+
     // window.open("http://localhost/ischool-crm/success?txn_response_code=0","_self")
-    // window.open("http://localhost/ischool-crm/success?txn_response_code=0","_self")
+    window.open("https://accept.paymob.com/api/acceptance/iframes/213676?payment_token="+result3.token,"_self")
     Loading_page_clear();
 
 }
@@ -113,7 +115,7 @@ async function getUserDataWithPromise_3(data_ret , data_ret2 , ret) {
             "state": "NA"
         }, 
         "currency": "EGP", 
-        "integration_id": "14969"
+        "integration_id": "1042615"
             }`;
 
 
