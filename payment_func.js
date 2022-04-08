@@ -16,7 +16,7 @@ async function payment_AUTH_callAPI(ret_data) {
     
 
     // window.open("http://localhost/ischool-crm/success?txn_response_code=0","_self")
-    window.open("https://accept.paymob.com/api/acceptance/iframes/213676?payment_token="+result3.token,"_self")
+    window.open(`https://accept.paymob.com/api/acceptance/iframes/213676?payment_token=${result3.token}`,"_self")
     Loading_page_clear();
 
 }

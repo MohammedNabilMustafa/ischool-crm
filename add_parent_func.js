@@ -2344,8 +2344,6 @@ function get_next_prev_parent(All_table_obj,func)
         All_table_obj.tables[4] = Search_for_value_same(All_table_obj.tables[4] , document.getElementById("search_all").value);
     }
     
-    console.log(All_table_obj.tables[4]);
-
     next_Section_custom(All_table_obj.tables[4]);
    $('#Location_3').hide();
     document.getElementById('Location_5').innerHTML = `<label>`+Math.ceil((start_index_num+1)/10)+" - "+Math.ceil(All_table_obj.tables[4].length/10)+` </label>`;

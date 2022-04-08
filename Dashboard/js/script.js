@@ -47,6 +47,11 @@ function tapsReset() {
   $("#feedbackTap").hide();
   $("#financeTap").hide();
   $("#packagesTap02").hide();
+  $("#tasksTap_id").hide();
+  $("#tasksTap").hide();
+
+
+  
 }
 $("#schedule_next").click(function () {
   $("#packagesTap02").hide("drop", { direction: "left" }, 300);

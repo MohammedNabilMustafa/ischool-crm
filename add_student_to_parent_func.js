@@ -194,8 +194,6 @@ function add_new_student_parent(All_req_obj,paper_inputs)
              value_elments[index] = document.getElementById(paper_inputs[index] ).value;
             }
 
-            //console.log(value_elments);
-
             for(var index = 0 ;index <All_data_obj.inputs_check_.length ; index++)
             {
                 if(value_elments[index] == "")

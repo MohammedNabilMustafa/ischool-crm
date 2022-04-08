@@ -216,6 +216,7 @@
 
     </div>
     <div class="header">
+        <div class="close"><i class="fa-solid fa-xmark" hidden></i></div>
 
         <div class="logo col-auto"><img href="#" src="../img/blue-logo.svg" alt=""></div>
         <i class="fa-solid fa-bars menu-btn"></i>
@@ -229,8 +230,8 @@
             </ul>
             <div class="vertical-div"></div>
             <ul class="login-nav">
-                <li class="nav-item active"><a href="../Reg/">Enroll</a></li>
-                <li class="nav-item"><a href="../Dashboard/">Login</a></li>
+                <li class="nav-item active"><a href="../reg/">Enroll</a></li>
+                <li class="nav-item"><a href="../dashboard/">Login</a></li>
                 <Button class="btn btn-primary"><a href="../free/">Book a Free Session</a></Button>
             </ul>
         </div>
@@ -894,7 +895,8 @@
 
             var get_element_method = 'Accept';
 
-            var get_element_ref = localStorage.reg_code;
+            // var get_element_ref = localStorage.reg_code;
+            var get_element_ref = 101;
             var get_element_orderStatus = params.get('orderStatus');
             var get_element_statusCode = params.get('statusCode');
 
@@ -903,7 +905,8 @@
             }
 
 
-            txn_response_code = params.get('txn_response_code');
+            var txn_response_code = params.get('txn_response_code');
+
 
             if (txn_response_code == 0) {
 
@@ -961,6 +964,7 @@
             }
             else {
 
+
                 $("#all_form_id").hide();
                 check_data_rec(get_element_ref, 0)
 
@@ -980,9 +984,9 @@
             async function check_data_rec(get_element_ref, check_validation) {
                 Loading_page_set();
 
+
                 var returncheck = await GET_DATA_TABLES(database_fixed_link, 'registeration')
                 var saved_data = '';
-
 
                 returncheck.forEach(element => {
                     if (Number(get_element_ref) == element.id) {
@@ -992,7 +996,7 @@
                 });
 
 
-                if (saved_data.status == 'pending' || saved_data.status == 'UNPAID') {
+                if (saved_data.status == 'pending' || saved_data.status == 'UNPAID' && check_validation) {
                     var COL_DATA = `status='${get_element_orderStatus}',type='${get_element_method}'`;
                     await UPDATE_DATA_TABLES_ONE_COL(database_fixed_link, 'registeration',
                         saved_data.id,
@@ -1063,6 +1067,7 @@
 
                 }
                 else {
+
                     if (saved_data.inst) {
                         $("#join_now").text('BACK TO DASHBOARD')
 
