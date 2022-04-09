@@ -1195,6 +1195,8 @@ Not Registered
         }
     }
 
+    console.log(create_new_tabl_rows);
+
 
     func(create_new_tabl_rows , create_new_tabl_rows_emp);
 
@@ -1208,7 +1210,6 @@ Not Registered
  {
     Loading_page_clear();
 
-    // document.getElementById("search-results").innerHTML = `<div class="loader" ></div>`;
 
      var arr_result = assigned_agent_parent_page(all_tables);
 
