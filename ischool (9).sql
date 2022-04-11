@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2022 at 09:36 AM
+-- Generation Time: Apr 11, 2022 at 04:23 PM
 -- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.1
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -88,9 +88,8 @@ INSERT INTO `att_feed` (`id`, `timestamp`, `student_id`, `session_id`, `attendan
 (214, '2022-03-10', 223, 36, '', ''),
 (215, '2022-03-10', 223, 37, '', ''),
 (216, '2022-03-10', 223, 38, '', ''),
-(217, '2022-03-10', 224, 62, '', ''),
+(217, '2022-03-10', 224, 62, 'YES', 'asdasdsad'),
 (218, '2022-03-14', 232, 64, 'YES', 'fgdg'),
-(219, '2022-03-14', 233, 64, '', ''),
 (272, '2022-03-20', 243, 83, '', ''),
 (273, '2022-03-20', 243, 84, '', ''),
 (274, '2022-03-20', 243, 85, '', ''),
@@ -117,7 +116,152 @@ INSERT INTO `att_feed` (`id`, `timestamp`, `student_id`, `session_id`, `attendan
 (295, '2022-03-26', 256, 95, '', ''),
 (296, '2022-03-26', 257, 96, '', ''),
 (297, '2022-03-26', 258, 96, '', ''),
-(298, '2022-03-26', 259, 96, '', '');
+(298, '2022-03-26', 259, 96, '', ''),
+(529, '2022-04-11', 274, 150, '', ''),
+(530, '2022-04-11', 275, 102, '', ''),
+(531, '2022-04-11', 275, 103, '', ''),
+(532, '2022-04-11', 275, 104, '', ''),
+(533, '2022-04-11', 275, 105, '', ''),
+(534, '2022-04-11', 275, 106, '', ''),
+(535, '2022-04-11', 275, 107, '', ''),
+(536, '2022-04-11', 275, 108, '', ''),
+(537, '2022-04-11', 275, 109, '', ''),
+(538, '2022-04-11', 275, 110, '', ''),
+(539, '2022-04-11', 275, 111, '', ''),
+(540, '2022-04-11', 275, 112, '', ''),
+(541, '2022-04-11', 275, 113, '', ''),
+(542, '2022-04-11', 275, 114, '', ''),
+(543, '2022-04-11', 275, 115, '', ''),
+(544, '2022-04-11', 275, 116, '', ''),
+(545, '2022-04-11', 275, 117, '', ''),
+(546, '2022-04-11', 275, 118, '', ''),
+(547, '2022-04-11', 275, 119, '', ''),
+(548, '2022-04-11', 275, 120, '', ''),
+(549, '2022-04-11', 275, 121, '', ''),
+(550, '2022-04-11', 275, 122, '', ''),
+(551, '2022-04-11', 275, 123, '', ''),
+(552, '2022-04-11', 275, 124, '', ''),
+(553, '2022-04-11', 275, 125, '', ''),
+(554, '2022-04-11', 275, 126, '', ''),
+(555, '2022-04-11', 275, 127, '', ''),
+(556, '2022-04-11', 275, 128, '', ''),
+(557, '2022-04-11', 275, 129, '', ''),
+(558, '2022-04-11', 275, 130, '', ''),
+(559, '2022-04-11', 275, 131, '', ''),
+(560, '2022-04-11', 275, 132, '', ''),
+(561, '2022-04-11', 275, 133, '', ''),
+(562, '2022-04-11', 275, 134, '', ''),
+(563, '2022-04-11', 275, 135, '', ''),
+(564, '2022-04-11', 275, 136, '', ''),
+(565, '2022-04-11', 275, 137, '', ''),
+(566, '2022-04-11', 275, 138, '', ''),
+(567, '2022-04-11', 275, 139, '', ''),
+(568, '2022-04-11', 275, 140, '', ''),
+(569, '2022-04-11', 275, 141, '', ''),
+(570, '2022-04-11', 275, 142, '', ''),
+(571, '2022-04-11', 275, 143, '', ''),
+(572, '2022-04-11', 275, 144, '', ''),
+(573, '2022-04-11', 275, 145, '', ''),
+(574, '2022-04-11', 275, 146, '', ''),
+(575, '2022-04-11', 275, 147, '', ''),
+(576, '2022-04-11', 275, 148, '', ''),
+(577, '2022-04-11', 275, 149, '', ''),
+(578, '2022-04-11', 276, 102, '', ''),
+(579, '2022-04-11', 276, 103, '', ''),
+(580, '2022-04-11', 276, 104, '', ''),
+(581, '2022-04-11', 276, 105, '', ''),
+(582, '2022-04-11', 276, 106, '', ''),
+(583, '2022-04-11', 276, 107, '', ''),
+(584, '2022-04-11', 276, 108, '', ''),
+(585, '2022-04-11', 276, 109, '', ''),
+(586, '2022-04-11', 276, 110, '', ''),
+(587, '2022-04-11', 276, 111, '', ''),
+(588, '2022-04-11', 276, 112, '', ''),
+(589, '2022-04-11', 276, 113, '', ''),
+(590, '2022-04-11', 276, 114, '', ''),
+(591, '2022-04-11', 276, 115, '', ''),
+(592, '2022-04-11', 276, 116, '', ''),
+(593, '2022-04-11', 276, 117, '', ''),
+(594, '2022-04-11', 276, 118, '', ''),
+(595, '2022-04-11', 276, 119, '', ''),
+(596, '2022-04-11', 276, 120, '', ''),
+(597, '2022-04-11', 276, 121, '', ''),
+(598, '2022-04-11', 276, 122, '', ''),
+(599, '2022-04-11', 276, 123, '', ''),
+(600, '2022-04-11', 276, 124, '', ''),
+(601, '2022-04-11', 276, 125, '', ''),
+(602, '2022-04-11', 276, 126, '', ''),
+(603, '2022-04-11', 276, 127, '', ''),
+(604, '2022-04-11', 276, 128, '', ''),
+(605, '2022-04-11', 276, 129, '', ''),
+(606, '2022-04-11', 276, 130, '', ''),
+(607, '2022-04-11', 276, 131, '', ''),
+(608, '2022-04-11', 276, 132, '', ''),
+(609, '2022-04-11', 276, 133, '', ''),
+(610, '2022-04-11', 276, 134, '', ''),
+(611, '2022-04-11', 276, 135, '', ''),
+(612, '2022-04-11', 276, 136, '', ''),
+(613, '2022-04-11', 276, 137, '', ''),
+(614, '2022-04-11', 276, 138, '', ''),
+(615, '2022-04-11', 276, 139, '', ''),
+(616, '2022-04-11', 276, 140, '', ''),
+(617, '2022-04-11', 276, 141, '', ''),
+(618, '2022-04-11', 276, 142, '', ''),
+(619, '2022-04-11', 276, 143, '', ''),
+(620, '2022-04-11', 276, 144, '', ''),
+(621, '2022-04-11', 276, 145, '', ''),
+(622, '2022-04-11', 276, 146, '', ''),
+(623, '2022-04-11', 276, 147, '', ''),
+(624, '2022-04-11', 276, 148, '', ''),
+(625, '2022-04-11', 276, 149, '', ''),
+(626, '2022-04-11', 274, 102, '', ''),
+(627, '2022-04-11', 274, 103, '', ''),
+(628, '2022-04-11', 274, 104, '', ''),
+(629, '2022-04-11', 274, 105, '', ''),
+(630, '2022-04-11', 274, 106, '', ''),
+(631, '2022-04-11', 274, 107, '', ''),
+(632, '2022-04-11', 274, 108, '', ''),
+(633, '2022-04-11', 274, 109, '', ''),
+(634, '2022-04-11', 274, 110, '', ''),
+(635, '2022-04-11', 274, 111, '', ''),
+(636, '2022-04-11', 274, 112, '', ''),
+(637, '2022-04-11', 274, 113, '', ''),
+(638, '2022-04-11', 274, 114, '', ''),
+(639, '2022-04-11', 274, 115, '', ''),
+(640, '2022-04-11', 274, 116, '', ''),
+(641, '2022-04-11', 274, 117, '', ''),
+(642, '2022-04-11', 274, 118, '', ''),
+(643, '2022-04-11', 274, 119, '', ''),
+(644, '2022-04-11', 274, 120, '', ''),
+(645, '2022-04-11', 274, 121, '', ''),
+(646, '2022-04-11', 274, 122, '', ''),
+(647, '2022-04-11', 274, 123, '', ''),
+(648, '2022-04-11', 274, 124, '', ''),
+(649, '2022-04-11', 274, 125, '', ''),
+(650, '2022-04-11', 274, 126, '', ''),
+(651, '2022-04-11', 274, 127, '', ''),
+(652, '2022-04-11', 274, 128, '', ''),
+(653, '2022-04-11', 274, 129, '', ''),
+(654, '2022-04-11', 274, 130, '', ''),
+(655, '2022-04-11', 274, 131, '', ''),
+(656, '2022-04-11', 274, 132, '', ''),
+(657, '2022-04-11', 274, 133, '', ''),
+(658, '2022-04-11', 274, 134, '', ''),
+(659, '2022-04-11', 274, 135, '', ''),
+(660, '2022-04-11', 274, 136, '', ''),
+(661, '2022-04-11', 274, 137, '', ''),
+(662, '2022-04-11', 274, 138, '', ''),
+(663, '2022-04-11', 274, 139, '', ''),
+(664, '2022-04-11', 274, 140, '', ''),
+(665, '2022-04-11', 274, 141, '', ''),
+(666, '2022-04-11', 274, 142, '', ''),
+(667, '2022-04-11', 274, 143, '', ''),
+(668, '2022-04-11', 274, 144, '', ''),
+(669, '2022-04-11', 274, 145, '', ''),
+(670, '2022-04-11', 274, 146, '', ''),
+(671, '2022-04-11', 274, 147, '', ''),
+(672, '2022-04-11', 274, 148, '', ''),
+(673, '2022-04-11', 274, 149, '', '');
 
 -- --------------------------------------------------------
 
@@ -259,17 +403,20 @@ CREATE TABLE `certifications` (
   `cert_link` text NOT NULL,
   `type` text NOT NULL,
   `session_num` int(11) NOT NULL,
-  `age_id` int(11) NOT NULL
+  `age_id` int(11) NOT NULL,
+  `name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `certifications`
 --
 
-INSERT INTO `certifications` (`id`, `timestamp`, `level_id`, `lan_id`, `session_type_id`, `track_id`, `cert_link`, `type`, `session_num`, `age_id`) VALUES
-(3, '2022-03-14', 2, 1, 1, 1, 'https://www.google.com/', 'attend', 5, 0),
-(4, '2022-03-15', 2, 1, 2, 1, 'https://www.google.com/', 'attend', 1, 1),
-(5, '2022-03-20', 2, 1, 2, 1, 'img/hour of code.jpg', 'attend', 1, 2);
+INSERT INTO `certifications` (`id`, `timestamp`, `level_id`, `lan_id`, `session_type_id`, `track_id`, `cert_link`, `type`, `session_num`, `age_id`, `name`) VALUES
+(3, '2022-03-14', 2, 1, 1, 1, 'https://www.google.com/', 'attend', 5, 0, ''),
+(4, '2022-03-15', 2, 1, 2, 1, 'https://www.google.com/', 'attend', 1, 1, ''),
+(5, '2022-03-20', 2, 1, 2, 1, 'img/hour of code.jpg', 'attend', 1, 2, ''),
+(8, '2022-03-28', 2, 1, 1, 1, 'img/hour of code.jpg', 'attend', 2, 2, 'Session 02'),
+(9, '2022-03-28', 2, 1, 1, 1, 'img/hour of code.jpg', 'tasks', 1, 2, 'Session 01');
 
 -- --------------------------------------------------------
 
@@ -336,11 +483,13 @@ CREATE TABLE `cs_calls` (
 --
 
 INSERT INTO `cs_calls` (`id`, `timestamp`, `call_type_id`, `call_status_id`, `cat_id`, `close_id`, `follow_date`, `note`, `call_id`, `student_id`, `parent_id`) VALUES
-(2095, '2022-04-02', 1, 1, 1, 1, '0000-00-00', '', 0, 0, 137),
-(2096, '2022-04-02', 1, 1, 1, 1, '0000-00-00', '', 0, 0, 137),
-(2097, '2022-04-02', 1, 1, 1, 1, '0000-00-00', '', 0, 0, 137),
-(2098, '2022-04-02', 1, 1, 1, 1, '0000-00-00', '', 0, 0, 137),
-(2099, '2022-04-02', 1, 1, 1, 1, '0000-00-00', '', 0, 0, 137);
+(94, '2022-03-10', 1, 1, 6, 1, '2022-03-10', 'asdasd asd ', 0, 223, 137),
+(95, '2022-03-10', 1, 1, 6, 2, '2022-03-10', 'asd asd ', 94, 223, 137),
+(96, '2022-03-10', 1, 1, 6, 1, '2022-03-12', 'sdfsdf sdf ', 94, 223, 137),
+(98, '2022-03-14', 1, 1, 5, 1, '2022-03-14', 'sad asd asd', 0, 224, 137),
+(99, '2022-03-14', 1, 1, 5, 1, '2022-03-14', 'asdas dasd ', 98, 224, 137),
+(100, '2022-03-27', 2, 1, 1, 1, '2022-03-28', 'asdasdasd', 0, 0, 137),
+(101, '2022-03-27', 1, 2, 1, 2, '2022-03-27', 'asdasd', 100, 0, 137);
 
 -- --------------------------------------------------------
 
@@ -462,11 +611,11 @@ INSERT INTO `free_session_whatsapp` (`id`, `timestamp`, `free_whats_token`, `fre
 (6, '2022-03-26', 'bbe2yuzscbr51oq0', 'instance2247', 'Hello Ahmed Gawish\nhope your are doing well\nyou can join dashboard using this link:\nhttp://localhost/ischool-crm/dashboard?username=gawish@gmail.com&password=+201002967920\n\nOr using username and password\nUSERNAME : gawish@gmail.com\nPASSWORD : +201002967920\n', '+201002967920', 'true', 'ok', 9952, 157, 'Ahmed Gawish', 'Intro_free'),
 (7, '2022-03-26', 'bbe2yuzscbr51oq0', 'instance2247', 'Hello alaa refaie\nhope your are doing well\nyou can join dashboard using this link:\nhttp://localhost/ischool-crm/dashboard?username=mohammed.nabil.mustafaa@gmail.com&password=+201027713442\n\nOr using username and password\nUSERNAME : mohammed.nabil.mustafaa@gmail.com\nPASSWORD : +201027713442\n', '+201027713442', 'true', 'ok', 9953, 158, 'alaa refaie', 'Intro_free'),
 (8, '2022-03-26', 'bbe2yuzscbr51oq0', 'instance2247', 'Hello alaa refaie\nhope your are doing well\nyou can join dashboard using this link:\nhttp://localhost/ischool-crm/dashboard?username=mohammed.nabil.mustafaa@gmail.com&password=+201027713442\n\nOr using username and password\nUSERNAME : mohammed.nabil.mustafaa@gmail.com\nPASSWORD : +201027713442\n', '+201027713442', 'true', 'ok', 9992, 159, 'alaa refaie', 'Intro_free'),
-(9, '2022-04-01', 'bbe2yuzscbr51oq0', 'instance2247', 'Hello Mohamed Nabil Mustafa\nhope your are doing well\nyou can join dashboard using this link:\nhttp://localhost/ischool-crm/dashboard?username=aaaaaa@gmail.com&password=+201027713442\n\nOr using username and password\nUSERNAME : aaaaaa@gmail.com\nPASSWORD : +201027713442\n', '+201027713442', 'true', 'ok', 10751, 162, 'Mohamed Nabil Mustafa', 'Intro_free'),
-(10, '2022-04-01', 'bbe2yuzscbr51oq0', 'instance2247', 'Hello Mohamed Nabil Mustafa\nhope your are doing well\nyou can join dashboard using this link:\nhttp://localhost/ischool-crm/dashboard?username=aaaaaa@gmail.com&password=+201027713442\n\nOr using username and password\nUSERNAME : aaaaaa@gmail.com\nPASSWORD : +201027713442\n', '+201027713442', 'true', 'ok', 10752, 162, 'Mohamed Nabil Mustafa', 'Intro_free'),
-(11, '2022-04-01', 'bbe2yuzscbr51oq0', 'instance2247', 'Hello \nhope your are doing well\nyou can join dashboard using this link:\nhttp://localhost/ischool-crm/dashboard?username=aaaaaa@gmail.com&password=+201027713442\n\nOr using username and password\nUSERNAME : aaaaaa@gmail.com\nPASSWORD : +201027713442\n', '+201027713442', 'true', 'ok', 10753, 162, '', 'Intro_free'),
-(12, '2022-04-01', 'bbe2yuzscbr51oq0', 'instance2247', 'Hello \nhope your are doing well\nyou can join dashboard using this link:\nhttp://localhost/ischool-crm/dashboard?username=mohammed.nabil.mustafa@gmail.com&password=+201027713442\n\nOr using username and password\nUSERNAME : mohammed.nabil.mustafa@gmail.com\nPASSWORD : +201027713442\n', '+201027713442', 'true', 'ok', 10754, 163, '', 'Intro_reg'),
-(13, '2022-04-01', 'bbe2yuzscbr51oq0', 'instance2247', 'Hello Mohammed Ahmed Ali\nhope your are doing well\nyou can join dashboard using this link:\nhttp://localhost/ischool-crm/dashboard?username=mohammed.nabil.mustafa@gmail.com&password=+201027713442\n\nOr using username and password\nUSERNAME : mohammed.nabil.mustafa@gmail.com\nPASSWORD : +201027713442\n', '+201027713442', 'true', 'ok', 10755, 163, 'Mohammed Ahmed Ali', 'Intro_free');
+(9, '2022-03-29', 'bbe2yuzscbr51oq0', 'instance2247', 'Hello asdasd\nhope your are doing well\nyou can join dashboard using this link:\nhttp://localhost/ischool-crm/dashboard?username=mohammed.nabil.mustafa@gmail.com&password=+201027713442\n\nOr using username and password\nUSERNAME : mohammed.nabil.mustafa@gmail.com\nPASSWORD : +201027713442\n', '+201027713442', 'true', 'ok', 10488, 160, 'asdasd', 'Intro_free'),
+(10, '2022-03-29', 'bbe2yuzscbr51oq0', 'instance2247', 'Hello asdasd\nhope your are doing well\nyou can join dashboard using this link:\nhttp://localhost/ischool-crm/dashboard?username=mohammed.nabil.mustafa@gmail.com&password=+201027713442\n\nOr using username and password\nUSERNAME : mohammed.nabil.mustafa@gmail.com\nPASSWORD : +201027713442\n', '+201027713442', 'true', 'ok', 10583, 160, 'asdasd', 'Intro_free'),
+(11, '2022-03-29', 'bbe2yuzscbr51oq0', 'instance2247', 'Hello asdasd\nhope your are doing well\nyou can join dashboard using this link:\nhttp://localhost/ischool-crm/dashboard?username=mohammed.nabil.mustafa@gmail.com&password=+201027713442\n\nOr using username and password\nUSERNAME : mohammed.nabil.mustafa@gmail.com\nPASSWORD : +201027713442\n', '+201027713442', 'true', 'ok', 10584, 160, 'asdasd', 'Intro_free'),
+(12, '2022-04-11', 'bbe2yuzscbr51oq0', 'instance2247', 'Hello Mohamed Nabil Mustafa\nhope your are doing well\nyou can join dashboard using this link:\nhttp://localhost/ischool-crm/dashboard?username=mohammed.nabil.mustafa@gmail.com&password=+201027713442\n\nOr using username and password\nUSERNAME : mohammed.nabil.mustafa@gmail.com\nPASSWORD : +201027713442\n', '+201027713442', 'true', 'ok', 11745, 162, 'Mohamed Nabil Mustafa', 'Intro_free'),
+(13, '2022-04-11', 'bbe2yuzscbr51oq0', 'instance2247', 'Hello Mohamed Nabil Mustafa\nhope your are doing well\nyou can join dashboard using this link:\nhttp://localhost/ischool-crm/dashboard?username=mohammed.nabil.mustafa@gmail.com&password=+201027713442\n\nOr using username and password\nUSERNAME : mohammed.nabil.mustafa@gmail.com\nPASSWORD : +201027713442\n', '+201027713442', 'true', 'ok', 11746, 163, 'Mohamed Nabil Mustafa', 'Intro_free');
 
 -- --------------------------------------------------------
 
@@ -488,8 +637,7 @@ CREATE TABLE `free_session_whatsapp_temp` (
 --
 
 INSERT INTO `free_session_whatsapp_temp` (`id`, `timestamp`, `free_whats_temp_token`, `free_whats_temp_instance`, `free_whats_temp_body`, `free_whats_temp_type`) VALUES
-(1, '2022-03-26', 'bbe2yuzscbr51oq0', 'instance2247', 'hope your are doing well', 'Intro_free'),
-(2, '2022-04-01', 'bbe2yuzscbr51oq0', 'instance2247', 'hope your are doing well', 'Intro_reg');
+(1, '2022-03-26', 'bbe2yuzscbr51oq0', 'instance2247', 'hope your are doing well', 'Intro_free');
 
 -- --------------------------------------------------------
 
@@ -543,9 +691,10 @@ INSERT INTO `groups` (`id`, `timestamp`, `slot_id`, `lan_id`, `att_id`, `level_i
 (75, '2022-03-20', 3, 1, 1, 2, 1, 1, 1, 2, '', '2022-03-27', '2022-03-27'),
 (76, '2022-03-26', 2, 1, 1, 2, 1, 2, 3, 2, '', '2022-03-29', '2022-03-29'),
 (77, '2022-03-26', 2, 1, 1, 2, 1, 2, 2, 2, '', '2022-03-28', '2022-03-28'),
-(78, '2022-04-01', 2, 1, 1, 2, 1, 1, 1, 2, '', '2022-05-01', '2022-05-01'),
-(79, '2022-04-01', 5, 1, 1, 2, 1, 2, 2, 2, '', '2022-04-04', '2022-04-04'),
-(80, '2022-04-01', 2, 1, 1, 2, 1, 1, 7, 2, '', '2022-04-02', '2022-04-02');
+(78, '2022-03-28', 3, 1, 1, 2, 1, 1, 2, 2, '', '2022-04-04', '2022-04-04'),
+(79, '2022-03-29', 5, 1, 1, 2, 1, 2, 7, 2, '', '2022-04-02', '2022-04-02'),
+(80, '2022-04-11', 3, 1, 1, 2, 1, 1, 6, 2, '', '2022-04-15', '2022-04-15'),
+(81, '2022-04-11', 5, 1, 1, 2, 1, 2, 3, 2, '', '2022-04-12', '2022-04-12');
 
 -- --------------------------------------------------------
 
@@ -575,21 +724,49 @@ CREATE TABLE `invoice` (
 
 INSERT INTO `invoice` (`id`, `timestamp`, `student_id`, `fees`, `amount`, `status`, `due_date`, `paid_date`, `discount`, `attach`, `package_id`, `qouta`, `remain`) VALUES
 (499, '2022-03-10', 224, 23880, 1990, 'done', '2022-03-10', '2022-03-10', 0, '', 172, 4, 0),
-(500, '2022-03-14', 224, 23880, 1990, 'waiting', '2022-03-11', '0000-00-00', 0, '', 172, 4, 0),
-(501, '2022-03-10', 224, 23880, 1990, 'waiting', '2022-05-09', '0000-00-00', 0, '', 172, 4, 0),
-(502, '2022-03-10', 224, 23880, 1990, 'waiting', '2022-06-08', '0000-00-00', 0, '', 172, 4, 0),
-(503, '2022-03-10', 224, 23880, 1990, 'waiting', '2022-07-08', '0000-00-00', 0, '', 172, 4, 0),
-(504, '2022-03-10', 224, 23880, 1990, 'waiting', '2022-08-07', '0000-00-00', 0, '', 172, 4, 0),
-(505, '2022-03-10', 224, 23880, 1990, 'waiting', '2022-09-06', '0000-00-00', 0, '', 172, 4, 0),
-(506, '2022-03-10', 224, 23880, 1990, 'waiting', '2022-10-06', '0000-00-00', 0, '', 172, 4, 0),
-(507, '2022-03-10', 224, 23880, 1990, 'waiting', '2022-11-05', '0000-00-00', 0, '', 172, 4, 0),
-(508, '2022-03-10', 224, 23880, 1990, 'waiting', '2022-12-05', '0000-00-00', 0, '', 172, 4, 0),
-(509, '2022-03-10', 224, 23880, 1990, 'waiting', '2023-01-04', '0000-00-00', 0, '', 172, 4, 0),
-(510, '2022-03-10', 224, 23880, 1990, 'waiting', '2023-02-03', '0000-00-00', 0, '', 172, 4, 0),
+(500, '2022-03-14', 224, 23880, 1990, 'done', '2022-03-11', '0000-00-00', 0, '', 172, 4, 0),
+(501, '2022-03-10', 224, 23880, 1990, 'done', '2022-05-09', '0000-00-00', 0, '', 172, 4, 0),
+(502, '2022-03-10', 224, 23880, 1990, 'done', '2022-06-08', '0000-00-00', 0, '', 172, 4, 0),
+(503, '2022-03-10', 224, 23880, 1990, 'done', '2022-07-08', '0000-00-00', 0, '', 172, 4, 0),
+(504, '2022-03-10', 224, 23880, 1990, 'done', '2022-08-07', '0000-00-00', 0, '', 172, 4, 0),
+(505, '2022-03-10', 224, 23880, 1990, 'done', '2022-09-06', '0000-00-00', 0, '', 172, 4, 0),
+(506, '2022-03-10', 224, 23880, 1990, 'done', '2022-10-06', '0000-00-00', 0, '', 172, 4, 0),
+(507, '2022-03-10', 224, 23880, 1990, 'done', '2022-11-05', '0000-00-00', 0, '', 172, 4, 0),
+(508, '2022-03-10', 224, 23880, 1990, 'done', '2022-12-05', '0000-00-00', 0, '', 172, 4, 0),
+(509, '2022-03-10', 224, 23880, 1990, 'done', '2023-01-04', '0000-00-00', 0, '', 172, 4, 0),
+(510, '2022-03-10', 224, 23880, 1990, 'done', '2023-02-03', '0000-00-00', 0, '', 172, 4, 0),
 (549, '2022-03-20', 243, 21480, 5370, 'done', '2022-03-20', '2022-03-20', 0, '', 180, 12, 0),
-(550, '2022-03-26', 243, 21480, 5370, 'waiting', '2022-03-25', '0000-00-00', 0, '', 180, 12, 0),
-(551, '2022-03-20', 243, 21480, 5370, 'waiting', '2022-05-01', '0000-00-00', 0, '', 180, 12, 0),
-(552, '2022-03-20', 243, 21480, 5370, 'waiting', '2022-06-01', '0000-00-00', 0, '', 180, 12, 0);
+(550, '2022-03-26', 243, 21480, 5370, 'done', '2022-03-25', '0000-00-00', 0, '', 180, 12, 0),
+(551, '2022-03-20', 243, 21480, 5370, 'done', '2022-05-01', '0000-00-00', 0, '', 180, 12, 0),
+(552, '2022-03-20', 243, 21480, 5370, 'done', '2022-06-01', '0000-00-00', 0, '', 180, 12, 0),
+(622, '2022-04-11', 275, 23880, 1990, 'done', '2022-04-11', '2022-04-11', 0, '', 189, 4, 0),
+(623, '2022-04-11', 275, 0, 1990, 'waiting', '2022-05-01', '0000-00-00', 0, '', 189, 4, 0),
+(624, '2022-04-11', 275, 0, 1990, 'waiting', '2022-06-01', '0000-00-00', 0, '', 189, 4, 0),
+(625, '2022-04-11', 275, 0, 1990, 'waiting', '2022-07-01', '0000-00-00', 0, '', 189, 4, 0),
+(626, '2022-04-11', 275, 0, 1990, 'waiting', '2022-08-01', '0000-00-00', 0, '', 189, 4, 0),
+(627, '2022-04-11', 275, 0, 1990, 'waiting', '2022-09-01', '0000-00-00', 0, '', 189, 4, 0),
+(628, '2022-04-11', 275, 0, 1990, 'waiting', '2022-10-01', '0000-00-00', 0, '', 189, 4, 0),
+(629, '2022-04-11', 275, 0, 1990, 'waiting', '2022-11-01', '0000-00-00', 0, '', 189, 4, 0),
+(630, '2022-04-11', 275, 0, 1990, 'waiting', '2022-12-01', '0000-00-00', 0, '', 189, 4, 0),
+(631, '2022-04-11', 275, 0, 1990, 'waiting', '2023-01-01', '0000-00-00', 0, '', 189, 4, 0),
+(632, '2022-04-11', 275, 0, 1990, 'waiting', '2023-02-01', '0000-00-00', 0, '', 189, 4, 0),
+(633, '2022-04-11', 275, 0, 1990, 'waiting', '2023-03-01', '0000-00-00', 0, '', 189, 4, 0),
+(634, '2022-04-11', 276, 21480, 5370, 'done', '2022-04-11', '2022-04-11', 0, '', 190, 12, 0),
+(635, '2022-04-11', 276, 0, 5370, 'waiting', '2022-05-01', '0000-00-00', 0, '', 190, 12, 0),
+(636, '2022-04-11', 276, 0, 5370, 'waiting', '2022-06-01', '0000-00-00', 0, '', 190, 12, 0),
+(637, '2022-04-11', 276, 0, 5370, 'waiting', '2022-07-01', '0000-00-00', 0, '', 190, 12, 0),
+(638, '2022-04-11', 274, 23880, 1990, 'done', '2022-04-11', '2022-04-11', 0, '', 192, 4, 0),
+(639, '2022-04-11', 274, 0, 1990, 'waiting', '2022-05-01', '0000-00-00', 0, '', 192, 4, 0),
+(640, '2022-04-11', 274, 0, 1990, 'waiting', '2022-06-01', '0000-00-00', 0, '', 192, 4, 0),
+(641, '2022-04-11', 274, 0, 1990, 'waiting', '2022-07-01', '0000-00-00', 0, '', 192, 4, 0),
+(642, '2022-04-11', 274, 0, 1990, 'waiting', '2022-08-01', '0000-00-00', 0, '', 192, 4, 0),
+(643, '2022-04-11', 274, 0, 1990, 'waiting', '2022-09-01', '0000-00-00', 0, '', 192, 4, 0),
+(644, '2022-04-11', 274, 0, 1990, 'waiting', '2022-10-01', '0000-00-00', 0, '', 192, 4, 0),
+(645, '2022-04-11', 274, 0, 1990, 'waiting', '2022-11-01', '0000-00-00', 0, '', 192, 4, 0),
+(646, '2022-04-11', 274, 0, 1990, 'waiting', '2022-12-01', '0000-00-00', 0, '', 192, 4, 0),
+(647, '2022-04-11', 274, 0, 1990, 'waiting', '2023-01-01', '0000-00-00', 0, '', 192, 4, 0),
+(648, '2022-04-11', 274, 0, 1990, 'waiting', '2023-02-01', '0000-00-00', 0, '', 192, 4, 0),
+(649, '2022-04-11', 274, 0, 1990, 'waiting', '2023-03-01', '0000-00-00', 0, '', 192, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -704,7 +881,11 @@ CREATE TABLE `material` (
 
 INSERT INTO `material` (`id`, `timestamp`, `level_id`, `lan_id`, `session_type_id`, `track_id`, `video_link`, `slide`, `session_num`, `age_id`) VALUES
 (1, '2022-03-14', 2, 1, 1, 1, 'https://www.google.com/', '', 1, 0),
-(2, '2022-03-15', 2, 1, 2, 1, 'https://www.google.com/', '', 1, 2);
+(2, '2022-03-15', 2, 1, 2, 1, 'https://www.google.com/', '', 1, 2),
+(3, '2022-03-28', 2, 1, 1, 1, 'https://www.google.com/', 'https://www.google.com/', 1, 2),
+(4, '2022-03-28', 2, 1, 1, 1, 'https://www.google.com/', 'https://www.google.com/', 2, 2),
+(5, '2022-03-28', 2, 1, 1, 1, 'https://www.google.com/', 'https://www.google.com/', 3, 2),
+(6, '2022-03-28', 2, 1, 1, 1, 'https://www.google.com/', 'https://www.google.com/', 4, 2);
 
 -- --------------------------------------------------------
 
@@ -869,12 +1050,12 @@ CREATE TABLE `parent` (
 --
 
 INSERT INTO `parent` (`id`, `timestamp`, `name`, `phone`, `email`, `name_2`, `phone_2`, `email_2`, `address`, `location`, `job`, `marketing_id`, `customer_agent_id`, `sales_agent_id`, `username`, `password`) VALUES
-(137, '2022-03-10', 'Ahmed', '01242544', 'asdasd', 'Mohammed Nabil', '01027713442', 'asd', 'aseq', 'asd', 'asd', 0, 11, 9, '', ''),
+(137, '2022-03-27', 'Ahmed', '01242544', 'asdasd', 'Mohammed Nabil', '01027713442', 'asd', 'aseq', 'asd', 'asd', 0, 11, 9, 'm', '123'),
 (138, '2022-03-14', 'Gawish', 'asd', 'asd', 'Mohammed Nabil', 'asd', 'asd', 'asd', 'we', ' qweasd', 3, 14, 15, 'asd', 'asd'),
 (139, '2022-03-14', 'asdasd', '1444', 'eqq2qe@gmail.com', '', '', '', '', 'eg', '', 3, 11, 9, 'eqq2qe@gmail.com', '1444'),
 (140, '2022-03-14', 'asdasd', '1123', 'eqqaaqe@gmail.com', '', '', '', '', 'eg', '', 0, 14, 15, 'eqqaaqe@gmail.com', '1123'),
 (141, '2022-03-14', 'aras', '5487547', 'asdasdww@gmail.com', '', '', '', '', 'eg', '', 0, 11, 9, 'asdasdww@gmail.com', '5487547'),
-(142, '2022-03-14', 'Mohamed Nabil Mustafa', '45622', 'asdasdeee@gmail.com', '', '', '', '', 'eg', '', 0, 14, 15, 'asdasdeee@gmail.com', '45622');
+(163, '2022-04-11', 'Mohamed Nabil Mustafa', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', '', '', '', '', '', '', 0, 14, 15, 'mohammed.nabil.mustafa@gmail.com', '+201027713442');
 
 -- --------------------------------------------------------
 
@@ -921,42 +1102,51 @@ CREATE TABLE `registeration` (
   `group_id` int(11) NOT NULL,
   `package_id` int(11) NOT NULL,
   `status` text NOT NULL,
-  `type` text NOT NULL
+  `type` text NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `inst` int(11) NOT NULL,
+  `upgrade` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `registeration`
 --
 
-INSERT INTO `registeration` (`id`, `timestamp`, `parent_name`, `student_name`, `phone`, `email`, `camp_id`, `country`, `birthdate`, `group_id`, `package_id`, `status`, `type`) VALUES
-(17, '2022-03-16', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'ad', '2012-02-02', 71, 3, 'UNPAID', 'PayAtFawry'),
-(18, '2022-03-16', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'ad', '2012-02-02', 71, 3, 'pending', ''),
-(19, '2022-03-16', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'ad', '2012-02-02', 71, 3, 'UNPAID', 'PayAtFawry'),
-(20, '2022-03-16', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'ad', '2012-02-01', 71, 2, 'PAID', 'PayUsingCC'),
-(23, '2022-03-17', 'Mohamed Nabil Mustafa', 'ahmed', '01027713742', 'mohammed.nabil.mstafa@gmail.com', 0, 'ad', '2012-02-02', 72, 3, 'pending', ''),
-(24, '2022-03-17', 'Mohamed Nabil Mustafa', 'ahmed', '01027713472', 'mohammed.nabil.mutafa@gmail.com', 0, 'ad', '2012-02-02', 72, 3, 'PAID', 'PayUsingCC'),
-(25, '2022-03-20', 'Mohamed Nabil Mustafa', 'ali', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 1, 'pending', ''),
-(26, '2022-03-20', 'Mohamed Nabil Mustafa', 'ali', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 1, 'pending', ''),
-(27, '2022-03-20', 'Mohamed Nabil Mustafa', 'ali', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 1, 'pending', ''),
-(28, '2022-03-20', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 3, 'pending', ''),
-(29, '2022-03-20', 'Mohamed Nabil Mustafa', 'ali', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 2, 'pending', ''),
-(30, '2022-03-20', 'Mohamed Nabil Mustafa', 'aa', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 1, 'pending', ''),
-(31, '2022-03-20', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 2, 'pending', ''),
-(32, '2022-03-20', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 3, 'pending', ''),
-(33, '2022-03-20', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 3, 'pending', ''),
-(34, '2022-03-20', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 3, 'pending', ''),
-(35, '2022-03-20', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 2, 'pending', ''),
-(36, '2022-03-20', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 2, 'PAID', 'PayUsingCC'),
-(37, '2022-03-20', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 2, 'PAID', 'PayUsingCC'),
-(38, '2022-04-01', 'Mohamed Nabil Mustafa', 'kly', '+201027713442', 'mohammed.nabil.mustafaa@gmail.com', 0, '', '0000-00-00', 78, 1, 'PAID', 'PayUsingCC'),
-(39, '2022-04-01', 'Mohamed Nabil Mustafa', 'kly', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', 78, 1, 'PAID', 'PayUsingCC'),
-(40, '2022-04-01', 'Mohamed Nabil Mustafa', 'ali', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', 78, 2, 'PAID', 'PayUsingCC'),
-(41, '2022-04-01', 'Mohamed Nabil Mustafa', 'aa', '+201027713442', 'aaaads@gmail.com', 0, '', '0000-00-00', 78, 3, 'PAID', 'PayUsingCC'),
-(42, '2022-04-01', 'Mohamed Nabil Mustafa', 'ali', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', 78, 3, 'PAID', 'PayUsingCC'),
-(43, '2022-04-01', 'Mohamed Nabil Mustafa', 'ahmed', '+201027713442', 'aaaaaa@gmail.com', 0, '', '0000-00-00', 78, 1, 'PAID', 'PayUsingCC'),
-(44, '2022-04-01', 'Mohamed Nabil Mustafa', 'aa', '+201027713442', 'aaaaaa@gmail.com', 0, '', '0000-00-00', 78, 1, 'PAID', 'PayUsingCC'),
-(45, '2022-04-01', 'Mohamed Nabil Mustafa', 'alaa nabil', '+201027713442', 'aaaaaa@gmail.com', 0, '', '0000-00-00', 80, 1, 'PAID', 'PayUsingCC'),
-(46, '2022-04-01', 'Mohamed Nabil Mustafa', 'ahmed', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', 80, 3, 'PAID', 'PayUsingCC');
+INSERT INTO `registeration` (`id`, `timestamp`, `parent_name`, `student_name`, `phone`, `email`, `camp_id`, `country`, `birthdate`, `group_id`, `package_id`, `status`, `type`, `parent_id`, `student_id`, `inst`, `upgrade`) VALUES
+(17, '2022-03-16', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'ad', '2012-02-02', 71, 3, 'UNPAID', 'PayAtFawry', 0, 0, 0, 0),
+(18, '2022-03-16', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'ad', '2012-02-02', 71, 3, 'pending', '', 0, 0, 0, 0),
+(19, '2022-03-16', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'ad', '2012-02-02', 71, 3, 'UNPAID', 'PayAtFawry', 0, 0, 0, 0),
+(20, '2022-03-16', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'ad', '2012-02-01', 71, 2, 'PAID', 'PayUsingCC', 0, 0, 0, 0),
+(23, '2022-03-17', 'Mohamed Nabil Mustafa', 'ahmed', '01027713742', 'mohammed.nabil.mstafa@gmail.com', 0, 'ad', '2012-02-02', 72, 3, 'pending', '', 0, 0, 0, 0),
+(24, '2022-03-17', 'Mohamed Nabil Mustafa', 'ahmed', '01027713472', 'mohammed.nabil.mutafa@gmail.com', 0, 'ad', '2012-02-02', 72, 3, 'PAID', 'PayUsingCC', 0, 0, 0, 0),
+(25, '2022-03-20', 'Mohamed Nabil Mustafa', 'ali', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 1, 'pending', '', 0, 0, 0, 0),
+(26, '2022-03-20', 'Mohamed Nabil Mustafa', 'ali', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 1, 'pending', '', 0, 0, 0, 0),
+(27, '2022-03-20', 'Mohamed Nabil Mustafa', 'ali', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 1, 'pending', '', 0, 0, 0, 0),
+(28, '2022-03-20', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 3, 'pending', '', 0, 0, 0, 0),
+(29, '2022-03-20', 'Mohamed Nabil Mustafa', 'ali', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 2, 'pending', '', 0, 0, 0, 0),
+(30, '2022-03-20', 'Mohamed Nabil Mustafa', 'aa', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 1, 'pending', '', 0, 0, 0, 0),
+(31, '2022-03-20', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 2, 'pending', '', 0, 0, 0, 0),
+(32, '2022-03-20', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 3, 'pending', '', 0, 0, 0, 0),
+(33, '2022-03-20', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 3, 'pending', '', 0, 0, 0, 0),
+(34, '2022-03-20', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 3, 'pending', '', 0, 0, 0, 0),
+(35, '2022-03-20', 'Mohamed Nabil Mustafa', 'ahmed', '01027713442', 'mohammed.nabil.mustafa@gmail.com', 0, 'eg', '2012-02-02', 75, 2, 'pending', '', 0, 0, 0, 0),
+(39, '2022-04-11', 'Mohamed Nabil Mustafa', 'alaa refaie', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', 0, 3, 'PAID', 'Accept', 0, 0, 0, 0),
+(40, '2022-04-11', 'Mohamed Nabil Mustafa', 'ahmed', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', 80, 2, 'PAID', 'Accept', 0, 0, 0, 0),
+(41, '2022-04-11', 'Mohamed Nabil Mustafa', 'ahmed', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', -1, 0, 'PAID', 'Accept', 161, 267, 578, 0),
+(42, '2022-04-11', 'Mohamed Nabil Mustafa', 'alaa refaie', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', -1, 0, 'PAID', 'Accept', 161, 266, -1, 0),
+(43, '2022-04-11', 'Mohamed Nabil Mustafa', 'kly', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', 80, 1, 'PAID', 'Accept', 0, 0, 0, 0),
+(44, '2022-04-11', 'Mohamed Nabil Mustafa', 'aa', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', 80, 2, 'PAID', 'Accept', 0, 0, 0, 0),
+(45, '2022-04-11', 'Mohamed Nabil Mustafa', 'ali', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', 80, 3, 'PAID', 'Accept', 0, 0, 0, 0),
+(46, '2022-04-11', 'Mohamed Nabil Mustafa', 'ali', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', -1, 0, 'PAID', 'Accept', 161, 270, -1, 0),
+(47, '2022-04-11', 'Mohamed Nabil Mustafa', 'alaa refaie', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', 0, 3, 'PAID', 'Accept', 0, 0, 0, 0),
+(48, '2022-04-11', 'Mohamed Nabil Mustafa', 'ahmed', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', 80, 3, 'PAID', 'Accept', 0, 0, 0, 0),
+(49, '2022-04-11', 'Mohamed Nabil Mustafa', 'alaa refaie', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', -1, 0, 'PAID', 'Accept', 162, 271, -1, 0),
+(50, '2022-04-11', 'Mohamed Nabil Mustafa', 'ahmed', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '0000-00-00', -1, 0, 'PAID', 'Accept', 162, 272, 611, 0),
+(51, '2022-04-11', 'Mohamed Nabil Mustafa', 'ahmed', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '2011-01-08', 80, 3, 'PAID', 'Accept', 0, 0, 0, 0),
+(52, '2022-04-11', 'Mohamed Nabil Mustafa', 'Mohamed Nabil Mustafa', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '2011-01-14', 80, 2, 'PAID', 'Accept', 163, 274, 0, 0),
+(53, '2022-04-11', 'Mohamed Nabil Mustafa', 'Mohamed Nabil Mustafa', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '2011-01-14', 80, 3, 'PAID', 'Accept', 163, 274, 0, -1),
+(54, '2022-04-11', 'Mohamed Nabil Mustafa', 'Mohamed Nabil Mustafa', '+201027713442', 'mohammed.nabil.mustafa@gmail.com', 0, '', '2011-01-14', 80, 3, 'PAID', 'Accept', 163, 274, 0, -1);
 
 -- --------------------------------------------------------
 
@@ -1089,31 +1279,60 @@ INSERT INTO `sessions` (`id`, `timestamp`, `groups_id`, `employee_id`, `zoomlink
 (94, '2022-03-20', 75, 12, '', '2022-06-12', 12, '', 0),
 (95, '2022-03-26', 76, 12, '', '2022-03-29', 1, '', 2),
 (96, '2022-03-26', 77, 17, '', '2022-03-28', 1, '', 2),
-(97, '2022-04-01', 78, 17, '', '2022-05-01', 1, '', 0),
-(98, '2022-04-01', 78, 17, '', '2022-05-08', 2, '', 0),
-(99, '2022-04-01', 78, 17, '', '2022-05-15', 3, '', 0),
-(100, '2022-04-01', 78, 17, '', '2022-05-22', 4, '', 0),
-(101, '2022-04-01', 78, 17, '', '2022-05-29', 5, '', 0),
-(102, '2022-04-01', 78, 17, '', '2022-06-05', 6, '', 0),
-(103, '2022-04-01', 78, 17, '', '2022-06-12', 7, '', 0),
-(104, '2022-04-01', 78, 17, '', '2022-06-19', 8, '', 0),
-(105, '2022-04-01', 78, 17, '', '2022-06-26', 9, '', 0),
-(106, '2022-04-01', 78, 17, '', '2022-07-03', 10, '', 0),
-(107, '2022-04-01', 78, 17, '', '2022-07-10', 11, '', 0),
-(108, '2022-04-01', 78, 17, '', '2022-07-17', 12, '', 0),
-(109, '2022-04-01', 79, 12, '', '2022-04-04', 1, '', 2),
-(110, '2022-04-01', 80, 12, '', '2022-04-02', 1, '', 0),
-(111, '2022-04-01', 80, 12, '', '2022-04-09', 2, '', 0),
-(112, '2022-04-01', 80, 12, '', '2022-04-16', 3, '', 0),
-(113, '2022-04-01', 80, 12, '', '2022-04-23', 4, '', 0),
-(114, '2022-04-01', 80, 12, '', '2022-04-30', 5, '', 0),
-(115, '2022-04-01', 80, 12, '', '2022-05-07', 6, '', 0),
-(116, '2022-04-01', 80, 12, '', '2022-05-14', 7, '', 0),
-(117, '2022-04-01', 80, 12, '', '2022-05-21', 8, '', 0),
-(118, '2022-04-01', 80, 12, '', '2022-05-28', 9, '', 0),
-(119, '2022-04-01', 80, 12, '', '2022-06-04', 10, '', 0),
-(120, '2022-04-01', 80, 12, '', '2022-06-11', 11, '', 0),
-(121, '2022-04-01', 80, 12, '', '2022-06-18', 12, '', 0);
+(97, '2022-03-28', 78, 12, '', '2022-03-14', 1, '', 3),
+(98, '2022-03-28', 78, 12, '', '2022-03-21', 2, '', 4),
+(99, '2022-03-28', 78, 12, '', '2022-04-18', 3, '', 5),
+(100, '2022-03-28', 78, 12, '', '2022-04-25', 4, '', 6),
+(101, '2022-03-29', 79, 12, '', '2022-04-02', 1, '', 2),
+(102, '2022-04-11', 80, 12, '', '2022-04-15', 1, '', 3),
+(103, '2022-04-11', 80, 12, '', '2022-04-22', 2, '', 4),
+(104, '2022-04-11', 80, 12, '', '2022-04-29', 3, '', 5),
+(105, '2022-04-11', 80, 12, '', '2022-05-06', 4, '', 6),
+(106, '2022-04-11', 80, 12, '', '2022-05-13', 5, '', 0),
+(107, '2022-04-11', 80, 12, '', '2022-05-20', 6, '', 0),
+(108, '2022-04-11', 80, 12, '', '2022-05-27', 7, '', 0),
+(109, '2022-04-11', 80, 12, '', '2022-06-03', 8, '', 0),
+(110, '2022-04-11', 80, 12, '', '2022-06-10', 9, '', 0),
+(111, '2022-04-11', 80, 12, '', '2022-06-17', 10, '', 0),
+(112, '2022-04-11', 80, 12, '', '2022-06-24', 11, '', 0),
+(113, '2022-04-11', 80, 12, '', '2022-07-01', 12, '', 0),
+(114, '2022-04-11', 80, 12, '', '2022-07-08', 13, '', 0),
+(115, '2022-04-11', 80, 12, '', '2022-07-15', 14, '', 0),
+(116, '2022-04-11', 80, 12, '', '2022-07-22', 15, '', 0),
+(117, '2022-04-11', 80, 12, '', '2022-07-29', 16, '', 0),
+(118, '2022-04-11', 80, 12, '', '2022-08-05', 17, '', 0),
+(119, '2022-04-11', 80, 12, '', '2022-08-12', 18, '', 0),
+(120, '2022-04-11', 80, 12, '', '2022-08-19', 19, '', 0),
+(121, '2022-04-11', 80, 12, '', '2022-08-26', 20, '', 0),
+(122, '2022-04-11', 80, 12, '', '2022-09-02', 21, '', 0),
+(123, '2022-04-11', 80, 12, '', '2022-09-09', 22, '', 0),
+(124, '2022-04-11', 80, 12, '', '2022-09-16', 23, '', 0),
+(125, '2022-04-11', 80, 12, '', '2022-09-23', 24, '', 0),
+(126, '2022-04-11', 80, 12, '', '2022-09-30', 25, '', 0),
+(127, '2022-04-11', 80, 12, '', '2022-10-07', 26, '', 0),
+(128, '2022-04-11', 80, 12, '', '2022-10-14', 27, '', 0),
+(129, '2022-04-11', 80, 12, '', '2022-10-21', 28, '', 0),
+(130, '2022-04-11', 80, 12, '', '2022-10-28', 29, '', 0),
+(131, '2022-04-11', 80, 12, '', '2022-11-04', 30, '', 0),
+(132, '2022-04-11', 80, 12, '', '2022-11-11', 31, '', 0),
+(133, '2022-04-11', 80, 12, '', '2022-11-18', 32, '', 0),
+(134, '2022-04-11', 80, 12, '', '2022-11-25', 33, '', 0),
+(135, '2022-04-11', 80, 12, '', '2022-12-02', 34, '', 0),
+(136, '2022-04-11', 80, 12, '', '2022-12-09', 35, '', 0),
+(137, '2022-04-11', 80, 12, '', '2022-12-16', 36, '', 0),
+(138, '2022-04-11', 80, 12, '', '2022-12-23', 37, '', 0),
+(139, '2022-04-11', 80, 12, '', '2022-12-30', 38, '', 0),
+(140, '2022-04-11', 80, 12, '', '2023-01-06', 39, '', 0),
+(141, '2022-04-11', 80, 12, '', '2023-01-13', 40, '', 0),
+(142, '2022-04-11', 80, 12, '', '2023-01-20', 41, '', 0),
+(143, '2022-04-11', 80, 12, '', '2023-01-27', 42, '', 0),
+(144, '2022-04-11', 80, 12, '', '2023-02-03', 43, '', 0),
+(145, '2022-04-11', 80, 12, '', '2023-02-10', 44, '', 0),
+(146, '2022-04-11', 80, 12, '', '2023-02-17', 45, '', 0),
+(147, '2022-04-11', 80, 12, '', '2023-02-24', 46, '', 0),
+(148, '2022-04-11', 80, 12, '', '2023-03-03', 47, '', 0),
+(149, '2022-04-11', 80, 12, '', '2023-03-10', 48, '', 0),
+(150, '2022-04-11', 81, 12, '', '2022-04-12', 1, '', 2);
 
 -- --------------------------------------------------------
 
@@ -1144,13 +1363,20 @@ INSERT INTO `session_tasks` (`id`, `timestamp`, `session_id`, `task_id`) VALUES
 (9, '2022-03-20', 84, 10),
 (10, '2022-03-26', 95, 7),
 (11, '2022-03-26', 96, 7),
-(12, '2022-04-01', 97, 8),
-(13, '2022-04-01', 97, 9),
-(14, '2022-04-01', 98, 10),
-(15, '2022-04-01', 109, 7),
-(16, '2022-04-01', 110, 9),
-(17, '2022-04-01', 110, 8),
-(18, '2022-04-01', 111, 10);
+(12, '2022-03-28', 97, 8),
+(13, '2022-03-28', 97, 11),
+(14, '2022-03-28', 97, 9),
+(15, '2022-03-28', 97, 12),
+(16, '2022-03-28', 98, 10),
+(17, '2022-03-28', 100, 13),
+(18, '2022-03-29', 101, 7),
+(19, '2022-04-11', 102, 8),
+(20, '2022-04-11', 102, 9),
+(21, '2022-04-11', 102, 11),
+(22, '2022-04-11', 102, 12),
+(23, '2022-04-11', 103, 10),
+(24, '2022-04-11', 105, 13),
+(25, '2022-04-11', 150, 7);
 
 -- --------------------------------------------------------
 
@@ -1238,7 +1464,6 @@ INSERT INTO `students` (`id`, `timestamp`, `std_id`, `parent_id`, `free_session_
 (229, '2022-03-14', '', 140, 'yes', 0, 'asdasd', 'C', '2012-02-02'),
 (230, '2022-03-14', '', 133, 'yes', 0, 'Mohamed Nabil Mustafa', 'T', '2022-03-14'),
 (232, '2022-03-14', '', 141, 'yes', 0, 'aras', 'C', '2012-01-01'),
-(233, '2022-03-14', '', 142, 'yes', 0, 'Mohamed Nabil Mustafa', 'C', '2012-02-02'),
 (243, '2022-03-20', '', 152, 'yes', 0, 'ahmed', '', '2012-02-02'),
 (244, '2022-03-20', '', 152, 'yes', 0, 'Mohamed Nabil Mustafa', 'C', '2012-02-02'),
 (245, '2022-03-26', '', 155, 'yes', 0, 'alaa refaie', 'C', '2012-02-02'),
@@ -1257,17 +1482,18 @@ INSERT INTO `students` (`id`, `timestamp`, `std_id`, `parent_id`, `free_session_
 (258, '2022-03-26', '', 157, 'yes', 0, 'asdasd', 'C', '2012-02-02'),
 (259, '2022-03-26', '', 157, 'yes', 0, 'Ahmed Gawish', 'C', '2012-02-02'),
 (260, '2022-03-26', '', 158, 'yes', 0, 'alaa refaie', 'C', '2012-02-02'),
-(262, '2022-04-01', '', 160, 'yes', 0, 'kly', '', '0000-00-00'),
-(264, '2022-04-01', '', 161, 'yes', 0, 'ali', '', '0000-00-00'),
-(266, '2022-04-01', '', 162, 'yes', 0, 'Mohamed Nabil Mustafa', '', '0000-00-00'),
-(267, '2022-04-01', '', 162, 'yes', 0, 'Mohamed Nabil Mustafa', '', '0000-00-00'),
-(268, '2022-04-01', '', 162, 'yes', 0, 'ali', '', '0000-00-00'),
-(269, '2022-04-01', '', 162, 'yes', 0, 'ahmed', '', '0000-00-00'),
-(270, '2022-04-01', '', 162, 'yes', 0, 'aa', '', '0000-00-00'),
-(271, '2022-04-01', '', 162, 'yes', 0, 'aa', '', '0000-00-00'),
-(272, '2022-04-01', '', 162, 'yes', 0, 'aa', '', '0000-00-00'),
-(273, '2022-04-01', '', 162, 'yes', 0, 'aa', '', '0000-00-00'),
-(275, '2022-04-01', '', 163, 'yes', 0, 'ahmed', '', '0000-00-00');
+(262, '2022-03-28', '', 160, 'yes', 0, 'alaa nabil', '', '2012-02-02'),
+(263, '2022-03-29', '', 160, 'yes', 0, 'asdasd', '', '0000-00-00'),
+(264, '2022-03-29', '', 160, 'yes', 0, 'asdasd', '', '0000-00-00'),
+(266, '2022-04-11', '', 161, 'yes', 0, 'alaa refaie', '', '0000-00-00'),
+(267, '2022-04-11', '', 161, 'yes', 0, 'ahmed', '', '0000-00-00'),
+(268, '2022-04-11', '', 161, 'yes', 0, 'kly', '', '0000-00-00'),
+(269, '2022-04-11', '', 161, 'yes', 0, 'aa', '', '0000-00-00'),
+(271, '2022-04-11', '', 162, 'yes', 0, 'alaa refaie', '', '0000-00-00'),
+(272, '2022-04-11', '', 162, 'yes', 0, 'ahmed', '', '0000-00-00'),
+(274, '2022-04-11', '', 163, 'yes', 0, 'Mohamed Nabil Mustafa', '', '2011-01-14'),
+(275, '2022-04-11', '', 163, 'yes', 0, 'ahmed', '', '2011-01-08'),
+(276, '2022-04-11', '', 163, 'yes', 0, 'Mohamed Nabil Mustafa', '', '2011-01-14');
 
 -- --------------------------------------------------------
 
@@ -1294,7 +1520,8 @@ INSERT INTO `students_ans` (`id`, `timestamp`, `att_feed_id`, `tasks_id`, `answe
 (3, '2022-03-17', 257, 8, 'good', 'Right'),
 (4, '2022-03-17', 257, 9, '', ''),
 (5, '2022-03-17', 258, 10, 'asdasd', 'Right'),
-(6, '2022-03-17', 257, 9, 'asd', 'Right');
+(6, '2022-03-17', 257, 9, 'asd', 'Right'),
+(7, '2022-03-28', 298, 7, 'good', 'Right');
 
 -- --------------------------------------------------------
 
@@ -1318,7 +1545,6 @@ INSERT INTO `student_groups` (`id`, `timestamp`, `groups_id`, `student_id`, `sta
 (902, '2022-03-10', 54, 223, 'active'),
 (903, '2022-03-10', 63, 224, 'active'),
 (904, '2022-03-14', 65, 232, 'active'),
-(905, '2022-03-14', 65, 233, 'active'),
 (913, '2022-03-20', 75, 243, 'active'),
 (914, '2022-03-20', 74, 244, 'active'),
 (915, '2022-03-26', 74, 246, 'active'),
@@ -1334,7 +1560,11 @@ INSERT INTO `student_groups` (`id`, `timestamp`, `groups_id`, `student_id`, `sta
 (925, '2022-03-26', 76, 256, 'active'),
 (926, '2022-03-26', 77, 257, 'active'),
 (927, '2022-03-26', 77, 258, 'active'),
-(928, '2022-03-26', 77, 259, 'active');
+(928, '2022-03-26', 77, 259, 'active'),
+(940, '2022-04-11', 81, 274, 'active'),
+(941, '2022-04-11', 80, 275, 'active'),
+(942, '2022-04-11', 80, 276, 'active'),
+(943, '2022-04-11', 80, 274, 'active');
 
 -- --------------------------------------------------------
 
@@ -1357,7 +1587,10 @@ INSERT INTO `student_package` (`id`, `timestamp`, `student_id`, `package_id`) VA
 (66, '2022-02-26', 158, 3),
 (67, '2022-02-26', 159, 2),
 (172, '2022-03-10', 224, 3),
-(180, '2022-03-20', 243, 2);
+(180, '2022-03-20', 243, 2),
+(189, '2022-04-11', 275, 3),
+(190, '2022-04-11', 276, 2),
+(192, '2022-04-11', 274, 3);
 
 -- --------------------------------------------------------
 
@@ -1391,7 +1624,10 @@ INSERT INTO `tasks` (`id`, `timestamp`, `level_id`, `lan_id`, `session_type_id`,
 (7, '2022-03-15', 2, 1, 2, 1, 1, 'multi', 'good', 'well', 'asd', 'option1', 10, 'how are you', 2),
 (8, '2022-03-17', 2, 1, 1, 1, 1, 'multi', 'good', 'well', 'bad', 'option1', 10, 'how are you', 2),
 (9, '2022-03-17', 2, 1, 1, 1, 1, 'tf', 'asd', 'asdasd', '', 'option1', 10, 'how are you', 2),
-(10, '2022-03-17', 2, 1, 1, 1, 2, 'multi', 'asd', 'asdasd', 'asdasd', 'option2', 10, 'how are you', 2);
+(10, '2022-03-17', 2, 1, 1, 1, 2, 'multi', 'asd', 'asdasd', 'asdasd', 'option2', 10, 'how are you', 2),
+(11, '2022-03-28', 2, 1, 1, 1, 1, 'multi', 'good', 'well', 'bad', 'option2', 10, 'how are you', 2),
+(12, '2022-03-28', 2, 1, 1, 1, 1, 'tf', 'yes', 'no', '', 'option1', 20, 'how are you', 2),
+(13, '2022-03-28', 2, 1, 1, 1, 4, 'multi', 'good', 'well', 'bad', 'option3', 10, 'enta fan', 2);
 
 -- --------------------------------------------------------
 
@@ -1715,7 +1951,7 @@ ALTER TABLE `attend`
 -- AUTO_INCREMENT for table `att_feed`
 --
 ALTER TABLE `att_feed`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=447;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=674;
 
 --
 -- AUTO_INCREMENT for table `call_status`
@@ -1757,7 +1993,7 @@ ALTER TABLE `cat_sales`
 -- AUTO_INCREMENT for table `certifications`
 --
 ALTER TABLE `certifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `close`
@@ -1775,7 +2011,7 @@ ALTER TABLE `close_sales`
 -- AUTO_INCREMENT for table `cs_calls`
 --
 ALTER TABLE `cs_calls`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2100;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `days`
@@ -1805,19 +2041,19 @@ ALTER TABLE `free_session_whatsapp`
 -- AUTO_INCREMENT for table `free_session_whatsapp_temp`
 --
 ALTER TABLE `free_session_whatsapp_temp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=601;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=650;
 
 --
 -- AUTO_INCREMENT for table `invoice_status`
@@ -1847,7 +2083,7 @@ ALTER TABLE `marketing`
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `mrkt_conv_type`
@@ -1901,7 +2137,7 @@ ALTER TABLE `permission`
 -- AUTO_INCREMENT for table `registeration`
 --
 ALTER TABLE `registeration`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -1919,13 +2155,13 @@ ALTER TABLE `sales_calls`
 -- AUTO_INCREMENT for table `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
 
 --
 -- AUTO_INCREMENT for table `session_tasks`
 --
 ALTER TABLE `session_tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `session_type`
@@ -1949,13 +2185,13 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `students_ans`
 --
 ALTER TABLE `students_ans`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `student_groups`
 --
 ALTER TABLE `student_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=945;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=944;
 
 --
 -- AUTO_INCREMENT for table `student_package`
@@ -1967,7 +2203,7 @@ ALTER TABLE `student_package`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `track`
