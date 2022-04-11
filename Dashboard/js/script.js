@@ -54,10 +54,19 @@ function tapsReset() {
   
 }
 $("#schedule_next").click(function () {
-  $("#packagesTap02").hide("drop", { direction: "left" }, 300);
-  setTimeout(function () {
-    $("#packagesTap").show("drop", { direction: "right" }, 300);
-  }, 400);
+
+  if(choosen_group_reg != -1 )
+  {
+    $("#packagesTap02").hide("drop", { direction: "left" }, 300);
+    setTimeout(function () {
+      $("#packagesTap").show("drop", { direction: "right" }, 300);
+    }, 400);
+  }
+  else
+  {
+    alert('Please choose group')
+  }
+
 });
 $(".back-btn").click(function () {
   $("#packagesTap").hide("drop", { direction: "right" }, 300);
@@ -89,6 +98,8 @@ $("#payonce_btn").click(async function () {
       }
     }
   });
+
+
   var ret_data = {};
   ret_data.price = ret * 100 * 0.8;
   ret_data.firstname = fixed_user_info.name;
@@ -97,7 +108,6 @@ $("#payonce_btn").click(async function () {
   ret_data.lastname = fixed_user_info.name;
   ``;
 
-  console.log(ret_data);
 
   Loading_page_set();
   localStorage.reg_code = await send_inst(-1);
@@ -169,6 +179,7 @@ async function send_reg() {
   saved_data_reg[11] = fixed_user_info.id;
   saved_data_reg[12] = fixed_user_info.choosen_student.id;
   saved_data_reg[13] = "";
+  saved_data_reg[14] = -1;
 
   var returncheck = await ADD_DATA_TABLES_ONE_COL(
     database_fixed_link,
@@ -188,6 +199,7 @@ async function send_reg() {
       "parent_id",
       "student_id",
       "inst",
+      "upgrade"
     ],
     saved_data_reg
   );
@@ -214,6 +226,7 @@ async function send_inst(id) {
   saved_data_reg[11] = fixed_user_info.id;
   saved_data_reg[12] = fixed_user_info.choosen_student.id;
   saved_data_reg[13] = id;
+  saved_data_reg[14] = '';
 
   var returncheck = await ADD_DATA_TABLES_ONE_COL(
     database_fixed_link,
@@ -233,6 +246,8 @@ async function send_inst(id) {
       "parent_id",
       "student_id",
       "inst",
+      "upgrade"
+
     ],
     saved_data_reg
   );
@@ -338,7 +353,6 @@ var fixed_user_info = {};
 async function login_success(user_info) {
   fixed_user_info = user_info;
   await set_pack();
-
   $("#clientname").text(user_info.name);
   $("#clientname_2").text(user_info.name);
 
@@ -418,6 +432,9 @@ async function login_success(user_info) {
 }
 
 async function student_choosen(parent) {
+
+  check_groups_upgrade(parent);
+
   var get_student_pacakges = await GET_DATA_TABLES(
     database_fixed_link,
     "student_package"
@@ -688,20 +705,23 @@ async function student_choosen(parent) {
   SessionminBox.innerHTML = "";
   SessionsecBox.innerHTML = "";
 
-  clearInterval(x);
-  clearInterval(Sessionx);
+
+ 
 
   if (next_time_session_end_free != "") {
+    clearInterval(x);
+
+
     // --------------------------------------------- Free Session CountDown -------------------------------
     // ----------------------------------------------------------------------------------------------------
     // ----------------------------------------------------------------------------------------------------
     // ----------------------------------------------------------------------------------------------------
 
-    let countDownBox = document.querySelector(".allTime");
-    let daysBox = document.querySelector(".days");
-    let hrsBox = document.querySelector(".hrs");
-    let minBox = document.querySelector(".min");
-    let secBox = document.querySelector(".sec");
+    // let countDownBox = document.querySelector(".allTime");
+    // let daysBox = document.querySelector(".days");
+    // let hrsBox = document.querySelector(".hrs");
+    // let minBox = document.querySelector(".min");
+    // let secBox = document.querySelector(".sec");
 
     let countDownDate = new Date(next_time_session_start_free).getTime();
     let countDownDate_end = new Date(next_time_session_end_free).getTime();
@@ -728,6 +748,8 @@ async function student_choosen(parent) {
         );
         let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+
 
         if (distance < 0) {
           student_choosen(parent);
@@ -763,6 +785,8 @@ async function student_choosen(parent) {
       minBox.innerHTML = minutes + "<span>Minutes</span>";
       secBox.innerHTML = seconds + "<span>Seconds</span>";
 
+
+
       // COUNT DOWN FUNCTION
       x = setInterval(function () {
         // GET DATE
@@ -781,11 +805,13 @@ async function student_choosen(parent) {
         minBox.innerHTML = minutes + "<span>Minutes</span>";
         secBox.innerHTML = seconds + "<span>Seconds</span>";
 
+
         if (distance < 0) {
           daysBox.innerHTML = "";
           hrsBox.innerHTML = "";
           minBox.innerHTML = "";
           secBox.innerHTML = "";
+          console.log(distance);
 
           student_choosen(parent);
 
@@ -794,21 +820,22 @@ async function student_choosen(parent) {
           $(".joinnow-btn").prop("href", "");
           clearInterval(x);
 
-          // href="https://www.google.com" target="_blank"
         }
       }, 1000);
     }
   } else if (next_time_session_end_reg != "") {
+    clearInterval(Sessionx);
+
     // --------------------------------------------- Session CountDown -------------------------------
     // ----------------------------------------------------------------------------------------------------
     // ----------------------------------------------------------------------------------------------------
     // ----------------------------------------------------------------------------------------------------
 
-    let SessioncountDownBox = document.querySelector(".session-start");
-    let SessiondaysBox = document.querySelector(".session-start .days");
-    let SessionhrsBox = document.querySelector(".session-start .hrs");
-    let SessionminBox = document.querySelector(".session-start .min");
-    let SessionsecBox = document.querySelector(".session-start .sec");
+    // let SessioncountDownBox = document.querySelector(".session-start");
+    // let SessiondaysBox = document.querySelector(".session-start .days");
+    // let SessionhrsBox = document.querySelector(".session-start .hrs");
+    // let SessionminBox = document.querySelector(".session-start .min");
+    // let SessionsecBox = document.querySelector(".session-start .sec");
 
     let SessioncountDownDate = new Date(next_time_session_start_reg).getTime();
     let SessioncountDownDate_end = new Date(
@@ -848,7 +875,7 @@ async function student_choosen(parent) {
           $(".confirmation p").text("Session Running Now");
           $(".joinnow-btn").removeClass("disabled");
 
-          clearInterval(x);
+          clearInterval(Sessionx);
 
           // href="https://www.google.com" target="_blank"
         }
@@ -899,17 +926,17 @@ async function student_choosen(parent) {
         SessionsecBox.innerHTML = Sessionseconds + "<span>Seconds</span>";
 
         if (Sessiondistance < 0) {
-          daysBox.innerHTML = "";
-          hrsBox.innerHTML = "";
-          minBox.innerHTML = "";
-          secBox.innerHTML = "";
+          SessiondaysBox.innerHTML = "";
+          SessionhrsBox.innerHTML = "";
+          SessionminBox.innerHTML = "";
+          SessionsecBox.innerHTML = "";
 
           student_choosen(parent);
 
           $(".confirmation p").hide();
           $(".joinnow-btn").prop("disabled", false);
           $(".joinnow-btn").prop("href", "");
-          clearInterval(x);
+          clearInterval(Sessionx);
         }
       }, 1000);
     }
@@ -1388,3 +1415,188 @@ $(".scheduletableitem").click(function () {
 });
 
 function pay_inst() {}
+
+var choosen_date_reg = '';
+var choosen_day_reg = '';
+var choosen_time_reg = '';
+var choosen_lan_reg = '';
+
+async function check_groups_upgrade(user_info)
+{
+
+
+  var saved_age_arr  = await GET_DATA_TABLES(database_fixed_link ,'age');    
+  var saved_slot_arr  = await GET_DATA_TABLES(database_fixed_link ,'slots');    
+  var saved_days_arr  = await GET_DATA_TABLES(database_fixed_link ,'days');    
+  var  filtered_group_id = await GET_DATA_TABLES(database_fixed_link ,'groups');    
+  var  student_grp_arr = await GET_DATA_TABLES(database_fixed_link ,'student_groups');    
+  var  saved_lan_arr = await GET_DATA_TABLES(database_fixed_link ,'lan');    
+
+
+  choosen_date_var = user_info.choosen_student.birthdate;
+
+
+  var saved_group_arr =[];
+  var saved_group_arr_counter = 0;
+
+  if(filtered_group_id && filtered_group_id !== undefined && filtered_group_id.length != 0)
+  {
+      filtered_group_id.forEach(Element_gp=>{
+      var counter_group_cap = 0;
+
+      saved_age_arr.forEach(Element=>{
+
+              if(Element.id == Element_gp.age_id)
+              {
+                  Element_gp.age_id = Element.name;
+              }
+      })
+      saved_slot_arr.forEach(Element=>{
+
+              if(Element.id == Element_gp.slot_id)
+              {
+                  Element_gp.slot_id = Element.live_slot;
+              }
+      })
+      saved_lan_arr.forEach(Element=>{
+
+              if(Element.id == Element_gp.lan_id)
+              {
+                  Element_gp.lan_id = Element.name;
+              }
+      })  
+
+      
+      saved_days_arr.forEach(Element=>{
+
+              if(Element.id == Element_gp.days_id)
+              {
+                  Element_gp.days_id = Element.name;
+              }
+      })
+
+      student_grp_arr.forEach(Element_st_gp=>{
+
+          if(Element_st_gp.groups_id == Element_gp.id)
+              {
+                  counter_group_cap++;
+              }
+      })
+
+      if(counter_group_cap < 6 && Number(Element_gp.type_id) == 1 && (new Date()) < new Date(Element_gp.start_date))
+      {
+
+          saved_group_arr[saved_group_arr_counter] = Element_gp ;saved_group_arr_counter++;
+      }
+
+  })
+  }
+
+
+  $( `.scheduletableitem:nth-child(2)` + " span:nth-child(2)").html("No Schedule Availabe now");
+  $( `.scheduletableitem:nth-child(2)` + " span:nth-child(3)").html("");
+  $( `.scheduletableitem:nth-child(2)` + " span:nth-child(4)").html("");
+  $( `.scheduletableitem:nth-child(2)` + " span:nth-child(5)").html("");
+  $( ".scheduletableitem:nth-child(3)").hide();
+  $( ".scheduletableitem:nth-child(4)").hide();
+  $( ".scheduletableitem:nth-child(5)").hide();
+  $( ".scheduletableitem:nth-child(6)").hide();
+
+
+
+  var kid_age =  (new Date()).getFullYear() - new Date(choosen_date_var).getFullYear();
+  var age_req = '';
+  if(kid_age < 18)
+  {
+      saved_age_arr.forEach(elment =>{
+          if(kid_age >= Number(elment.from_age) && kid_age <=  Number(elment.to_age))
+          {
+              age_req = elment.name;
+          }
+      })
+
+
+      if(age_req)
+      {
+          var check_av = false;
+          var saved_index = 1;
+          for(var index = 0 ;index < saved_group_arr.length ; index++)
+          {
+              saved_index = index+2;
+          
+
+              if( saved_group_arr[index].age_id == age_req)
+              {
+                  check_av = true;
+                  $( `.scheduletableitem:nth-child(${saved_index})` + " span:nth-child(1)").html(saved_group_arr[index].id);
+                  $( `.scheduletableitem:nth-child(${saved_index})` + " span:nth-child(2)").html(saved_group_arr[index].start_date);
+                  $( `.scheduletableitem:nth-child(${saved_index})` + " span:nth-child(3)").html(saved_group_arr[index].days_id);
+                  $( `.scheduletableitem:nth-child(${saved_index})` + " span:nth-child(4)").html(saved_group_arr[index].slot_id);
+                  $( `.scheduletableitem:nth-child(${saved_index})` + " span:nth-child(5)").html(saved_group_arr[index].lan_id);
+                  $( ".scheduletableitem:nth-child("+saved_index+")").show();
+                  if(index == 4) break;
+              }
+
+          }
+          
+      }
+      else
+      {
+        $( `.scheduletableitem:nth-child(2)` + " span:nth-child(6)").html("");
+      }
+
+  }
+  else
+  {
+    $( `.scheduletableitem:nth-child(2)` + " span:nth-child(6)").html("");
+
+  }
+
+    $(".scheduletableitem").click(function()
+    {
+
+        var index = ($(this).index() )+1 ;
+        choosen_group_index_reg = index;
+
+        if(index == "2")
+        {
+            choosen_group_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html();
+            choosen_date_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(2)").html();
+            choosen_day_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(3)").html();
+            choosen_time_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(4)").html();
+            choosen_lan_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(5)").html();
+        }
+        else if(index == "3")
+        {
+            choosen_group_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html();
+            choosen_date_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(2)").html();
+            choosen_day_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(3)").html();
+            choosen_time_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(4)").html();
+            choosen_lan_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(5)").html();        }
+        else if(index == "4")
+        {
+            choosen_group_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html();
+            choosen_date_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(2)").html();
+            choosen_day_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(3)").html();
+            choosen_time_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(4)").html();
+            choosen_lan_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(5)").html();        }
+        else if(index == "5")
+        {
+            choosen_group_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html();
+            choosen_date_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(2)").html();
+            choosen_day_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(3)").html();
+            choosen_time_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(4)").html();
+            choosen_lan_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(5)").html();        }
+        else if(index == "6")
+        {
+            choosen_group_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(1)").html();
+            choosen_date_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(2)").html();
+            choosen_day_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(3)").html();
+            choosen_time_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(4)").html();
+            choosen_lan_reg = $( `.scheduletableitem:nth-child(${index})` + " span:nth-child(5)").html();        }
+
+
+    }
+    );
+}
+

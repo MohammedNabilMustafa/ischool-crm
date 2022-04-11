@@ -430,7 +430,7 @@ async function go_to_step02_func_reg()
         }
 
         choosen_date_var = '';
-        choosen_date_var = `${$('#monthDate').val()}-${$('#dayDate').val()}-${$('#yearDate').val()}`;
+        choosen_date_var = `${$('#yearDate').val()}-${$('#monthDate').val()}-${$('#dayDate').val()}`;
         
         if( choosen_date_var == "" || choosen_date_var == "--"   ) {
             $('#birthdate_error').text('Please Select Birthdate');return false;
@@ -472,10 +472,7 @@ async function go_to_step02_func_reg()
         //     return false;
         // }
         
-function isEmail(email) {
-    var EmailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    return EmailRegex.test(email);
-  }
+
 
 
 
@@ -549,7 +546,10 @@ function isEmail(email) {
     return true;
 }
 
-
+function isEmail(email) {
+    var EmailRegex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return EmailRegex.test(email);
+  }
 
 async function go_to_step03_func_reg()
 {
@@ -665,6 +665,7 @@ async function go_to_step04_func_reg()
     saved_data_reg[11] = '';
     saved_data_reg[12] = '';
     saved_data_reg[13] = '';
+    saved_data_reg[14] = '';
     
     
     var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'registeration' , 
@@ -682,6 +683,7 @@ async function go_to_step04_func_reg()
     ,"parent_id"
     ,"student_id"
     ,"inst"
+    ,"upgrade"
 
     ],
     saved_data_reg
@@ -690,6 +692,7 @@ async function go_to_step04_func_reg()
     var returncheck = await GET_DATA_TABLES(database_fixed_link , 'registeration' )
 
     localStorage.reg_code = returncheck[returncheck.length-1].id;
+
     Loading_page_clear();
 
     return true;
@@ -1069,6 +1072,9 @@ async function go_to_step05_func_reg(data_arr)
 
     var get_email_data = localStorage.getItem("emailInput_success" );
     var get_phone_data = localStorage.getItem("phonenumInput_success" );
+
+    console.log(get_email_data);
+    console.log(get_phone_data);
 
     if(result)
     {
@@ -1459,3 +1465,153 @@ async function upgrade_func(data_arr)
         Loading_page_clear();
         $(".step04").show("drop", { direction: "left" }, 300);
 }
+
+
+
+
+async function go_to_step05_func_reg_upgrade(data_arr)
+{
+
+    var package = await GET_DATA_TABLES(database_fixed_link , 'package');
+    var package_selected = [];
+
+    package.forEach(element =>{
+        if(Number(element.id) == Number(data_arr.package_id))
+        {
+            package_selected[0] =  element;
+        }
+    })
+
+            var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'student_package' , 
+        ["student_id"
+        ,"package_id"
+    ],
+        [
+            data_arr.student_id,
+            data_arr.package_id
+        ]
+        );
+
+        var get_student_pac = await GET_DATA_TABLES(database_fixed_link , 'student_package')
+        var getlastid = get_student_pac[get_student_pac.length-1].id;
+
+        var counter_check = Number(package_selected[0].installments);
+
+
+        var saved_date = getFormattedDate(new Date());
+
+        for(var index = 0 ; index < counter_check ; index++)
+        {  
+            var invoice_data_arr = [];
+            if(index == 0)
+            {
+                invoice_data_arr[0] = data_arr.student_id; //fee
+                invoice_data_arr[1] = package_selected[0].fees; //fee
+                invoice_data_arr[2] = package_selected[0].paid_as; //amount
+                invoice_data_arr[3] = 'done'; //status
+                invoice_data_arr[4] = saved_date; //due_date
+                invoice_data_arr[5] = saved_date; //paid_date
+                invoice_data_arr[6] = 0; //dis
+                invoice_data_arr[7] = ""; //att
+                invoice_data_arr[8] = getlastid; //pac-id
+                invoice_data_arr[9] = Number(package_selected[0].quota) / Number(package_selected[0].installments); //qouta
+                invoice_data_arr[10] = 0; //remain
+            }
+            else
+            {
+                invoice_data_arr[0] = data_arr.student_id; //fee
+                invoice_data_arr[1] = 0; //fee
+                invoice_data_arr[2] = package_selected[0].paid_as; //amount
+                invoice_data_arr[3] = 'waiting'; //status
+                invoice_data_arr[4] = saved_date; //due_date
+                invoice_data_arr[5] = ''; //paid_date
+                invoice_data_arr[6] = 0; //dis
+                invoice_data_arr[7] = ""; //att
+                invoice_data_arr[8] = getlastid; //pac-id
+                invoice_data_arr[9] = Number(package_selected[0].quota) / Number(package_selected[0].installments); //qouta
+                invoice_data_arr[10] = 0; //remain 
+            }
+
+            saved_date = new Date(saved_date);
+
+            if(saved_date.getDate() > 20){
+
+                saved_date = getFormattedDate( new Date(saved_date.getFullYear(), saved_date.getMonth() + 2, 1));
+            }
+            else
+            {
+                saved_date = getFormattedDate( new Date(saved_date.getFullYear(), saved_date.getMonth() + 1, 1));
+            }
+
+
+            var get_add_data_var_std = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'invoice' ,     
+            ["student_id" 
+            , "fees" 
+            , "amount" 
+            , "status" 
+            , "due_date" 
+            , "paid_date" 
+            , "discount" 
+            , "attach" 
+            , "package_id" 
+            , "qouta" 
+            , "remain" 
+            ]
+                , invoice_data_arr);
+
+        }
+
+
+
+    if(data_arr.group_id && Number(data_arr.group_id) != 0)
+    {
+        var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'student_groups' , 
+        ["groups_id"
+        ,"student_id"
+        ,"status"
+    ],
+        [
+            data_arr.group_id,
+            data_arr.student_id,
+            'active'
+        ]
+        );
+
+        var get_sessions_arr_return = await GET_DATA_TABLES(database_fixed_link , 'sessions');
+        var get_required_sessions_arr = [];
+        var get_required_sessions_arr_count = 0;
+        get_sessions_arr_return.forEach(element => {
+
+            if(Number(element.groups_id) == Number(data_arr.group_id))
+            {
+                get_required_sessions_arr[get_required_sessions_arr_count] = element;get_required_sessions_arr_count++;
+            }
+        })
+
+        for(var index = 0 ; index < get_required_sessions_arr.length ; index++ )
+        {
+            var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'att_feed' , 
+            ["student_id" 
+            ,"session_id" 
+            ,"attendance" 
+            ,"feedback" 
+        ],
+            
+        [
+            data_arr.student_id,
+            get_required_sessions_arr[index].id,
+            '',
+            ''
+        ]
+            );
+
+        }
+    }
+
+    Loading_page_clear();
+    $(".step04").show("drop", { direction: "left" }, 300);
+
+    return true;
+
+}
+

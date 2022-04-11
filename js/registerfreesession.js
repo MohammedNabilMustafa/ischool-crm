@@ -223,7 +223,8 @@ async function go_to_step02_func_free()
             $('#firstnameInput_error').text('');  
             $("#firstnameInput").removeClass("error")    
         }
-        choosen_date_var_free = `${$('#monthDate').val()}-${$('#dayDate').val()}-${$('#yearDate').val()}`;
+        // choosen_date_var_free = `${$('#monthDate').val()}-${$('#dayDate').val()}-${$('#yearDate').val()}`;
+        choosen_date_var_free = `${$('#yearDate').val()}-${$('#monthDate').val()}-${$('#dayDate').val()}`;
 
         if( choosen_date_var_free == "" || choosen_date_var_free == "--"  ) {
             $('#birthdate_error').text('Please Select Birthdate');return false;
@@ -343,30 +344,6 @@ async function go_to_step02_func_free()
 async function go_to_step01_func_free()
 {    
     Loading_page_set();
-    // var country_code = null;
-    
-    // var get_data = await $.getJSON('http://ipinfo.io/' + userip);
-    
-
-    
-    // allTimeZone.forEach(elment =>
-    // {
-    //     if(elment.Code == get_data.country)
-    //     {
-    //         country_code = elment.MobileCode
-
-    //         $("#countries option").each(function()
-    //         {
-    //             if($(this).attr("data-title") == elment.Name)
-    //             {
-    //                 $("#countries option[value='"+$(this).attr("value")+"']").attr("selected",true)
-    //             }
-    //         });
-
-    //     }
-    // })
-
-
     
     var get_parent_arr = await GET_DATA_TABLES(database_fixed_link ,'parent');    
     var saved_age_arr  = await GET_DATA_TABLES(database_fixed_link ,'age');    

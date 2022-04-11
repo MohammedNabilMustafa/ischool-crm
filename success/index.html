@@ -895,8 +895,8 @@
 
             var get_element_method = 'Accept';
 
-            // var get_element_ref = localStorage.reg_code;
-            var get_element_ref = 101;
+            var get_element_ref = localStorage.reg_code;
+            // var get_element_ref = 101;
             var get_element_orderStatus = params.get('orderStatus');
             var get_element_statusCode = params.get('statusCode');
 
@@ -1024,40 +1024,48 @@
                         var get_data = await GET_DATA_TABLES(database_fixed_link, 'invoice')
 
                         get_data.forEach(async (elment) => {
-                            if (elment.status == 'waiting') {
-                                total_pay += Number(elment.amount)
-                                var COL_DATA = `status='done',	paid_date='${(new Date()).getTime}'`;
-                                await UPDATE_DATA_TABLES_ONE_COL(database_fixed_link, 'invoice',
-                                    elment.id,
-                                    COL_DATA
-                                );
+                            if (Number(elment.student_id) == Number(saved_data.student_id)) {
 
+                                if (elment.status == 'waiting') {
+                                    total_pay += Number(elment.amount)
+                                    var COL_DATA = `status='done',	paid_date='${(new Date()).getTime}'`;
+                                    await UPDATE_DATA_TABLES_ONE_COL(database_fixed_link, 'invoice',
+                                        elment.id,
+                                        COL_DATA
+                                    );
+
+                                }
                             }
                         })
 
                         total_pay = total_pay * 0.8;
 
-                        console.log(total_pay);
                         getchecked_data_inst(saved_data, total_pay);
 
                         Loading_page_clear();
                         $(".step04").show("drop", { direction: "left" }, 300);
                     }
-                    else if (saved_data.package_id != 0 && saved_data.group_id != 0 && saved_data.group_id != -1) //new groups - pacgake
+                    else if (saved_data.package_id != 0 && saved_data.group_id != 0 && saved_data.group_id != -1 && saved_data.upgrade == 0) //new groups - pacgake
                     {
                         getchecked_data(saved_data);
                         go_to_step05_func_reg(saved_data, check_validation);
                     }
-                    else if (saved_data.package_id != 0 && saved_data.group_id == 0) //new package
+                    else if (saved_data.package_id != 0 && saved_data.group_id == 0 && saved_data.upgrade == 0) //new package
                     {
                         getchecked_data(saved_data);
                         go_to_step05_func_reg(saved_data, check_validation);
                     }
-                    else if (saved_data.package_id != 0 && saved_data.group_id == -1) //Upgrade
+                    else if (saved_data.package_id != 0 && saved_data.group_id == -1 && saved_data.upgrade != 0) //Upgrade
                     {
                         $("#join_now").text('BACK TO DASHBOARD')
                         getchecked_data(saved_data);
                         upgrade_func(saved_data, check_validation);
+                    }
+                    else if (saved_data.package_id != 0 && saved_data.group_id != -1 && saved_data.upgrade != 0) //Upgrade
+                    {
+                        $("#join_now").text('BACK TO DASHBOARD')
+                        getchecked_data(saved_data);
+                        go_to_step05_func_reg_upgrade(saved_data);
                     }
                     else {
                         getchecked_data(saved_data);
