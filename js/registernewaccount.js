@@ -88,7 +88,7 @@ $("#Pack_1_btn").click(async function() {
 
     if(check)
     {
-        checkout();
+        checkout_payMob();
     }
 
 
@@ -103,7 +103,7 @@ $("#Pack_2_btn").click(async function() {
 
     if(check)
     {
-        checkout();
+        checkout_payMob();
     }
 })
 
@@ -115,7 +115,7 @@ $("#Pack_3_btn").click(async function() {
 
     if(check)
     {
-        checkout();
+        checkout_payMob();
     }
 })
 
@@ -149,6 +149,7 @@ var choosen_date_var = '';
 async function go_to_step01_func_reg()
 {    
     Loading_page_set();
+
     // var country_code = null;
     
     // var get_data = await $.getJSON('http://ipinfo.io/' + userip);
@@ -661,6 +662,9 @@ async function go_to_step04_func_reg()
     saved_data_reg[8] = choosen_package_reg;
     saved_data_reg[9] = 'pending';
     saved_data_reg[10] = '';
+    saved_data_reg[11] = '';
+    saved_data_reg[12] = '';
+    saved_data_reg[13] = '';
     
     
     var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'registeration' , 
@@ -675,6 +679,9 @@ async function go_to_step04_func_reg()
     ,"package_id"
     ,"status"
     ,"type"
+    ,"parent_id"
+    ,"student_id"
+    ,"inst"
 
     ],
     saved_data_reg
@@ -682,7 +689,7 @@ async function go_to_step04_func_reg()
 
     var returncheck = await GET_DATA_TABLES(database_fixed_link , 'registeration' )
 
-    choosen_ref = returncheck[returncheck.length-1].id;
+    localStorage.reg_code = returncheck[returncheck.length-1].id;
     Loading_page_clear();
 
     return true;
@@ -968,7 +975,7 @@ async function go_to_step05_func_reg(data_arr)
             else
             {
                 invoice_data_arr[0] = get_student_arr_return[get_student_arr_return.length-1].id; //fee
-                invoice_data_arr[1] = package_selected[0].fees; //fee
+                invoice_data_arr[1] = 0; //fee
                 invoice_data_arr[2] = package_selected[0].paid_as; //amount
                 invoice_data_arr[3] = 'waiting'; //status
                 invoice_data_arr[4] = saved_date; //due_date
@@ -1100,7 +1107,7 @@ PASSWORD : ${get_phone_data}
 
 
 
-function checkout() {
+function checkout_payMob() {
 //     const configuration = {
 //     locale : "en",  //default en
 //     mode: DISPLAY_MODE.POPUP,  //required, allowed values [POPUP, INSIDE_PAGE, SIDE_PAGE]
@@ -1108,7 +1115,18 @@ function checkout() {
 
 // FawryPay.checkout(buildChargeRequest(), configuration);
 
-location.href = return_page+ "?orderStatus=PAID&statusCode=200&paymentMethod=PayUsingCC&merchantRefNumber="+choosen_ref
+var ret_data = {};
+ret_data.price = choosen_pay_as * 100;
+ret_data.firstname = $('#firstnameInput').val();
+ret_data.email = $('#emailInput').val();
+ret_data.phone = $('#phonenumInput').val();
+ret_data.lastname = $('#studentnameInput').val();
+
+Loading_page_set();
+
+payment_AUTH_callAPI(ret_data);
+
+// location.href = return_page+ "?orderStatus=PAID&statusCode=200&paymentMethod=PayUsingCC&merchantRefNumber="+choosen_ref
 }
 
 function buildChargeRequest() {
@@ -1341,3 +1359,103 @@ $(document).click(function() {
         } 
     }
 });
+
+
+
+
+async function upgrade_func(data_arr)
+{
+
+    console.log(data_arr);
+    var package = await GET_DATA_TABLES(database_fixed_link , 'package');
+    var package_selected = [];
+
+    package.forEach(element =>{
+        if(Number(element.id) == Number(data_arr.package_id))
+        {
+            package_selected[0] =  element;
+        }
+    })
+
+            var returncheck = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'student_package' , 
+        ["student_id"
+        ,"package_id"
+    ],
+        [
+            data_arr.student_id,
+            data_arr.package_id
+        ]
+        );
+
+        var get_student_pac = await GET_DATA_TABLES(database_fixed_link , 'student_package')
+        var getlastid = get_student_pac[get_student_pac.length-1].id;
+
+        var counter_check = Number(package_selected[0].installments);
+
+
+        var saved_date = getFormattedDate(new Date());
+
+        for(var index = 0 ; index < counter_check ; index++)
+        {  
+            var invoice_data_arr = [];
+            if(index == 0)
+            {
+                invoice_data_arr[0] = data_arr.student_id; //fee
+                invoice_data_arr[1] = package_selected[0].fees; //fee
+                invoice_data_arr[2] = package_selected[0].paid_as; //amount
+                invoice_data_arr[3] = 'done'; //status
+                invoice_data_arr[4] = saved_date; //due_date
+                invoice_data_arr[5] = saved_date; //paid_date
+                invoice_data_arr[6] = 0; //dis
+                invoice_data_arr[7] = ""; //att
+                invoice_data_arr[8] = getlastid; //pac-id
+                invoice_data_arr[9] = Number(package_selected[0].quota) / Number(package_selected[0].installments); //qouta
+                invoice_data_arr[10] = 0; //remain
+            }
+            else
+            {
+                invoice_data_arr[0] = data_arr.student_id; //fee
+                invoice_data_arr[1] = package_selected[0].fees; //fee
+                invoice_data_arr[2] = package_selected[0].paid_as; //amount
+                invoice_data_arr[3] = 'waiting'; //status
+                invoice_data_arr[4] = saved_date; //due_date
+                invoice_data_arr[5] = ''; //paid_date
+                invoice_data_arr[6] = 0; //dis
+                invoice_data_arr[7] = ""; //att
+                invoice_data_arr[8] = getlastid; //pac-id
+                invoice_data_arr[9] = Number(package_selected[0].quota) / Number(package_selected[0].installments); //qouta
+                invoice_data_arr[10] = 0; //remain 
+            }
+
+            saved_date = new Date(saved_date);
+
+            if(saved_date.getDate() > 20){
+
+                saved_date = getFormattedDate( new Date(saved_date.getFullYear(), saved_date.getMonth() + 2, 1));
+            }
+            else
+            {
+                saved_date = getFormattedDate( new Date(saved_date.getFullYear(), saved_date.getMonth() + 1, 1));
+            }
+
+
+            var get_add_data_var_std = await ADD_DATA_TABLES_ONE_COL(database_fixed_link , 'invoice' ,     
+            ["student_id" 
+            , "fees" 
+            , "amount" 
+            , "status" 
+            , "due_date" 
+            , "paid_date" 
+            , "discount" 
+            , "attach" 
+            , "package_id" 
+            , "qouta" 
+            , "remain" 
+            ]
+                , invoice_data_arr);
+
+        }
+
+        Loading_page_clear();
+        $(".step04").show("drop", { direction: "left" }, 300);
+}

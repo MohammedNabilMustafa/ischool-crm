@@ -707,6 +707,8 @@ Not Registered
             ent_index = Number(All_table_obj.tables[4].length);
 
         }
+
+
         for(var index = start_index_num ; index < ent_index ; index++)
         {
 
@@ -2270,6 +2272,7 @@ function assigned_agent_parent_page(arr_data )
     {
         search_for = localStorage.agentname;
     }
+
     return Search_for_value(arr_data , search_for);
 }
 
@@ -2319,8 +2322,30 @@ function Loading_page_clear()
 
 function get_next_prev_parent(All_table_obj,func)
 {
+    var saved_arr = All_table_obj.tables[4];
+    
+    if(localStorage.permission != 4 && localStorage.permission != 7)
+    {
+        All_table_obj.tables[4] = [];
+        var counter_new = 0;
 
-    next_Section_custom();
+        for(var index = 0 ; index < saved_arr.length ; index++)
+        {
+            if(localStorage.userid == saved_arr[index].customer_agent_id || localStorage.userid == saved_arr[index].sales_agent_id)
+            {
+                All_table_obj.tables[4][counter_new] = saved_arr[index];counter_new++;
+    
+            }
+        }
+
+    }
+
+    if(document.getElementById("search_all").value)
+    {
+        All_table_obj.tables[4] = Search_for_value_same(All_table_obj.tables[4] , document.getElementById("search_all").value);
+    }
+    
+    next_Section_custom(All_table_obj.tables[4]);
    $('#Location_3').hide();
     document.getElementById('Location_5').innerHTML = `<label>`+Math.ceil((start_index_num+1)/10)+" - "+Math.ceil(All_table_obj.tables[4].length/10)+` </label>`;
 
@@ -2340,7 +2365,6 @@ function get_next_prev_parent(All_table_obj,func)
 
     $('#page_index_cust').change(function()
     {
-        console.log($('#page_index_cust').val());
         var get_data_ = ($('#page_index_cust').val() * 10 )-10;
 
         if(get_data_ < 0)

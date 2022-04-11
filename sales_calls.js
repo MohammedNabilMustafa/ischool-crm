@@ -63,7 +63,7 @@ async function ADD_sales_call()
         var count_in = 0;
         parent_arr_all.forEach(element=>
             {
-                if(localStorage.userid == element.customer_agent_id)
+                if(localStorage.userid == element.sales_agent_id)
                 {
                     parent_arr_select[count_in] = element;count_in++;
                 }
