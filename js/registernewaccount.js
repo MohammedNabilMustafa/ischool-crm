@@ -1421,7 +1421,7 @@ async function upgrade_func(data_arr)
             else
             {
                 invoice_data_arr[0] = data_arr.student_id; //fee
-                invoice_data_arr[1] = package_selected[0].fees; //fee
+                invoice_data_arr[1] = 0; //fee
                 invoice_data_arr[2] = package_selected[0].paid_as; //amount
                 invoice_data_arr[3] = 'waiting'; //status
                 invoice_data_arr[4] = saved_date; //due_date

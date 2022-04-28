@@ -5,17 +5,17 @@
 header("Access-Control-Allow-Origin: *");
 
 //local
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "ischool";
+// $servername = "localhost";
+// $username = "root";
+// $password = "";
+// $dbname = "ischool";
 // $dbname = "havy_test";
 
 //public
-// $servername = "localhost";
-// $username = "ischool4_admin";
-// $password = "123456";
-// $dbname = "ischool4_operation";
+$servername = "localhost";
+$username = "ischool4_admin";
+$password = "123456";
+$dbname = "ischool4_operation";
 
 
 if (isset($_POST["status"])){
