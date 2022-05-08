@@ -88,7 +88,7 @@ $("#Pack_1_btn").click(async function() {
 
     if(check)
     {
-        checkout_payMob();
+        checkout();
     }
 
 
@@ -103,7 +103,7 @@ $("#Pack_2_btn").click(async function() {
 
     if(check)
     {
-        checkout_payMob();
+        checkout();
     }
 })
 
@@ -115,7 +115,7 @@ $("#Pack_3_btn").click(async function() {
 
     if(check)
     {
-        checkout_payMob();
+        checkout();
     }
 })
 
@@ -1073,8 +1073,8 @@ async function go_to_step05_func_reg(data_arr)
     var get_email_data = localStorage.getItem("emailInput_success" );
     var get_phone_data = localStorage.getItem("phonenumInput_success" );
 
-    console.log(get_email_data);
-    console.log(get_phone_data);
+    // console.log(get_email_data);
+    // console.log(get_phone_data);
 
     if(result)
     {
@@ -1113,13 +1113,14 @@ PASSWORD : ${get_phone_data}
 
 
 
-function checkout_payMob() {
-//     const configuration = {
-//     locale : "en",  //default en
-//     mode: DISPLAY_MODE.POPUP,  //required, allowed values [POPUP, INSIDE_PAGE, SIDE_PAGE]
-// };
+function checkout() {
 
-// FawryPay.checkout(buildChargeRequest(), configuration);
+    const configuration = {
+    locale : "en",  //default en
+    mode: DISPLAY_MODE.POPUP,  //required, allowed values [POPUP, INSIDE_PAGE, SIDE_PAGE]
+};
+
+FawryPay.checkout(buildChargeRequest(), configuration);
 
 var ret_data = {};
 ret_data.price = choosen_pay_as * 100;
@@ -1128,9 +1129,12 @@ ret_data.email = $('#emailInput').val();
 ret_data.phone = $('#phonenumInput').val();
 ret_data.lastname = $('#studentnameInput').val();
 
+console.log(ret_data);
+console.log(localStorage.reg_code);
+
 Loading_page_set();
 
-payment_AUTH_callAPI(ret_data);
+// payment_AUTH_callAPI(ret_data);
 
 // location.href = return_page+ "?orderStatus=PAID&statusCode=200&paymentMethod=PayUsingCC&merchantRefNumber="+choosen_ref
 }
@@ -1138,7 +1142,7 @@ payment_AUTH_callAPI(ret_data);
 function buildChargeRequest() {
     var chargeRequest = {
         merchantCode: 'siYxylRjSPwQs0gHngum7Q==',
-        merchantRefNum: choosen_ref,
+        merchantRefNum: localStorage.reg_code,
         customerMobile: $("#phonenumInput").val(),
         customerEmail: $("#emailInput").val() ,
         customerProfileId :'1111',
