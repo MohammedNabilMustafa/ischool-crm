@@ -86,10 +86,13 @@ if (isset($input["orderStatus"]) && isset($input["statusCode"])  ){
     $orderStatus = $input["orderStatus"];
     $statusCode = $input["statusCode"];
 
+
+    
+
     // ['referenceNubmer'=>$referenceNubmer , 'merchantRefNumber'=>$merchantRefNumber , 'orderStatus'=>$orderStatus , 'statusCode'=>$statusCode]
 
     add_row($servername , $username , $password , $dbname , 
-      "('$referenceNubmer','$merchantRefNumber','$orderStatus','$statusCode' , '$paymentMethod')"
+      "('$referenceNubmer','$merchantRefNumber','$orderStatus','$statusCode' , '$input')"
     , "fawry_feedback"  
     ,"(referenceNubmer,merchantRefNumber,orderStatus,statusCode,paymentMethod)");
 

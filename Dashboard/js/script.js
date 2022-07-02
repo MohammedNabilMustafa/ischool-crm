@@ -47,8 +47,8 @@ function tapsReset() {
   $("#feedbackTap").hide();
   $("#financeTap").hide();
   $("#packagesTap02").hide();
-  $("#tasksTap_id").hide();
-  $("#tasksTap").hide();
+  // $("#tasksTap_id").hide();
+  // $("#tasksTap").hide();
 
 
   
